@@ -49,10 +49,10 @@ export default {
       console.log('rect: ', rect);
     },
     navigate() {
-      uni.navigateTo({ url: '/project-demo/pages/home/index' })
+      uni.navigateTo({ url: '/ui-demo/pages/home/index' })
     },
     redirect() {
-      uni.redirectTo({ url: '/project-demo/pages/home/index' })
+      uni.redirectTo({ url: '/ui-demo/pages/home/index' })
     },
   },
 }

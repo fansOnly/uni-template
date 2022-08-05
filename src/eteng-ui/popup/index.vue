@@ -55,7 +55,7 @@
       // 弹窗最大高度
       maxHeight: {
         type: [Number, String],
-        default: '60vh'
+        default: '40vh'
       },
       // 弹窗最小高度
       minHeight: {

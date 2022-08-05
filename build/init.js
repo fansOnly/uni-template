@@ -60,22 +60,6 @@ if (projectCfg.tabBar && projectCfg.tabBar.list) {
   }
 }
 
-// 全局引入 vant-ui 组件
-const { excludes } = require('../config/vant')
-const excludeUIList = [].concat(excludes.ui, excludes.common)
-let vantUIList = readdirSync(resolvePath('../src/wxcomponents/vant-ui/dist'))
-vantUIList = vantUIList.filter(name => !name.startsWith('.'))
-vantUIList = vantUIList.filter(name => !excludeUIList.includes(name))
-
-const usingComponents = {}
-for (const key of vantUIList) {
-  usingComponents[`van-${key}`] = `./wxcomponents/vant-ui/dist/${key}/index`
-}
-
-Object.assign(projectCfg.globalStyle, {
-  usingComponents
-})
-
 // 写入 easy-comp 配置
 projectCfg.easycom = {
   "autoscan": true,

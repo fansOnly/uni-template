@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     jump() {
-      uni.navigateTo({ url: '/project-demo/pages/route/detail?a=1&b={v:3}' })
+      uni.navigateTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}' })
       this.$setPageOptions({ a: 6, c: 'x' })
     },
     jump2() {
-      uni.redirectTo({ url: '/project-demo/pages/route/detail?a=1&b={v:3}' })
+      uni.redirectTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}' })
     },
     setQuery() {
       this.$setPageOptions({
