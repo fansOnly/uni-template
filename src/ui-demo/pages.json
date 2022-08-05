@@ -1,0 +1,192 @@
+{
+  // 路由
+  "pages": [
+    {
+      "path": "pages/home/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/action-sheet/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/button/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/cell/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/checkbox/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/collapse/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/dialog/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/dropdown/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/empty/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/icon/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/image/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/index-bar/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/input/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/loading/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/overlay/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/picker/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/date-picker/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/area/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/popup/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/progress/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/radio/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/search/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/steps/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/swiper/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/switch/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/tab/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/table/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/transition/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/upload/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "小程序演示",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      "background": "#efeff4"
+    }
+  },
+  "condition": { //模式配置，仅开发期间生效
+    "current": 0, //当前激活的模式（list 的索引项）
+    "list": []
+  }
+}
