@@ -1,0 +1,72 @@
+<template>
+  <div class="index-bar-anchor">
+    <view class="anchor--placeholder" :style="{ 'height': isSticky ? addUnit(height) : 0 }"></view>
+    <view :class="['anchor-' + (index === '#' ? 'special' : index), isSticky ? 'index-bar-anchor--sticky' : null, customClass]" :style="anchorStyled">
+      <slot>{{index}}</slot>
+    </view>
+  </div>
+</template>
+
+<script>
+  import { createNamespacedHelpers } from 'vuex'
+  const { mapState } = createNamespacedHelpers('state')
+import { getRect } from '@/shared/platform'
+import { getParentInstance } from '@/shared'
+export default {
+  name: 'et-index-anchor',
+  props: {
+    // 索引值
+    index: {
+      type: [Number, String],
+      default: 0
+    },
+    // 自定义类
+    customClass: null,
+    // 自定义样式
+    customStyle: null
+  },
+  data() {
+    return {
+      height: 0,
+      isSticky: false,
+      offsetTop: 0,
+      isCustomNavigation: false
+    }
+  },
+  computed: {
+    ...mapState(['navHeight']),
+    anchorStyled({ offsetTop, navHeight, isCustomNavigation, isSticky, customStyle }) {
+      if (!isSticky) return customStyle
+      /* #ifdef H5 */
+      offsetTop += 44
+      /* #endif */
+      return `top: ${offsetTop + (isCustomNavigation ? navHeight : 0) }px;${customStyle ? customStyle : ''}`
+    }
+  },
+  async mounted() {
+    this.parent = getParentInstance(this, 'useIndexBar')
+    this.isCustomNavigation = this.parent.isCustomNavigation
+    const rect = await getRect(this, '.index-bar-anchor')
+    this.height = rect.height
+  },
+  methods: {
+    setStickyAnchor(val = false, top = 0) {
+      this.isSticky = val
+      this.offsetTop = top
+    },
+    useIndexAnchor() {}
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.index-bar-anchor--sticky {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  color: $uni-color-primary;
+  z-index: 88;
+}
+</style>

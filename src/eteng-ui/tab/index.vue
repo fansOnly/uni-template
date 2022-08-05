@@ -1,0 +1,279 @@
+<template>
+  <div class="et-tab-wrapper">
+    <!-- Bug: scroll-view 标签在开发者工具和 iphone 11 下 底部元素定位在 y 轴上有错位 -->
+    <scroll-view scroll-x scroll-with-animation :scroll-into-view="currentView" enhanced scroll-anchoring
+      :show-scrollbar="false"
+      :class="['et-tab', border ? 'et-hairline--bottom' : null, shouldFix ? 'et-tab--fixed' : null]"
+      :style="tabBarStyled">
+      <view class="et-tab-scroll--flex">
+        <view v-for="(item, index) in options" :key="index" :id="'tab-' + index" class="et-tab-item"
+          @click="onClick(item, index)">
+          <view :class="['et-tab__text', item.showDot ? 'et-tab__text-dot' : null, index === current ? 'et-tab__text--strong' : null]"
+            :style="{ 'color': index === current ? activeColor : defaultColor }">{{ item[textKey] }}</view>
+        </view>
+      </view>
+      <view v-show="initialized" class="et-tab__bar" :style="barStyled"></view>
+    </scroll-view>
+    <view v-if="shouldFix" :style="heightStyled"></view>
+  </div>
+</template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('state')
+import { getRect, requestAnimationFrame } from '@/shared/platform'
+import { compareVersion } from '@/shared'
+import cssVariables from '@/shared/css-variables'
+export default {
+  name: 'et-tab',
+  props: {
+    // 渲染源数据
+    options: {
+      type: Array,
+      default: () => [],
+    },
+    // 默认值
+    value: {
+      type: Number,
+      default: 0,
+    },
+    // 高度
+    height: {
+      type: [String, Number],
+      default: 44
+    },
+    // 页面滚动距离
+    scrollTop: {
+      type: Number,
+      default: 0,
+    },
+    // 是否吸顶
+    // 需要配合页面的滚动事件使用
+    fixed: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否自定义导航页面
+    isCustomNavigation: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示下边框
+    border: {
+      type: Boolean,
+      default: true,
+    },
+    // 索引层级
+    zIndex: {
+      type: Number,
+      default: 5
+    },
+    // 默认文案颜色
+    defaultColor: {
+      type: String,
+      default: '#8C8C8C',
+    },
+    // 高亮文案颜色
+    activeColor: {
+      type: String,
+      default: cssVariables.primaryColor
+    },
+    // 线条宽度
+    lineWidth: {
+      type: [Number, String],
+      default: 28,
+    },
+    // 线条高度
+    lineHeight: {
+      type: [Number, String],
+      default: 2,
+    },
+    // 线条颜色
+    lineBackground: {
+      type: String,
+      default: cssVariables.primaryColor
+    },
+    // 文本属性樱色
+    textKey: {
+      type: String,
+      default: 'text',
+    },
+    // 值属性樱色
+    valueKey: {
+      type: String,
+      default: 'value',
+    },
+    // 自定义样式覆盖
+    customStyle: null
+  },
+  data() {
+    return {
+      initialized: false,
+      shouldFix: false, // 是否吸顶
+      top: 0, // 组件到页面顶部的距离
+      width: 0, // 每个 tab 项的宽度
+      current: 0, // 当前激活的滑块索引
+      bottom: 0, // 滑块在 y 轴的底部定位值
+    }
+  },
+  computed: {
+    ...mapState(['navHeight']),
+    heightStyled({ height, addUnit }) {
+      return `height: ${addUnit(height)};`
+    },
+    tabBarStyled({ shouldFix, isCustomNavigation, zIndex, navHeight, customStyle, heightStyled }) {
+      let style = `top: ${shouldFix && isCustomNavigation ? navHeight : 0}px;`
+      style += `z-index: ${zIndex};`
+        return this.mergeStyles([style, heightStyled, customStyle])
+    },
+    baseStyle({ lineWidth, lineHeight, lineBackground, bottom, addUnit }) {
+      let style = ''
+      style += `width: ${addUnit(lineWidth)};`
+      style += `height: ${lineHeight}px;`
+      style += `background: ${lineBackground};`
+      style += `bottom: ${bottom};`
+      return style
+    },
+    barStyled({ width, current, baseStyle }) {
+      let style = ''
+      const left = width * current + width / 2
+      style += `left: ${left}px;`
+      return style + baseStyle
+    },
+    currentView({ current }) {
+      return 'tab-' + current
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        if (val !== this.current) {
+          this.current = val
+        }
+      },
+      immediate: true
+    },
+  },
+  async mounted() {
+    // Bug: A，B 页面都设置自定义导航且包含 tab 组件时， A 页面 跳转 B 页面 获取的 top 值不一致
+    // 会产生 navHeight 的误差
+    setTimeout(async () => {
+      await this.resolveTabRect()
+
+      // Bug: 模拟器、iOS 15.4+ 系统下，滑块位置会往下偏移 20px 左右
+      const { platform, system } = wx.getSystemInfoSync()
+      let shouldFixPosition = platform === 'devtools'
+      if (platform === 'ios') {
+        const [_, version] = system.split(' ')
+        shouldFixPosition = compareVersion(version, '15.4.1') > -1
+      }
+      if (shouldFixPosition) {
+        this.bottom = '20px'
+      }
+
+      await requestAnimationFrame()
+      // 初始化时滑块不产生动画效果
+      if (!this.initialized) {
+        setTimeout(() => {
+          this.initialized = true
+        }, 0)
+      }
+
+      if (this.fixed) {
+        this.$watch('scrollTop', val => {
+          if (val >= this.top) {
+            this.shouldFix = true
+          } else {
+            this.shouldFix = false
+          }
+        }, {
+          immediate: true
+        })
+      }
+    }, 60);
+  },
+  methods: {
+    onClick(item, index) {
+      if (this.current !== index) {
+        this.current = index
+        this.$emit('click-item', item, index)
+      }
+    },
+    async resolveTabRect() {
+      const rect = await getRect(this, '.et-tab-item')
+      this.width = rect.width
+      this.top = rect.top - (this.isCustomNavigation ? this.navHeight : 0)
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.et-tab {
+  display: flex;
+  position: relative;
+  height: 96rpx;
+  background-color: #fff;
+  overflow-y: hidden;
+}
+
+.et-tab--fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.et-tab-scroll--flex {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.et-tab-item {
+  flex: 1;
+  box-sizing: border-box;
+  position: relative;
+  min-width: 80px;
+  padding: 0 $uni-spacing-16;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.et-tab__text {
+  display: flex;
+  font-size: $uni-font-size-14;
+  text-align: center;
+}
+.et-tab__text-dot::after {
+  content: "";
+  display: block;
+  width: 16rpx;
+  height: 16rpx;
+  background: #f00;
+  border-radius: 100%;
+  transform: translate(-7rpx,-2rpx);
+}
+
+.et-tab__text--strong {
+  font-weight: 500;
+}
+
+.et-tab__bar {
+  position: absolute;
+  bottom: 0;
+  border-radius: 4rpx;
+  transform: translateX(-50%);
+  transition: left ease 0.3s;
+}
+
+/* #ifdef H5 */
+.et-tab-wrapper ::v-deep .uni-scroll-view::-webkit-scrollbar {
+  display: none;
+}
+
+/* #endif */
+</style>
