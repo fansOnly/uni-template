@@ -1,4 +1,0 @@
-<view>
-  <view>这是小程序自定义组件</view>
-  <view>{{msg}}</view>
-</view>

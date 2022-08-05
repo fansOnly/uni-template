@@ -1,8 +1,5 @@
-import business from "./business"
-
 export default {
 	methods: {
-    ...business,
     /**
      * 是否全路径
      */
