@@ -70,7 +70,7 @@ export default {
   justify-content: space-between;
   margin-top: 10px;
 }
-.uni-ui {
+.uni-ui, .vant-ui {
   flex: 1;
 }
 .demo-ui-bar {

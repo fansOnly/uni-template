@@ -38,11 +38,6 @@ export default [
         prefix: '/platform-wx',
         path: '/scroll-lock'
       },
-      {
-        title: 'Style 内置样式',
-        prefix: '',
-        path: '/style'
-      }
     ]
   },
   {
@@ -263,17 +258,6 @@ export default [
         title: 'Face 人脸核身',
         prefix: '/business',
         path: '/face-auth'
-      },
-    ]
-  },
-  {
-    groupName: '路由相关',
-    groupId: 'route',
-    list: [
-      {
-        title: 'Route 路由',
-        prefix: '',
-        path: '/route'
       },
     ]
   },

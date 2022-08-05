@@ -4,6 +4,12 @@
     {
       "path": "pages/home/index",
       "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/other/index",
+      "style": {
         "navigationBarTitleText": "UI 组件演示库",
         "usingComponents": {
           "e-test": "/wxcomponents/e-test/index"
@@ -11,20 +17,7 @@
       }
     },
     {
-      "path": "pages/a/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/custom-ui/action-sheet/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/action-sheet/index",
+      "path": "pages/uni-ui/action-sheet/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -36,13 +29,7 @@
       }
     },
     {
-      "path": "pages/custom-ui/button/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/button/index",
+      "path": "pages/uni-ui/button/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -54,61 +41,31 @@
       }
     },
     {
-      "path": "pages/custom-ui/cell/index",
+      "path": "pages/uni-ui/cell/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/cell/index",
+      "path": "pages/uni-ui/checkbox/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/checkbox/index",
+      "path": "pages/uni-ui/collapse/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/checkbox/index",
+      "path": "pages/uni-ui/dialog/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/collapse/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/collapse/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/dialog/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/dialog/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/dropdown/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/dropdown/index",
+      "path": "pages/uni-ui/dropdown/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -120,73 +77,37 @@
       }
     },
     {
-      "path": "pages/custom-ui/empty/index",
+      "path": "pages/uni-ui/empty/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/empty/index",
+      "path": "pages/uni-ui/icon/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/icon/index",
+      "path": "pages/uni-ui/image/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/icon/index",
+      "path": "pages/uni-ui/index-bar/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/image/index",
+      "path": "pages/uni-ui/input/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/image/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/index-bar/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/index-bar/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/input/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/input/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/loading/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/loading/index",
+      "path": "pages/uni-ui/loading/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -199,97 +120,43 @@
       }
     },
     {
-      "path": "pages/custom-ui/overlay/index",
+      "path": "pages/uni-ui/overlay/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/overlay/index",
+      "path": "pages/uni-ui/picker/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/picker/index",
+      "path": "pages/uni-ui/date-picker/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/picker/index",
+      "path": "pages/uni-ui/area/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/date-picker/index",
+      "path": "pages/uni-ui/popup/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/date-picker/index",
+      "path": "pages/uni-ui/progress/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/area/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/area/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/popup/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/popup/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/progress/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/progress/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/radio/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/radio/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/route/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/route/detail",
+      "path": "pages/uni-ui/radio/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -307,115 +174,49 @@
       }
     },
     {
-      "path": "pages/custom-ui/scroll-num/index",
+      "path": "pages/uni-ui/scroll-num/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/scroll-num/index",
+      "path": "pages/uni-ui/search/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/search/index",
+      "path": "pages/uni-ui/steps/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/search/index",
+      "path": "pages/uni-ui/swiper/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/steps/index",
+      "path": "pages/uni-ui/switch/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/steps/index",
+      "path": "pages/uni-ui/tab/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/custom-ui/swiper/index",
+      "path": "pages/uni-ui/table/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/swiper/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/switch/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/switch/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/tab/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/tab/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/table/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/table/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/transition/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/transition/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/style/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/custom-ui/form/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/form/index",
+      "path": "pages/uni-ui/transition/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -457,13 +258,7 @@
       }
     },
     {
-      "path": "pages/custom-ui/upload/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/vant-ui/upload/index",
+      "path": "pages/uni-ui/upload/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -492,10 +287,10 @@
 				"text": "首页"
 			},
 			{
-				"selectedIconPath": "static/images/tab-mine-on-icon.png",
-				"iconPath": "static/images/tab-mine-icon.png",
-				"pagePath": "pages/route/index",
-				"text": "路由"
+				"selectedIconPath": "static/images/tab-finance-on-icon.png",
+				"iconPath": "static/images/tab-finance-icon.png",
+				"pagePath": "pages/other/index",
+				"text": "其他"
 			}
 		]
 	},
