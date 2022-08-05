@@ -76,14 +76,6 @@ Object.assign(projectCfg.globalStyle, {
   usingComponents
 })
 
-// 写入 easy-comp 配置
-projectCfg.easycom = {
-  "autoscan": true,
-    "custom": {
-      "^et-(.*)": "@/eteng-ui/$1/index.vue"
-    }
-}
-
 writeFileSync(mpWeixinJsonPath, JSON.stringify(projectCfg, null, 2), 'utf-8')
 
 // 运行时 manifest 配置
