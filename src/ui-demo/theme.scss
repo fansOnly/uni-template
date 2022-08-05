@@ -1,0 +1,14 @@
+// 工程目录下的 scss 变量会覆盖默认的 uni.scss
+$uni-color-primary: #00bcd4;
+$uni-color-info: #3f51b5;
+$uni-color-success: #8bc34a;
+$uni-color-warning: #ffc107;
+$uni-color-error: #f44336;
+
+:export {
+  primaryColor: $uni-color-primary;
+  successColor: $uni-color-success;
+  infoColor: $uni-color-info;
+  warningColor: $uni-color-warning;
+  errorColor: $uni-color-error;
+}
