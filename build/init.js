@@ -1,12 +1,24 @@
 
 const { chalk, done, logWithSpinner, stopSpinner } = require('@vue/cli-shared-utils')
 const { parseJson } = require('./lib/json')
-const { readFileSync, writeFileSync, deleteFileSync, resolvePath, readdirSync } = require('./util')
+const { readFileSync, writeFileSync, deleteFileSync, resolvePath, readdirSync, copyDirSync } = require('./util')
 
 // console.log(process.argv)
 
+let project, env
+const projectName = process.argv[2]
+const projectEnv = process.argv[3]
+
 // 获取工程运行配置
-const { project, env } = require('../config')
+const config = require('../config')
+// 读取命令行参数并覆盖文件内容
+if (projectName && projectEnv) {
+  project = projectName.substring(2)
+  env = projectEnv.substring(2)
+} else {
+  project = config.project
+  env = config.env
+}
 // 读取 .env 文件配置
 require('./load-env')
 
@@ -60,16 +72,19 @@ if (projectCfg.tabBar && projectCfg.tabBar.list) {
   }
 }
 
+// 拷贝 vant-weapp 文件 至 src/wxcomponents/vant
+let vantPath = resolvePath('../src/wxcomponents/vant')
+copyDirSync(resolvePath('../node_modules/@vant/weapp/dist'), vantPath)
 // 全局引入 vant-ui 组件
 const { excludes } = require('../config/vant')
 const excludeUIList = [].concat(excludes.ui, excludes.common)
-let vantUIList = readdirSync(resolvePath('../src/wxcomponents/vant-ui/dist'))
-vantUIList = vantUIList.filter(name => !name.startsWith('.'))
-vantUIList = vantUIList.filter(name => !excludeUIList.includes(name))
+let vantComponentList = readdirSync(vantPath)
+vantComponentList = vantComponentList.filter(name => !name.startsWith('.'))
+vantComponentList = vantComponentList.filter(name => !excludeUIList.includes(name))
 
 const usingComponents = {}
-for (const key of vantUIList) {
-  usingComponents[`van-${key}`] = `./wxcomponents/vant-ui/dist/${key}/index`
+for (const key of vantComponentList) {
+  usingComponents[`van-${key}`] = `./wxcomponents/vant/${key}/index`
 }
 
 Object.assign(projectCfg.globalStyle, {

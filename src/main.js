@@ -3,6 +3,9 @@ import App from './App'
 import store from './store'
 import methods from '@/mixins/methods'
 
+import '@/common/styles/index.scss'
+import '@p/assets/styles/index.scss'
+
 // 全局mixin
 Vue.mixin(methods)
 

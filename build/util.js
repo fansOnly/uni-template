@@ -51,3 +51,22 @@ exports.readdirSync = (path) => {
 exports.resolvePath = url => {
   return path.join(__dirname, url)
 }
+
+/**
+ * 拷贝目录
+ */
+function copyDirSync (source, target) {
+  const isDir = fs.statSync(source).isDirectory()
+  if (isDir) {
+    if (!fs.existsSync(target)) {
+      fs.mkdirSync(target)
+    }
+    const dirs = fs.readdirSync(source)
+    dirs.forEach(dir => {
+      copyDirSync(path.join(source, dir), path.join(target, dir))
+    })
+  } else {
+    fs.copyFileSync(source, target)
+  }
+}
+exports.copyDirSync = copyDirSync

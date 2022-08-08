@@ -66,8 +66,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/*每个页面公共css */
-@import url('@/common/styles/index.scss');
-</style>
