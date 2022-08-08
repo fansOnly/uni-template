@@ -64,7 +64,7 @@ if (projectCfg.tabBar && projectCfg.tabBar.list) {
 projectCfg.easycom = {
   "autoscan": true,
     "custom": {
-      "^et-(.*)": "@/eteng-ui/$1/index.vue"
+      "^et-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
     }
 }
 

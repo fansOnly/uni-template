@@ -1,31 +1,5 @@
 <template>
   <view class="page-wrapper">
-    <demo-block title="基础用法">
-      <van-picker :columns="column1" @change="onChange1" />
-    </demo-block>
-
-    <demo-block title="默认选中项">
-      <van-picker :columns="column1" :default-index="2" @change="onChange1" />
-    </demo-block>
-
-    <demo-block title="展示顶部栏">
-      <van-picker show-toolbar title="标题" :columns="column1" @change="onChange1" @confirm="onConfirm"
-        @cancel="onCancel" />
-    </demo-block>
-
-    <demo-block title="多列联动">
-      <van-picker :columns="column4" @change="onChange2" />
-    </demo-block>
-
-    <demo-block title="禁用选项">
-      <van-picker :columns="column2" />
-    </demo-block>
-
-    <demo-block title="加载状态">
-      <van-picker loading :columns="column4" />
-    </demo-block>
-
-    <van-toast id="van-toast" />
 
   </view>
 </template>
@@ -33,7 +7,6 @@
 
 <script>
 import DemoBlock from '@p/components/demo-block'
-import Toast from '@vant/toast/toast';
 export default {
   components: {
     DemoBlock

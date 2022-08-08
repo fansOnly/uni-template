@@ -1,37 +1,11 @@
 <template>
   <view class="page-wrapper">
-    <demo-block title="选择完整时间">
-      <van-datetime-picker type="datetime" data-type="datetime" :loading="loading" :value="currentDate1"
-        :min-date="minDate" @input="onInput" />
-    </demo-block>
-
-    <demo-block title="选择日期（年月日）">
-      <van-datetime-picker type="date" data-type="date" :value="currentDate2" :min-date="minDate"
-        @input="onInput" :formatter="formatter" />
-    </demo-block>
-
-    <demo-block title="选择日期（年月）">
-      <van-datetime-picker type="year-month" data-type="year-month" :value="currentDate3" :min-date="minDate"
-        @input="onInput" />
-    </demo-block>
-
-    <demo-block title="选择时间">
-      <van-datetime-picker type="time" data-type="time" :value="currentDate4" :min-hour="minHour"
-        :max-hour="maxHour" @input="onInput" />
-    </demo-block>
-
-    <demo-block title="选项过滤器">
-      <van-datetime-picker type="time" :value="currentDate4" :filter="filter" />
-    </demo-block>
-
-    <van-toast id="van-toast" />
   </view>
 </template>
 
 
 <script>
 import DemoBlock from '@p/components/demo-block'
-import Toast from '@vant/toast/toast';
 export default {
   components: {
     DemoBlock

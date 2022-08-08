@@ -28,6 +28,7 @@ module.exports = {
       new CopyWebpackPlugin(copyPluginsList)
     ]
   },
+  transpileDependencies:['@dcloudio/uni-ui'],
   chainWebpack: (config) => {
     config
       .plugin('define')
