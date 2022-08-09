@@ -21,7 +21,7 @@ module.exports = {
     resolve: {
       alias: {
         '@p': projectRoot,
-        '@vant': path.join(__dirname, './src/wxcomponents/vant')
+        '@vantui': path.join(__dirname, './src/wxcomponents/vant')
       }
     },
     plugins: [

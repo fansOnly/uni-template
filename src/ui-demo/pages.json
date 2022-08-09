@@ -20,6 +20,12 @@
       }
     },
     {
+      "path": "pages/vant-ui/calendar/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
       "path": "pages/vant-ui/cell/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
@@ -32,7 +38,25 @@
       }
     },
     {
+      "path": "pages/vant-ui/circle/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
       "path": "pages/vant-ui/collapse/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/config-provider/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/count-down/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -51,6 +75,12 @@
     },
     {
       "path": "pages/vant-ui/empty/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/grid/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -134,13 +164,49 @@
       }
     },
     {
+      "path": "pages/vant-ui/share-sheet/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/skeleton/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/slider/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/tree-select/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
       "path": "pages/vant-ui/steps/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
     },
     {
-      "path": "pages/vant-ui/swiper/index",
+      "path": "pages/vant-ui/stepper/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/style/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/vant-ui/swipe-cell/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -158,7 +224,7 @@
       }
     },
     {
-      "path": "pages/vant-ui/table/index",
+      "path": "pages/vant-ui/toast/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }

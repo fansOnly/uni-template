@@ -5,6 +5,12 @@ $uni-color-success: #8bc34a;
 $uni-color-warning: #ffc107;
 $uni-color-error: #f44336;
 
+// vant-ui 全局皮肤设置
+page {
+  --button-primary-background-color: #00bcd4;
+  --button-primary-border-color: #00bcd4;
+}
+
 :export {
   primaryColor: $uni-color-primary;
   successColor: $uni-color-success;

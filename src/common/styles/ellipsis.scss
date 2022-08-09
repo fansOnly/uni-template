@@ -3,16 +3,16 @@
 	text-overflow:ellipsis;
 	white-space:nowrap
 }
-.et-ellipsis--l2,
-.et-ellipsis--l3 {
+.et-multi-ellipsis--l2,
+.et-multi-ellipsis--l3 {
 	-webkit-box-orient:vertical;
 	display:-webkit-box;
 	overflow:hidden;
 	text-overflow:ellipsis
 }
-.et-ellipsis--l2 {
+.et-multi-ellipsis--l2 {
 	-webkit-line-clamp:2
 }
-.et-ellipsis--l3 {
+.et-multi-ellipsis--l3 {
 	-webkit-line-clamp:3
 }
