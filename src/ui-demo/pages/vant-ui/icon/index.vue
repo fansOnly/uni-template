@@ -1,60 +1,62 @@
 <template>
   <view class="page-wrapper">
-    <demo-block title="基础用法" padding>
-      <van-row>
-        <van-image width="100" height="100" :src="src" />
-      </van-row>
-    </demo-block>
-
-    <demo-block title="填充模式" padding>
-      <van-row gutter="20">
-        <van-col v-for="(fit, index) in fits" :key="index" span="8">
-          <van-image :fit="fit" width="100%" height="27vw" :src="src" />
-          <view class="text">{{ fit }}</view>
+    <van-tabs :active="active" color="#1989fa" @change="onSwitch">
+      <van-tab title="用法示例" custom-class="demo-tab-pane">
+        <demo-block title="基础用法">
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" />
+          </van-col>
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoImage" size="32px" custom-class="icon" />
+          </van-col>
+        </demo-block>
+        <demo-block title="提示信息">
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" dot />
+          </van-col>
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" info="9" />
+          </van-col>
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" info="99+" />
+          </van-col>
+        </demo-block>
+        <demo-block title="图标颜色">
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" color="#1989fa" />
+          </van-col>
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="32px" custom-class="icon" color="#07c160" />
+          </van-col>
+        </demo-block>
+        <demo-block title="图标大小">
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="40" custom-class="icon" />
+          </van-col>
+          <van-col custom-class="col" span="6">
+            <van-icon :name="demoIcon" size="3rem" custom-class="icon" />
+          </van-col>
+        </demo-block>
+      </van-tab>
+      <van-tab title="基础图标" custom-class="demo-tab-pane">
+        <van-col v-for="(item, index) in icons.basic" :key="index" custom-class="col" span="6">
+          <van-icon :name="item" size="32px" custom-class="icon" />
+          <view class="text">{{ item }}</view>
         </van-col>
-      </van-row>
-    </demo-block>
-
-    <demo-block title="圆形图片" padding>
-      <van-row gutter="20">
-        <van-col v-for="(fit, index) in fits" :key="index" span="8">
-          <van-image round :fit="fit" width="100%" height="27vw" :src="src" />
-          <view class="text">{{ fit }}</view>
+      </van-tab>
+      <van-tab title="线框风格" custom-class="demo-tab-pane">
+        <van-col v-for="(item, index) in icons.outline" :key="index" custom-class="col" span="6">
+          <van-icon :name="item" size="32px" custom-class="icon" />
+          <view class="text">{{ item }}</view>
         </van-col>
-      </van-row>
-    </demo-block>
-
-    <demo-block title="加载中提示" padding>
-      <van-row gutter="20">
-        <van-col span="8">
-          <van-image width="100%" height="27vw" />
-          <view class="text">默认提示</view>
+      </van-tab>
+      <van-tab title="实底风格" custom-class="demo-tab-pane">
+        <van-col v-for="(item, index) in icons.filled" :key="index" custom-class="col" span="6">
+          <van-icon :name="item" size="32px" custom-class="icon" />
+          <view class="text">{{ item }}</view>
         </van-col>
-
-        <van-col span="8">
-          <van-image width="100%" height="27vw" use-loading-slot>
-            <van-loading slot="loading" type="spinner" size="20" vertical />
-          </van-image>
-          <view class="text">自定义提示</view>
-        </van-col>
-      </van-row>
-    </demo-block>
-
-    <demo-block title="加载失败提示" padding>
-      <van-row gutter="20">
-        <van-col span="8">
-          <van-image width="100%" height="27vw" src="x" />
-          <view class="text">默认提示</view>
-        </van-col>
-
-        <van-col span="8">
-          <van-image width="100%" height="27vw" src="x" use-error-slot>
-            <text slot="error">加载失败</text>
-          </van-image>
-          <view class="text">自定义提示</view>
-        </van-col>
-      </van-row>
-    </demo-block>
+      </van-tab>
+    </van-tabs>
 
   </view>
 </template>
@@ -62,29 +64,54 @@
 
 <script>
 import DemoBlock from '@p/components/demo-block'
+import icons from '@vantui/@vant/icons/src/config';
 export default {
   components: {
     DemoBlock
   },
   data() {
     return {
-      fits: [
-        'contain',
-        'cover',
-        'fill',
-        'none',
-        'scale-down',
-        'widthFix',
-        'heightFix',
-      ],
-      src: 'https://img.yzcdn.cn/vant/cat.jpeg',
+      icons,
+      active: 0,
+      demoIcon: 'chat-o',
+      demoImage: 'https://b.yzcdn.cn/vant/icon-demo-1126.png',
     }
   },
   methods: {
+    onSwitch(event) {
+      this.active = event.detail.index
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.text{color:#7d7e80;font-size:14px;margin:5px 0 20px;text-align:center;width:100%}
+::v-deep {
+  .col {
+    display: inline-block;
+    float: none;
+    text-align: center;
+    vertical-align: middle
+  }
+
+  .icon {
+    color: #323233;
+    margin: 16px 0
+  }
+}
+
+.text {
+  color: #646566;
+  display: block;
+  font-size: 12px;
+  height: 36px;
+  line-height: 18px;
+  margin: -4px 0 4px;
+  padding: 0 5px
+}
+
+.demo-tab-pane {
+  background-color: #fff;
+  margin: 20px
+}
 </style>

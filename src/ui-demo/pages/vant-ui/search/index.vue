@@ -1,28 +1,28 @@
 <template>
   <view class="page-wrapper">
     <demo-block title="基本用法">
-      <van-search v-model="value" placeholder="请输入搜索关键词" @search="onSearch" />
+      <van-search :value="value" placeholder="请输入搜索关键词" @change="onChange" @search="onSearch" />
     </demo-block>
 
     <demo-block title="事件监听">
-      <van-search v-model="value" show-action placeholder="请输入搜索关键词" @search="onSearch"
+      <van-search :value="value" show-action placeholder="请输入搜索关键词" @change="onChange" @search="onSearch"
         @cancel="onCancel" @clear="onClear" />
     </demo-block>
 
     <demo-block title="搜索框内容对齐">
-      <van-search v-model="value" input-align="center" placeholder="请输入搜索关键词" />
+      <van-search :value="value" input-align="center" placeholder="请输入搜索关键词" @change="onChange" />
     </demo-block>
 
     <demo-block title="禁用搜索框">
-      <van-search disabled v-model="value" placeholder="请输入搜索关键词" />
+      <van-search disabled :value="value" placeholder="请输入搜索关键词" />
     </demo-block>
 
     <demo-block title="自定义背景色">
-      <van-search v-model="value" shape="round" background="#4fc08d" placeholder="请输入搜索关键词" />
+      <van-search :value="value" shape="round" background="#4fc08d" placeholder="请输入搜索关键词" @change="onChange" />
     </demo-block>
 
     <demo-block title="自定义按钮">
-      <van-search v-model="value" label="地址" shape="round" placeholder="请输入搜索关键词" use-action-slot
+      <van-search :value="value" label="地址" shape="round" placeholder="请输入搜索关键词" use-action-slot  @change="onChange"
         @search="onSearch">
         <view slot="action" @tap="onClick">搜索</view>
       </van-search>

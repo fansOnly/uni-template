@@ -2,16 +2,16 @@
   <view class="page-wrapper">
     <demo-block title="基础用法">
       <van-cell-group>
-        <van-field v-model="value" placeholder="请输入用户名" :border="false" clearable />
+        <van-field :value="value" placeholder="请输入用户名" :border="false" clearable @change="onInput($event, 'value')" />
       </van-cell-group>
     </demo-block>
 
     <demo-block title="自定义类型">
       <van-cell-group>
         <van-field :value="username" label="用户名" placeholder="请输入用户名" clearable right-icon="question-o"
-          right-icon-class="custom-icon" required @click-icon="onClickIcon" @change="onInput" />
-        <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required
-          :border="false" />
+          right-icon-class="custom-icon" required @click-icon="onClickIcon" @change="onInput($event, 'username')" />
+        <van-field :value="password" type="password" label="密码" placeholder="请输入密码" required
+          :border="false" @change="onInput($event, 'password')" />
       </van-cell-group>
     </demo-block>
 
@@ -23,28 +23,28 @@
 
     <demo-block title="错误提示">
       <van-cell-group>
-        <van-field v-model="username2" label="用户名" placeholder="请输入用户名" error />
-        <van-field v-model="phone" label="手机号" placeholder="请输入手机号" error-message="手机号格式错误" :border="false" />
+        <van-field :value="username2" label="用户名" placeholder="请输入用户名" error @change="onInput($event, 'username2')" />
+        <van-field :value="phone" label="手机号" placeholder="请输入手机号" error-message="手机号格式错误" :border="false" @change="onInput($event, 'phone')" />
       </van-cell-group>
     </demo-block>
 
     <demo-block title="内容对齐方式">
       <van-cell-group>
-        <van-field v-model="username3" label="用户名" placeholder="请输入用户名" input-align="right" />
+        <van-field :value="username3" label="用户名" placeholder="请输入用户名" input-align="right" @change="onInput($event, 'username3')" />
       </van-cell-group>
     </demo-block>
 
     <demo-block title="高度自适应">
       <van-cell-group>
-        <van-field v-model="message" label="留言" type="textarea" placeholder="请输入留言" :rows="1" autosize
-          :border="false" />
+        <van-field :value="message" label="留言" type="textarea" placeholder="请输入留言" :rows="1" autosize
+          :border="false" @change="onInput($event, 'message')" />
       </van-cell-group>
     </demo-block>
 
     <demo-block title="插入按钮">
       <van-cell-group>
-        <van-field v-model="sms" center clearable label="短信验证码" placeholder="请输入短信验证码" use-button-slot
-          :border="false">
+        <van-field :value="sms" center clearable label="短信验证码" placeholder="请输入短信验证码" use-button-slot
+          :border="false" @change="onInput($event, 'sms')">
           <van-button slot="button" size="small" type="primary" custom-class="button">发送验证码</van-button>
         </van-field>
       </van-cell-group>
@@ -73,9 +73,8 @@ export default {
     }
   },
   methods: {
-    onInput(e) {
-      console.log('onInput value: ', e);
-      this.username = e.detail
+    onInput(e, prop) {
+      this[prop] = e.detail
     },
     onClickIcon() {
       wx.showToast({

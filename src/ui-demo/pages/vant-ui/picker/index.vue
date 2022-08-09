@@ -33,7 +33,7 @@
 
 <script>
 import DemoBlock from '@p/components/demo-block'
-import Toast from '@vant/toast/toast';
+import Toast from '@vantui/toast/toast';
 export default {
   components: {
     DemoBlock

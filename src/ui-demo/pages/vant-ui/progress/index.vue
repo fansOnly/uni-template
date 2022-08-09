@@ -1,24 +1,45 @@
 <template>
-<view>
+  <view class="page-wrapper">
+    <demo-block title="基础用法">
+      <van-progress custom-class="progress-position" :percentage="0" />
+    </demo-block>
 
-</view>
+    <demo-block title="线条粗细">
+      <van-progress custom-class="progress-position" stroke-width="8" :percentage="100" />
+    </demo-block>
+
+    <demo-block title="置灰">
+      <van-progress custom-class="progress-position" inactive :percentage="50" />
+    </demo-block>
+
+    <demo-block title="样式定制">
+      <van-progress custom-class="progress-position" pivot-text="橙色" color="#f2826a" :percentage="25" />
+      <van-progress custom-class="progress-position" pivot-text="红色" color="#ee0a24" :percentage="50" />
+      <van-progress custom-class="progress-position" :percentage="75" pivot-text="紫色" pivot-color="#7232dd"
+        color="linear-gradient(to right, #be99ff, #7232dd)" />
+    </demo-block>
+
+  </view>
 </template>
 
+
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
-components: {},
-data() {
- return {
- }
-},
-computed: {},
-watch: {},
-async onLoad(options) {},
-async onShow() {},
-methods: {},
+  components: {
+    DemoBlock
+  },
+  data() {
+    return {
+    }
+  },
+  methods: {
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-
+::v-deep .progress-position {
+  margin: 5px 15px 20px;
+}
 </style>

@@ -1,24 +1,45 @@
 <template>
-<view>
+<view class="page-wrapper">
+<demo-block title="加载类型" padding>
+  <van-loading custom-class="demo-loading" />
+  <van-loading custom-class="demo-loading" type="spinner" />
+</demo-block>
+
+<demo-block title="自定义颜色" padding>
+  <van-loading custom-class="demo-loading" color="#1989fa" />
+  <van-loading custom-class="demo-loading" type="spinner" color="#1989fa" />
+</demo-block>
+
+<demo-block title="加载文案" padding>
+  <van-loading custom-class="demo-loading" size="24px">加载中...</van-loading>
+</demo-block>
+
+<demo-block title="垂直排列" padding>
+  <van-loading custom-class="demo-loading" size="24px" vertical>加载中...</van-loading>
+</demo-block>
 
 </view>
 </template>
 
+
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
-components: {},
-data() {
- return {
- }
-},
-computed: {},
-watch: {},
-async onLoad(options) {},
-async onShow() {},
-methods: {},
+  components: {
+    DemoBlock
+  },
+  data() {
+    return {
+    }
+  },
+  methods: {
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+::v-deep .demo-loading {
+  margin: 4px 16px 4px 0;
+}
 
 </style>
