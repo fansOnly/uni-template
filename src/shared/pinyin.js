@@ -8,17 +8,17 @@ import PinyinMatch from '@/plugins/pinyin-match'
  * @param {*} withSpecial #
  */
 export function genIndexList(withSpecial = true) {
-  let arr = []
-  const charCodeOfA = 'A'.charCodeAt(0);
+  const arr = []
+  const charCodeOfA = 'A'.charCodeAt(0)
   for (let i = 0; i < 26; i++) {
-    arr.push(String.fromCharCode(charCodeOfA + i));
+    arr.push(String.fromCharCode(charCodeOfA + i))
   }
   return withSpecial ? arr.concat('#') : arr
 }
 
 export const genPinyinSortData = (data = [], prop) => {
   const letters = genIndexList()
-  let res = []
+  const res = []
   for (let i = 0; i < letters.length - 1; i++) {
     const values = []
     const key = letters[i]

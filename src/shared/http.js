@@ -1,12 +1,13 @@
 import store from '@/store'
 import encrypt from '@/plugins/encrypt/encrypt-gm'
 import { getCurrentPage } from '@/shared/platform/weixin/route'
-import { unLoginInterception } from '@/shared/token'
+// import { unLoginInterception } from '@/shared/token'
 import { isJsonString, formatDate } from '@/shared'
-import { createGatewayHeaders } from '@p/config/gateway'
-const { useMock, useEncrypt } = require('../../config')
+// import { createGatewayHeaders } from '@p/config/gateway'
 
 const aresKey = encrypt.getEncryptKey()
+const useMock = process.env.USE_MOCK
+const useEncrypt = process.env.USE_ENCRYPT
 let requestUrl = process.env.HTTP_BASE_URL
 const apiContext = process.env.HTTP_CONTEXT
 console.log('[debug]', `${requestUrl}/${apiContext}`)
@@ -33,7 +34,7 @@ export const extraHeaders = () => {
 // 超时时间
 const timeout = 30000
 // 400202 - API匹配失败，请检查API请求地址是否正确
-let errorCount = 0
+// let errorCount = 0
 
 const httpRequest = {
   /**
@@ -43,8 +44,8 @@ const httpRequest = {
    */
   post: async function (action, params = {}, customHeaders = {}) {
     // 设置不同网关子应用的 appid
-    const msa = action.split('/')[0]
-    const gatewayHeaders = createGatewayHeaders(msa)
+    // const msa = action.split('/')[0]
+    // const gatewayHeaders = createGatewayHeaders(msa)
     // console.log(`[debug] ${msa} 子应用的网关头配置：`, gatewayHeaders);
 
     // if (!customHeaders.preventLoading) {
@@ -91,7 +92,7 @@ const httpRequest = {
         method: "POST",
         url: `${requestUrl}/${apiContext}/${action}`,
         header: {
-          ...gatewayHeaders,
+          // ...gatewayHeaders,
           ...extraHeaders(),
           ...tokenHeaders,
           ...customHeaders
@@ -141,7 +142,7 @@ const httpRequest = {
                         type: '2',
                         sourceUrl: path,
                       }
-                      unLoginInterception(data)
+                      // unLoginInterception(data)
                     }
                   })
                 }

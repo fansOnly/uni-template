@@ -1,7 +1,7 @@
 
 const { chalk, done, logWithSpinner, stopSpinner } = require('@vue/cli-shared-utils')
 const { parseJson } = require('./lib/json')
-const { readFileSync, writeFileSync, deleteFileSync, resolvePath, readdirSync } = require('./util')
+const { readFileSync, writeFileSync, deleteFileSync, resolvePath } = require('./util')
 
 // console.log(process.argv)
 
@@ -64,7 +64,8 @@ if (projectCfg.tabBar && projectCfg.tabBar.list) {
 projectCfg.easycom = {
   "autoscan": true,
     "custom": {
-      "^et-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+      "^et-(.*)": "@/eteng-ui/$1/index.vue"
     }
 }
 
@@ -85,5 +86,5 @@ writeFileSync(manifestJsonPath, JSON.stringify(projectManifestConfig, null, 2), 
 stopSpinner(false)
 
 console.log()
-done(`Successfully initialized project: ${chalk.cyan(project + '-' + env)}.`)
+done(`Successfully initialized project: ${chalk.cyan(project + ', env: ' + env)}.`)
 console.log()
