@@ -3,7 +3,6 @@ import { getPrevPage, getCurrentPage, reloadPage, setPageOptions, clearPageOptio
 export default {
   data() {
     return {
-      progressBarPercent: 0,
       pageReady: false,
     }
   },
@@ -18,10 +17,9 @@ export default {
     this.$setPageQuery()
   },
   onReady() {
-    this.progressBarPercent = 100
     setTimeout(() => {
       this.pageReady = true
-    }, 300)
+    }, 1000)
     console.timeEnd('page-load-time')
   },
   methods: {

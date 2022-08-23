@@ -162,6 +162,11 @@ export default [
         path: '/scroll-list'
       },
       {
+        title: 'Skeleton 骨架屏',
+        prefix: '',
+        path: '/skeleton'
+      },
+      {
         title: 'Steps 步骤条',
         prefix: '',
         path: '/steps'

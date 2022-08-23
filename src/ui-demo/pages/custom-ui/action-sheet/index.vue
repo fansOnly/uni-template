@@ -1,15 +1,11 @@
 <template>
   <view class="page-wrapper">
-    <view class="demo-block">
-      <view class="demo-title">基础用法</view>
-      <view class="gap"></view>
-      <view class="demo-">
-        <et-cell title="基础用法" is-link border @click="visible = true"></et-cell>
+    <demo-block title="基础用法" padding>
+      <et-cell title="基础用法" is-link border @click="visible = true"></et-cell>
         <et-cell title="取消按钮" is-link border @click="visible2 = true"></et-cell>
         <et-cell title="禁用选项" is-link border @click="visible3 = true"></et-cell>
         <et-cell title="圆角" is-link @click="visible4 = true"></et-cell>
-      </view>
-    </view>
+    </demo-block>
 
     <et-action-sheet :visible.sync="visible" :value="value" :data="list" @select="onSelect" @close="onClose"></et-action-sheet>
     <et-action-sheet :visible.sync="visible2" :value="value2" show-cancel :data="list" @select="onSelect2" @cancel="onCancel"></et-action-sheet>
@@ -19,13 +15,17 @@
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       list: [
         { title: '选项一', value: '1' },
-          { title: '选项二', value: '2' },
-          { title: '选项三', value: '3' },
+        { title: '选项二', value: '2' },
+        { title: '选项三', value: '3' },
       ],
       list2: [
         { title: '选项一', value: '1' },
@@ -42,29 +42,29 @@ export default {
     }
   },
   methods: {
-      onSelect(item) {
-        console.log('[debug] 选项>>>', { ...item })
-        this.value = item.value
-      },
-      onSelect2(item) {
-        console.log('[debug] 选项>>>', { ...item })
-        this.value2 = item.value
-      },
-      onSelect3(item) {
-        console.log('[debug] 选项>>>', { ...item })
-        this.value3 = item.value
-      },
-      onClose() {
-        console.log('[debug] action-sheet 关闭')
-      },
-      onCancel() {
-        console.log('[debug] action-sheet 点击了取消')
-        wx.showToast({
-          title: '弹窗点击了取消按钮',
-          icon: 'success',
-          mask: true
-        })
-      },
+    onSelect(item) {
+      console.log('[debug] 选项>>>', { ...item })
+      this.value = item.value
+    },
+    onSelect2(item) {
+      console.log('[debug] 选项>>>', { ...item })
+      this.value2 = item.value
+    },
+    onSelect3(item) {
+      console.log('[debug] 选项>>>', { ...item })
+      this.value3 = item.value
+    },
+    onClose() {
+      console.log('[debug] action-sheet 关闭')
+    },
+    onCancel() {
+      console.log('[debug] action-sheet 点击了取消')
+      wx.showToast({
+        title: '弹窗点击了取消按钮',
+        icon: 'success',
+        mask: true
+      })
+    },
   }
 }
 </script>

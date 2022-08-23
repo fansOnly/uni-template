@@ -198,6 +198,12 @@
       }
     },
     {
+      "path": "pages/custom-ui/skeleton/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
       "path": "pages/custom-ui/steps/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
