@@ -13,23 +13,23 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        visible: false,
-        name: 'fade'
-      }
-    },
-    methods: {
-      startTransition(name = 'fade') {
-        this.name = name
-        this.visible = true
-        setTimeout(() => {
-          this.visible = false
-        }, 500);
-      }
+export default {
+  data() {
+    return {
+      visible: false,
+      name: 'fade'
+    }
+  },
+  methods: {
+    startTransition(name = 'fade') {
+      this.name = name
+      this.visible = true
+      setTimeout(() => {
+        this.visible = false
+      }, 500)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
