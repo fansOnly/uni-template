@@ -13,6 +13,11 @@ Vue.prototype.$onLaunched = new Promise(resolve => {
   Vue.prototype.$isResolve = resolve
 })
 
+// 挡板数据
+if (process.env.USE_MOCK) {
+  require('./mocks')
+}
+
 App.mpType = 'app'
 
 const app = new Vue({

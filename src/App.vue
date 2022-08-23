@@ -24,7 +24,7 @@ export default {
           if (res.confirm) {
             wx.updateWeChatApp({
               success(res) {
-                console.log('[info] 更新客户端版本', res);
+                console.log('[info] 更新客户端版本', res)
               }
             })
           }

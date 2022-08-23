@@ -16,8 +16,8 @@ function loadEnv(envPath) {
 }
 
 // 获取工程运行配置
-const { project, env } = require('../config')
-const projectRoot = path.join(__dirname, `../src/${project}`)
+const { project, env } = require('../../config')
+const projectRoot = path.join(process.cwd(), `src/${project}`)
 
 // 合并本地 env 文件配置
 const envFile = `${projectRoot}/.env.${env}`
