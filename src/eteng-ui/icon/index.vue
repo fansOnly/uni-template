@@ -1,5 +1,5 @@
 <template>
-  <et-image :src="`icon/icon-${name}.png`" :width="size" :height="size" :block="block" :static="isStatic" @click="$emit('click')" :customStyle="customStyle"></et-image>
+  <et-image :src="`icon/icon-${name}.png`" :width="size" :height="size" :block="block" :static="isStatic" :custom-style="customStyle" @click="$emit('click')"></et-image>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
     // 是否使用本地静态资源
     static: {
       type: Boolean,
-      default: false
+      default: true
     },
     // 是否块级元素
     block: {
