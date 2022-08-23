@@ -109,6 +109,8 @@ module.exports = {
     // 逗号风格: 要求逗号放在数组元素、对象属性或变量声明之后，且在同一行 --fix
     'comma-style': 'error',
     'no-return-await': 'error',
+    'no-empty': ['error', { 'allowEmptyCatch': true }],
+    'no-async-promise-executor': 'off',
     // 两个空格 --fix
     indent: ['error', 2],
     // 强制所有不包含双引号的 JSX 属性值使用双引号 --fix
@@ -161,7 +163,7 @@ module.exports = {
     // 单引号 --fix
     quotes: ['error', 'single'],
     // 禁止使用分号代替 ASI --fix
-    semi: ['error', 'never'],
+    semi: ['warn', 'never'],
     // 强制分号前后有空格 --fix
     'semi-spacing': ['error', { before: false, after: true }],
     // 要求语句块之前的空格 --fix
@@ -178,6 +180,6 @@ module.exports = {
     // 要求在一元操作符之前或之后存在空格 --fix
     'space-unary-ops': ['error', { words: true, nonwords: false }],
     yoda: ['error', 'never'], // 禁止Yoda条件 --fix
-    'prefer-const': 'error', // 建议使用const --fix
+    // 'prefer-const': 'warn', // 建议使用const --fix
   },
 }

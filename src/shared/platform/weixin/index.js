@@ -8,6 +8,7 @@ import { genUrlFromObj } from '@/shared'
  * 获取当前路径，包含参数
  */
 export const getCurrentPath = () => {
+  // eslint-disable-next-line no-undef
   const pages = getCurrentPages()
   console.log('[debug] 获取页面栈信息 ', pages)
   if (!pages.length) return
@@ -20,6 +21,7 @@ export const getCurrentPath = () => {
  * 刷新页面
  */
 export const reload = () => {
+  // eslint-disable-next-line no-undef
   const pages = getCurrentPages()
   console.log('[debug] 刷新页面数据 ', pages)
   if (!pages.length) return

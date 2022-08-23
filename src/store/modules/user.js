@@ -6,28 +6,28 @@ const state = {
   openId: uni.getStorageSync('openId') || '',
   userInfo: {
     userId: '', // 当前用户的id
-    loginName:'', // 用户名
+    loginName: '', // 用户名
     nickName: '', // 微信昵称
     userName: '', // 姓名
     headImg: '', // 微信头像
     workCode: '', // 工号
-    sex: '' ,//性别
-    phone: '',//手机
+    sex: '', //性别
+    phone: '', //手机
     mobile: '', // 座机
     email: '', // 邮箱
     address: '', // 地址
-    orgNo:'',//所属机构号
-    orgName: '',//所属机构
-    position: '',//职位
-    isManageAuth: '',//是否有管户权限
+    orgNo: '', //所属机构号
+    orgName: '', //所属机构
+    position: '', //职位
+    isManageAuth: '', //是否有管户权限
     isAuthUserInfo: 'N', // 是否已授权用户信息 / Y：已授权;N:未授权
     isAuthPhone: 'N', // 是否已授权手机号 / Y：已授权;N:未授权
-    isFirstLogin: 'Y' , //是否首次登录，Y-是，N-否
-    isNeedFace: 'Y' , // 是否需要人脸核身，Y-是，N-否
-    isQryOrgPerf:'N',//是否有机构业绩查看权限  Y：是  N：否
+    isFirstLogin: 'Y', //是否首次登录，Y-是，N-否
+    isNeedFace: 'Y', // 是否需要人脸核身，Y-是，N-否
+    isQryOrgPerf: 'N', //是否有机构业绩查看权限  Y：是  N：否
     isLogin: 'N', // 用户登录状态 / Y-已登录  N-未登录
   },
-  poster:false,//海报,//选择展示信息
+  poster: false, //海报,//选择展示信息
   // 会话 token
   sessLoginKey: uni.getStorageSync('sessLoginKey') || '',
   // 生物识别支持方式 / fingerPrint facial
@@ -42,7 +42,7 @@ const state = {
 
 const getters = {
   //是否有机构业绩查看权限
-  isQryOrgPerf:(state)=>{
+  isQryOrgPerf: (state)=>{
     return state.userInfo.isQryOrgPerf === 'Y'
   },
   // 是否已实名
@@ -89,12 +89,12 @@ const mutations = {
     uni.removeStorageSync('openId')
   },
   SET_USER_INFO(state, payload = {}) {
-    for (let key in payload) {
+    for (const key in payload) {
       state.userInfo[key] = payload[key]
     }
   },
-  SET_POSTER(state,payload = {}){
-	state.poster = payload
+  SET_POSTER(state, payload = {}) {
+    state.poster = payload
   },
   CLEAR_USER_INFO(state) {
     state.userInfo = {
@@ -131,25 +131,25 @@ const mutations = {
 
 const actions = {
   setOpenId({ commit }, payload) {
-    commit("SET_OPEN_ID", payload)
+    commit('SET_OPEN_ID', payload)
   },
   clearOpenId({ commit }) {
-    commit("CLEAR_OPEN_ID")
+    commit('CLEAR_OPEN_ID')
   },
   setUserInfo({ commit }, payload) {
-    commit("SET_USER_INFO", payload)
+    commit('SET_USER_INFO', payload)
   },
   setPoster({ commit }, payload) {
-    commit("SET_POSTER", payload)
+    commit('SET_POSTER', payload)
   },
   clearUserInfo({ commit }) {
-    commit("CLEAR_USER_INFO")
+    commit('CLEAR_USER_INFO')
   },
   setSessionToken({ commit }, payload) {
-    commit("SET_SESSION_TOKEN", payload)
+    commit('SET_SESSION_TOKEN', payload)
   },
   clearSessionToken({ commit }) {
-    commit("CLEAR_SESSION_TOKEN")
+    commit('CLEAR_SESSION_TOKEN')
   },
   setSorterSupportMode({ commit }, payload) {
     commit('SET_SORTER_SUPPORT_MODE', payload)

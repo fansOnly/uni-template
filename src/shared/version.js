@@ -3,7 +3,7 @@
  * @param {string} v1
  * @param {string} v2
  */
- export function compareVersion(v1, v2) {
+export function compareVersion(v1, v2) {
   v1 = v1.split('.')
   v2 = v2.split('.')
   const len = Math.max(v1.length, v2.length)

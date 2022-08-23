@@ -45,8 +45,8 @@ const mutations = {
     state.shouldPageScroll = !!payload
   },
   SET_INPUT_VALID(state, payload) {
-    let res = {}
-    for (let key in payload) {
+    const res = {}
+    for (const key in payload) {
       if (key) res[key] = payload[key]
     }
     state.inputValid = {
@@ -58,7 +58,7 @@ const mutations = {
     state.inputValid = {}
   },
   RESET_INPUT_VALID(state, data = []) {
-    let validObj = {}
+    const validObj = {}
     if (data.length) {
       data.map(({key, value}) => {
         validObj[key] = !!value

@@ -25,7 +25,7 @@ export default function () {
   // #ifdef H5
   return new Promise(resolve => {
     // TODO: H5环境获取登录 token
-    console.log("todo H5环境获取登录 token")
+    console.log('todo H5环境获取登录 token')
     resolve()
   })
   // #endif
@@ -36,7 +36,8 @@ export default function () {
  */
 const wxApiLogin = async () => {
   const { code = '' } = await wxLogin()
-  return await wxReqLogin({ JSCODE: code })
+  const data = await wxReqLogin({ JSCODE: code })
+  return data
 }
 
 /**

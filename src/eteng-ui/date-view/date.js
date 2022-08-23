@@ -61,7 +61,7 @@ export function createDate(start, end, unit = '', fixZero = true) {
   if (typeof +start !== 'number' || typeof +end !== 'number') {
     throw TypeError('[error] 起始日期和结束日期必须是 number 类型...')
   }
-  let arr = []
+  const arr = []
   for (let i = Number(start); i <= Number(end); i++) {
     arr.push({ text: (fixZero ? String(i).padStart(2, '0') : i) + unit, value: (fixZero ? String(i).padStart(2, '0') : i) + '' })
   }
@@ -75,7 +75,7 @@ export function createDate(start, end, unit = '', fixZero = true) {
  * 3. 2月份 - 闰年 29日 / 平年 28日
  */
 const nowYear = new Date().getFullYear()
-export function createDays (year = nowYear, month = 1, start = 1, end = 31) {
+export function createDays(year = nowYear, month = 1, start = 1, end = 31) {
   let last = 31
   const leapFlag = isLeapYear(year)
   if (+month === 2) {

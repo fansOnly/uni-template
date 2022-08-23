@@ -28,7 +28,7 @@ export function getRect(context, selector) {
  */
 export function requestAnimationFrame() {
   return new Promise((resolve) => {
-    var systemInfo = uni.getSystemInfoSync()
+    const systemInfo = uni.getSystemInfoSync()
     if (systemInfo.platform === 'devtools') {
       return setTimeout(function () {
         resolve()

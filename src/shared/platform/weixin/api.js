@@ -105,9 +105,9 @@ export const wxOpenSetting = () => {
 export const wxGetSetting = async params => {
   const data = await apiToPromise('getSetting', params)
   const { authSetting } = data
-  let agree = [], deny = []
+  const agree = []; const deny = []
   if (Object.keys(authSetting).length) {
-    for (let key in authSetting) {
+    for (const key in authSetting) {
       if (authSetting[key]) {
         agree.push(key.split('.')[1])
       } else {

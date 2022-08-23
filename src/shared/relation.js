@@ -2,7 +2,7 @@
  * 跨层级获取定义函数的父组件实例
  * @param {*} fn
  */
- export function getParentInstance(context, fn) {
+export function getParentInstance(context, fn) {
   let parent = context.$parent
   while (parent) {
     if (parent[fn]) return parent
@@ -19,7 +19,7 @@
 export function getChildInstance(context, fn) {
   let child = null
   let children = [...context.$children]
-  while(children.length) {
+  while (children.length) {
     child = children.shift()
     if (child[fn]) return child
     children = [...children, ...child.$children]

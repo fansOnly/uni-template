@@ -2,10 +2,10 @@ import areaData from './area'
 
 // 序列化省市区 函数
 const serialize = name => {
-  let _res = []
+  const _res = []
   const _data = areaData[name] || {}
   Object.keys(_data).forEach(v => {
-    let _obj = {}
+    const _obj = {}
     _obj.value = v
     _obj.text = _data[v]
 
@@ -16,13 +16,13 @@ const serialize = name => {
 }
 
 // 省-列表数据
-export const PROVINCE_LIST = serialize("province_list")
+export const PROVINCE_LIST = serialize('province_list')
 
 // 市-列表数据
-export const CITY_LIST = serialize("city_list")
+export const CITY_LIST = serialize('city_list')
 
 // 区-列表数据
-export const COUNTY_LIST = serialize("county_list")
+export const COUNTY_LIST = serialize('county_list')
 
 // 检索市函数 通过省编号检索市
 export const queryCity = code => {
