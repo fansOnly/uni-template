@@ -1,7 +1,7 @@
 <template>
   <view class="page-wrapper">
     <view class="gap"></view>
-    <et-scroll-list :first-load="firstLoad" :isLoading="isLoading" :finished="finished" :empty="isEmpty">
+    <et-scroll-list :first-load="firstLoad" :is-loading="isLoading" :finished="finished" :empty="isEmpty">
       <view class="work-list-wrap">
         <view v-for="item in WORKS_LIST" :key="item.ID" class="work-list-item">
           <view class="work-item__image"></view>

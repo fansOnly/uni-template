@@ -1,22 +1,23 @@
 <template>
   <view class="page-wrapper">
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">基础用法</view>
-      <view class="gap"></view>
-      <view class="demo-">
-        <et-dropdown-menu>
-          <et-dropdown-item :value="value1" :options="list1" @change="handleChange"></et-dropdown-item>
-          <et-dropdown-item :value="value2" :options="list2" @change="handleChange"></et-dropdown-item>
-          <et-dropdown-item :value="value3" :options="list3" disabled @change="handleChange"></et-dropdown-item>
-        </et-dropdown-menu>
-      </view>
-    </view>
+
+    <demo-block title="基础用法">
+      <et-dropdown-menu>
+        <et-dropdown-item :value="value1" :options="list1" @change="handleChange"></et-dropdown-item>
+        <et-dropdown-item :value="value2" :options="list2" @change="handleChange"></et-dropdown-item>
+        <et-dropdown-item :value="value3" :options="list3" disabled @change="handleChange"></et-dropdown-item>
+      </et-dropdown-menu>
+    </demo-block>
+
   </view>
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       list1: [
@@ -57,5 +58,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@p/assets/styles/index.scss';
 </style>

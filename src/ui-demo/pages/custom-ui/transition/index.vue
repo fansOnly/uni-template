@@ -6,7 +6,7 @@
     <et-cell title="动画 SlideLeft" is-link border @click="startTransition('slide-left')"></et-cell>
     <et-cell title="动画 SlideRight" is-link border @click="startTransition('slide-right')"></et-cell>
 
-    <et-transition :visible.sync="visible" :name="name">
+    <et-transition :visible.sync="visible" :animation-name="name">
       <view class="box"></view>
     </et-transition>
   </view>

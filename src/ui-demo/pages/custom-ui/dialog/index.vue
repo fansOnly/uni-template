@@ -1,24 +1,15 @@
 <template>
   <view class="page-wrapper">
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">基础用法</view>
-      <view class="gap"></view>
-      <view class="demo-">
-        <et-cell title="提示弹窗" is-link border @click="visible = true"></et-cell>
-        <et-cell title="取消按钮" is-link border @click="visible2 = true"></et-cell>
-        <et-cell title="无标题弹窗" is-link @click="visible3 = true"></et-cell>
-      </view>
-    </view>
 
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">高级用法</view>
-      <view class="gap"></view>
-      <view class="demo-">
-        <et-cell title="异步关闭" is-link @click="visible4 = true"></et-cell>
-      </view>
-    </view>
+    <demo-block title="基础用法" padding>
+      <et-cell title="提示弹窗" is-link border @click="visible = true"></et-cell>
+      <et-cell title="取消按钮" is-link border @click="visible2 = true"></et-cell>
+      <et-cell title="无标题弹窗" is-link @click="visible3 = true"></et-cell>
+    </demo-block>
+
+    <demo-block title="高级用法" padding>
+      <et-cell title="异步关闭" is-link @click="visible4 = true"></et-cell>
+    </demo-block>
 
     <et-dialog :visible.sync="visible" title="提示弹窗"
       content="流年是一段韶华，苍老是一段年华。当手中以往握紧的风沙扬起，当指尖的沙漏倾泄，当笔墨侧锋浓重，窗外的风景开始变了色彩，瘦黄却凝结成熟，枯零却捎带自然，萧瑟却洋溢温暖。" :show-cancel="false"
@@ -38,8 +29,12 @@
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block'
 import { sleep } from '@/shared'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       visible: false,
@@ -61,12 +56,11 @@ export default {
     async onBeforeClose({ confirm, cancel }) {
       await sleep(500)
       // 返回 true 关闭弹窗，返回 false 取消关闭弹窗
-      return confirm ? true : false
+      return !!confirm
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@p/assets/styles/index.scss';
 </style>

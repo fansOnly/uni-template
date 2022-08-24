@@ -325,8 +325,8 @@
 			{
 				"selectedIconPath": "static/images/tab-mine-on-icon.png",
 				"iconPath": "static/images/tab-mine-icon.png",
-				"pagePath": "pages/route/index",
-				"text": "路由"
+				"pagePath": "pages/platform-wx/navigation/index",
+				"text": "自定义导航"
 			}
 		]
 	},

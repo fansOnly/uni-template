@@ -1,26 +1,23 @@
 <template>
   <view class="page-wrapper">
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">基础用法</view>
-      <view class="demo-body">
-        <et-steps :active="-1" :options="options">
-        </et-steps>
-      </view>
-    </view>
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">垂直布局</view>
-      <view class="demo-body">
-        <et-steps :active="0" direction="vertical" :options="options2">
-        </et-steps>
-      </view>
-    </view>
+
+    <demo-block title="基础用法" padding>
+      <et-steps :active="-1" :options="options" />
+    </demo-block>
+
+    <demo-block title="垂直布局" padding>
+      <et-steps :active="0" direction="vertical" :options="options2" />
+    </demo-block>
+
   </view>
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       options: [
@@ -40,5 +37,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@p/assets/styles/index.scss';
 </style>

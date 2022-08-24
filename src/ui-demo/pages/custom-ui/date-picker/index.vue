@@ -1,87 +1,89 @@
 <template>
-<et-scroll-lock>
-  <view class="page-wrapper">
-    <view class="gap"></view>
-    <view class="demo-title">基础用法</view>
-    <view class="demo-body">
+  <et-scroll-lock>
+    <view class="page-wrapper">
+      <demo-block title="基础用法" padding>
+        <et-button type="primary" block :radius="4" @click="visible6 = true">日期选择</et-button>
+        <view>维度设置： fields = year / month / day(默认)</view>
+        <view v-if="selectedDate.length">{{ selectedDate[0] }}年{{ selectedDate[1] }}月{{ selectedDate[2] }}日
+        </view>
 
-      <et-button type="primary" block :radius="4" @click="visible6 = true">日期选择</et-button>
-      <view>维度设置： fields = year / month / day(默认)</view>
-      <view v-if="selectedDate.length">{{ selectedDate[0] }}年{{ selectedDate[1] }}月{{ selectedDate[2] }}日
-      </view>
+        <view class="gap"></view>
+        <et-button type="primary" block :radius="4" @click="visible10 = true">日期选择 - 日期范围</et-button>
+        <view v-if="selectedDate.length">{{ selectedDate[0] }}年{{ selectedDate[1] }}月{{ selectedDate[2] }}日
+        </view>
 
-      <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible10 = true">日期选择 - 日期范围</et-button>
-      <view v-if="selectedDate.length">{{ selectedDate[0] }}年{{ selectedDate[1] }}月{{ selectedDate[2] }}日
-      </view>
+        <view class="gap"></view>
+        <et-button type="primary" block :radius="4" @click="visible8 = true">时间选择</et-button>
+        <view>维度设置： fields = hour / minute / second(默认)</view>
+        <view v-if="selectedDate8.length">
+          {{ selectedDate8[0] }}时{{ selectedDate8[1] }}分{{ selectedDate8[2] }}秒</view>
 
-      <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible8 = true">时间选择</et-button>
-      <view>维度设置： fields = hour / minute / second(默认)</view>
-      <view v-if="selectedDate8.length">
-        {{ selectedDate8[0] }}时{{ selectedDate8[1] }}分{{ selectedDate8[2] }}秒</view>
+        <view class="gap"></view>
+        <et-button type="primary" block :radius="4" @click="visible9 = true">日期时间选择</et-button>
+        <view>维度设置： fields = hour / minute / second(默认)</view>
+        <view v-if="selectedDate9.length">
+          {{ selectedDate9[0] }}年{{ selectedDate9[1] }}月{{ selectedDate9[2] }}日{{ selectedDate9[3] }}时{{
+              selectedDate9[4]
+          }}分{{ selectedDate9[5] }}秒
+        </view>
 
-      <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible9 = true">日期时间选择</et-button>
-      <view>维度设置： fields = hour / minute / second(默认)</view>
-      <view v-if="selectedDate9.length">
-        {{ selectedDate9[0] }}年{{ selectedDate9[1] }}月{{ selectedDate9[2] }}日{{ selectedDate9[3] }}时{{ selectedDate9[4] }}分{{ selectedDate9[5] }}秒
-      </view>
+        <view class="gap"></view>
+        <et-button type="primary" block :radius="4" @click="visible11 = true">季度选择</et-button>
+        <view v-if="selectedDate11.length">{{ selectedDate11[0] }}年{{ selectedDate11[1] }}</view>
 
-      <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible11 = true">季度选择</et-button>
-      <view v-if="selectedDate11.length">{{ selectedDate11[0] }}年{{ selectedDate11[1] }}</view>
+        <view class="gap"></view>
+        <et-button type="primary" block :radius="4" @click="visible7 = true">日期选择 - 身份证日期</et-button>
+        <view v-if="selectedDate7.length">
+          {{ selectedDate7[0] }}{{ selectedDate7[1] }}年{{ selectedDate7[2] }}月{{ selectedDate7[3] }}日
+        </view>
+      </demo-block>
 
-      <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible7 = true">日期选择 - 身份证日期</et-button>
-      <view v-if="selectedDate7.length">
-        {{ selectedDate7[0] }}{{ selectedDate7[1] }}年{{ selectedDate7[2] }}月{{ selectedDate7[3] }}日
-      </view>
+      <demo-block title="date-view - 联动" padding>
+        <et-button type="primary" :radius="4" block @click="handleStart">起始</et-button>
+        <view v-if="date1.length" class="">{{ date1[0] }}-{{ date1[1] }}-{{ date1[2] }}</view>
+        <view class="gap"></view>
+        <et-button type="primary" :radius="4" block @click="handleEnd">结束</et-button>
+        <view v-if="date2.length" class="">{{ date2[0] }}-{{ date2[1] }}-{{ date2[2] }}</view>
+        <view class="gap"></view>
+        <et-button type="primary" :radius="4" block @click="handleClose">关闭</et-button>
+      </demo-block>
+
+      <et-date-view ref="dateView" :visible="visible" :values="dateValues" :start="start" :end="end"
+        @change="handleChange"></et-date-view>
+
+      <!-- 日期选择器 -->
+      <et-date-picker :visible.sync="visible6" :values="dateValues1" @confirm="handleDateConfirm"></et-date-picker>
+
+      <!-- 日期选择器 - 日期范围 -->
+      <et-date-picker :visible.sync="visible10" :values="dateValues1" start="2020-03-03" end="2022-06-11"
+        @confirm="handleDateConfirm"></et-date-picker>
+
+      <!-- 时间选择器 -->
+      <et-date-picker :visible.sync="visible8" :values="timeValues" type="time" start="07:05:05" end="22:30:29"
+        @confirm="handleTimeConfirm"></et-date-picker>
+
+      <!-- 日期时间选择器 -->
+      <et-date-picker :visible.sync="visible9" type="datetime" fields="minute" :values="dateTimeValues"
+        start="2020-05-02 13:25:35" end="2022-06-17 19:06:11" @confirm="handleDateTimeConfirm"></et-date-picker>
+
+      <!-- 季度选择器 -->
+      <et-date-picker :visible.sync="visible11" type="date" fields="quarter" :values="quarterValues"
+        @confirm="handleQuarterConfirm"></et-date-picker>
+
+      <!-- 日期选择器 - 身份证日期 -->
+      <et-date-picker :visible.sync="visible7" type="ID-date" :values="idDateValues" @confirm="handleIdDateConfirm">
+      </et-date-picker>
 
     </view>
-
-    <view class="gap"></view>
-    <view class="demo-title">date-view - 联动</view>
-    <view class="demo-body">
-      <et-button type="primary" block @click="handleStart">起始</et-button>
-      <view class="" v-if="date1.length">{{ date1[0] }}-{{ date1[1] }}-{{ date1[2] }}</view>
-      <et-button type="primary" block @click="handleEnd">结束</et-button>
-      <view class="" v-if="date2.length">{{ date2[0] }}-{{ date2[1] }}-{{ date2[2] }}</view>
-      <et-button type="primary" block @click="handleClose">关闭</et-button>
-      <view class="gap"></view>
-    </view>
-    <et-date-view ref="dateView" :visible="visible" :values="dateValues" :start="start" :end="end"
-      @change="handleChange"></et-date-view>
-
-    <!-- 日期选择器 -->
-    <et-date-picker :visible.sync="visible6" :values="dateValues1" @confirm="handleDateConfirm"></et-date-picker>
-
-    <!-- 日期选择器 - 日期范围 -->
-    <et-date-picker :visible.sync="visible10" :values="dateValues1" start="2020-03-03" end="2022-06-11"
-      @confirm="handleDateConfirm"></et-date-picker>
-
-    <!-- 时间选择器 -->
-    <et-date-picker :visible.sync="visible8" :values="timeValues" type="time" start="07:05:05" end="22:30:29"
-      @confirm="handleTimeConfirm"></et-date-picker>
-
-    <!-- 日期时间选择器 -->
-    <et-date-picker :visible.sync="visible9" type="datetime" fields="minute" :values="dateTimeValues" start="2020-05-02 13:25:35"
-      end="2022-06-17 19:06:11" @confirm="handleDateTimeConfirm"></et-date-picker>
-
-    <!-- 季度选择器 -->
-    <et-date-picker :visible.sync="visible11" type="date" fields="quarter" :values="quarterValues"
-      @confirm="handleQuarterConfirm"></et-date-picker>
-
-    <!-- 日期选择器 - 身份证日期 -->
-    <et-date-picker :visible.sync="visible7" type="ID-date" :values="idDateValues" @confirm="handleIdDateConfirm">
-    </et-date-picker>
-
-  </view>
   </et-scroll-lock>
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block/index.vue'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       // 日期选择器
@@ -117,10 +119,6 @@ export default {
     }
   },
   methods: {
-    handleChange(data) {
-      console.log('[debug] date-view change')
-      data.map(v => console.log({ ...v }))
-    },
     handleQuarterConfirm(data) {
       console.log('[info] 季度选择的值>>>: ', data)
       this.selectedDate11 = data
@@ -177,5 +175,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@p/assets/styles/index.scss';
 </style>

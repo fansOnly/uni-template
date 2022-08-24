@@ -1,33 +1,26 @@
 <template>
-  <view class="page-wrapper" style="padding-top: 0rpx;">
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">基础用法</view>
-      <view class="gap"></view>
-      <view class="demo-body">
-        <et-tab :value="activeIndex" :options="tabList" fixed :scroll-top="scrollTop" @click-item="onClickItem">
-        </et-tab>
-        <view class="">{{ active.text }}</view>
-      </view>
-    </view>
+  <view class="page-wrapper">
 
-    <view class="gap"></view>
-    <view class="demo-block">
-      <view class="demo-title">标签栏滚动</view>
+    <demo-block title="基础用法">
+      <et-tab :value="activeIndex" :options="tabList" fixed :scroll-top="scrollTop" @click-item="onClickItem" />
+      <view class="">{{ active.text }}</view>
+    </demo-block>
+
+    <demo-block title="标签栏滚动">
+      <et-tab :value="activeIndex2" :options="tabList2" @click-item="onClickItem2" />
       <view class="gap"></view>
-      <view class="demo-body">
-        <et-tab :value="activeIndex2" :options="tabList2" @click-item="onClickItem2"></et-tab>
-      </view>
-      <view class=" demo-item-space">
-        <slider :value="activeIndex2" :min="0" :max="tabList2.length - 1" step="1" show-value @change="onSliderChange">
-        </slider>
-      </view>
-    </view>
+      <slider :value="activeIndex2" :min="0" :max="tabList2.length - 1" step="1" show-value @change="onSliderChange" />
+    </demo-block>
+
   </view>
 </template>
 
 <script>
+import DemoBlock from '@p/components/demo-block'
 export default {
+  components: {
+    DemoBlock
+  },
   data() {
     return {
       scrollTop: 0,

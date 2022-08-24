@@ -1,4 +1,11 @@
-import { getPrevPage, getCurrentPage, reloadPage, setPageOptions, clearPageOptions, getPageQuery } from '@/shared/platform/weixin/route'
+import {
+  getPrevPage,
+  getCurrentPage,
+  reloadPage,
+  setPageOptions,
+  clearPageOptions,
+  getPageQuery
+} from '@/shared/platform/weixin/route'
 
 export default {
   data() {
@@ -7,7 +14,7 @@ export default {
     }
   },
   onLoad() {
-    console.time('page-load-time')
+    console.time('[page-load-time]')
     // await this.$onLaunched
 
     const options = uni.getStorageSync('page-options-temp')
@@ -17,10 +24,7 @@ export default {
     this.$setPageQuery()
   },
   onReady() {
-    setTimeout(() => {
-      this.pageReady = true
-    }, 1000)
-    console.timeEnd('page-load-time')
+    console.timeEnd('[page-load-time]')
   },
   methods: {
     $setPageQuery() {

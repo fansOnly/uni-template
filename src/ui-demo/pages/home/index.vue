@@ -5,7 +5,7 @@
         <demo-block :title="group.groupName" padding background="#fff">
           <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
             <view class="demo-group-item"
-              @click="handleRouter(`/ui-demo/pages/custom-ui${item.prefix}${item.path}/index`)">
+              @click="handleRouter(`/ui-demo/pages/${item.prefix}${item.path}/index`)">
               <view class="demo-group-item__label">{{ item.title }}</view>
               <view class="demo-group-item__right-icon">
                 <et-icon name="arrow-right" size="20" />
@@ -44,6 +44,9 @@ export default {
   },
   async onShow() {
     await this.$onLaunched
+  },
+  onReady() {
+    this.pageReady = true
   },
   methods: {
     handleRouter(url) {
