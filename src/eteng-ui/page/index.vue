@@ -1,12 +1,15 @@
 <template>
   <view class="et-page">
-    <view :class="['et-progress-bar', show ? 'fade' : null]"
+    <view :class="['et-progress-bar', show || failed ? 'fade' : null]"
       :style="{ 'top': top + 'px', 'height': height + 'px', 'animation-duration': duration + 'ms' }">
-      <view :class="['et-progress-bar--before', paused ? 'animation-paused' : null, done ? 'animation-done' : null]" :style="{ 'background': color }"></view>
-      <view v-if="done" class="et-progress-bar--after" :style="{ 'background': color, 'animation-duration': duration + 'ms' }"></view>
+      <view :class="['et-progress-bar--before', paused ? 'animation-paused' : null, done ? 'animation-done' : null]"
+        :style="{ 'background': color }"></view>
+      <view v-if="done" class="et-progress-bar--after"
+        :style="{ 'background': color, 'animation-duration': duration + 'ms' }"></view>
     </view>
-    <slot v-if="show" />
+    <slot v-if="show"></slot>
     <slot v-else name="skeleton"></slot>
+    <slot v-if="failed" name="failed"></slot>
   </view>
 </template>
 
@@ -39,7 +42,8 @@ export default {
     return {
       duration: 300,
       paused: false,
-      done: false
+      done: false,
+      failed: false
     }
   },
   watch: {
@@ -49,6 +53,8 @@ export default {
           if (+new Date() - this.start < 5000) {
             // 提前加载结束
             this.done = true
+            clearTimeout(this.timer)
+            clearTimeout(this.timer2)
           }
           if (this.paused) {
             this.paused = false
@@ -66,13 +72,27 @@ export default {
     })
     this.start = +new Date()
     // 加载等待界限
-    const timer = setTimeout(() => {
+    this.timer = setTimeout(() => {
       if (!this.show) {
         this.paused = true
       } else {
-        clearTimeout(timer)
+        clearTimeout(this.timer)
+        clearTimeout(this.timer2)
       }
     }, 5000)
+
+    this.timer2 = setTimeout(() => {
+      if (!this.show) {
+        this.failed = true
+        this.done = true
+        uni.showToast({
+          title: '加载失败，请稍后重试',
+          icon: 'none',
+          mask: true
+        })
+        clearTimeout(this.timer2)
+      }
+    }, 15000)
   }
 }
 </script>
@@ -106,8 +126,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  animation-duration: 5000ms;
+  animation-duration: 6000ms;
 }
+
 .animation-paused {
   animation-play-state: paused;
 }
