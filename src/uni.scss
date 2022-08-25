@@ -95,6 +95,9 @@ $uni-tab-bar-height: 106rpx;
 /* uni-app H5 下自动生成的头部高度 */
 $uni-h5-head-height: 88rpx;
 
+/* 图标大小 */
+$uni-icon-size: 40rpx;
+
 :export {
   primaryColor: $uni-color-primary;
   successColor: $uni-color-success;
@@ -107,4 +110,5 @@ $uni-h5-head-height: 88rpx;
   tabBarZIndex: $uni-tab-bar-index;
   overlayZIndex: $uni-overlay-index;
   popupZIndex: $uni-popup-index;
+  iconSize: $uni-icon-size;
 }

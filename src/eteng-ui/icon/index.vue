@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import variables from '@/shared/css-variables'
+
 export default {
   name: 'et-icon',
   props: {
@@ -11,7 +13,7 @@ export default {
     // 图标尺寸
     size: {
       type: [String, Number],
-      default: 16
+      default: variables.iconSize || 20
     },
     // 是否使用本地静态资源
     static: {

@@ -1,55 +1,60 @@
 <template>
   <view class="et-empty-wrapper" :style="customStyle">
-    <slot v-if="showIcon" name="icon"><et-image :src="icon" :width="width" :height="height" /></slot>
+    <slot v-if="showIcon" name="icon"><et-image :src="icon" :width="width" :height="height" :static="local" /></slot>
     <text v-if="tip" class="et-empty-text">{{tip}}</text>
   </view>
 </template>
 
 <script>
-  export default {
-    name: 'et-empty',
-    props: {
-      // 是否显示图标
-      showIcon: {
-        type: Boolean,
-        default: true
-      },
-      // 图标路径
-      icon: {
-        type: String,
-        default: 'icon/icon-empty.png'
-      },
-      // 背景色
-      background: {
-        type: String,
-        default: '#fff'
-      },
-      // 请求结束显示文本
-      tip: {
-        type: String,
-        default: '暂无数据'
-      },
-      // 图标宽度
-      width: {
-        type: [String, Number],
-        default: 110
-      },
-      // 图标高度
-      height: {
-        type: [String, Number],
-        default: 110
-      },
-      // 自定义组件样式
-      customStyle: null
+export default {
+  name: 'et-empty',
+  props: {
+    // 是否显示图标
+    showIcon: {
+      type: Boolean,
+      default: true
     },
-    computed: {
-      customStyled({ customStyle, background }) {
-        let style = ''
-        style += `background: ${background};`
-        return this.mergeStyles([style, customStyle])
-      }
+    // 图标路径
+    icon: {
+      type: String,
+      default: 'icon/icon-empty.png'
+    },
+    // 背景色
+    background: {
+      type: String,
+      default: '#fff'
+    },
+    // 请求结束显示文本
+    tip: {
+      type: String,
+      default: '暂无数据'
+    },
+    // 本地资源
+    local: {
+      type: Boolean,
+      default: false
+    },
+    // 图标宽度
+    width: {
+      type: [String, Number],
+      default: 110
+    },
+    // 图标高度
+    height: {
+      type: [String, Number],
+      default: 110
+    },
+    // 自定义组件样式
+    customStyle: null
+  },
+  computed: {
+    customStyled({ customStyle, background }) {
+      let style = ''
+      style += `background: ${background};`
+      return this.mergeStyles([style, customStyle])
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

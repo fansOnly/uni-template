@@ -1,6 +1,11 @@
 <template>
-  <button :class="['et-button-wrapper', 'et-button--' + type, customClass, block || size === 'auto' ? 'et-button--block' : null, disabled ? 'et-button--disabled' : null]" :style="wrapperStyled" :disabled="disabled" :open-type="openType" :hover-class="hoverClass" @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetuserinfo" @opensetting="onOpenSetting" @tap="onClick">
-    <view :class="['et-button', plain ? 'et-button--plain' : null, border && !isLinearGradient && !disabled ? 'et-hairline--surround' : null]" :style="buttonStyled" >
+  <button
+    :class="['et-button-wrapper', 'et-button--' + type, customClass, block || size === 'auto' ? 'et-button--block' : null, disabled ? 'et-button--disabled' : null]"
+    :style="wrapperStyled" :disabled="disabled" :open-type="openType" :hover-class="hoverClass"
+    @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetUserInfo" @opensetting="onOpenSetting" @tap="onClick">
+    <view
+      :class="['et-button', plain ? 'et-button--plain' : null, border && !isLinearGradient && !disabled ? 'et-hairline--surround' : null]"
+      :style="buttonStyled">
       <et-loading v-if="loading" type="spinner" color="#fff"></et-loading>
       <template v-else>
         <slot v-if="icon" name="icon">
@@ -163,7 +168,7 @@ export default {
     onOpenSetting(e) {
       this.emit('opensetting', e.detail)
     },
-    onGetuserinfo(e) {
+    onGetUserInfo(e) {
       this.$emit('getuserinfo', e.detail)
     }
   }
@@ -171,126 +176,152 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .et-button-wrapper {
-    display: inline-flex;
-    height: 100%;
-    background: none;
-    border-radius: 0;
-    padding: 0;
-    overflow: visible;
-    line-height: 1;
-    &::after {
-      display: none;
-    }
+.et-button-wrapper {
+  display: inline-flex;
+  height: 100%;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  line-height: 1;
+
+  &::after {
+    display: none;
   }
-  .et-button--block {
-    display: block;
+}
+
+.et-button--block {
+  display: block;
+}
+
+.et-button--disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.et-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: inherit;
+  padding: 0 28rpx;
+  border-width: 0;
+  border-color: inherit;
+
+  &::after {
+    border-radius: inherit;
   }
-  .et-button--disabled {
-    cursor: not-allowed;
-    opacity: .5;
+
+  &.et-button--text::after {
+    display: none;
   }
-  .et-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    height: inherit;
-    padding: 0 28rpx;
-    border-width: 0;
-    border-color: inherit;
-    &::after {
-      border-radius: inherit;
-    }
-    &.et-button--text::after {
-      display: none;
-    }
-  }
-  .et-button--default {
+}
+
+.et-button--default {
+  background: #fff;
+  color: $uni-text-color;
+
+  &.et-button--disabled {
     background: #fff;
     color: $uni-text-color;
-    &.et-button--disabled {
-      background: #fff;
-      color: $uni-text-color;
-    }
   }
-  .et-button--primary {
+}
+
+.et-button--primary {
+  background: $uni-color-primary;
+  border-color: $uni-color-primary;
+  color: #fff;
+
+  & .et-button--plain {
+    background: #fff;
+    color: $uni-color-primary;
+  }
+
+  &.et-button--disabled {
     background: $uni-color-primary;
-    border-color: $uni-color-primary;
     color: #fff;
-    & .et-button--plain {
-      background: #fff;
-      color: $uni-color-primary;
-    }
-    &.et-button--disabled {
-      background: $uni-color-primary;
-      color: #fff;
-    }
   }
-  .et-button--info {
+}
+
+.et-button--info {
+  background: $uni-color-info;
+  border-color: $uni-color-info;
+  color: #fff;
+
+  & .et-button--plain {
+    background: #fff;
+    color: $uni-color-info;
+  }
+
+  &.et-button--disabled {
     background: $uni-color-info;
-    border-color: $uni-color-info;
     color: #fff;
-    & .et-button--plain {
-      background: #fff;
-      color: $uni-color-info;
-    }
-    &.et-button--disabled {
-      background: $uni-color-info;
-      color: #fff;
-    }
   }
-  .et-button--success {
+}
+
+.et-button--success {
+  background: $uni-color-success;
+  border-color: $uni-color-success;
+  color: #fff;
+
+  & .et-button--plain {
+    background: #fff;
+    color: $uni-color-success;
+  }
+
+  &.et-button--disabled {
     background: $uni-color-success;
-    border-color: $uni-color-success;
     color: #fff;
-    & .et-button--plain {
-      background: #fff;
-      color: $uni-color-success;
-    }
-    &.et-button--disabled {
-      background: $uni-color-success;
-      color: #fff;
-    }
   }
-  .et-button--warning {
+}
+
+.et-button--warning {
+  background: $uni-color-warning;
+  border-color: $uni-color-warning;
+  color: #fff;
+
+  & .et-button--plain {
+    background: #fff;
+    color: $uni-color-warning;
+  }
+
+  &.et-button--disabled {
     background: $uni-color-warning;
-    border-color: $uni-color-warning;
     color: #fff;
-    & .et-button--plain {
-      background: #fff;
-      color: $uni-color-warning;
-    }
-    &.et-button--disabled {
-      background: $uni-color-warning;
-      color: #fff;
-    }
   }
-  .et-button--error {
+}
+
+.et-button--error {
+  background: $uni-color-error;
+  border-color: $uni-color-error;
+  color: #fff;
+
+  & .et-button--plain {
+    background: #fff;
+    color: $uni-color-error;
+  }
+
+  &.et-button--disabled {
     background: $uni-color-error;
-    border-color: $uni-color-error;
     color: #fff;
-    & .et-button--plain {
-      background: #fff;
-      color: $uni-color-error;
-    }
-    &.et-button--disabled {
-      background: $uni-color-error;
-      color: #fff;
-    }
   }
-  .et-button-default--hover {
-    background: #F6F6F6!important;
-  }
-  .et-button__icon + .et-button__text:not(:empty) {
-    margin-left: 16rpx;
-  }
-  .et-button__text {
-    width: 100%;
-    line-height: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    color: inherit;
-    white-space: nowrap;
-  }
+}
+
+.et-button-default--hover {
+  background: #F6F6F6 !important;
+}
+
+.et-button__icon+.et-button__text:not(:empty) {
+  margin-left: 16rpx;
+}
+
+.et-button__text {
+  width: 100%;
+  line-height: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  white-space: nowrap;
+}
 </style>

@@ -6,7 +6,7 @@
       :class="['et-tab', border ? 'et-hairline--bottom' : null, shouldFix ? 'et-tab--fixed' : null]"
       :style="tabBarStyled">
       <view class="et-tab-scroll--flex">
-        <view v-for="(item, index) in options" :key="index" :id="'tab-' + index" class="et-tab-item"
+        <view v-for="(item, index) in options" :id="'tab-' + index" :key="index" class="et-tab-item"
           @click="onClick(item, index)">
           <view :class="['et-tab__text', item.showDot ? 'et-tab__text-dot' : null, index === current ? 'et-tab__text--strong' : null]"
             :style="{ 'color': index === current ? activeColor : defaultColor }">{{ item[textKey] }}</view>
@@ -124,7 +124,7 @@ export default {
     tabBarStyled({ shouldFix, isCustomNavigation, zIndex, navHeight, customStyle, heightStyled }) {
       let style = `top: ${shouldFix && isCustomNavigation ? navHeight : 0}px;`
       style += `z-index: ${zIndex};`
-        return this.mergeStyles([style, heightStyled, customStyle])
+      return this.mergeStyles([style, heightStyled, customStyle])
     },
     baseStyle({ lineWidth, lineHeight, lineBackground, bottom, addUnit }) {
       let style = ''
@@ -176,7 +176,7 @@ export default {
       if (!this.initialized) {
         setTimeout(() => {
           this.initialized = true
-        }, 0)
+        }, 100)
       }
 
       if (this.fixed) {
@@ -190,7 +190,7 @@ export default {
           immediate: true
         })
       }
-    }, 60);
+    }, 60)
   },
   methods: {
     onClick(item, index) {

@@ -19,115 +19,115 @@
 </template>
 
 <script>
-  import { getParentInstance } from '@/shared'
-  export default {
-    name: 'et-cell',
-    props: {
-      // 左侧标题
-      title: null,
-      // 右侧文本内容
-      text: null,
-      // 左侧标题宽度，不设置默认为铺满
-      titleWidth: {
-        type: [String, Number],
-        default: 80
-      },
-      // 高度
-      height: {
-        type: [Number, String],
-        default: 'auto'
-      },
-      // 是否链接样式，开启右侧图标
-      isLink: {
-        type: Boolean,
-        default: false,
-      },
-      // 尺寸
-      size: {
-        type: String,
-        default: 'normal',
-        validator(value) {
-          return ['normal', 'small', 'mini', 'large'].includes(value)
-        }
-      },
-      // 当 isLink 为 true 可设置高亮颜色
-      isLinkActive: {
-        type: Boolean,
-        default: false
-      },
-      // 高亮颜色
-      linkActiveColor: null,
-      // 底部边框线
-      border: null,
-      // 禁用状态 - 样式，禁用点击交互
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      // 微信 view 标签的 hover-class
-      hoverClass: null,
-      // 自定义组件类 class
-      customClass: null,
-      // 自定义左侧标题类 class
-      titleClass: null,
-      // 自定义右侧文本类 class
-      textClass: null,
-      // 自定义组件样式
-      customStyle: null,
-      // 自定义左侧标题样式
-      titleStyle: null,
-      // 自定义右侧文本样式
-      textStyle: null
+import { getParentInstance } from '@/shared'
+export default {
+  name: 'et-cell',
+  props: {
+    // 左侧标题
+    title: null,
+    // 右侧文本内容
+    text: null,
+    // 左侧标题宽度，不设置默认为铺满
+    titleWidth: {
+      type: [String, Number],
+      default: 80
     },
-    computed: {
-      wrapperStyled() {
-        let style = ''
-        const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px'
-        style += `height: ${lineHeight};`
-        return this.mergeStyles([style, this.customStyle, this.parent?.customStyle])
-      },
-      titleStyled() {
-        let style = ''
-        if (this.titleWidth) {
-          style += `min-width: ${this.addUnit(this.titleWidth)};`
-        } else {
-          style += 'flex: 1;'
-        }
-        return this.mergeStyles([style, this.titleStyle, this.parent?.titleStyle])
-      },
-      rightStyled() {
-        return Number(this.titleWidth) === 0 ? '' : 'flex: 1;'
-      },
-      textStyled() {
-        let style = ''
-        if (this.isLinkActive && this.linkActiveColor) {
-          style += `color: ${this.linkActiveColor};`
-        }
-        return this.mergeStyles([style, this.textStyle, this.parent?.textStyle])
-      },
-      customClasses() {
-        return this.mergeStyles([this.customClass, this.parent?.customClass])
-      },
-      titleClasses() {
-        return this.mergeStyles([this.titleClass, this.parent?.titleClass])
-      },
-      textClasses() {
-        return this.mergeStyles([this.textClass, this.parent?.textClass])
-      },
-      isBorder() {
-       return this.border === null ? this.parent?.border : this.border
+    // 高度
+    height: {
+      type: [Number, String],
+      default: 'auto'
+    },
+    // 是否链接样式，开启右侧图标
+    isLink: {
+      type: Boolean,
+      default: false,
+    },
+    // 尺寸
+    size: {
+      type: String,
+      default: 'normal',
+      validator(value) {
+        return ['normal', 'small', 'mini', 'large'].includes(value)
       }
     },
-    created() {
-      this.parent = getParentInstance(this, 'useCellGroup')
+    // 当 isLink 为 true 可设置高亮颜色
+    isLinkActive: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      onClick(evt) {
-        if (this.disabled) return
-        this.$emit('click', evt)
-      },
+    // 高亮颜色
+    linkActiveColor: null,
+    // 底部边框线
+    border: null,
+    // 禁用状态 - 样式，禁用点击交互
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 微信 view 标签的 hover-class
+    hoverClass: null,
+    // 自定义组件类 class
+    customClass: null,
+    // 自定义左侧标题类 class
+    titleClass: null,
+    // 自定义右侧文本类 class
+    textClass: null,
+    // 自定义组件样式
+    customStyle: null,
+    // 自定义左侧标题样式
+    titleStyle: null,
+    // 自定义右侧文本样式
+    textStyle: null
+  },
+  computed: {
+    wrapperStyled() {
+      let style = ''
+      const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px'
+      style += `height: ${lineHeight};`
+      return this.mergeStyles([style, this.customStyle, this.parent?.customStyle])
+    },
+    titleStyled() {
+      let style = ''
+      if (this.titleWidth) {
+        style += `min-width: ${this.addUnit(this.titleWidth)};`
+      } else {
+        style += 'flex: 1;'
+      }
+      return this.mergeStyles([style, this.titleStyle, this.parent?.titleStyle])
+    },
+    rightStyled() {
+      return Number(this.titleWidth) === 0 ? '' : 'flex: 1;'
+    },
+    textStyled() {
+      let style = ''
+      if (this.isLinkActive && this.linkActiveColor) {
+        style += `color: ${this.linkActiveColor};`
+      }
+      return this.mergeStyles([style, this.textStyle, this.parent?.textStyle])
+    },
+    customClasses() {
+      return this.mergeStyles([this.customClass, this.parent?.customClass])
+    },
+    titleClasses() {
+      return this.mergeStyles([this.titleClass, this.parent?.titleClass])
+    },
+    textClasses() {
+      return this.mergeStyles([this.textClass, this.parent?.textClass])
+    },
+    isBorder() {
+      return this.border === null ? this.parent?.border : this.border
     }
+  },
+  created() {
+    this.parent = getParentInstance(this, 'useCellGroup')
+  },
+  methods: {
+    onClick(evt) {
+      if (this.disabled) return
+      this.$emit('click', evt)
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -20,150 +20,162 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex'
-  const { mapState } = createNamespacedHelpers('state')
-  import transition from '@/mixins/transition'
-  import cssVariables from '@/shared/css-variables'
-  export default {
-    name: 'et-popup',
-    mixins: [transition],
-    props: {
-      // 弹窗位置
-      position: {
-        type: String,
-        default: 'center',
-        validator(value) {
-          return ['center', 'top', 'bottom', 'right', 'left'].includes(value)
-        }
-      },
-      // 弹窗标题
-      title: null,
-      // 弹窗Y轴位移
-      offset: {
-        type: Number,
-        default: 0
-      },
-      // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
-      height: {
-        type: [Number, String],
-        default: 'auto'
-      },
-      width: {
-        type: [Number, String],
-        default: 'auto'
-      },
-      // 弹窗最大高度
-      maxHeight: {
-        type: [Number, String],
-        default: '40vh'
-      },
-      // 弹窗最小高度
-      minHeight: {
-        type: [Number, String],
-        default: 'auto'
-      },
-      // 是否显示标题下边框线
-      border: {
-        type: Boolean,
-        default: false
-      },
-      // 是否圆角
-      round: {
-        type: Boolean,
-        default: false
-      },
-      // 是否显示关闭图标
-      closeable: {
-        type: Boolean,
-        default: false
-      },
-      // 关闭图标位置
-      closeIconPosition: {
-        type: String,
-        default: 'left'
-      },
-      // 是否显示遮罩层
-      overlay: {
-        type: Boolean,
-        default: true
-      },
-      // 点击这招是否关闭弹窗
-      closeOnClickOverlay: {
-        type: Boolean,
-        default: true
-      },
-      // 弹窗层级
-      zIndex: {
-        type: Number,
-        default: +cssVariables.popupZIndex
-      },
-      // 是否为 iPhoneX 留出底部安全距离
-      safeAreaInsetBottom: {
-        type: Boolean,
-        default: true
-      },
-      // 是否留出顶部安全距离（状态栏高度）
-      safeAreaInsetTop: {
-        type: Boolean,
-        default: false
-      },
-      // 自定义组件样式
-      customStyle: null,
-      // 自定义内容样式
-      bodyStyle: null,
-      // 自定义遮罩层样式
-      overlayStyle: null
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('state')
+import transition from '@/mixins/transition'
+import cssVariables from '@/shared/css-variables'
+
+export default {
+  name: 'et-popup',
+  mixins: [transition],
+  props: {
+    // 弹窗位置
+    position: {
+      type: String,
+      default: 'center',
+      validator(value) {
+        return ['center', 'top', 'bottom', 'right', 'left'].includes(value)
+      }
     },
-    computed: {
-      ...mapState(['navHeight']),
-      animationName({ position }) {
-        switch (position) {
-          case 'top':
-            return 'slide-down'
-          case 'bottom':
-            return 'slide-up'
-          case 'left':
-            return 'slide-left'
-          case 'right':
-            return 'slide-right'
-          default:
-            return 'fade'
-        }
-      },
-      styled({ offset, zIndex, currentDuration, display, customStyle, navHeight}) {
-        let style = `z-index: ${zIndex};`
-        style += `margin-top: ${offset + navHeight}px;`
-        style += `transition-duration: ${currentDuration}ms;`
-        if (!display) style += 'display: none;'
-        return this.mergeStyles([style, customStyle])
-      },
-      bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle, addUnit }) {
-        let style = ''
-        style += `height: calc(${unitedHeight} - 120rpx);`
-        style += `width: calc(${unitedWidth} - 120rpx);`
-        style += `max-height: ${addUnit(maxHeight)};`
-        style += `min-height: ${addUnit(minHeight)};`
-        return this.mergeStyles([style, bodyStyle])
-      },
-      unitedHeight({ height, addUnit }) {
-        return height === 'auto' ? height : addUnit(height, 'vh')
-      },
-      unitedWidth({ width, addUnit }) {
-        return width === 'auto' ? width : addUnit(width, 'vh')
-      },
+    // 弹窗标题
+    title: null,
+    // 弹窗Y轴位移
+    offset: {
+      type: [String, Number],
+      default: 0
     },
-    methods: {
-      clickOverlay() {
-        if (!this.closeOnClickOverlay) return
-        this.$emit('click-overlay')
-        this.$emit('update:visible', false)
-      },
-      close() {
-        this.$emit('close')
-        this.$emit('update:visible', false)
-      },
-    }
+    // 顶部距离
+    bottom: {
+      type: [String, Number],
+      default: 0
+    },
+    // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
+    height: {
+      type: [Number, String],
+      default: 'auto'
+    },
+    width: {
+      type: [Number, String],
+      default: 'auto'
+    },
+    // 弹窗最大高度
+    maxHeight: {
+      type: [Number, String],
+      default: '40vh'
+    },
+    // 弹窗最小高度
+    minHeight: {
+      type: [Number, String],
+      default: 'auto'
+    },
+    // 是否显示标题下边框线
+    border: {
+      type: Boolean,
+      default: false
+    },
+    // 是否圆角
+    round: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示关闭图标
+    closeable: {
+      type: Boolean,
+      default: false
+    },
+    // 关闭图标位置
+    closeIconPosition: {
+      type: String,
+      default: 'left'
+    },
+    // 是否显示遮罩层
+    overlay: {
+      type: Boolean,
+      default: true
+    },
+    // 点击这招是否关闭弹窗
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true
+    },
+    // 弹窗层级
+    zIndex: {
+      type: Number,
+      default: +cssVariables.popupZIndex
+    },
+    // 是否自定义导航页面
+    useCustomNav: {
+      type: Boolean,
+      default: false
+    },
+    // 是否为 iPhoneX 留出底部安全距离
+    safeAreaInsetBottom: {
+      type: Boolean,
+      default: true
+    },
+    // 是否留出顶部安全距离（状态栏高度）
+    safeAreaInsetTop: {
+      type: Boolean,
+      default: false
+    },
+    // 自定义组件样式
+    customStyle: null,
+    // 自定义内容样式
+    bodyStyle: null,
+    // 自定义遮罩层样式
+    overlayStyle: null
+  },
+  computed: {
+    ...mapState(['navHeight']),
+    animationName({ position }) {
+      switch (position) {
+      case 'top':
+        return 'slide-down'
+      case 'bottom':
+        return 'slide-up'
+      case 'left':
+        return 'slide-left'
+      case 'right':
+        return 'slide-right'
+      default:
+        return 'fade'
+      }
+    },
+    styled({ offset, bottom, zIndex, currentDuration, display, customStyle, navHeight, useCustomNav, addUnit}) {
+      let style = `z-index: ${zIndex};`
+      style += `margin-top: calc(${addUnit(offset, 'px')} + ${useCustomNav ? navHeight : 0}px);`
+      if (bottom) style += `margin-bottom: ${addUnit(bottom, 'px')};`
+      style += `transition-duration: ${currentDuration}ms;`
+      if (!display) style += 'display: none;'
+      return this.mergeStyles([style, customStyle])
+    },
+    bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle, addUnit }) {
+      let style = ''
+      style += `height: calc(${unitedHeight} - 120rpx);`
+      style += `width: calc(${unitedWidth} - 120rpx);`
+      style += `max-height: ${addUnit(maxHeight)};`
+      style += `min-height: ${addUnit(minHeight)};`
+      return this.mergeStyles([style, bodyStyle])
+    },
+    unitedHeight({ height, addUnit }) {
+      return height === 'auto' ? height : addUnit(height, 'vh')
+    },
+    unitedWidth({ width, addUnit }) {
+      return width === 'auto' ? width : addUnit(width, 'vh')
+    },
+  },
+  methods: {
+    clickOverlay() {
+      if (!this.closeOnClickOverlay) return
+      this.$emit('click-overlay')
+      this.$emit('update:visible', false)
+    },
+    close() {
+      this.$emit('close')
+      this.$emit('update:visible', false)
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>
