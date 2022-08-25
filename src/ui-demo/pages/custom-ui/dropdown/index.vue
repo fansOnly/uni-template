@@ -1,5 +1,6 @@
 <template>
-  <view class="page-wrapper">
+<et-scroll-lock>
+  <view class="page-wrapper" style="height: 2000px;">
 
     <demo-block title="基础用法">
       <et-dropdown-menu>
@@ -9,7 +10,17 @@
       </et-dropdown-menu>
     </demo-block>
 
+    <view style="height: 200px;"></view>
+
+    <demo-block title="向上展开">
+      <et-dropdown-menu direction="up">
+        <et-dropdown-item :value="value1" :options="list1" @change="handleChange"></et-dropdown-item>
+        <et-dropdown-item :value="value2" :options="list2" @change="handleChange"></et-dropdown-item>
+      </et-dropdown-menu>
+    </demo-block>
+
   </view>
+  </et-scroll-lock>
 </template>
 
 <script>

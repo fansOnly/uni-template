@@ -1,30 +1,32 @@
 <template>
-  <view class="page-wrapper is-custom-tab-bar">
-    <et-page-progress-bar :percent="progressBarPercent" :duration="1000"></et-page-progress-bar>
-    <template v-if="pageReady">
+  <et-page :show="pageReady">
+    <view class="page-wrapper is-custom-tab-bar">
       <view class="gap"></view>
       <et-button block @click="jump">跳转页面 - navigate</et-button>
       <et-button block @click="jump2">跳转页面 - redirect</et-button>
       <et-button block @click="setQuery">设置自定义参数</et-button>
-    </template>
       <et-tab-bar></et-tab-bar>
-  </view>
+    </view>
+  </et-page>
 </template>
 
 <script>
 import page from '@/mixins/page'
 export default {
+  mixins: [page],
   data() {
     return {
       count: 0
     }
   },
-  mixins: [page],
   async onLoad(options) {
     await this.$onLaunched
   },
   async onShow(options) {
     await this.$onLaunched
+  },
+  onReady() {
+    this.pageReady = true
   },
   methods: {
     jump() {
