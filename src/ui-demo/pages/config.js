@@ -55,6 +55,11 @@ export default [
         path: '/area'
       },
       {
+        title: 'Calendar 日历',
+        prefix: 'custom-ui',
+        path: '/calendar'
+      },
+      {
         title: 'Checkbox 复选框',
         prefix: 'custom-ui',
         path: '/checkbox'
@@ -140,6 +145,11 @@ export default [
         title: 'Collapse 折叠面板',
         prefix: 'custom-ui',
         path: '/collapse'
+      },
+      {
+        title: 'CountDown 倒计时',
+        prefix: 'custom-ui',
+        path: '/count-down'
       },
       {
         title: 'Empty 空状态',

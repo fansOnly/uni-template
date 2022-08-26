@@ -26,7 +26,8 @@ module.exports = {
   ],
   globals: {
     wx: true,
-    uni: true
+    uni: true,
+    getCurrentPages: true
   },
 
   // add your custom rules here

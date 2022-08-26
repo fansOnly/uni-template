@@ -9,3 +9,6 @@ export const tabBarStyle = styles
 export const tabBarList = list
 
 export const tabBarPages = tabBarList.map(v => v.pagePath)
+
+const pages = pkg?.pages || []
+export const homePage = pages[0]?.path

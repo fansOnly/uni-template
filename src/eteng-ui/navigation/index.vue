@@ -17,122 +17,120 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex'
-  const { mapState, mapActions } = createNamespacedHelpers('state')
-  import cssVariables from '@/shared/css-variables'
-  // import pkg from '@/pages.json'
-  // const tabBarList = (pkg?.tabBar?.list || []).map(v => v.pagePath)
-  import { tabBarPages } from '@/shared/tab-bar'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('state')
+import cssVariables from '@/shared/css-variables'
+import { tabBarPages, homePage } from '../common/tab-bar'
 
-  export default {
-    name: 'et-navigation',
-    props: {
-      // 页面标题
-      title: null,
-      // 导航栏背景色
-      background: {
-        type: String,
-        default: cssVariables.primaryColor
-      },
-      // 导航颜色模式 dark - 深色 light - 浅色
-      mode: {
-        type: String,
-        default: 'light'
-      },
-      // 层级
-      zIndex: {
-        type: Number,
-        default: +cssVariables.navZIndex
-      },
-      // 是否启用占位符
-      usePlaceholder: {
-        type: Boolean,
-        default: true
-      },
-      // 自定义背景图
-      backgroundImage: {
-        type: String,
-        default: ''
-      },
-      // 是否显示首页按钮
-      showHomeButton: {
-        type: Boolean,
-        default: true
-      },
-      // 是否显示返回按钮
-      showBackButton: {
-        type: Boolean,
-        default: true
-      }
+export default {
+  name: 'et-navigation',
+  props: {
+    // 页面标题
+    title: null,
+    // 导航栏背景色
+    background: {
+      type: String,
+      default: cssVariables.primaryColor
     },
-    computed: {
-      ...mapState(['navHeight', 'titleHeight', 'navOffsetTop']),
-      homeIcon({ mode }) {
-        return mode === 'light' ? 'nav-home' : 'nav-home-white'
-      },
-      backIcon({ mode }) {
-        return mode === 'light' ? 'nav-back' : 'nav-back-white'
-      },
-      frontColor({ mode }) {
-        return mode === 'light' ? '#000000' : '#ffffff'
-      },
-      backgroundColor({ backgroundImage, background, mode }) {
-        return backgroundImage ? 'transparent' : (mode === 'light' ? '#ffffff' : background)
-      },
-      headStyled({ navOffsetTop, titleHeight, zIndex, backgroundColor }) {
-        let style = ''
-        style += `z-index: ${zIndex};`
-        style += `background: ${backgroundColor};`
-        style += `padding-top: ${navOffsetTop}px;`
-        style += `height: ${titleHeight}px;`
-        return style
-      },
-      titleStyled({ frontColor, titleHeight }) {
-        let style = ''
-        style += `color: ${frontColor};`
-        style += `line-height: ${titleHeight}px;`
-        return style
-      },
-      buttonStyled({ navOffsetTop, titleHeight }) {
-        let style = ''
-        style += `top: ${navOffsetTop}px;`
-        style += `height: ${titleHeight}px;`
-        return style
-      },
-      showBack() {
-        // 返回按钮
-        const pages = getCurrentPages()
-        return this.showBackButton && pages.length > 1
-      },
-      showHome() {
-        // 返回首页按钮
-        const pages = getCurrentPages()
-        const path = pages[pages.length - 1].route
-        return this.showHomeButton && !tabBarPages.includes(path)
-      }
+    // 导航颜色模式 dark - 深色 light - 浅色
+    mode: {
+      type: String,
+      default: 'light'
     },
-    async mounted() {
-      const rect = wx.getMenuButtonBoundingClientRect()
-      const navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
-      this.setNavHeight(navHeight)
-      this.setTitleHeight(rect.height)
-      this.setNavOffsetTop(rect.top)
-
-      uni.setNavigationBarColor({
-        frontColor: this.frontColor,
-        backgroundColor: this.backgroundColor
-      })
+    // 层级
+    zIndex: {
+      type: Number,
+      default: +cssVariables.navZIndex
     },
-    methods: {
-      ...mapActions(['setNavHeight', 'setTitleHeight', 'setNavOffsetTop']),
-      reLaunchHome() {
-        uni.reLaunch({ url: '/pages/index/index' })
-      },
-      navigateBack() {
-        uni.navigateBack({ delta: 1 })
-      },
+    // 是否启用占位符
+    usePlaceholder: {
+      type: Boolean,
+      default: true
+    },
+    // 自定义背景图
+    backgroundImage: {
+      type: String,
+      default: ''
+    },
+    // 是否显示首页按钮
+    showHomeButton: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示返回按钮
+    showBackButton: {
+      type: Boolean,
+      default: true
     }
-  };
+  },
+  computed: {
+    ...mapState(['navHeight', 'titleHeight', 'navOffsetTop']),
+    homeIcon({ mode }) {
+      return mode === 'light' ? 'nav-home' : 'nav-home-white'
+    },
+    backIcon({ mode }) {
+      return mode === 'light' ? 'nav-back' : 'nav-back-white'
+    },
+    frontColor({ mode }) {
+      return mode === 'light' ? '#000000' : '#ffffff'
+    },
+    backgroundColor({ backgroundImage, background, mode }) {
+      return backgroundImage ? 'transparent' : (mode === 'light' ? '#ffffff' : background)
+    },
+    headStyled({ navOffsetTop, titleHeight, zIndex, backgroundColor }) {
+      let style = ''
+      style += `z-index: ${zIndex};`
+      style += `background: ${backgroundColor};`
+      style += `padding-top: ${navOffsetTop}px;`
+      style += `height: ${titleHeight}px;`
+      return style
+    },
+    titleStyled({ frontColor, titleHeight }) {
+      let style = ''
+      style += `color: ${frontColor};`
+      style += `line-height: ${titleHeight}px;`
+      return style
+    },
+    buttonStyled({ navOffsetTop, titleHeight }) {
+      let style = ''
+      style += `top: ${navOffsetTop}px;`
+      style += `height: ${titleHeight}px;`
+      return style
+    },
+    showBack() {
+      // 返回按钮
+      const pages = getCurrentPages()
+      return this.showBackButton && pages.length > 1
+    },
+    showHome() {
+      // 返回首页按钮
+      const pages = getCurrentPages()
+      const path = pages[pages.length - 1].route
+      return this.showHomeButton && !tabBarPages.includes(path)
+    }
+  },
+  async mounted() {
+    const rect = wx.getMenuButtonBoundingClientRect()
+    const navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
+    this.setNavHeight(navHeight)
+    this.setTitleHeight(rect.height)
+    this.setNavOffsetTop(rect.top)
+
+    uni.setNavigationBarColor({
+      frontColor: this.frontColor,
+      backgroundColor: this.backgroundColor
+    })
+  },
+  methods: {
+    ...mapActions(['setNavHeight', 'setTitleHeight', 'setNavOffsetTop']),
+    reLaunchHome() {
+      uni.reLaunch({ url: homePage || '/pages/index/index' })
+    },
+    navigateBack() {
+      uni.navigateBack({ delta: 1 })
+    },
+  }
+}
 </script>
 
 <style lang="scss" scoped>

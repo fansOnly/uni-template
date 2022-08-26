@@ -9,7 +9,7 @@
 
 <script>
 import cssVariables from '@/shared/css-variables'
-import { tabBarList, tabBarStyle } from '@/shared/tab-bar'
+import { tabBarList, tabBarStyle } from '../common/tab-bar'
 
 export default {
   name: 'et-tab-bar',

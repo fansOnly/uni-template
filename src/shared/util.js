@@ -1,6 +1,6 @@
 /**
  * 延时执行
- * @param {number} delay 阻塞时间
+ * @param {number} [delay = 500] 阻塞时间
  */
 export const sleep = (delay = 500) => {
   return new Promise((resolve) => {
@@ -26,6 +26,7 @@ export function genUrlFromObj(path, obj) {
 
 /**
  * 从 url 提取参数
+ * @param {string} url
  */
 export const getParamFromUrl = url => {
   if (!url) return {}
@@ -54,8 +55,8 @@ export const desensitizeName = (value, blockLastName = true, char = '*') => {
 
 /**
  * 日期格式化
- * @param {[string, number]} value 时间
- * @param {string} formatter 时间格式
+ * @param {string | number} value 时间
+ * @param {string} [formatter = 'YYYY-MM-DD HH:mm:ss'] 时间格式
  */
 export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
   const dateReg = /^(?<year>\d{4})?([/-](?<month>\d{1,2}))?([/-](?<day>\d{1,2}))?\s?(?<hour>\d{1,2})?(:(?<minute>\d{1,2}))?(:(?<second>\d{1,2}))?$/
@@ -92,6 +93,7 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
 /**
  * 日期转换器
  * exp: 6M => 六个月
+ * @param {string} 初始值
  */
 export const transformData = str => {
   const numCN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']

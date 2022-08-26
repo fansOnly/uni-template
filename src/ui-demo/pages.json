@@ -41,6 +41,12 @@
       }
     },
     {
+      "path": "pages/custom-ui/calendar/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
       "path": "pages/custom-ui/cell/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
@@ -54,6 +60,12 @@
     },
     {
       "path": "pages/custom-ui/collapse/index",
+      "style": {
+        "navigationBarTitleText": "UI 组件演示库"
+      }
+    },
+    {
+      "path": "pages/custom-ui/count-down/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }

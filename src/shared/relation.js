@@ -58,7 +58,7 @@ export function getChildInstance(context, fn) {
  * 兼容 微信 / H5 平台差异性
  * 自定义组件根节点由 view 改为 div
  * @param {string} context 当前实例
- * @param {boolean} hasCustomComponentChildren 是否包含自定义子组件
+ * @param {boolean} [hasCustomComponentChildren = false] 是否包含自定义子组件
  */
 export const getChildrenCompatibleH5 = (context, hasCustomComponentChildren = false) => {
   let children = context.$children
