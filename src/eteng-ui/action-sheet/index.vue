@@ -18,111 +18,111 @@
 
 <script>
 import cssVariables from '@/shared/css-variables'
-  export default {
-    name: 'et-action-sheet',
-    props: {
-      // 显示开关
-      visible: {
-        type: Boolean,
-        default: false,
-      },
-      // 渲染源数据
-      data: {
-        type: Array,
-        default: () => []
-      },
-      // 激活的值
-      value: null,
-      // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
-      height: {
-        type: [Number, String],
-        default: 'auto',
-      },
-      // 是否显示圆角
-      round: {
-        type: Boolean,
-        default: false,
-      },
-      // 动画时长 ms
-      duration: {
-        type: Number,
-        default: 300,
-      },
-      // 激活的颜色
-      color: {
-        type: String,
-        default: cssVariables.primaryColor
-      },
-      // 是否显示取消按钮
-      showCancel: {
-        type: Boolean,
-        default: false,
-      },
-      // 取消按钮文案
-      cancelText: {
-        type: String,
-        default: '取消',
-      },
-      // 点击遮罩是否关闭菜单
-      closeOnClickOverlay: {
-        type: Boolean,
-        default: true,
-      },
-      // 是否在点击选项后关闭
-      closeOnClickAction: {
-        type: Boolean,
-        default: true,
-      },
-      // 文本属性映射
-      textProp: {
-        type: String,
-        default: 'title',
-      },
-      // 值属性映射
-      valueProp: {
-        type: String,
-        default: 'value',
-      },
-      // 值没有变化时是否触发刷新
-      refresh: {
-        type: Boolean,
-        default: false
-      },
-      // 自定义组件样式
-      customStyle: null
+export default {
+  name: 'et-action-sheet',
+  props: {
+    // 显示开关 - 透传 popup 组件
+    visible: {
+      type: Boolean,
+      default: false,
     },
-    computed: {
-      unitedHeight() {
-        return this.height === 'auto' ? this.height : this.addUnit(this.height)
-      },
-      styled() {
-        let style = ''
-        style += `height: ${this.unitedHeight};`
-        style += `color: ${cssVariables.textColor};`
-        return this.mergeStyles([style, this.customStyle])
-      },
+    // 渲染源数据
+    data: {
+      type: Array,
+      default: () => []
     },
-    methods: {
-      onSelect(item) {
-        if (item.disabled) return
-        if (this.value === item[this.valueProp] && !this.refresh) return
-        this.$emit('select', item)
-        this.closeOnClickAction && this.close()
-      },
-      clickOverlay() {
-        if (!this.closeOnClickOverlay) return
-        this.close()
-      },
-      cancel() {
-        this.$emit('cancel')
-        this.$emit('update:visible', false)
-      },
-      close() {
-        this.$emit('close')
-        this.$emit('update:visible', false)
-      },
-    }
+    // 激活的值
+    value: null,
+    // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
+    height: {
+      type: [Number, String],
+      default: 'auto',
+    },
+    // 是否显示圆角 - 透传 popup 组件
+    round: {
+      type: Boolean,
+      default: false,
+    },
+    // 动画时长 ms - 透传 popup 组件
+    duration: {
+      type: Number,
+      default: 300,
+    },
+    // 激活的颜色
+    color: {
+      type: String,
+      default: cssVariables.primaryColor
+    },
+    // 是否显示取消按钮 - 透传 popup 组件
+    showCancel: {
+      type: Boolean,
+      default: false,
+    },
+    // 取消按钮文案 - 透传 popup 组件
+    cancelText: {
+      type: String,
+      default: '取消',
+    },
+    // 点击遮罩是否关闭菜单 - 透传 popup 组件
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否在点击选项后关闭
+    closeOnClickAction: {
+      type: Boolean,
+      default: true,
+    },
+    // 文本属性映射
+    textProp: {
+      type: String,
+      default: 'title',
+    },
+    // 值属性映射
+    valueProp: {
+      type: String,
+      default: 'value',
+    },
+    // 值没有变化时是否触发刷新
+    refresh: {
+      type: Boolean,
+      default: false
+    },
+    // 自定义组件样式
+    customStyle: null
+  },
+  computed: {
+    unitedHeight() {
+      return this.height === 'auto' ? this.height : this.addUnit(this.height)
+    },
+    styled() {
+      let style = ''
+      style += `height: ${this.unitedHeight};`
+      style += `color: ${cssVariables.textColor};`
+      return this.mergeStyles([style, this.customStyle])
+    },
+  },
+  methods: {
+    onSelect(item) {
+      if (item.disabled) return
+      if (this.value === item[this.valueProp] && !this.refresh) return
+      this.$emit('select', item)
+      this.closeOnClickAction && this.close()
+    },
+    clickOverlay() {
+      if (!this.closeOnClickOverlay) return
+      this.close()
+    },
+    cancel() {
+      this.$emit('cancel')
+      this.$emit('update:visible', false)
+    },
+    close() {
+      this.$emit('close')
+      this.$emit('update:visible', false)
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>
