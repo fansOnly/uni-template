@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block/index.vue'
+import DemoBlock from '@p/components/demo-block'
 export default {
   components: {
     DemoBlock

@@ -143,7 +143,7 @@ module.exports = {
     // 禁止在函数标识符和其调用之间有空格 --fix
     'func-call-spacing': 'error',
     // 禁用行尾空白 --fix
-    'no-trailing-spaces': 'error',
+    'no-trailing-spaces': ['error', { ignoreComments: true}],
     // 不允许初始化变量值为 undefined --fix
     'no-undef-init': 'error',
     // 禁止可以表达为更简单结构的三元操作符 --fix

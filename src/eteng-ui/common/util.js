@@ -1,6 +1,6 @@
 /**
  * 日期格式化
- * @param {string | number} value 时间
+ * @param {string | number} value 时间 / 时间戳
  * @param {string} [formatter = 'YYYY-MM-DD HH:mm:ss'] 时间格式
  */
 export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
@@ -14,6 +14,8 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
   } else if (typeof value === 'string' && dateReg.test(value)) {
     const matched = value.match(dateReg)
     groups = matched.groups
+  } else if (Object.prototype.toString.call(value) === '[object Date]') {
+    date = value
   } else {
     console.warn('[info] Invalid Date', value)
     return value

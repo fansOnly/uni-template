@@ -12,7 +12,7 @@
             :style="{ 'color': index === current ? activeColor : defaultColor }">{{ item[textKey] }}</view>
         </view>
       </view>
-      <view v-show="initialized" class="et-tab__bar" :style="barStyled"></view>
+      <view class="et-tab__bar" :class="[initialized ? 'is-active' : 'is-first']" :style="barStyled"></view>
     </scroll-view>
     <view v-if="shouldFix" :style="heightStyled"></view>
   </div>
@@ -176,7 +176,7 @@ export default {
       if (!this.initialized) {
         setTimeout(() => {
           this.initialized = true
-        }, 100)
+        }, 300)
       }
 
       if (this.fixed) {
@@ -267,13 +267,28 @@ export default {
   bottom: 0;
   border-radius: 4rpx;
   transform: translateX(-50%);
-  transition: left ease 0.3s;
+  &.is-first {
+    animation: fadeIn ease 100ms;
+  }
+  &.is-active {
+  transition-timing-function: ease;
+  transition-duration: 300ms;
+  transition-property: left;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* #ifdef H5 */
 .et-tab-wrapper ::v-deep .uni-scroll-view::-webkit-scrollbar {
   display: none;
 }
-
 /* #endif */
 </style>
