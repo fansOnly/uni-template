@@ -4,6 +4,7 @@
       <et-icon name="arrow-left" @click="onChangePrev" />
       <view class="vc-calender__subtitle">{{subtitle}}</view>
       <et-icon name="arrow-right" @click="onChangeNext" />
+      <view class="vc-calendar__today et-hairline--surround" :class="{'is-show': notCurrent}" @click="backCurrent">今日</view>
     </view>
     <view class="vc-calender__week">
       <view v-for="item in WEEKS" :key="item" class="vc-calender__week-text">{{ item }}</view>
@@ -40,6 +41,9 @@ export default {
   computed: {
     subtitle() {
       return formatDate(this.yearMonth, 'YYYY年MM月')
+    },
+    notCurrent() {
+      return this.yearMonth !== this.getCurrentYearMonth()
     }
   },
   watch: {
@@ -106,6 +110,12 @@ export default {
       const { year, month } = getNextYearMonth(this.yearMonth)
       this.yearMonth = `${year}-${month}`
     },
+    getCurrentYearMonth() {
+      return formatDate('', 'YYYY-MM')
+    },
+    backCurrent() {
+      this.yearMonth = this.getCurrentYearMonth()
+    }
   },
 }
 </script>
@@ -118,6 +128,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   background: #fff;
 }
 .vc-calender__subtitle {
@@ -125,6 +136,24 @@ export default {
   font-weight: 500;
   line-height: 88rpx;
   text-align: center;
+}
+.vc-calendar__today {
+  position: absolute;
+  right: -100%;
+  top: 50%;
+  width: 40px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 2em 0 0 2em;
+  color: #737373;
+  color: #f60;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  transition: right ease 300ms;
+  &.is-show {
+    right: 0;
+  }
 }
 .vc-calender__week {
   display: flex;

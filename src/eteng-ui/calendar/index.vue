@@ -12,7 +12,7 @@
         </view>
     </et-popup>
 
-    <vc-calendar v-else :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
+    <vc-calendar v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
       :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter" @change="onChange">
     </vc-calendar>
   </view>

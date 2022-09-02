@@ -22,6 +22,13 @@ export const compareDate = (day1, day2) => {
 }
 
 /**
+ * 日期补零
+ */
+export const padZero = (str, len = 2) => {
+  return String(str).padStart(len, '0')
+}
+
+/**
  * 是否是日期
  * @param {} v
  */
@@ -47,7 +54,7 @@ export const getPrevYearMonth = val => {
   year = date.getFullYear()
   month = date.getMonth() + 1
 
-  return { year, month }
+  return { year, month: padZero(month) }
 }
 
 /**
@@ -59,7 +66,7 @@ export const getNextYearMonth = val => {
   year = date.getFullYear()
   month = date.getMonth() + 1
 
-  return { year, month }
+  return { year, month: padZero(month) }
 }
 
 /**
