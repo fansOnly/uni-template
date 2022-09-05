@@ -22,7 +22,7 @@
       <view>选中的日期区间</view>
       <view v-for="(item, index) in date3" :key="index">{{ item }}</view>
 
-      <et-calendar :visible.sync="visible3" :value="date3" type="range" :max-range="5" @confirm="handleConfirm3"></et-calendar>
+      <et-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5" @confirm="handleConfirm3"></et-calendar>
     </demo-block>
 
     <demo-block title="页面显示" padding>

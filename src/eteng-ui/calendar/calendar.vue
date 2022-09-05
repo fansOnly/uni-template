@@ -86,6 +86,8 @@ export default {
             startDate = currentDate
           } else if (currentDate > startDate) {
             endDate = currentDate
+          } else if (this.allowSameDay) {
+            endDate = currentDate
           }
         } else {
           startDate = currentDate

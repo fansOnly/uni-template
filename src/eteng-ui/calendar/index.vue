@@ -3,7 +3,7 @@
     <et-popup v-if="popupable" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round" border closeable
       :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="close">
       <vc-calendar :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-        :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter"
+        :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter" :allow-same-day="allowSameDay"
         @change="onChange"></vc-calendar>
         <view v-if="withButton" class="vc-button">
           <slot name="button">
@@ -13,7 +13,7 @@
     </et-popup>
 
     <vc-calendar v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-      :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter" @change="onChange">
+      :max-range="maxRange" :row-height="rowHeight" :background="background" :allow-same-day="allowSameDay" :formatter="formatter" @change="onChange">
     </vc-calendar>
   </view>
 </template>
@@ -96,6 +96,12 @@ export default {
       if (!this.selectedDate?.length) {
         return uni.showToast({
           title: '日期不能为空',
+          icon: 'none',
+        })
+      }
+      if (this.type === 'range' && this.selectedDate.length !== 2) {
+        return uni.showToast({
+          title: '请选择结束日期',
           icon: 'none',
         })
       }

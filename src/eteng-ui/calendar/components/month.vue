@@ -2,7 +2,7 @@
   <view class="vc-calender-month">
     <view v-for="(item, index) in days" :key="index" class="vc-calender__days"
       :class="[item.type ? `is-${item.type}` : null]" :style="{ 'height': rowHeight + 'px' }" @click="onClick(item)">
-      <view v-if="['selected', 'multiple-selected', 'start', 'end'].includes(item.type)" class="vc-calender__days-item"
+      <view v-if="['selected', 'multiple-selected', 'start', 'end', 'start-end'].includes(item.type)" class="vc-calender__days-item"
         :style="{ 'background': color }">
         <view v-if="item.mark" class="vc-calender__mark">{{ item.mark }}</view>
         <view class="vc-calender__text">{{ item.text }}</view>
@@ -67,11 +67,7 @@ export default {
     yearMonth: {
       handler(val) {
         if (!val) return
-        const startDate = Array.isArray(this.value) ? this.value[0] : this.value
-        const startYearMonth = startDate ? formatDate(startDate, 'YYYY-MM') : ''
-        if (val !== startYearMonth) {
-          this.setDays()
-        }
+        this.setDays()
       },
       immediate: true
     }
@@ -92,7 +88,7 @@ export default {
       const days = this.generateDays(year, month)
 
       const { year: prevYear, month: prevMonth } = getPrevYearMonth(this.yearMonth)
-      const prevMonthDays = this.generateDays(prevYear, prevMonth, true)
+      let prevMonthDays = this.generateDays(prevYear, prevMonth, true)
 
       const { year: nextYear, month: nextMonth } = getNextYearMonth(this.yearMonth)
       const nextMonthDays = this.generateDays(nextYear, nextMonth, true)
@@ -100,6 +96,7 @@ export default {
       const startDate = new Date(days[0].value)
       const endDate = new Date(days[days.length - 1].value)
       const monthStartWeekDay = startDate.getDay()
+      if (monthStartWeekDay === 0) prevMonthDays = []
       const monthEndWeekDay = endDate.getDay()
 
       this.days = [...prevMonthDays.slice(-monthStartWeekDay), ...days, ...nextMonthDays.slice(0, 6 - monthEndWeekDay)]
@@ -153,6 +150,9 @@ export default {
     getRangeDayType(day) {
       if (!Array.isArray(this.value) || !this.value.length) return ''
       const [startDate, endDate] = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
+      if (day === startDate && startDate === endDate) {
+        return 'start-end'
+      }
       if (day === startDate) {
         return 'start'
       } else if (day === endDate) {
@@ -171,6 +171,8 @@ export default {
           return '开始'
         } else if (type === 'end') {
           return '结束'
+        } else if (type === 'start-end') {
+          return '开始/结束'
         }
       }
     },
@@ -199,6 +201,7 @@ export default {
   &.is-selected,
   &.is-multiple-selected,
   &.is-start,
+  &.is-start-end,
   &.is-end {
     color: #fff;
 
@@ -209,6 +212,7 @@ export default {
   }
 
   &.is-selected .vc-calender__days-item,
+  &.is-start-end .vc-calender__days-item,
   &.is-multiple-selected .vc-calender__days-item {
     border-radius: 4px;
   }

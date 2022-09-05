@@ -63,6 +63,11 @@ export default {
     type: Boolean,
     default: true
   },
+  // 日期范围可以为同一天
+  allowSameDay: {
+    type: Boolean,
+    default: false
+  },
   // 显示节假日
   // solarTerm: {
   //   type: Boolean,
