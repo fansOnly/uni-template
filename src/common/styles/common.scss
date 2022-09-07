@@ -49,15 +49,6 @@ page {
 .et-cell-move--right ::v-deep .et-cell.is-border::after {
   left: 32rpx;
 }
-// 发送验证码
-.et-input-cell--code .et-button {
-  padding-right: 0!important;
-  font-size:28rpx;
-  font-feature-settings: "tnum";
-}
-.et-input-cell-slot--extra {
-  margin-left: 20rpx;
-}
 // 箭头样式
 .et-icon-arrow {
   width: 0;
