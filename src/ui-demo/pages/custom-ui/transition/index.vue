@@ -37,6 +37,6 @@ export default {
     width: 100px;
     height: 100px;
     margin: auto;
-    background: #3264DC;
+    background: $uni-color-primary;
   }
 </style>

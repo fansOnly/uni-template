@@ -5,7 +5,7 @@
       <et-search-bar v-model="keyword" placeholder="搜索产品名称/产品标号" @on-search="handleSearch"></et-search-bar>
     </demo-block>
 
-    <demo-block title="基础用法" padding background="#fff">
+    <demo-block title="高级用法" padding background="#fff">
       <et-search-bar v-model="keyword2" label="产品" placeholder="搜索产品名称/产品标号" @on-search="handleSearch2"></et-search-bar>
     </demo-block>
 
@@ -27,9 +27,19 @@ export default {
   methods: {
     handleSearch(value) {
       console.log('=====keyword===', this.keyword)
+      uni.showToast({
+        title: this.keyword,
+        icon: 'none',
+        mask: true
+      })
     },
     handleSearch2(value) {
       console.log('=====keyword===', this.keyword2)
+      uni.showToast({
+        title: this.keyword2,
+        icon: 'none',
+        mask: true
+      })
     },
   },
 }

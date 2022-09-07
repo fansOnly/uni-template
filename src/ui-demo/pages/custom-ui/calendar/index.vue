@@ -1,4 +1,5 @@
 <template>
+  <et-scroll-lock>
   <view class="page-wrapper">
     <demo-block title="基础用法" padding>
       <et-button type="primary" block @click="visible1 = true">选择日期</et-button>
@@ -31,6 +32,7 @@
       <view class="gap"></view>
     </demo-block>
   </view>
+</et-scroll-lock>
 </template>
 
 <script>

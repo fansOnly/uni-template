@@ -39,9 +39,8 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('state')
-// import { getRect, getParentInstance, isObject } from '@/shared'
+import { mapState, mapActions } from 'vuex'
+import { INPUT_HEIGHT_DEF } from '../common/constant'
 
 export default {
   name: 'et-input',
@@ -59,12 +58,12 @@ export default {
     // 输入框高度
     height: {
       type: [Number, String],
-      default: 40
+      default: INPUT_HEIGHT_DEF
     },
     // 输入最小框高度
     minHeight: {
       type: [Number, String],
-      default: 40
+      default: INPUT_HEIGHT_DEF
     },
     // 输入框的 name 属性
     name: null,
@@ -170,7 +169,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeInputName']),
+    ...mapState('state', ['activeInputName']),
     isTextarea() {
       return this.type === 'textarea'
     },
@@ -185,9 +184,9 @@ export default {
         height = Math.max(height, 80)
         lineHeight = Math.min(height, 22)
       }
-      style += `height: ${this.autoHeight ? 'auto' : this.addUnit(height)};`
-      style += `min-height: ${this.addUnit(this.minHeight)};`
-      style += `line-height: ${this.addUnit(lineHeight)};`
+      style += `height: ${this.autoHeight ? 'auto' : height + 'px'};`
+      style += `min-height: ${this.minHeight}px;`
+      style += `line-height: ${lineHeight}px;`
       return style
     },
     wrapperStyled({ radius, customStyle, clearable, addUnit }) {
@@ -250,7 +249,7 @@ export default {
         immediate: true
       })
     }
-    if (this.formItem) {
+    if (this.formItem && this.form) {
       this.formItem.name = this.name
       // 初始化校验
       if (this.form.validateTrigger !== 'submit') {
@@ -259,7 +258,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setActiveInput']),
+    ...mapActions('state', ['setActiveInput']),
     onInput(evt) {
       if (this.status === 'clear') return
       const { value } = evt.detail
@@ -269,9 +268,9 @@ export default {
       this.$emit('change', output)
       if (this.form) {
         this.form.onChange({[this.name]: output})
-      }
-      if (this.form.validateTrigger === 'input') {
-        this.formItem.validateForm(output, this.name)
+        if (this.form.validateTrigger === 'input') {
+          this.formItem.validateForm(output, this.name)
+        }
       }
       if (typeof this.formatter === 'function') {
         // 强制转换输入框输出
@@ -297,7 +296,7 @@ export default {
       /* #endif */
       // 表单校验
       let { value } = evt.detail
-      if (this.form.validateTrigger !== 'input') {
+      if (this.form && this.form.validateTrigger !== 'input') {
         this.formItem.validateForm(value, this.name)
       }
       this.$emit('blur', value)

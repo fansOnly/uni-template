@@ -1,36 +1,41 @@
 <template>
   <view class="search-bar-wrapper" :style="wrapperStyled">
-    <view v-if="!isActivated" :class="['search-bar-view', value ? 'is-active' : null]" :style="placeholderStyled"
+    <view v-if="!isActivated" :class="['search-bar-view', value ? 'is-active' : null]" :style="deactivatedStyled"
       @click="showInput = inputFocus = true">
       <et-icon class="search-left__icon" name="search" size="20" />{{ placeholder }}
     </view>
-    <et-input-cell :name="name" type="text" :value="value" :title="label" :height="height"
-      :title-width="label ? labelWidth : 0.1" :radius="radius" :disabled="disabled" :clearable="clearable" :readonly="!isActivated"
-      :maxlength="maxlength" support-view :focus="isFocus" :placeholder="placeholder" :confirm-type="confirmType"
-      :custom-style="inputStyled" cell-style="padding: 0;" @focus="handleFocus" @blur="handleBlur" @input="handleInput"
-      @confirm="onConfirm" @clear="handleClear">
-      <view class="search-left__icon--focus" slot="prefix">
-        <et-icon class="search-left__icon" name="search" size="20" />
+    <view class="search-bar-body">
+      <view v-if="label" class="search-bar__label" :style="{'width': labelWidth +'px'}">{{label}}</view>
+      <view class="search-bar__input">
+        <et-input name="search" type="text" :value="value" :height="height" :placeholder="placeholder" :radius="radius"
+          :maxlength="maxlength" support-view :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger" :readonly="!isActivated" :disabled="disabled"
+          :confirm-type="confirmType" :custom-style="inputStyled" @focus="handleFocus" @blur="handleBlur"
+          @input="handleInput" @confirm="onConfirm" @clear="handleClear">
+          <template #prefix>
+            <view v-if="leftIcon" class="search-left__icon--focus">
+            <et-icon class="search-left__icon" name="search" size="20" />
+          </view>
+          </template>
+        </et-input>
       </view>
-      <template v-if="showAction" slot="extra">
-        <view class="search-action__text" @click="handleCancel">{{ actionText }}</view>
-      </template>
-    </et-input-cell>
+      <view v-if="showAction" class="search-action__text" @click="handleCancel">{{ actionText }}</view>
+    </view>
   </view>
 </template>
 
 <script>
+import { INPUT_HEIGHT_DEF } from '../common/constant'
 export default {
   name: 'et-search-bar',
   props: {
     // 输入框高度
     height: {
       type: [Number, String],
-      default: 36,
+      default: INPUT_HEIGHT_DEF,
     },
-    // 左侧文本 - 透传 cell 组件
+    // 左侧文本
     label: null,
-    // 左侧文本宽度 - 透传 cell 组件
+    // 左侧文本宽度
     labelWidth: {
       type: [String, Number],
       default: 50
@@ -71,11 +76,6 @@ export default {
     focus: {
       type: Boolean,
       default: false
-    },
-    // 是否显示清除图标
-    clearable: {
-      type: Boolean,
-      default: true
     },
     // 将 input 切换为 view 标签，显示为 disabled 样式
     disabled: {
@@ -139,7 +139,7 @@ export default {
       }
       return style
     },
-    placeholderStyled({ background }) {
+    deactivatedStyled({ background }) {
       let style = ''
       style += `background: ${background};`
       return style
@@ -204,6 +204,16 @@ export default {
     color: #383838;
   }
 }
+
+.search-bar-body {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar__input {
+  flex: 1;
+}
+
 .search-left__icon--focus {
   display: flex;
   align-items: center;
@@ -211,6 +221,11 @@ export default {
 
 .search-left__icon {
   margin-right: $uni-spacing-4;
+}
+
+.search-bar__label {
+  padding-right: $uni-spacing-16;
+  color: #383838;
 }
 
 .search-action__text {

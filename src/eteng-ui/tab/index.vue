@@ -268,7 +268,7 @@ export default {
   border-radius: 4rpx;
   transform: translateX(-50%);
   &.is-first {
-    animation: fadeIn ease 100ms;
+    /* animation: fadeIn ease 60ms; */
   }
   &.is-active {
   transition-timing-function: ease;

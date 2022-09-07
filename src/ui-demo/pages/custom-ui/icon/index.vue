@@ -1,7 +1,7 @@
 <template>
   <view class="page-wrapper">
 
-    <demo-block title="基础用法">
+    <demo-block title="基础用法" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <et-icon name="arrow-right" size="20"></et-icon>
