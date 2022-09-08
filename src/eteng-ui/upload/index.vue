@@ -210,6 +210,7 @@ export default {
           camera: this.camera,
         }
         const { tempFiles = [] } = await wxChooseMedia(params)
+        if (!tempFiles.length) return this.$emit('cancel')
         this.tempFiles = tempFiles
         if (this.compress) {
           await this.compressFiles()
@@ -225,7 +226,6 @@ export default {
         }
         this.loading = true
         // 这里进行文件的真实上传
-        // await upload()
         await sleep(1000)
         // debug 模拟上传失败
         this.fileList = this.fileList.map((file, index) => ({...file, status: index == 1 ? 'fail' : 'success'}))
@@ -311,7 +311,7 @@ export default {
   }
   .et-upload__button {
     position: relative;
-    background: #F6F6F6;
+    background: #fff;
   }
   .et-upload__button--flex {
     display: flex;
