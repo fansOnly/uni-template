@@ -17,7 +17,7 @@
           <textarea class="et-textarea" :name="name" :value="formatterValue" :placeholder="placeholder"
             :maxlength="textAreaMaxLength" :cursor-spacing="10" :focus="isFocus" :auto-height="autoHeight"
             :style="inputStyled" :placeholder-style="placeholderStyled" @blur="onBlur" @focus="onFocus"
-            @input="onTextareaInput" />
+            @input="onTextareaChange" />
           <view v-if="showLimit" class="et-textarea-limit">{{ inputValueCount }}/{{ textAreaMaxLength }}</view>
         </view>
       </template>
@@ -41,6 +41,17 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { INPUT_HEIGHT_DEF } from '../common/constant'
+import { addUnit, appendStyles } from '../common/util'
+
+function debounce(fn, delay) {
+  let timer = null
+  return function () {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+    }, delay)
+  }
+}
 
 export default {
   name: 'et-input',
@@ -189,19 +200,19 @@ export default {
       style += `line-height: ${lineHeight}px;`
       return style
     },
-    wrapperStyled({ radius, customStyle, clearable, addUnit }) {
+    wrapperStyled({ radius, customStyle, clearable }) {
       let style = ''
       radius && (style += `border-radius: ${addUnit(radius)};`)
       if (clearable) {
         style += 'padding-right: 0;'
       }
-      return this.mergeStyles([this.style, style, customStyle])
+      return appendStyles([this.style, style, customStyle])
     },
     inputStyled() {
-      return this.mergeStyles([this.style, this.inputStyle])
+      return appendStyles([this.style, this.inputStyle])
     },
     placeholderStyled() {
-      return this.mergeStyles([this.style, this.placeholderStyle])
+      return appendStyles([this.style, this.placeholderStyle])
     },
     isReadonly() {
       return this.readonly || (this.supportView && ((this.activeInputName && this.activeInputName !== 'transition-magic') ? this.activeInputName !== this.name : false))
@@ -234,7 +245,16 @@ export default {
   watch: {
     value: {
       handler(val) {
-        this.initValue = val || ''
+        if (!val) {
+          return (this.initValue = '')
+        }
+        let initValue = val
+        if (this.type === 'textarea') {
+          initValue = initValue.length > this.textAreaMaxLength ? initValue.substring(0, this.textAreaMaxLength) : initValue
+        } else {
+          initValue = initValue.length > this.maxlength ? initValue.substring(0, this.maxlength) : initValue
+        }
+        this.initValue = initValue
       },
       immediate: true
     }
@@ -277,13 +297,13 @@ export default {
         return output
       }
     },
-    onTextareaInput(evt) {
+    onTextareaChange: debounce(function (evt) {
       const { value } = evt.detail
       // fix: textarea 超过最大输入限制后依然可以输入内容
       this.initValue = value.length > this.textAreaMaxLength ? value.substring(0, this.textAreaMaxLength) : value
       this.$emit('input', this.initValue)
       this.$emit('change', this.initValue)
-    },
+    }, 60),
     async onBlur(evt) {
       // fix：H5 下清除按钮消失过快无法触发事件
       /* #ifdef H5 */
