@@ -1,4 +1,4 @@
-import { formatDate } from '../common/util'
+import { formatDate } from '../common/date'
 
 export const ROW_HEIGHT = 54
 

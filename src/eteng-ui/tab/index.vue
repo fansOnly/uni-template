@@ -24,6 +24,8 @@ const { mapState } = createNamespacedHelpers('state')
 import { getRect, requestAnimationFrame } from '@/shared/platform'
 import { compareVersion } from '@/shared'
 import cssVariables from '@/shared/css-variables'
+import { addUnit, appendStyles } from '../common/util'
+
 export default {
   name: 'et-tab',
   props: {
@@ -118,15 +120,15 @@ export default {
   },
   computed: {
     ...mapState(['navHeight']),
-    heightStyled({ height, addUnit }) {
+    heightStyled({ height }) {
       return `height: ${addUnit(height)};`
     },
     tabBarStyled({ shouldFix, isCustomNavigation, zIndex, navHeight, customStyle, heightStyled }) {
       let style = `top: ${shouldFix && isCustomNavigation ? navHeight : 0}px;`
       style += `z-index: ${zIndex};`
-      return this.mergeStyles([style, heightStyled, customStyle])
+      return appendStyles([style, heightStyled, customStyle])
     },
-    baseStyle({ lineWidth, lineHeight, lineBackground, bottom, addUnit }) {
+    baseStyle({ lineWidth, lineHeight, lineBackground, bottom }) {
       let style = ''
       style += `width: ${addUnit(lineWidth)};`
       style += `height: ${lineHeight}px;`

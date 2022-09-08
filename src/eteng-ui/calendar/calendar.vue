@@ -17,7 +17,7 @@
 
 <script>
 import VcMonth from './components/month'
-import { formatDate } from '../common/util'
+import { formatDate } from '../common/date'
 import { WEEKS, getPrevYearMonth, getNextYearMonth, getDateDiff, getOffsetDate } from './util'
 import props from './props'
 

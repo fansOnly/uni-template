@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { formatDate } from '../../common/util'
+import { formatDate } from '../../common/date'
 import { ROW_HEIGHT, getMonthEndDay, hexToRgb, getPrevYearMonth, getNextYearMonth } from '../util'
 import lunar from '../lunar'
 

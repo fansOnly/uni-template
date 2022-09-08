@@ -13,92 +13,93 @@
 </template>
 
 <script>
-  import cssVariables from '@/shared/css-variables'
-  export default {
-    name: 'et-switch',
-    props: {
-      // 默认值
-      value: {
-        type: [String, Number, Boolean],
-        default: true
-      },
-      // 组件尺寸
-      size: {
-        type: [String, Number],
-        default: 28
-      },
-      // 激活的值
-      activeValue: {
-        type: [String,Number,Boolean],
-        default: true
-      },
-      // 未激活的值
-      inactiveValue: {
-        type: [String,Number,Boolean],
-        default: false
-      },
-      // 高亮颜色
-      activeColor: {
-        type: String,
-        default: cssVariables.primaryColor
-      },
-      // 未高亮的颜色
-      inactiveColor: {
-        type: String,
-        default: '#fff'
-      },
-      // 是否禁用
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      // 是否显示提示文案
-      showText: {
-        type: Boolean,
-        default: false
-      },
-      // 开启文案
-      activeText: {
-        type: String,
-        default: 'ON'
-      },
-      // 关闭文案
-      inactiveText: {
-        type: String,
-        default: 'OFF'
-      },
-      // 自定义样式
-      customClass: null
+import { addUnit } from '../common/util'
+import cssVariables from '@/shared/css-variables'
+export default {
+  name: 'et-switch',
+  props: {
+    // 默认值
+    value: {
+      type: [String, Number, Boolean],
+      default: true
     },
-    computed: {
-      checked: {
-        get() {
-          return this.value === this.activeValue
-        },
-        set(val) {
-          this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val)
-        }
+    // 组件尺寸
+    size: {
+      type: [String, Number],
+      default: 28
+    },
+    // 激活的值
+    activeValue: {
+      type: [String, Number, Boolean],
+      default: true
+    },
+    // 未激活的值
+    inactiveValue: {
+      type: [String, Number, Boolean],
+      default: false
+    },
+    // 高亮颜色
+    activeColor: {
+      type: String,
+      default: cssVariables.primaryColor
+    },
+    // 未高亮的颜色
+    inactiveColor: {
+      type: String,
+      default: '#fff'
+    },
+    // 是否禁用
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示提示文案
+    showText: {
+      type: Boolean,
+      default: false
+    },
+    // 开启文案
+    activeText: {
+      type: String,
+      default: 'ON'
+    },
+    // 关闭文案
+    inactiveText: {
+      type: String,
+      default: 'OFF'
+    },
+    // 自定义样式
+    customClass: null
+  },
+  computed: {
+    checked: {
+      get() {
+        return this.value === this.activeValue
       },
-      styled() {
-        let style = ''
-        style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`
-        style += `font-size: ${this.addUnit(this.size)};`
-        return style
-      },
-      textStyled() {
-        let style = ''
-        style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`
-        style += `font-size: ${this.addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`
-        return style
+      set(val) {
+        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val)
       }
     },
-    methods: {
-      click() {
-        if (this.disabled) return
-        this.checked = !this.checked
-      },
+    styled() {
+      let style = ''
+      style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`
+      style += `font-size: ${addUnit(this.size)};`
+      return style
+    },
+    textStyled() {
+      let style = ''
+      style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`
+      style += `font-size: ${addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`
+      return style
     }
+  },
+  methods: {
+    click() {
+      if (this.disabled) return
+      this.checked = !this.checked
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>

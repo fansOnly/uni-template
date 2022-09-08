@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { addUnit, appendStyles } from '../common/util'
 export default {
   name: 'et-button',
   props: {
@@ -120,7 +121,7 @@ export default {
         if (this.round) {
           style += 'border-radius: 999px;'
         } else {
-          style += `border-radius: ${this.addUnit(this.radius)};`
+          style += `border-radius: ${addUnit(this.radius)};`
         }
 
         // 按钮尺寸
@@ -134,7 +135,7 @@ export default {
           style += 'height: 88rpx; font-size: 32rpx;'
         }
       }
-      return this.mergeStyles([style, this.customStyle])
+      return appendStyles([style, this.customStyle])
     },
     buttonStyled() {
       let style = ''
@@ -142,7 +143,7 @@ export default {
       if (this.round) {
         style += 'border-radius: 999px;'
       } else {
-        style += `border-radius: ${this.addUnit(this.radius * (this.plain ? 1 : 2))};`
+        style += `border-radius: ${addUnit(this.radius * (this.plain ? 1 : 2))};`
       }
       return style
     },

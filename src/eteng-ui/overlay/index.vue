@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { appendStyles } from '../common/util'
 import cssVariables from '@/shared/css-variables'
 export default {
   name: 'et-overlay',
@@ -46,7 +47,7 @@ export default {
   computed: {
     styled() {
       let style = `z-index: ${this.zIndex};`
-      return this.mergeStyles([style, this.customStyle])
+      return appendStyles([style, this.customStyle])
     }
   },
   methods: {

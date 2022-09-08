@@ -8,12 +8,19 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex'
-  const { mapState } = createNamespacedHelpers('state')
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('state')
 import { getRect } from '@/shared/platform'
-import { getParentInstance } from '@/shared'
+import { addUnit } from '../common/util'
+
 export default {
   name: 'et-index-anchor',
+  inject: {
+    parent: {
+      from: 'indexBar',
+      default: null
+    }
+  },
   props: {
     // 索引值
     index: {
@@ -27,6 +34,7 @@ export default {
   },
   data() {
     return {
+      addUnit,
       height: 0,
       isSticky: false,
       offsetTop: 0,
@@ -44,7 +52,7 @@ export default {
     }
   },
   async mounted() {
-    this.parent = getParentInstance(this, 'useIndexBar')
+    this.parent.children.push(this)
     this.isCustomNavigation = this.parent.isCustomNavigation
     const rect = await getRect(this, '.index-bar-anchor')
     this.height = rect.height

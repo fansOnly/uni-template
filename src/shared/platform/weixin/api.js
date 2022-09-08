@@ -1,3 +1,5 @@
+import { gte } from '@/shared/version'
+
 /**
  * 统一转换部分微信原生 API 为 Promise 风格
  * @param {*} name API 名称
@@ -30,7 +32,7 @@ function apiToPromise(name, params, showLoading = false, version = '2.20.1') {
     })
   } else {
     console.warn(`[system] ${name}: 您的微信基础库版本过低，请升级至${version}及以上版本`)
-    return {}
+    return { reason: 'low version' }
   }
   /* #endif */
   /* #ifdef H5 */
@@ -40,7 +42,8 @@ function apiToPromise(name, params, showLoading = false, version = '2.20.1') {
 
 /**
  * 检查登录态是否过期
- * @platform Windows  Mac
+ * @property {version}
+ *  @value Windows Mac
  *
  * @returns {boolean}
  */
@@ -51,7 +54,8 @@ export const wxCheckSession = async () => {
 
 /**
  * 获取登录凭证
- * @platform Windows Mac Plugin(2.3.1)
+ * @property {version}
+ *  @value Windows Mac Plugin(2.3.1)
  *
  * @param {number} timeout 超时时间，单位ms
  *
@@ -65,8 +69,9 @@ export const wxLogin = params => {
  * 获取用户信息
  * 小程序用户头像昵称获取规则调整公告
  * https://developers.weixin.qq.com/community/develop/doc/00022c683e8a80b29bed2142b56c01
- * @version 基础库 2.10.4 开始支持
- * @platform Windows Mac Plugin(2.3.1)
+ * @property {version}
+ *  @value 基础库 2.10.4 开始支持
+ *  @value Windows Mac Plugin(2.3.1)
  *
  * @returns {UserInfo} userInfo 用户信息对象
  * @returns {string} rawData 不包括敏感信息的原始数据字符串，用于计算签名
@@ -84,8 +89,9 @@ export const wxGetUserProfile = () => {
 
 /**
  * 调起客户端小程序设置界面
- * @version 基础库 1.0.0 开始支持
- * @platform Mac Plugin(2.10.3)
+ * @property {version}
+ *  @value 基础库 1.0.0 开始支持
+ *  @value Mac Plugin(2.10.3)
  */
 export const wxOpenSetting = () => {
   return apiToPromise('openSetting')
@@ -94,8 +100,9 @@ export const wxOpenSetting = () => {
 /**
  * 调起客户端小程序设置界面
  * 2.3.0 版本开始，用户发生点击行为后，才可以跳转打开设置页，管理授权信息
- * @version 基础库 1.0.0 开始支持
- * @platform Mac Plugin(2.10.3)
+ * @property {version}
+ *  @value 基础库 1.0.0 开始支持
+ *  @value Mac Plugin(2.10.3)
  *
  * @param {boolean} withSubscriptions 是否同时获取用户订阅消息的订阅状态，默认不获取。注意：withSubscriptions 只返回用户勾选过订阅面板中的“总是保持以上选择，不再询问”的订阅消息。
  *
@@ -105,9 +112,9 @@ export const wxOpenSetting = () => {
 export const wxGetSetting = async params => {
   const data = await apiToPromise('getSetting', params)
   const { authSetting } = data
-  const agree = []; const deny = []
+  let agree = []; let deny = []
   if (Object.keys(authSetting).length) {
-    for (const key in authSetting) {
+    for (let key in authSetting) {
       if (authSetting[key]) {
         agree.push(key.split('.')[1])
       } else {
@@ -123,8 +130,9 @@ export const wxGetSetting = async params => {
 /**
  * 获取当前的地理位置、速度
  * 当用户离开小程序后，此接口无法调用
- * @version 基础库 2.17.0 开始支持
- * @platform Windows  Mac Plugin(1.9.6)
+ * @property {version}
+ *  @value 基础库 2.17.0 开始支持
+ *  @value Windows  Mac Plugin(1.9.6)
  *
  * @param {string} type = wgs84  wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
  * @param {boolean} altitude = false 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度(1.6.0)
@@ -140,17 +148,12 @@ export const wxGetSetting = async params => {
  * @returns {number} horizontalAccuracy 水平精度，单位 m
  */
 export const wxGetLocation = params => {
-  return apiToPromise('getLocation', {
-    type: 'wgs84',
-    isHighAccuracy: false,
-    highAccuracyExpireTime: 3000,
-    ...params
-  }, false, '2.17.0')
 }
 
 /**
  * 获取局域网IP地址
- * @version 基础库 2.20.1 开始支持
+ * @property {version}
+ *  @value 基础库 2.20.1 开始支持
  *
  * @returns {string} localip 本机局域网 IP 地址
  * @returns {string} netmask 本机局域网子网掩码(2.24.0 )
@@ -161,8 +164,9 @@ export const wxGetLocalIPAddress = () => {
 
 /**
  * 拍摄或从手机相册中选择图片或视频
- * @version 基础库 2.10.0 开始支持
- * @platform Windows Plugin(2.11.1)
+ * @property {version}
+ *  @value 基础库 2.10.0 开始支持
+ *  @value Windows Plugin(2.11.1)
  *
  * @param {number} count = 9 最多可以选择的文件个数
  * @param {Array.<string>} mediaType = ['image', 'video'] 文件类型
@@ -179,8 +183,9 @@ export const wxChooseMedia = params => {
 
 /**
  * 压缩图片接口，可选压缩质量
- * @version 基础库 2.4.0 开始支持
- * @platform Windows Plugin(2.12.0)
+ * @property {version}
+ *  @value 基础库 2.4.0 开始支持
+ *  @value Windows Plugin(2.12.0)
  *
  * @param {string} src 图片路径，图片的路径，支持本地路径、代码包路径
  * @param {number} quality = 80 压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对 jpg 有效）。
@@ -193,8 +198,9 @@ export const wxCompressImage = params => {
 
 /**
  * 预览图片和视频
- * @version 基础库 2.12.0 开始支持
- * @platform Plugin(2.15.0)
+ * @property {version}
+ *  @value 基础库 2.12.0 开始支持
+ *  @value Windows Mac Plugin(2.15.0)
  *
  * @param {Array.<Object>} sources 需要预览的资源列表
  * @param {number} current 当前显示的资源序号
@@ -205,10 +211,10 @@ export const wxPreviewMedia = params => {
   return apiToPromise('previewMedia', params, false, '2.12.0')
 }
 
-
 /**
  * 预览图片
- * @platform Plugin(1.9.6)
+ * @property {version}
+ *  @value Windows Mac Plugin(1.9.6)
  *
  * @param {Array.<string>} urls 需要预览的资源列表
  * @param {number} current 当前显示的资源序号
@@ -221,7 +227,8 @@ export const wxPreviewImage = params => {
 
 /**
  * 预览图片和视频
- * @platform Windows Mac Plugin(1.9.6)
+ * @property {version}
+ *  @value Windows Mac Plugin(1.9.6)
  *
  * @param {string} src 图片的路径，支持网络路径、本地路径、代码包路径
  *
@@ -245,9 +252,10 @@ export const wxGetImageInfo = params => {
 
 /**
  * 保存图片到系统相册
- * @version 基础库 1.2.0 开始支持
- * @param {scope} 需要 scope.writePhotosAlbum
- * @platform Windows Mac Plugin(1.9.6)
+ * @property {version}
+ *  @value 基础库 1.2.0 开始支持
+ *  @scope 需要 scope.writePhotosAlbum
+ *  @value Windows Mac Plugin(1.9.6)
  *
  * @param {string} filePath 图片文件路径，可以是临时文件路径或永久文件路径 (本地路径) ，不支持网络路径
  */
@@ -257,7 +265,8 @@ export const wxSaveImageToPhotosAlbum = params => {
 
 /**
  * 获取本机支持的 SOTER 生物认证方式
- * @version 基础库 1.5.0 开始支持
+ * @property {version}
+ *  @value 基础库 1.5.0 开始支持
  *
  * @returns {Array.<string>} supportMode 该设备支持的可被 SOTER 识别的生物识别方式
  *                           fingerPrint 指纹识别
@@ -270,7 +279,8 @@ export const wxCheckIsSupportSoterAuthentication = () => {
 
 /**
  * 获取设备内是否录入如指纹等生物信息的接口
- * @version 基础库 1.6.0 开始支持
+ * @property {version}
+ *  @value 基础库 1.6.0 开始支持
  *
  * @param {string} checkAuthMode 认证方式
  *                 fingerPrint 指纹识别
@@ -283,7 +293,8 @@ export const wxCheckIsSoterEnrolledInDevice = params => {
 
 /**
  * 获取设备内是否录入如指纹等生物信息的接口
- * @version 基础库 1.5.0 开始支持
+ * @property {version}
+ *  @value 基础库 1.5.0 开始支持
  *
  * @param {Array.<string>} requestAuthModes 请求使用的可接受的生物认证方式
  *                         fingerPrint 指纹识别
@@ -302,7 +313,8 @@ export const wxStartSoterAuthentication = params => {
 
 /**
  * 检查设备是否支持人脸检测
- * @version 基础库 2.20.1 开始支持
+ * @property {version}
+ *  @value 基础库 2.20.1 开始支持
  *
  * @param {string} name 姓名
  * @param {string} idCardNumber 身份证号码
@@ -315,7 +327,8 @@ export const wxCheckIsSupportFacialRecognition = () => {
 
 /**
  * 请求进行基于生物识别的人脸核身
- * @version 基础库 2.20.1 开始支持
+ * @property {version}
+ *  @value 基础库 2.20.1 开始支持
  *
  * @param {string} name 姓名
  * @param {string} idCardNumber 身份证号码
@@ -323,15 +336,19 @@ export const wxCheckIsSupportFacialRecognition = () => {
  * @param {number} checkAliveType 人脸核验的交互方式，默认读数字（见表1） 2	先检查是否可以屏幕闪烁，不可以则自动为读数字
  */
 export const wxStartFacialRecognitionVerify = params => {
-  // startFacialRecognitionVerify
-  return apiToPromise('startFacialRecognitionVerifyAndUploadVideo', params, false, '2.20.1')
+  if (wx.startFacialRecognitionVerify) {
+    return apiToPromise('startFacialRecognitionVerify', params, false, '2.20.1')
+  } else if (wx.startFacialRecognitionVerifyAndUploadVideo) {
+    return apiToPromise('startFacialRecognitionVerifyAndUploadVideo', params, false, '2.20.1')
+  }
 }
 
 /**
  * 下载文件资源到本地
  * 单次下载允许的最大文件为 200MB
- * @version 基础库 2.20.1 开始支持
- * @platform Windows Mac Plugin(1.9.6)
+ * @property {version}
+ *  @value 基础库 2.20.1 开始支持
+ *  @value Windows Mac Plugin(1.9.6)
  *
  * @param {string} url 下载资源的 url
  * @param {Object} header HTTP 请求的 Header，Header 中不能设置 Referer
@@ -349,6 +366,10 @@ export const wxDownloadFile = params => {
 
 /**
  * 微信打开文档，支持 pdf docs
+ * @property {version}
+ *  @value 基础库 all
+ *  @value Windows Mac Plugin(2.15.0)
+ *
  * @param {*} url 文档地址
  * @param {*} filename 文件名
  * @param {*} fileType 文件类型
@@ -364,12 +385,43 @@ export const wxOpenFile = async (url, filename, fileType = 'pdf') => {
 }
 
 /**
- * 将本地资源上传到开发者服务器
- *
- * @param {string} url 开发者服务器url
- * @param {string} file 要上传的文件对象。
- *
+ * 批量添加卡券
+ * @property {version}
+ *  @value 基础库 1.1.0 开始支持
  */
-export const wxUploadFile = params => {
-  return apiToPromise('uploadFile', params, false, '2.20.1')
+export const wxAddCard = async params => {
+  return apiToPromise('addCard', params)
+}
+
+/**
+ * 打开小程序
+ * @property {version}
+ *  @value 基础库 1.3.0 开始支持
+ *  @value Windows Mac Plugin(2.118.1)
+ */
+export const wxNavigateToMiniProgram = params => {
+  return apiToPromise('navigateToMiniProgram', params)
+}
+
+/**
+ * 打开半屏小程序
+ * @property {version}
+ *  @value 基础库 2.20.1 开始支持
+ */
+export const wxOpenEmbeddedMiniProgram = async params => {
+  if (gte('2.20.1')) {
+    return apiToPromise('openEmbeddedMiniProgram', params)
+  } else {
+    return wxNavigateToMiniProgram(params)
+  }
+}
+
+/**
+ * 获取群分享信息
+ * @property {version}
+ *  @value 基础库 1.1.0 开始支持
+ *  @value Windows Mac Plugin(2.1.0)
+ */
+export const wxGetShareInfo = async params => {
+  return apiToPromise('getShareInfo', params)
 }

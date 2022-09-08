@@ -19,9 +19,16 @@
 </template>
 
 <script>
-import { getParentInstance } from '@/shared'
+import { addUnit, appendStyles } from '../common/util'
+
 export default {
   name: 'et-cell',
+  inject: {
+    parent: {
+      from: 'cellGroup',
+      default: null
+    }
+  },
   props: {
     // 左侧标题
     title: null,
@@ -84,16 +91,16 @@ export default {
       let style = ''
       const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px'
       style += `height: ${lineHeight};`
-      return this.mergeStyles([style, this.customStyle, this.parent?.customStyle])
+      return appendStyles([style, this.customStyle, this.parent?.customStyle])
     },
     titleStyled() {
       let style = ''
       if (this.titleWidth) {
-        style += `min-width: ${this.addUnit(this.titleWidth)};`
+        style += `min-width: ${addUnit(this.titleWidth)};`
       } else {
         style += 'flex: 1;'
       }
-      return this.mergeStyles([style, this.titleStyle, this.parent?.titleStyle])
+      return appendStyles([style, this.titleStyle, this.parent?.titleStyle])
     },
     rightStyled() {
       return Number(this.titleWidth) === 0 ? '' : 'flex: 1;'
@@ -103,23 +110,20 @@ export default {
       if (this.isLinkActive && this.linkActiveColor) {
         style += `color: ${this.linkActiveColor};`
       }
-      return this.mergeStyles([style, this.textStyle, this.parent?.textStyle])
+      return appendStyles([style, this.textStyle, this.parent?.textStyle])
     },
     customClasses() {
-      return this.mergeStyles([this.customClass, this.parent?.customClass])
+      return appendStyles([this.customClass, this.parent?.customClass])
     },
     titleClasses() {
-      return this.mergeStyles([this.titleClass, this.parent?.titleClass])
+      return appendStyles([this.titleClass, this.parent?.titleClass])
     },
     textClasses() {
-      return this.mergeStyles([this.textClass, this.parent?.textClass])
+      return appendStyles([this.textClass, this.parent?.textClass])
     },
     isBorder() {
       return this.border === null ? this.parent?.border : this.border
     }
-  },
-  created() {
-    this.parent = getParentInstance(this, 'useCellGroup')
   },
   methods: {
     onClick(evt) {

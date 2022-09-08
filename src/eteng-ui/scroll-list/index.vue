@@ -20,65 +20,65 @@
 </template>
 
 <script>
-  export default {
-    name: 'et-scroll-list',
-    props: {
-      // 初次加载数据
-      firstLoad: {
-        type: Boolean,
-        default: true
-      },
-      // 是否加载中
-      isLoading: {
-        type: Boolean,
-        default: false
-      },
-      // 数据加载是否已完成
-      finished: {
-        type: Boolean,
-        default: false
-      },
-      // 是否空数据
-      empty: {
-        type: Boolean,
-        default: false
-      },
-      // 是否空数据
-      emptyText: {
-        type: String,
-        default: '暂无数据'
-      },
-      // 显示图标 - 透传 empty 组件
-      icon: {
-        type: String,
-        default: 'icon/icon-empty.png'
-      },
-      // 请求完成显示文本
-      finishText: {
-        type: String,
-        default: '没有更多了'
-      },
-      // 请求中显示文本
-      loadingText: {
-        type: String,
-        default: '加载中...'
-      },
-      // 自定义空状态样式
-      emptyStyle: {
-        type: String,
-        default: 'padding-top: 24rpx'
-      }
+export default {
+  name: 'et-scroll-list',
+  props: {
+    // 初次加载数据
+    firstLoad: {
+      type: Boolean,
+      default: true
     },
-    computed: {
-      loadingContent() {
-        if (this.finished === true) {
-          return this.finishText
-        }
-
-        return this.isLoading === true ? this.loadingText : '加载完成'
-      },
+    // 是否加载中
+    isLoading: {
+      type: Boolean,
+      default: false
+    },
+    // 数据加载是否已完成
+    finished: {
+      type: Boolean,
+      default: false
+    },
+    // 是否空数据
+    empty: {
+      type: Boolean,
+      default: false
+    },
+    // 是否空数据
+    emptyText: {
+      type: String,
+      default: '暂无数据'
+    },
+    // 显示图标 - 透传 empty 组件
+    icon: {
+      type: String,
+      default: 'icon/icon-empty.png'
+    },
+    // 请求完成显示文本
+    finishText: {
+      type: String,
+      default: '没有更多了'
+    },
+    // 请求中显示文本
+    loadingText: {
+      type: String,
+      default: '加载中...'
+    },
+    // 自定义空状态样式
+    emptyStyle: {
+      type: String,
+      default: 'padding-top: 24rpx'
     }
+  },
+  computed: {
+    loadingContent() {
+      if (this.finished === true) {
+        return this.finishText
+      }
+
+      return this.isLoading === true ? this.loadingText : '加载完成'
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>

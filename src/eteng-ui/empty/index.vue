@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { appendStyles } from '../common/util'
 export default {
   name: 'et-empty',
   props: {
@@ -51,7 +52,7 @@ export default {
     customStyled({ customStyle, background }) {
       let style = ''
       style += `background: ${background};`
-      return this.mergeStyles([style, customStyle])
+      return appendStyles([style, customStyle])
     }
   }
 }

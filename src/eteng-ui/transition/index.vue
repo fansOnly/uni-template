@@ -5,7 +5,9 @@
 </template>
 
 <script>
-import transition from '@/mixins/transition'
+import transition from '../mixins/transition'
+import { appendStyles } from '../common/util'
+
 export default {
   name: 'et-transition',
   mixins: [transition],
@@ -25,7 +27,7 @@ export default {
       let style = ''
       style += `transition-duration: ${this.currentDuration}ms;`
       if (!this.display) style += 'display: none;'
-      return this.mergeStyles([style, this.customStyle])
+      return appendStyles([style, this.customStyle])
     }
   }
 }

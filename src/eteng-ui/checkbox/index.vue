@@ -8,9 +8,14 @@
 </template>
 
 <script>
-import { getParentInstance } from '@/shared'
 export default {
   name: 'et-checkbox',
+  inject: {
+    parent: {
+      from: 'checkboxGroup',
+      default: null
+    }
+  },
   props: {
     // 绑定的属性名
     name: null,
@@ -76,9 +81,6 @@ export default {
       },
     },
   },
-  created() {
-    this.getCheckboxGroup()
-  },
   methods: {
     onClickIcon() {
       this.$emit('click-icon')
@@ -90,9 +92,6 @@ export default {
       if (this.labelDisabled) return
       this.checked = !this.checked
     },
-    getCheckboxGroup() {
-      this.parent = getParentInstance(this, 'useCheckboxGroup')
-    }
   },
 }
 </script>

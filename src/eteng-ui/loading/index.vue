@@ -14,48 +14,49 @@
 </template>
 
 <script>
-  export default {
-    name: 'et-loading',
-    props: {
-      // 加载类型
-      type: {
-        type: String,
-        default: 'circular',
-        validator(value) {
-          return ['circular', 'spinner', 'shine'].includes(value)
-        }
-      },
-      // 垂直布局
-      vertical: {
-        type: Boolean,
-        default: false
-      },
-      // 图标及文案颜色
-      color: {
-        type: String,
-        default: '#969799'
-      },
-      // 图标大小
-      size: {
-        type: [String, Number],
-        default: 20
-      },
-    },
-    data() {
-      return {
-        array4: Array.from({ length: 4 }),
-        array12: Array.from({ length: 12 }),
+import { addUnit } from '../common/util'
+export default {
+  name: 'et-loading',
+  props: {
+    // 加载类型
+    type: {
+      type: String,
+      default: 'circular',
+      validator(value) {
+        return ['circular', 'spinner', 'shine'].includes(value)
       }
     },
-    computed: {
-      styled() {
-        let style = ''
-        style += `width: ${this.addUnit(this.size)}; height: ${this.addUnit(this.size)};`
-        style += `color: ${this.color};`
-        return style
-      }
+    // 垂直布局
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    // 图标及文案颜色
+    color: {
+      type: String,
+      default: '#969799'
+    },
+    // 图标大小
+    size: {
+      type: [String, Number],
+      default: 20
+    },
+  },
+  data() {
+    return {
+      array4: Array.from({ length: 4 }),
+      array12: Array.from({ length: 12 }),
+    }
+  },
+  computed: {
+    styled() {
+      let style = ''
+      style += `width: ${addUnit(this.size)}; height: ${addUnit(this.size)};`
+      style += `color: ${this.color};`
+      return style
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

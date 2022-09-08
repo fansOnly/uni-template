@@ -14,7 +14,7 @@
       <view>{{ radio1 }}</view>
       <et-radio-group v-model="radio1" direction="horizontal">
         <et-radio name="a" custom-style="margin-right: 8px;">单选框a</et-radio>
-        <et-radio slot="title" name="b">单选框b - et-cell 组件包裹</et-radio>
+        <et-radio name="b">单选框b - et-cell 组件包裹</et-radio>
         <et-radio name="c">单选框c</et-radio>
       </et-radio-group>
     </demo-block>

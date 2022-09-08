@@ -22,8 +22,9 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('state')
-import transition from '@/mixins/transition'
+import transition from '../mixins/transition'
 import cssVariables from '@/shared/css-variables'
+import { addUnit, appendStyles } from '../common/util'
 
 export default {
   name: 'et-popup',
@@ -141,26 +142,26 @@ export default {
         return 'fade'
       }
     },
-    styled({ offset, bottom, zIndex, currentDuration, display, customStyle, navHeight, useCustomNav, addUnit}) {
+    styled({ offset, bottom, zIndex, currentDuration, display, customStyle, navHeight, useCustomNav}) {
       let style = `z-index: ${zIndex};`
       style += `margin-top: calc(${addUnit(offset, 'px')} + ${useCustomNav ? navHeight : 0}px);`
       if (bottom) style += `margin-bottom: ${addUnit(bottom, 'px')};`
       style += `transition-duration: ${currentDuration}ms;`
       if (!display) style += 'display: none;'
-      return this.mergeStyles([style, customStyle])
+      return appendStyles([style, customStyle])
     },
-    bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle, addUnit }) {
+    bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
       let style = ''
       style += `height: calc(${unitedHeight} - 120rpx);`
       style += `width: calc(${unitedWidth} - 120rpx);`
       style += `max-height: ${addUnit(maxHeight)};`
       style += `min-height: ${addUnit(minHeight)};`
-      return this.mergeStyles([style, bodyStyle])
+      return appendStyles([style, bodyStyle])
     },
-    unitedHeight({ height, addUnit }) {
+    unitedHeight({ height }) {
       return height === 'auto' ? height : addUnit(height, 'vh')
     },
-    unitedWidth({ width, addUnit }) {
+    unitedWidth({ width }) {
       return width === 'auto' ? width : addUnit(width, 'vh')
     },
   },

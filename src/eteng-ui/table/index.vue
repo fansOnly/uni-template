@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { addUnit, appendStyles } from '../common/util'
 import cssVariables from '@/shared/css-variables'
 
 export default {
@@ -82,10 +83,10 @@ export default {
       if (borderColor) style += `border-color: ${borderColor};`
       return style
     },
-    theadStyled({ background, radius, theadStyle, addUnit }) {
+    theadStyled({ background, radius, theadStyle }) {
       let style = `background: ${background};`
       if (radius) style += `border-radius: ${addUnit(radius / 2)} ${addUnit(radius / 2)} 0 0;`
-      return this.mergeStyles([style, theadStyle])
+      return appendStyles([style, theadStyle])
     },
   },
   created() {
@@ -95,7 +96,7 @@ export default {
     this.tableHeaders = this.children.map(child => {
       // Bug: :style 不支持 computed = fn(item) 语法
       let style = `align-items: ${child.align === 'left' ? 'flex-start' : child.align === 'right' ? 'flex-end' : child.align};`
-      style += `width: ${child.width ? this.addUnit(child.width) : 'auto'};`
+      style += `width: ${child.width ? addUnit(child.width) : 'auto'};`
       style += `flex: ${child.width ? '0 0 auto' : '1 1 0'};`
       if (this.borderColor) style += `border-color: ${this.borderColor};`
 

@@ -7,6 +7,11 @@
 <script>
 export default {
   name: 'et-checkbox-group',
+  provide() {
+    return {
+      checkboxGroup: this
+    }
+  },
   props: {
     // 默认选中的值
     value: {
@@ -26,7 +31,6 @@ export default {
       this.$emit('input', result)
       this.$emit('change', result)
     },
-    useCheckboxGroup() {}
   }
 }
 </script>

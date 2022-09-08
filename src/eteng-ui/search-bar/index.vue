@@ -25,6 +25,7 @@
 
 <script>
 import { INPUT_HEIGHT_DEF } from '../common/constant'
+import { addUnit } from '../common/util'
 export default {
   name: 'et-search-bar',
   props: {
@@ -131,7 +132,7 @@ export default {
     isFocus() {
       return this.focus || this.inputFocus
     },
-    wrapperStyled({ isActivated, height, radius, round, addUnit }) {
+    wrapperStyled({ isActivated, height, radius, round }) {
       let style = ''
       style += `height: ${addUnit(height)};`
       if (!isActivated) {

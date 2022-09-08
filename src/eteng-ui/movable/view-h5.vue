@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { addUnit } from '../common/util'
 export default {
   name: 'moveable-view-h5',
   props: {
@@ -25,8 +26,8 @@ export default {
     customStyle: null
   },
   computed: {
-    styled({ x, y, customStyle, addUnit }) {
-      console.log('x, y: ', x, y);
+    styled({ x, y, customStyle }) {
+      console.log('x, y: ', x, y)
       let style = ''
       style += `left: ${addUnit(x)};`
       style += `top: ${addUnit(y)};`

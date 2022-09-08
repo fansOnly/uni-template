@@ -10,6 +10,7 @@
 
 <script>
 const path = require('path')
+import { addUnit, appendStyles } from '../common/util'
 
 export default {
   name: 'et-image',
@@ -92,7 +93,7 @@ export default {
     }
   },
   computed: {
-    styled({ width, height, radius, block, round, addUnit, customStyle }) {
+    styled({ width, height, radius, block, round, customStyle }) {
       let style = ''
       style += `width: ${addUnit(width)};`
       // fix：修复编译 H5 图片宽度被压缩
@@ -108,9 +109,9 @@ export default {
       } else {
         style += `border-radius: ${addUnit(radius)};`
       }
-      return this.mergeStyles([style, customStyle])
+      return appendStyles([style, customStyle])
     },
-    failStyled({ height, addUnit }) {
+    failStyled({ height }) {
       let style = ''
       style += `height: ${addUnit(height)};`
       style += `font-size: ${addUnit(Math.max(Math.min(16, height / 5), 10))};`

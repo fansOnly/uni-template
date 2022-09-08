@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import mergeStyle from '../common/merge-style'
+import { mergeStyle, addUnit } from '../common/util'
 import { LABEL_WIDTH_DEF } from '../common/constant'
 import { isObject } from '@/shared'
 
 export default {
-  name: 'et-form',
+  name: 'et-form-item',
   provide() {
     return {
       formItem: this
@@ -97,7 +97,7 @@ export default {
       (this.form.labelWidth && this.form.labelWidth !== LABEL_WIDTH_DEF ? this.form.labelWidth : null) ??
       LABEL_WIDTH_DEF
     this.style += `text-align: ${this.labelAlign};`
-    this.style += `width: ${this.addUnit(width)};`
+    this.style += `width: ${addUnit(width)};`
     this.style += mergeStyle(this.form.labelStyle, this.labelStyle)
   },
   methods: {

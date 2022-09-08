@@ -43,8 +43,9 @@
 
 <script>
 import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/shared/platform/weixin/api'
-import { sleep } from '@/shared'
-import { isEmpty } from '@/shared'
+import { sleep, isEmpty } from '@/shared'
+import { addUnit } from '../common/util'
+
 export default {
   name: 'et-upload',
   props: {
@@ -153,7 +154,7 @@ export default {
     }
   },
   computed: {
-    style({ width, height, addUnit }) {
+    style({ width, height }) {
       let style = ''
       style += `width: ${addUnit(width)};`
       style += `height: ${addUnit(height)};`

@@ -7,6 +7,11 @@
 <script>
 export default {
   name: 'et-cell-group',
+  provide() {
+    return {
+      cellGroup: this
+    }
+  },
   props: {
     // 是否显示边框线
     border: null,
@@ -22,9 +27,6 @@ export default {
     titleStyle: null,
     // 自定义右侧文本样式
     textStyle: null
-  },
-  methods: {
-    useCellGroup() { }
   },
 }
 </script>

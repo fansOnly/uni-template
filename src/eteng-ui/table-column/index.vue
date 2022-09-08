@@ -1,5 +1,5 @@
 <template>
-  <!-- this will create a empty wxml file -->
+  <!-- this will compile to a empty wxml file -->
   <div></div>
 </template>
 <script>

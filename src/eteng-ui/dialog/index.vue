@@ -2,7 +2,7 @@
   <et-popup :visible="visible" :round="round" :duration="duration" :close-on-click-overlay="closeOnClickOverlay" :closeable="closeable" :close-icon-position="closeIconPosition" :custom-style="style" @click-overlay="clickOverlay" @close="close">
     <view class="et-dialog-wrapper">
       <view class="et-dialog-header">
-        <view class="et-dialog-header__title" v-if="title">{{title}}</view>
+        <view v-if="title" class="et-dialog-header__title">{{title}}</view>
         <slot v-else name="header"></slot>
       </view>
       <view class="et-dialog-body">
@@ -30,139 +30,140 @@
 </template>
 
 <script>
-  export default {
-    name: 'et-dialog',
-    props: {
-      // 显示开关 - 透传 popup 组件
-      visible: {
-        type: Boolean,
-        default: false
-      },
-      // 弹窗标题
-      title: null,
-      // 弹窗内容
-      content: null,
-      // 内容居中
-      center: {
-        type: Boolean,
-        default: false
-      },
-      // 弹窗 Y 轴位移 - 透传 popup 组件
-      offsetTop: {
-        type: [String, Number],
-        default: '-10%'
-      },
-      // 弹窗动画时长 ms - 透传 popup 组件
-      duration: {
-        type: Number,
-        default: 300
-      },
-      // 是否显示圆角 - 透传 popup 组件
-      round: {
-        type: Boolean,
-        default: true
-      },
-      // 是否显示关闭图标 - 透传 popup 组件
-      closeable: {
-        type: Boolean,
-        default: false
-      },
-      // 关闭图标位置 - 透传 popup 组件
-      closeIconPosition: {
-        type: String,
-        default: 'right'
-      },
-      // 是否反转按钮顺序，默认左取消，右确认
-      reverse: {
-        type: Boolean,
-        default: false
-      },
-      // 显示确认按钮
-      showConfirm: {
-        type: Boolean,
-        default: true
-      },
-      // 显示取消按钮
-      showCancel: {
-        type: Boolean,
-        default: true
-      },
-      // 确认按钮颜色
-      confirmButtonColor: {
-        type: String,
-        default: '#3264DC'
-      },
-      // 取消按钮颜色
-      cancelButtonColor: {
-        type: String,
-        default: '#252525'
-      },
-      // 确认按钮文案
-      confirmButtonText: {
-        type: String,
-        default: '确认'
-      },
-      // 取消按钮文案
-      cancelButtonText: {
-        type: String,
-        default: '取消'
-      },
-      // 点击遮罩是否关闭菜单
-      closeOnClickOverlay: {
-        type: Boolean,
-        default: false
-      },
-      // 弹窗关闭前的回调
-      beforeClose: null,
-      // 自定义组件样式
-      customStyle: null,
+import { appendStyles } from '../common/util'
+export default {
+  name: 'et-dialog',
+  props: {
+    // 显示开关 - 透传 popup 组件
+    visible: {
+      type: Boolean,
+      default: false
     },
-    data() {
-      return {
-        cancelLoading: false,
-        confirmLoading: false,
-      }
+    // 弹窗标题
+    title: null,
+    // 弹窗内容
+    content: null,
+    // 内容居中
+    center: {
+      type: Boolean,
+      default: false
     },
-    computed: {
-      style() {
-        let style = ''
-        if (this.offsetTop) style += `margin-top: ${this.offsetTop};`
-        return this.mergeStyles([style, this.customStyle])
-      }
+    // 弹窗 Y 轴位移 - 透传 popup 组件
+    offsetTop: {
+      type: [String, Number],
+      default: '-10%'
     },
-    methods: {
-      async onConfirm() {
-        let result = true
-        if (this.beforeClose && typeof this.beforeClose === 'function') {
-          this.confirmLoading = true
-          result = await this.beforeClose({confirm: true})
-          this.confirmLoading = false
-        }
-        if (!result) return
-        this.$emit('update:visible', false)
-        this.$emit('confirm')
-      },
-      async onCancel() {
-        let result = true
-        if (this.beforeClose && typeof this.beforeClose === 'function') {
-          this.cancelLoading = true
-          result = await this.beforeClose({cancel: true})
-          this.cancelLoading = false
-        }
-        if (!result) return
-        this.$emit('update:visible', false)
-        this.$emit('cancel')
-      },
-      clickOverlay() {
-        if (!this.closeOnClickOverlay) return
-        this.close()
-      },
-      close() {
-        this.$emit('close')
-        this.$emit('update:visible', false)
-      },
+    // 弹窗动画时长 ms - 透传 popup 组件
+    duration: {
+      type: Number,
+      default: 300
+    },
+    // 是否显示圆角 - 透传 popup 组件
+    round: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示关闭图标 - 透传 popup 组件
+    closeable: {
+      type: Boolean,
+      default: false
+    },
+    // 关闭图标位置 - 透传 popup 组件
+    closeIconPosition: {
+      type: String,
+      default: 'right'
+    },
+    // 是否反转按钮顺序，默认左取消，右确认
+    reverse: {
+      type: Boolean,
+      default: false
+    },
+    // 显示确认按钮
+    showConfirm: {
+      type: Boolean,
+      default: true
+    },
+    // 显示取消按钮
+    showCancel: {
+      type: Boolean,
+      default: true
+    },
+    // 确认按钮颜色
+    confirmButtonColor: {
+      type: String,
+      default: '#3264DC'
+    },
+    // 取消按钮颜色
+    cancelButtonColor: {
+      type: String,
+      default: '#252525'
+    },
+    // 确认按钮文案
+    confirmButtonText: {
+      type: String,
+      default: '确认'
+    },
+    // 取消按钮文案
+    cancelButtonText: {
+      type: String,
+      default: '取消'
+    },
+    // 点击遮罩是否关闭菜单
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: false
+    },
+    // 弹窗关闭前的回调
+    beforeClose: null,
+    // 自定义组件样式
+    customStyle: null,
+  },
+  data() {
+    return {
+      cancelLoading: false,
+      confirmLoading: false,
     }
+  },
+  computed: {
+    style() {
+      let style = ''
+      if (this.offsetTop) style += `margin-top: ${this.offsetTop};`
+      return appendStyles([style, this.customStyle])
+    }
+  },
+  methods: {
+    async onConfirm() {
+      let result = true
+      if (this.beforeClose && typeof this.beforeClose === 'function') {
+        this.confirmLoading = true
+        result = await this.beforeClose({confirm: true})
+        this.confirmLoading = false
+      }
+      if (!result) return
+      this.$emit('update:visible', false)
+      this.$emit('confirm')
+    },
+    async onCancel() {
+      let result = true
+      if (this.beforeClose && typeof this.beforeClose === 'function') {
+        this.cancelLoading = true
+        result = await this.beforeClose({cancel: true})
+        this.cancelLoading = false
+      }
+      if (!result) return
+      this.$emit('update:visible', false)
+      this.$emit('cancel')
+    },
+    clickOverlay() {
+      if (!this.closeOnClickOverlay) return
+      this.close()
+    },
+    close() {
+      this.$emit('close')
+      this.$emit('update:visible', false)
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>
