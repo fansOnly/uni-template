@@ -34,7 +34,6 @@ export default {
     return {
       list,
       visible2: false,
-      text: '11'
     }
   },
   async onLoad() {
@@ -49,11 +48,11 @@ export default {
     this.pageReady = true
   },
   onHide() {
-    console.log('on page hide')
+    console.log('on home page hide')
   },
   methods: {
     handleRouter(url, path) {
-      if (path === 'navigation') {
+      if (path === '/navigation') {
         this.$wxRouter.switchTab({ url, query: { a: 1, b: '"c": {d: "2"}' } })
       } else {
         this.$wxRouter.navigateTo({ url, query: { a: 1, b: '"c": {d: "2"}' } })

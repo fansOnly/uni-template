@@ -5,7 +5,7 @@ let wxRouter = {}
 const methods = ['navigateTo', 'redirectTo', 'reLaunch', 'switchTab']
 
 methods.forEach(method => {
-  wxRouter[method] = function ({url, query}) {
+  wxRouter[method] = function ({url, query = {}}) {
     store.dispatch('router/setNextRoute', { path: url, query })
     uni[method]({url})
     console.log('[debug] 页面传参: ', query)
