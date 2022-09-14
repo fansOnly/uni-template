@@ -106,7 +106,7 @@ export default {
   z-index: 2;
 
   &.fade {
-    animation-delay: 150ms;
+    animation-delay: 200ms;
     animation-timing-function: ease-in-out;
     animation-name: fadeOut;
     animation-fill-mode: forwards;

@@ -6,28 +6,29 @@
       <view>{{item}}</view>
     </view>
     <et-button block @click="refresh">刷新页面</et-button>
-    <et-button block @click="getPath">获取页面路径</et-button>
-    <et-button block @click="getQuery">获取页面参数</et-button>
-    <et-button block @click="clearQuery">清除页面参数</et-button>
+    <!-- <et-button block @click="getPath">获取页面路径</et-button> -->
+    <!-- <et-button block @click="getQuery">获取页面参数</et-button> -->
+    <!-- <et-button block @click="clearQuery">清除页面参数</et-button> -->
   </view>
 </template>
 
 <script>
 import page from '@/mixins/page'
 export default {
+  mixins: [page],
   data() {
     return {
       count: 0,
       query: {}
     }
   },
-  mixins: [page],
   computed: {
     queryList() {
-      return Object.entries(this.$pageQuery)
+      return Object.entries(this.nextRoute.query)
     }
   },
   async onLoad(options) {
+    console.log('[debug] url 携带参数: ', options)
     await this.$onLaunched
     this.count++
   },
@@ -35,18 +36,9 @@ export default {
     await this.$onLaunched
   },
   methods: {
-      refresh() {
-        this.$reload()
-      },
-      getPath() {
-         this.$getCurrentPage()
-      },
-      getQuery() {
-        console.log('[info] 获取页面参数', this.$pageQuery)
-      },
-      clearQuery() {
-        this.$pageQuery = {}
-      }
+    refresh() {
+      this.$wxRouter.reload()
+    }
   }
 }
 </script>

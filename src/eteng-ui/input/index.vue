@@ -297,6 +297,10 @@ export default {
         return output
       }
     },
+    /**
+     * Bug: 安卓下文本框文字较多时，长按键盘删除按钮，会导致文本框内容抖动
+     * Fix： debounce
+     */
     onTextareaChange: debounce(function (evt) {
       const { value } = evt.detail
       // fix: textarea 超过最大输入限制后依然可以输入内容

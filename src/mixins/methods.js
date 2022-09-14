@@ -87,32 +87,17 @@ export default {
       }
     },
     /**
-     * 数值单位格式化
-     * @param {string/number} value
-     * @param {string} unit [%, vw, vh] 默认支持%单位，支持转换为 vw / vh
-     */
-    // addUnit(value, unit = '') {
-    //   const regexp = /^-?\d+(\.\d+)?$/
-    //   return regexp.test(String(value)) ? (value * 2) + 'rpx' : String(value).replace(
-    //     /^(\d+)([%|vw|vh|rpx|px])$/g, unit ? `$1${unit}` : '$1$2')
-    // },
-    /**
-     * 合并自定义类/样式
-     */
-    // mergeStyles(styles) {
-    //   return styles.filter(Boolean).reduce((acc, cur) => `${acc} ${cur}`, '')
-    // },
-    /**
-     * 日期转换  20220203----2022-02-03/
-     * @param {string/number} value
+     * 日期转换
+     * @param {string|number} val
+     * @param {string} str
      *
+     * @example
+     *  1. transformDate(20220202) => 2022-02-02
+     *  2. transformDate(20220202, '年月日') => 2022年02月02日
      */
-    formatDateType(value, type) {
-      if (value && type == '1') {
-        return value.slice(0, 4) + '-' + value.slice(4, 6) + '-' + value.slice(6, 8)
-      } else if (value && type == '2') {
-        return value.slice(0, 4) + '年' + value.slice(4, 6) + '月' + value.slice(6, 8) + '日'
-      }
-    },
+    transformDate(val, str = '-') {
+      str = str.length === 1 ? [str, str, ''] : str
+      return String(val).replace(/(\d{4})(\d{2})(\d{2})/, `$1${str[0]}$2${str[1]}$3${str[2]}`)
+    }
   }
 }

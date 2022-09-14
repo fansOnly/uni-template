@@ -1,73 +1,68 @@
 <script>
-import { shouldUpdateWx } from '@/shared'
+import store from '@/store'
+import checkUpdate from '@/shared/platform/weixin/update'
+
 export default {
   onLaunch: function (options) {
-    console.log('[info] App Launch')
-    console.log('[debug] 环境变量', process.env)
-    console.log('[debug] 系统信息', wx.getSystemInfoSync())
+    console.log('[debug] App Launch')
+    console.log('[info] 环境变量', process.env)
+    console.log('[info] 系统信息', wx.getSystemInfoSync())
     console.log('[info] 启动参数', options)
-    const { path, query, scene, referrerInfo } = options
 
-    this.$isResolve()
+    // 带 shareTicket 分享场景 1044
+    if (options.shareTicket) {
+      store.dispatch('share/setShareTicket', options.shareTicket)
+    }
 
     /* #ifdef MP-WEIXIN */
     // 开启调试模式 - 上线后需要关闭
     wx.setEnableDebug({enableDebug: true})
     /* #endif */
 
-    /* #ifdef MP-WEIXIN */
-    if (shouldUpdateWx()) {
-      uni.showModal({
-        title: '更新提示',
-        content: '您的微信客户端版本过低，是否前往更新？',
-        success: function (res) {
-          if (res.confirm) {
-            wx.updateWeChatApp({
-              success(res) {
-                console.log('[info] 更新客户端版本', res)
-              }
-            })
-          }
-        }
-      })
-    }
+    // 加载网络字体
+    // uni.loadFontFace({
+    //   family: 'Bitstream Vera Serif Bold',
+    //   source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    //   complete(res) {
+    //     console.log('[debug] loadFontFace: ', res)
+    //   }
+    // })
 
-    // 小程序版本更新
-    const updateManager = uni.getUpdateManager()
-    updateManager.onCheckForUpdate(function (res) {
-      console.log('[info] 请求完新版本信息的回调', res.hasUpdate)
-    })
-    updateManager.onUpdateReady(function () {
-      uni.showModal({
-        title: '更新提示',
-        content: '新版本已经准备好，是否重启应用？',
-        success: function (res) {
-          if (res.confirm) {
-            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-            updateManager.applyUpdate()
-          }
-        },
-      })
-    })
-    updateManager.onUpdateFailed(function () {
-      // 新版本下载失败
-      uni.showModal({
-        title: '已经有新版本了',
-        content: '新版本已经上线，请您删除当前小程序，重新搜索打开',
-      })
-    })
+    /* #ifdef MP-WEIXIN */
+    checkUpdate()
     /* #endif */
   },
-  onShow: function () {
-    console.log('[info] App Show')
+  onShow: async function (options) {
+    console.log('[debug] App Show')
+
+    store.dispatch('app/setAppShow')
+
+    if (store.state.app.hideScene === 'app-share') {
+      return console.log('[info] 小程序分享返回')
+    }
+
+    // 获取用户信息
+    // await getToken()
+
+    // 分享场景  1037 / 1038
+    store.dispatch('share/setScene', options.scene)
+    store.dispatch('share/setChatType', options.chatType)
+    if (options.referrerInfo) {
+      const { appId, extraData = {} } = options.referrerInfo
+      store.dispatch('share/setSourceAppId', appId)
+      store.dispatch('share/setExtraData', extraData)
+    }
+
+    // 释放页面逻辑
+    this.$isResolve()
   },
   onHide: function () {
-    console.log('[info] App Hide')
+    console.log('[debug] App Hide')
+    store.dispatch('app/setAppShow')
   }
 }
 </script>
 
 <style>
-/*每个页面公共css */
 @import url('@/common/styles/index.scss');
 </style>

@@ -2,10 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import methods from '@/mixins/methods'
+import router from './router'
 
 // 全局mixin
 Vue.mixin(methods)
 
+Vue.prototype.$wxRouter = router
 Vue.config.productionTip = false
 
 // 让页面的 onLoad 在 onLaunch 之后执行

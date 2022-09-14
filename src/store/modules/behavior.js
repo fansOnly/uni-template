@@ -2,18 +2,18 @@
  * 用户行为管理
  */
 const state = {
-  // 记录用户登录前的行为
-  preLoginBehavior: {
-    message: '', // 备注
+  // 路由行为
+  routeBehavior: {
+    title: '', // 备注
     // 1 - navigateTo
     // 2 - navigateBack
     // 3 - redirectTo
     // 4 - switchTab
     // 5 - reLaunch
     // 6 - other
-    type: '2', // 操作 / 跳转 / 切换
+    routeType: '', // 操作 / 跳转 / 切换
     // 跳转参数
-    params: {
+    routeParams: {
       delta: 1
     },
     sourceUrl: '', // 源页面
@@ -21,33 +21,65 @@ const state = {
     targetUrl: '', // 目标页面
     targetQuery: {}, // 目标页面参数
   },
+  // 用户操作行为
+  actionBehavior: {
+    title: '', // 标题
+    actionName: '', // 操作函数
+    actionParams: {}, // 操作函数参数
+    sourceUrl: '', // 源页面
+    sourceQuery: {}, // 源页面参数
+  }
 }
 
 const mutations = {
-  SET_PRE_LOGIN_BEHAVIOR(state, payload = {}) {
-    state.preLoginBehavior = {
-      ...state.preLoginBehavior,
+  SET_ROUTE_BEHAVIOR(state, payload = {}) {
+    state.routeBehavior = {
+      ...state.routeBehavior,
       ...payload
     }
   },
-  CLEAR_PRE_LOGIN_BEHAVIOR(state) {
-    state.preLoginBehavior = {
-      message: '',
-      params: {
+  CLEAR_ROUTE_BEHAVIOR(state) {
+    state.routeBehavior = {
+      title: '',
+      routeType: '',
+      routeParams: {
         delta: 1
       },
       sourceUrl: '',
-      targetUrl: ''
+      sourceQuery: {},
+      targetUrl: '',
+      targetQuery: {},
+    }
+  },
+  SET_ACTION_BEHAVIOR(state, payload = {}) {
+    state.actionBehavior = {
+      ...state.actionBehavior,
+      ...payload
+    }
+  },
+  CLEAR_ACTION_BEHAVIOR(state) {
+    state.routeBehavior = {
+      title: '',
+      actionName: '',
+      actionParams: {},
+      sourceUrl: '',
+      sourceQuery: {}
     }
   },
 }
 
 const actions = {
-  setPreLoginBehavior({ commit }, payload) {
-    commit('SET_PRE_LOGIN_BEHAVIOR', payload)
+  setRouteBehavior({ commit }, payload) {
+    commit('SET_ROUTE_BEHAVIOR', payload)
   },
-  clearPreLoginBehavior({ commit }) {
-    commit('CLEAR_PRE_LOGIN_BEHAVIOR')
+  clearRouteBehavior({ commit }) {
+    commit('CLEAR_ROUTE_BEHAVIOR')
+  },
+  setActionBehavior({ commit }, payload) {
+    commit('SET_ACTION_BEHAVIOR', payload)
+  },
+  clearActionBehavior({ commit }) {
+    commit('CLEAR_ACTION_BEHAVIOR')
   },
 }
 

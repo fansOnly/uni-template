@@ -1,7 +1,7 @@
 /**
  * 拼音索引数据生成
  */
-import PinyinMatch from '@/plugins/pinyin-match'
+import PinyinMatch from 'pinyin-match'
 
 /**
  * 默认的索引列表 A-Z

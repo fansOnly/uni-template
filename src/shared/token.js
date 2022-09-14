@@ -23,6 +23,7 @@ export default function () {
   })
   // #endif
   // #ifdef H5
+  // eslint-disable-next-line no-unreachable
   return new Promise(resolve => {
     // TODO: H5环境获取登录 token
     console.log('todo H5环境获取登录 token')

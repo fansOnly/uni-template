@@ -158,7 +158,7 @@ export default [
       },
       {
         title: 'Movable 可移动区域',
-        prefix: 'platform-wx',
+        prefix: 'custom-ui',
         path: '/movable'
       },
       {
@@ -238,6 +238,11 @@ export default [
         prefix: 'platform-wx',
         path: '/map'
       },
+      {
+        title: 'Soter 生物认证',
+        prefix: 'platform-wx',
+        path: '/soter-auth'
+      },
     ]
   },
   {
@@ -255,29 +260,9 @@ export default [
         path: '/safe-keyboard'
       },
       {
-        title: 'CardSelector 卡列表',
-        prefix: 'business',
-        path: '/card-selector'
-      },
-      {
-        title: 'Soter 生物认证',
-        prefix: 'platform-wx',
-        path: '/soter-auth'
-      },
-      {
-        title: 'CashDesk 收银台',
-        prefix: 'business',
-        path: '/cash-desk'
-      },
-      {
         title: 'Ocr OCR识别',
         prefix: 'business',
         path: '/ocr-auth'
-      },
-      {
-        title: 'Face 人脸核身',
-        prefix: 'business',
-        path: '/face-auth'
       },
     ]
   },

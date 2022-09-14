@@ -16,7 +16,7 @@
         <view v-for="(item, index) in CONTACT_LIST" :key="item.key">
           <et-index-anchor :index="item.key" custom-class="custom-anthor"></et-index-anchor>
 
-          <et-cell class="et-cell-move--right" v-for="(sub, sindex) in item.values" :key="sindex" :title="sub.name"
+          <et-cell v-for="(sub, sindex) in item.values" :key="sindex" class="et-cell-move--right" :title="sub.name"
             border></et-cell>
         </view>
       </et-index-bar>
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { genPinyinSortData } from '@/shared/pinyin'
+import { genPinyinSortData } from '@/common/lib/pinyin'
 export default {
   data() {
     return {

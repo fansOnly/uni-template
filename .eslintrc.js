@@ -39,7 +39,7 @@ module.exports = {
     // Require component names to be always multi-word
     // prefer name: 'todo-item', not name: 'Todo'
     'vue/multi-word-component-names': ['error', {
-      ignores: ['index']
+      ignores: ['index', 'detail']
     }],
     // Disallow using arrow functions to define watcher
     'vue/no-arrow-functions-in-watch': 'error',

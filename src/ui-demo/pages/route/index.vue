@@ -1,10 +1,13 @@
 <template>
   <et-page :show="pageReady">
-    <view class="page-wrapper is-custom-tab-bar">
+    <view class="page-wrapper">
+      <view class="gap"></view>
+      <et-input v-model="value" type="text" border placeholder="请输入 JSON 字符串格式" custom-style="background:#fff;" />
+      <view class="gap"></view>
+      <et-button block @click="setQuery">设置自定义参数</et-button>
       <view class="gap"></view>
       <et-button block @click="jump">跳转页面 - navigate</et-button>
       <et-button block @click="jump2">跳转页面 - redirect</et-button>
-      <et-button block @click="setQuery">设置自定义参数</et-button>
       <et-tab-bar></et-tab-bar>
     </view>
   </et-page>
@@ -16,13 +19,15 @@ export default {
   mixins: [page],
   data() {
     return {
-      count: 0
+      count: 0,
+      value: '',
+      query: {}
     }
   },
   async onLoad(options) {
     await this.$onLaunched
   },
-  async onShow(options) {
+  async onShow() {
     await this.$onLaunched
   },
   onReady() {
@@ -30,17 +35,25 @@ export default {
   },
   methods: {
     jump() {
-      uni.navigateTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}' })
-      this.$setPageOptions({ a: 6, c: 'x' })
+      const query = { a: 1, b: {'c': {d: '2'}}, ...this.query }
+      // uni.navigateTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}', query })
+      this.$wxRouter.navigateTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}', query })
     },
     jump2() {
-      uni.redirectTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}' })
+      const query = {
+        x: 111,
+        ...this.query
+      }
+      this.$wxRouter.redirectTo({ url: '/ui-demo/pages/route/detail?a=1&b={v:3}', query })
     },
     setQuery() {
-      this.$setPageOptions({
-        name: 'haha',
-        value: ['1', 2, '3a']
-      })
+      try {
+        this.query = JSON.parse(this.value)
+      } catch (error) {
+        uni.showToast({
+          title: '参数格式错误'
+        })
+      }
     }
   }
 }

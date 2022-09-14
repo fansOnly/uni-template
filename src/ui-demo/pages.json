@@ -264,7 +264,7 @@
       }
     },
     {
-      "path": "pages/platform-wx/movable/index",
+      "path": "pages/custom-ui/movable/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
@@ -283,12 +283,6 @@
     },
     {
       "path": "pages/business/safe-keyboard/index",
-      "style": {
-        "navigationBarTitleText": "UI 组件演示库"
-      }
-    },
-    {
-      "path": "pages/platform-wx/face-auth/index",
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }

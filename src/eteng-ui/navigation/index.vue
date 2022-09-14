@@ -1,8 +1,8 @@
 <template>
   <view class="et-navigation-wrapper">
-    <view v-if="backgroundImage" class="page-bg-image"><et-image :src="backgroundImage" mode="widthFix" /></view>
     <view v-if="usePlaceholder" class="navigation-block" :style="{ 'height': navHeight +'px' }"></view>
     <view v-show="navHeight" class="et-navigation" :style="headStyled">
+      <view v-if="backgroundImage" class="page-bg-image"><et-image :src="backgroundImage" mode="widthFix" /></view>
       <view class="et-navigation-buttons" :style="buttonStyled">
         <slot name="icon">
           <et-icon v-if="showBack" class="et-navigation__button--back" :name="backIcon" size="24" @click="navigateBack" />
@@ -18,7 +18,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('state')
+const { mapActions } = createNamespacedHelpers('state')
 import cssVariables from '@/shared/css-variables'
 import { tabBarPages, homePage } from '../common/tab-bar'
 
@@ -63,8 +63,14 @@ export default {
       default: true
     }
   },
+  data() {
+    return {
+      navHeight: 0,
+      titleHeight: 0,
+      navOffsetTop: 0,
+    }
+  },
   computed: {
-    ...mapState(['navHeight', 'titleHeight', 'navOffsetTop']),
     homeIcon({ mode }) {
       return mode === 'light' ? 'nav-home' : 'nav-home-white'
     },
@@ -112,9 +118,11 @@ export default {
   async mounted() {
     const rect = wx.getMenuButtonBoundingClientRect()
     const navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
+    this.navHeight = navHeight
+    this.titleHeight = rect.height
+    this.navOffsetTop = rect.top
+
     this.setNavHeight(navHeight)
-    this.setTitleHeight(rect.height)
-    this.setNavOffsetTop(rect.top)
 
     uni.setNavigationBarColor({
       frontColor: this.frontColor,
@@ -122,7 +130,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setNavHeight', 'setTitleHeight', 'setNavOffsetTop']),
+    ...mapActions(['setNavHeight']),
     reLaunchHome() {
       uni.reLaunch({ url: homePage || '/pages/index/index' })
     },
@@ -139,6 +147,7 @@ export default {
     top: 0;
     right: 0;
     width: 100%;
+    z-index: -1;
   }
   .et-navigation {
     position: fixed;
@@ -146,6 +155,7 @@ export default {
     right: 0;
     left: 0;
     padding-bottom: 16rpx;
+    overflow: hidden;
   }
   .et-navigation__title {
     width: 50%;

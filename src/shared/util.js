@@ -42,18 +42,6 @@ export const getParamFromUrl = url => {
 }
 
 /**
- * 姓名脱敏
- * @param {string} value 输入值
- * @param {boolean} blockLastName 是否屏蔽姓氏
- * @param {string} char 替换符号
- */
-export const desensitizeName = (value, blockLastName = true, char = '*') => {
-  return String(value).replace(/^([\u4e00-\u9fa5])([\u4e00-\u9fa5]*)([\u4e00-\u9fa5])$/, function (_, p1, p2, p3) {
-    return p2 ? p1 + char.repeat(p2.length) + p3 : (blockLastName ? '*' + p3 : p1 + '*')
-  })
-}
-
-/**
  * 日期格式化
  * @param {string | number} value 时间
  * @param {string} [formatter = 'YYYY-MM-DD HH:mm:ss'] 时间格式
@@ -92,10 +80,12 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
 
 /**
  * 日期转换器
- * exp: 6M => 六个月
+ * @example
+ *  1. 1Y => 1年
+ *  2. 6M => 6个月
+ *  3. 30D => 30天
  * @param {string} 初始值
  */
 export const transformData = str => {
-  const numCN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
-  return String(str).replace(/(\d)/, (_, $1) => numCN[$1 - 1]).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天')
+  return String(str).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天')
 }

@@ -5,7 +5,7 @@
   4. bug: 文本设置行高无效
 -->
 <template>
-  <canvas class="canvas" canvas-id="myCanvas" id="myCanvas" type="2d" :style="styled" @longtap="onLongTap" @error="onError"></canvas>
+  <canvas id="myCanvas" class="canvas" canvas-id="myCanvas" type="2d" :style="styled" @longtap="onLongTap" @error="onError"></canvas>
 </template>
 
 <script>
@@ -45,8 +45,8 @@ export default {
   },
   data() {
     return {
-     fontRatio: 1,
-     dpr: 1,
+      fontRatio: 1,
+      dpr: 1,
       width: 0,
       height: 0,
       backgroundImage: '', // 背景图
@@ -56,8 +56,8 @@ export default {
   computed: {
     styled() {
       let style = ''
-      style += `width: ${this.addUnit(this.canvasWidth+'px')};`
-      style += `height: ${this.addUnit(this.canvasHeight+'px')};`
+      style += `width: ${this.canvasWidth}px;`
+      style += `height: ${this.canvasHeight}px;`
       return style
     }
   },
@@ -73,8 +73,8 @@ export default {
       await this.paint(canvas, ctx)
       setTimeout(() => {
         this.exportImage(canvas)
-      }, 0);
-    }, 0);
+      }, 0)
+    }, 0)
   },
   methods: {
     initCanvas() {
@@ -117,7 +117,7 @@ export default {
         ctx.font = `${titleStyle.fontWeight} ${this.fontRatio * titleStyle.fontSize}px PingFangSC-Semibold`
         ctx.fillStyle = titleStyle.color
         // 文本居中显示时，需要处理左边距
-        ctx.textAlign = titleStyle.align ||'left'
+        ctx.textAlign = titleStyle.align || 'left'
         left = titleStyle.align === 'center' ? this.width / 2 : this.left
         if (titleStyle.wrap) {
           titleTextArr = this.calcText(ctx, this.title, titleStyle)
@@ -132,7 +132,7 @@ export default {
       // 绘制标签区域
       if (this.type === 7) {
         ctx.textAlign = 'left'
-        const tagWidth = 90, tagHeight = 23, marginLeft = 10, paddingLeft = 13
+        const tagWidth = 90; const tagHeight = 23; const marginLeft = 10; const paddingLeft = 13
         const tagTop = titleStyle.top + (titleTextArr.length - 1) * titleStyle.lineHeight + 3
         const metrics = ctx.measureText(titleTextArr[titleTextArr.length - 1])
         const tagLeft = this.left + metrics.width
@@ -158,7 +158,7 @@ export default {
         ctx.font = `${textStyle.fontWeight} ${this.fontRatio * textStyle.fontSize}px PingFangSC-Regular`
         ctx.fillStyle = textStyle.color
         // 文本居中显示时，需要处理左边距
-        ctx.textAlign = textStyle.align ||'left'
+        ctx.textAlign = textStyle.align || 'left'
         left = textStyle.align === 'center' ? this.width / 2 : this.left
         ctx.fillText(this.text, left, textStyle.top)
       }
@@ -167,7 +167,7 @@ export default {
       if (this.desc.length) {
         ctx.font = `${descStyle.fontWeight} ${this.fontRatio * descStyle.fontSize}px PingFangSC-Medium`
         ctx.fillStyle = descStyle.color
-        ctx.textAlign = descStyle.align ||'left'
+        ctx.textAlign = descStyle.align || 'left'
         left = descStyle.align === 'center' ? this.width / 2 : this.left
         this.desc.forEach((item, index) => {
           ctx.fillText(item, left, descStyle.top + index * (descStyle.lineHeight + descStyle.marginTop))
@@ -213,31 +213,31 @@ export default {
           titleStyle: { top: 80, color: '#BE3B1F', fontSize: 24, fontWeight: 600, lineHeight: 33, wrap: false },
           textStyle: { top: 112, color: '#3472D', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#B34E4B', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style2': {
           titleStyle: { top: 80, color: '#80241D', fontSize: 24, fontWeight: 600, lineHeight: 33, wrap: false },
           textStyle: { top: 112, color: '#AD471F', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#EF3025', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style3': {
           titleStyle: { top: 80, color: '#233080', fontSize: 18, fontWeight: 600, lineHeight: 25, wrap: false },
           textStyle: { top: 109, color: '#283784', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#2B36A5', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style4': {
           titleStyle: { top: 80, color: '#A55824', fontSize: 18, fontWeight: 600, lineHeight: 25, wrap: false },
           textStyle: { top: 109, color: '#AF7939', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#E56830', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style5': {
           titleStyle: { top: 80, color: '#7E146E', fontSize: 18, fontWeight: 600, lineHeight: 25, wrap: false },
           textStyle: { top: 109, color: '#7E146E', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#A61C54', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style6': {
           titleStyle: { top: 89, color: '#FF5A00', fontSize: 32, fontWeight: 600, lineHeight: 45, align: 'center', wrap: false },
           descStyle: { top: 133, color: '#FF600B', fontSize: 14, fontWeight: 600, lineHeight: 20, marginTop: 22, align: 'center', wrap: false }
-         },
+        },
         'style7': {
           titleStyle: { top: 69, color: '#3177CD', fontSize: 28, fontWeight: 600, lineHeight: 40, wrap: true },
           tagStyle: { color: '#fff', fontSize: 13, fontWeight: 600, lineHeight: 18, gradientColor: [
@@ -246,12 +246,12 @@ export default {
           ], wrap: false },
           textStyle: { top: 305, color: '#256CBD', fontSize: 13, fontWeight: 400, lineHeight: 18, wrap: false },
           descStyle: { top: 167, color: '#F4881E', fontSize: 18, fontWeight: 500, lineHeight: 25, marginTop: 22, wrap: false }
-         },
+        },
         'style8': {
           titleStyle: { top: 59, color: '#EA4800', fontSize: 23, fontWeight: 600, lineHeight: 32, align: 'center', wrap: false },
           textStyle: { top: 95, color: '#F0C68C', fontSize: 13, fontWeight: 400, lineHeight: 18, align: 'center', wrap: false },
           descStyle: { top: 139, color: '#EC7B0C', fontSize: 18, fontWeight: 500, lineHeight: 22, marginTop: 16, wrap: false }
-         }
+        }
       }
       return styles['style' + this.type]
     },
@@ -286,7 +286,7 @@ export default {
       let flag = true
       while (text.length && flag) {
         const metrics = ctx.measureText(text)
-        console.log('metrics: ', metrics);
+        console.log('metrics: ', metrics)
         for (let i = 0; i < metrics.advances.length; i++) {
           const left = metrics.advances[i]
           if (left > wrapWidth) {

@@ -30,10 +30,17 @@ export function compareVersion(v1, v2) {
 }
 
 /**
+ * 判断版本号
+ */
+export const gte = (version) => {
+  const system = uni.getSystemInfoSync()
+  return compareVersion(system.SDKVersion, version) >= 0
+}
+
+/**
  * 是否需要更新微信客户端
  * @version 6.0.0
  */
 export const shouldUpdateWx = () => {
-  const systemInfo = uni.getSystemInfoSync()
-  return compareVersion(systemInfo.version, '7.0.0') < 1
+  return gte('7.0.0')
 }
