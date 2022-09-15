@@ -1,6 +1,6 @@
 <template>
   <view class="page-wrapper">
-    <demo-block title="折线图 - 基础" padding background="#fff">
+    <!-- <demo-block title="折线图 - 基础" padding background="#fff">
       <charts-line :chart-option="chartOptionLine" height="300"></charts-line>
     </demo-block>
 
@@ -26,21 +26,21 @@
 
     <demo-block title="柱状图 - 环形图" padding background="#fff">
       <charts-pie :chart-option="chartOptionRing"></charts-pie>
-    </demo-block>
+    </demo-block> -->
   </view>
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
-import ChartsLine from '../components/echarts/line'
-import ChartsBar from '../components/echarts/bar'
-import ChartsPie from '../components/echarts/pie'
+// import DemoBlock from '@p/components/demo-block';
+// import ChartsLine from '../components/echarts/line';
+// import ChartsBar from '../components/echarts/bar';
+// import ChartsPie from '../components/echarts/pie';
 export default {
   components: {
-    DemoBlock,
-    ChartsLine,
-    ChartsBar,
-    ChartsPie,
+    // DemoBlock,
+    // ChartsLine,
+    // ChartsBar,
+    // ChartsPie,
   },
   data() {
     return {
@@ -263,9 +263,9 @@ export default {
           }
         }
       },
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

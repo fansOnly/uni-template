@@ -1,14 +1,13 @@
 <template>
-  <view class="et-chart-wrapper" :style="{ 'height': height + 'px' }">
-    <ec-canvas type="line" :ec="{}" :option="option" @click="(evt, current) => $emit('click', evt, current)"></ec-canvas>
+  <view class="et-chart-wrapper" :style="{'height': height + 'px'}">
+    <ec-canvas type="bar" :ec="{}" :option="option" @click="(evt, current) => $emit('click', evt, current)"></ec-canvas>
   </view>
 </template>
 
 <script>
-import EcCanvas from './ec-canvas'
-
+import EcCanvas from './ec-canvas';
 export default {
-  name: 'et-charts-line',
+  name: 'et-charts-bar',
   components: {
     EcCanvas
   },
@@ -16,7 +15,7 @@ export default {
     // 图表配置参数
     chartOption: {
       type: Object,
-      default: () => { }
+      default: () => {}
     },
     // 图表高度
     height: {
@@ -25,7 +24,7 @@ export default {
     }
   },
   data() {
-    const { title = {}, legend = {}, grid = {}, tooltip = {}, xAxis = {}, yAxis = {}, series = {}, yAxisExtraOption = {}, yAxisExtraSeries = [], color = '#3264DC', ...rest } = this.chartOption
+    const { title = {}, legend = {}, grid = {}, tooltip = {}, xAxis = {}, yAxis = {}, series = {}, yAxisExtraOption = {}, yAxisExtraSeries = [], color = '#3264DC', barWidth = 'auto', ...rest } = this.chartOption;
     return {
       option: {
         color,
@@ -36,37 +35,30 @@ export default {
         // 直角坐标系内绘图网
         grid: {
           top: 10, // 带标题时需要设置更大
-          left: 10,
+          left: 40,
           right: 10,
           bottom: 40,
-          containLabel: true, // 防止标签溢出
           ...grid
         },
         // 提示框组件
         tooltip: {
           show: true,
           trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          },
           padding: [0, 5],
-          backgroundColor: color,
+          backgroundColor: '#fff',
           textStyle: {
-            color: '#fff',
             fontSize: 12
           },
           ...tooltip
-        },
-        // 坐标轴指示器
-        axisPointer: {
-          type: 'line',
-          lineStyle: {
-            color,
-            type: 'solid'
-          },
         },
         // x 轴
         xAxis: {
           type: 'category',
           // 坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样
-          // boundaryGap: false,
+          // boundaryGap: true,
           axisLine: {
             show: false,
           },
@@ -82,7 +74,6 @@ export default {
         },
         // y 轴
         yAxis: [{
-          type: 'value',
           nameTextStyle: {
             color: '#a2a2a2'
           },
@@ -101,7 +92,8 @@ export default {
         // 数据源
         series: [
           {
-            type: 'line',
+            type: 'bar',
+            barWidth,
             lineStyle: {
               width: 1,
             },
@@ -112,9 +104,9 @@ export default {
         ],
         ...rest
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
