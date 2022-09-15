@@ -43,6 +43,7 @@
     "core-js": "^3.6.5",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
+    "uni-simple-router": "^2.0.8-beta.4",
     "vue": "^2.6.11",
     "vuex": "^3.2.0"
   },
@@ -69,6 +70,7 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.1",
     "dotenv-expand": "^8.0.3",
+    "echarts": "^5.3.3",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",

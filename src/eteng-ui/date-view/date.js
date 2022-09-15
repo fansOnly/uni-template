@@ -74,8 +74,7 @@ export function createDate(start, end, unit = '', fixZero = true) {
  * 2. 4 6 9 11月份 - 30日
  * 3. 2月份 - 闰年 29日 / 平年 28日
  */
-const nowYear = new Date().getFullYear()
-export function createDays(year = nowYear, month = 1, start = 1, end = 31) {
+export function createDays(year = new Date().getFullYear(), month = 1, start = 1, end = 31) {
   let last = 31
   const leapFlag = isLeapYear(year)
   if (+month === 2) {

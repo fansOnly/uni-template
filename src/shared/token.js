@@ -1,7 +1,7 @@
 import store from '@/store'
 import { wxCheckSession, wxLogin } from '@/shared/platform/weixin/api'
-import { wxLogin as wxReqLogin } from '@p/api/cust'
-import { qryUserInfo } from '@p/api/common'
+import { wxLogin as wxReqLogin } from '@/api/cust'
+import { qryUserInfo } from '@/api/common'
 
 /**
  * 1. wx.checkSession 判断微信会话是否过期
@@ -9,9 +9,9 @@ import { qryUserInfo } from '@p/api/common'
  * 3. 获取code后通过调用服务端code2Session获取用户基本信息
  * tips: H5和MP-WEIXIN的做法不同
  */
-export default function () {
+export const getToken = () => {
   // #ifdef MP-WEIXIN
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     const valid = await wxCheckSession()
     if (!valid || !store.state.user.openId) {
       const loginData = await wxApiLogin()

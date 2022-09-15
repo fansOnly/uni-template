@@ -1,6 +1,7 @@
 <script>
 import store from '@/store'
-import checkUpdate from '@/shared/platform/weixin/update'
+import checkUpdate from '@/common/lib/weixin/checkUpdate'
+import { getToken } from '@/shared/token'
 
 export default {
   onLaunch: function (options) {
@@ -42,7 +43,7 @@ export default {
     }
 
     // 获取用户信息
-    // await getToken()
+    await getToken()
 
     // 分享场景  1037 / 1038
     store.dispatch('share/setScene', options.scene)
@@ -58,7 +59,7 @@ export default {
   },
   onHide: function () {
     console.log('[debug] App Hide')
-    store.dispatch('app/setAppShow')
+    store.dispatch('app/setAppHide')
   }
 }
 </script>

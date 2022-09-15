@@ -1,13 +1,15 @@
 import Mock from '@/plugins/mock'
 
 // 公共 API 拦截
-const commonMockFiles = require.context('./common', true, /\.js$/)
+const commonMockFiles = require.context('./', true, /\.js$/)
 const projectMockFiles = require.context('@p/mocks', true, /\.js$/)
 
 const modules = {}
 commonMockFiles.keys().forEach(key => {
   const api = key.replace(/^\.\//, '').replace(/\.js$/, '.do')
-  modules[api] = commonMockFiles(key).default
+  if (api !== 'index.do') {
+    modules[api] = commonMockFiles(key).default
+  }
 })
 projectMockFiles.keys().forEach(key => {
   const api = key.replace(/^\.\//, '').replace(/\.js$/, '.do')

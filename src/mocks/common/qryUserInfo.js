@@ -1,0 +1,22 @@
+export default {
+  'MSG': '交易成功',
+  'isAuthUserLoaction': 'N',
+  'address': '',
+  'idType': '01',
+  'user_name': '伏兴尔',
+  'hasCard': '1',
+  'wechat': '',
+  'user_reg_typ': 'BIND',
+  'isAuthPhone': 'Y',
+  'idNo': '65290019910209534X',
+  'isAuthUserInfo': 'Y',
+  'STATUS': '1',
+  'phone': '18555113312',
+  'LOGIN_STATUS': 'Y',
+  'mangerNo': '',
+  'nickname': '@ . Fan',
+  'isHavSessKey': 'Y',
+  'isMove': 'N',
+  'email': '',
+  'head_img_url': 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJKUia6Zv7m6LhqFoJA6PF4shYVcWjewWq6HEkaavoXuRqRC74MdW579icXLWX4sz78icj9d5gssDzxQ/132'
+}
