@@ -5,7 +5,7 @@
         <demo-block :title="group.groupName" padding background="#fff">
           <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
             <view class="demo-group-item"
-              @click="handleRouter(`/ui-demo/pages/${item.prefix}${item.path}/index`, item.path)">
+              @click="handleRouter(item)">
               <view class="demo-group-item__label">{{ item.title }}</view>
               <view class="demo-group-item__right-icon">
                 <et-icon name="arrow-right" size="20" />
@@ -51,11 +51,17 @@ export default {
     console.log('on home page hide')
   },
   methods: {
-    handleRouter(url, path) {
-      if (path === '/navigation') {
-        this.$wxRouter.switchTab({ url, query: { a: 1, b: '"c": {d: "2"}' } })
+    handleRouter({ prefix, path }) {
+      let url = ''
+      if (prefix === 'sub-package-a') {
+        url = `/ui-demo/sub-package-a${path}/index`
       } else {
-        this.$wxRouter.navigateTo({ url, query: { a: 1, b: '"c": {d: "2"}' } })
+        url = `/ui-demo/pages/${prefix}${path}/index`
+      }
+      if (path === '/navigation') {
+        this.$wxRouter.switchTab({ url })
+      } else {
+        this.$wxRouter.navigateTo({ url })
       }
     },
     onShareAppMessage() {

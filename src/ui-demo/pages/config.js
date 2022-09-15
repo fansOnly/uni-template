@@ -230,7 +230,7 @@ export default [
       },
       {
         title: 'Echarts 图表',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-a',
         path: '/echarts'
       },
       {

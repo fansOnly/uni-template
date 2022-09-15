@@ -1,5 +1,4 @@
 {
-  // 路由
   "pages": [
     {
       "path": "pages/home/index",
@@ -298,6 +297,19 @@
       "style": {
         "navigationBarTitleText": "UI 组件演示库"
       }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "sub-package-a",
+      "pages": [
+        {
+          "path": "echarts/index",
+          "style": {
+            "navigationBarTitleText": "UI 组件演示库"
+          }
+        }
+      ]
     }
   ],
   "globalStyle": {
