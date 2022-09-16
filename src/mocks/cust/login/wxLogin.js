@@ -8,4 +8,4 @@ export default {
   'openId': 'oYf515c_TetYeZmbDNuiSWTXAzuQ',
   'nickName': '@ . Fan',
   'isAuthPhone': 'Y'
-}
+};

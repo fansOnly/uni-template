@@ -4,4 +4,4 @@ module.exports = {
   env: 'development', // 开发环境 development / production
   useMock: true, // 挡板数据
   useEncrypt: false, // 报文加密
-}
+};

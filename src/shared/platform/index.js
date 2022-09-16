@@ -1,9 +1,9 @@
 /* #ifdef MP-WEIXIN */
-export * from './weixin'
+export * from './weixin';
 /* #endif */
 
 /* #ifdef H5 */
-export * from './browser'
+export * from './browser';
 /* #endif */
 
 /**
@@ -18,9 +18,9 @@ export function getRect(context, selector) {
         .in(context)
         .select(selector)
         .boundingClientRect()
-        .exec((rect = []) => resolve(rect[0]))
+        .exec((rect = []) => resolve(rect[0]));
     }
-  )
+  );
 }
 
 /**
@@ -28,26 +28,26 @@ export function getRect(context, selector) {
  */
 export function requestAnimationFrame() {
   return new Promise((resolve) => {
-    const systemInfo = uni.getSystemInfoSync()
+    const systemInfo = uni.getSystemInfoSync();
     if (systemInfo.platform === 'devtools') {
       return setTimeout(function () {
-        resolve()
-      }, 1000 / 30)
+        resolve();
+      }, 1000 / 30);
     }
     return wx
       .createSelectorQuery()
       .selectViewport()
       .boundingClientRect()
       .exec(function () {
-        resolve()
-      })
-  })
+        resolve();
+      });
+  });
 }
 
 /**
  * 同步获取设备信息
  */
-let systemInfo
+let systemInfo;
 export function getSystemInfoSync() {
-  return systemInfo || (systemInfo = uni.getSystemInfoSync())
+  return systemInfo || (systemInfo = uni.getSystemInfoSync());
 }

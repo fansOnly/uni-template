@@ -5,10 +5,10 @@
 export const sleep = (delay = 500) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve()
-    }, delay)
-  })
-}
+      resolve();
+    }, delay);
+  });
+};
 
 /**
  * 拼接 url 地址
@@ -16,12 +16,12 @@ export const sleep = (delay = 500) => {
  * @param {string} 参数对象
  */
 export function genUrlFromObj(path, obj) {
-  const url = '/' + path
-  let queryString = ''
+  const url = '/' + path;
+  let queryString = '';
   for (const key in obj) {
-    queryString += (queryString === '' ? '' : '&') + `${key}=${obj[key]}`
+    queryString += (queryString === '' ? '' : '&') + `${key}=${obj[key]}`;
   }
-  return url + (Object.keys(obj).length ? '?' + queryString : '')
+  return url + (Object.keys(obj).length ? '?' + queryString : '');
 }
 
 /**
@@ -29,17 +29,17 @@ export function genUrlFromObj(path, obj) {
  * @param {string} url
  */
 export const getParamFromUrl = url => {
-  if (!url) return {}
-  const queryString = url.split('?')[1]
-  if (!queryString) return {}
-  const reg = /([^?=&]+)(=*[^&=]*)/g
-  const matches = queryString.match(reg)
+  if (!url) return {};
+  const queryString = url.split('?')[1];
+  if (!queryString) return {};
+  const reg = /([^?=&]+)(=*[^&=]*)/g;
+  const matches = queryString.match(reg);
   return matches.reduce((acc, cur) => {
-    const [key, val = ''] = cur.split('=')
-    acc[key] = val
-    return acc
-  }, {})
-}
+    const [key, val = ''] = cur.split('=');
+    acc[key] = val;
+    return acc;
+  }, {});
+};
 
 /**
  * 日期格式化
@@ -47,27 +47,27 @@ export const getParamFromUrl = url => {
  * @param {string} [formatter = 'YYYY-MM-DD HH:mm:ss'] 时间格式
  */
 export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
-  const dateReg = /^(?<year>\d{4})?([/-](?<month>\d{1,2}))?([/-](?<day>\d{1,2}))?\s?(?<hour>\d{1,2})?(:(?<minute>\d{1,2}))?(:(?<second>\d{1,2}))?$/
-  let date = new Date()
-  let groups = {}
+  const dateReg = /^(?<year>\d{4})?([/-](?<month>\d{1,2}))?([/-](?<day>\d{1,2}))?\s?(?<hour>\d{1,2})?(:(?<minute>\d{1,2}))?(:(?<second>\d{1,2}))?$/;
+  let date = new Date();
+  let groups = {};
   if (!value) {
-    date = new Date()
+    date = new Date();
   } else if (typeof value === 'number') {
-    date = new Date(value)
+    date = new Date(value);
   } else if (typeof value === 'string' && dateReg.test(value)) {
-    const matched = value.match(dateReg)
-    groups = matched.groups
+    const matched = value.match(dateReg);
+    groups = matched.groups;
   } else {
-    console.warn('[info] Invalid Date', value)
-    return value
+    console.warn('[info] Invalid Date', value);
+    return value;
   }
 
-  const Y = groups.year || date.getFullYear() + ''
-  const M = groups.month || date.getMonth() + 1
-  const D = groups.day || date.getDate()
-  const H = groups.hour || date.getHours()
-  const m = groups.minute || date.getMinutes()
-  const s = groups.second || date.getSeconds()
+  const Y = groups.year || date.getFullYear() + '';
+  const M = groups.month || date.getMonth() + 1;
+  const D = groups.day || date.getDate();
+  const H = groups.hour || date.getHours();
+  const m = groups.minute || date.getMinutes();
+  const s = groups.second || date.getSeconds();
 
   return formatter.replace(/YYYY|yyyy/g, Y)
     .replace(/YY|yy/g, Y.substring(2))
@@ -75,8 +75,8 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
     .replace(/DD/g, String(D).padStart(2, '0'))
     .replace(/HH|hh/g, String(H).padStart(2, '0'))
     .replace(/mm/g, String(m).padStart(2, '0'))
-    .replace(/ss/g, String(s).padStart(2, '0'))
-}
+    .replace(/ss/g, String(s).padStart(2, '0'));
+};
 
 /**
  * 日期转换器
@@ -87,5 +87,5 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
  * @param {string} 初始值
  */
 export const transformData = str => {
-  return String(str).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天')
-}
+  return String(str).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天');
+};

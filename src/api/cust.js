@@ -1,3 +1,3 @@
-import http from '@/shared/http'
+import http from '@/shared/http';
 
-export const wxLogin = params => http.post('cust/login/wxLogin.do', params)
+export const wxLogin = params => http.post('cust/login/wxLogin.do', params);

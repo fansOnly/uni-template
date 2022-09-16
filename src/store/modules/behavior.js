@@ -29,14 +29,14 @@ const state = {
     sourceUrl: '', // 源页面
     sourceQuery: {}, // 源页面参数
   }
-}
+};
 
 const mutations = {
   SET_ROUTE_BEHAVIOR(state, payload = {}) {
     state.routeBehavior = {
       ...state.routeBehavior,
       ...payload
-    }
+    };
   },
   CLEAR_ROUTE_BEHAVIOR(state) {
     state.routeBehavior = {
@@ -49,13 +49,13 @@ const mutations = {
       sourceQuery: {},
       targetUrl: '',
       targetQuery: {},
-    }
+    };
   },
   SET_ACTION_BEHAVIOR(state, payload = {}) {
     state.actionBehavior = {
       ...state.actionBehavior,
       ...payload
-    }
+    };
   },
   CLEAR_ACTION_BEHAVIOR(state) {
     state.routeBehavior = {
@@ -64,28 +64,28 @@ const mutations = {
       actionParams: {},
       sourceUrl: '',
       sourceQuery: {}
-    }
+    };
   },
-}
+};
 
 const actions = {
   setRouteBehavior({ commit }, payload) {
-    commit('SET_ROUTE_BEHAVIOR', payload)
+    commit('SET_ROUTE_BEHAVIOR', payload);
   },
   clearRouteBehavior({ commit }) {
-    commit('CLEAR_ROUTE_BEHAVIOR')
+    commit('CLEAR_ROUTE_BEHAVIOR');
   },
   setActionBehavior({ commit }, payload) {
-    commit('SET_ACTION_BEHAVIOR', payload)
+    commit('SET_ACTION_BEHAVIOR', payload);
   },
   clearActionBehavior({ commit }) {
-    commit('CLEAR_ACTION_BEHAVIOR')
+    commit('CLEAR_ACTION_BEHAVIOR');
   },
-}
+};
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions
-}
+};

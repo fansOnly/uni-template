@@ -14,30 +14,30 @@ const state = {
    *  @value choose-file 拍照 / 选择文件
    */
   hideScene: '',
-}
+};
 
-const getters = {}
+const getters = {};
 
 const mutations = {
   SET_APP_VISIBILITY(state, payload) {
-    state.visibility = payload
+    state.visibility = payload;
   },
   SET_HIDE_SCENE(state, payload) {
-    state.hideScene = payload
+    state.hideScene = payload;
   }
-}
+};
 
 const actions = {
   setAppShow({ commit }) {
-    commit('SET_APP_VISIBILITY', true)
+    commit('SET_APP_VISIBILITY', true);
   },
   setAppHide({ commit }) {
-    commit('SET_APP_VISIBILITY', false)
+    commit('SET_APP_VISIBILITY', false);
   },
   setHideScene({ commit }, payload) {
-    commit('SET_HIDE_SCENE', payload)
+    commit('SET_HIDE_SCENE', payload);
   }
-}
+};
 
 export default {
   namespaced: true,
@@ -45,4 +45,4 @@ export default {
   getters,
   mutations,
   actions
-}
+};

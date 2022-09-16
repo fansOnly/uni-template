@@ -14,29 +14,29 @@ const state = {
     confirmFn: () => {}, // 主要操作按钮事件
     cancelFn: () => {}, // 次要操作按钮事件
   },
-}
+};
 
 const mutations = {
   SET_BUSINESS_RESULT(state, payload = {}) {
-    state.bsResult = payload
+    state.bsResult = payload;
   },
   CLEAR_BUSINESS_RESULT(state) {
-    state.bsResult = {}
+    state.bsResult = {};
   }
-}
+};
 
 const actions = {
   setBusinessResult({ commit }, payload) {
-    commit('SET_BUSINESS_RESULT', payload)
+    commit('SET_BUSINESS_RESULT', payload);
   },
   clearBusinessResult({ commit }) {
-    commit('CLEAR_BUSINESS_RESULT')
+    commit('CLEAR_BUSINESS_RESULT');
   },
-}
+};
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions
-}
+};
