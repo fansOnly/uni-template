@@ -17,10 +17,9 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('state')
-import cssVariables from '@/shared/css-variables'
-import { tabBarPages, homePage } from '../common/tab-bar'
+import cssVariables from '@/common/lib/theme';
+import { tabBarPages, homePage } from '../common/tab-bar';
+import { getAppData, setAppData } from '../common/globalData';
 
 export default {
   name: 'et-navigation',
@@ -68,77 +67,81 @@ export default {
       navHeight: 0,
       titleHeight: 0,
       navOffsetTop: 0,
-    }
+    };
   },
   computed: {
     homeIcon({ mode }) {
-      return mode === 'light' ? 'nav-home' : 'nav-home-white'
+      return mode === 'light' ? 'nav-home' : 'nav-home-white';
     },
     backIcon({ mode }) {
-      return mode === 'light' ? 'nav-back' : 'nav-back-white'
+      return mode === 'light' ? 'nav-back' : 'nav-back-white';
     },
     frontColor({ mode }) {
-      return mode === 'light' ? '#000000' : '#ffffff'
+      return mode === 'light' ? '#000000' : '#ffffff';
     },
     backgroundColor({ backgroundImage, background, mode }) {
-      return backgroundImage ? 'transparent' : (mode === 'light' ? '#ffffff' : background)
+      return backgroundImage ? 'transparent' : (mode === 'light' ? '#ffffff' : background);
     },
     headStyled({ navOffsetTop, titleHeight, zIndex, backgroundColor }) {
-      let style = ''
-      style += `z-index: ${zIndex};`
-      style += `background: ${backgroundColor};`
-      style += `padding-top: ${navOffsetTop}px;`
-      style += `height: ${titleHeight}px;`
-      return style
+      let style = '';
+      style += `z-index: ${zIndex};`;
+      style += `background: ${backgroundColor};`;
+      style += `padding-top: ${navOffsetTop}px;`;
+      style += `height: ${titleHeight}px;`;
+      return style;
     },
     titleStyled({ frontColor, titleHeight }) {
-      let style = ''
-      style += `color: ${frontColor};`
-      style += `line-height: ${titleHeight}px;`
-      return style
+      let style = '';
+      style += `color: ${frontColor};`;
+      style += `line-height: ${titleHeight}px;`;
+      return style;
     },
     buttonStyled({ navOffsetTop, titleHeight }) {
-      let style = ''
-      style += `top: ${navOffsetTop}px;`
-      style += `height: ${titleHeight}px;`
-      return style
+      let style = '';
+      style += `top: ${navOffsetTop}px;`;
+      style += `height: ${titleHeight}px;`;
+      return style;
     },
     showBack() {
       // 返回按钮
-      const pages = getCurrentPages()
-      return this.showBackButton && pages.length > 1
+      const pages = getCurrentPages();
+      return this.showBackButton && pages.length > 1;
     },
     showHome() {
       // 返回首页按钮
-      const pages = getCurrentPages()
-      const path = pages[pages.length - 1].route
-      return this.showHomeButton && !tabBarPages.includes(path)
+      const pages = getCurrentPages();
+      const current = pages[pages.length - 1]?.route;
+      return this.showHomeButton && (pages.length === 1 && !tabBarPages.includes(current));
     }
   },
   async mounted() {
-    const rect = wx.getMenuButtonBoundingClientRect()
-    const navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
-    this.navHeight = navHeight
-    this.titleHeight = rect.height
-    this.navOffsetTop = rect.top
+    let navHeight = getAppData('navHeight');
+    if (!navHeight) {
+      const rect = wx.getMenuButtonBoundingClientRect();
+      navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
+      this.titleHeight = rect.height;
+      this.navOffsetTop = rect.top;
 
-    this.setNavHeight(navHeight)
+      setAppData('navHeight', navHeight);
+    }
+
+    this.navHeight = navHeight;
 
     uni.setNavigationBarColor({
       frontColor: this.frontColor,
       backgroundColor: this.backgroundColor
-    })
+    });
+    this.$emit('after-mounted');
   },
   methods: {
-    ...mapActions(['setNavHeight']),
     reLaunchHome() {
-      uni.reLaunch({ url: homePage || '/pages/index/index' })
+      uni.reLaunch({ url: homePage || '/pages/index/index' });
     },
     navigateBack() {
-      uni.navigateBack({ delta: 1 })
+      uni.navigateBack({ delta: 1 });
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

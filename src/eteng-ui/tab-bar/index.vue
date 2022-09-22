@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import cssVariables from '@/shared/css-variables'
-import { tabBarList, tabBarStyle } from '../common/tab-bar'
+import cssVariables from '@/common/lib/theme';
+import { tabBarList, tabBarStyle } from '../common/tab-bar';
 
 export default {
   name: 'et-tab-bar',
@@ -17,27 +17,27 @@ export default {
     return {
       tabBarList: Object.freeze(tabBarList),
       tabBarStyle: Object.freeze(tabBarStyle)
-    }
+    };
   },
   computed: {
     current() {
-      const pages = getCurrentPages()
-      const { route } = pages[pages.length - 1]
-      return route
+      const pages = getCurrentPages();
+      const { route } = pages[pages.length - 1];
+      return route;
     },
     styled() {
-      let style = `z-index: ${+cssVariables.tabBarZIndex};`
-      style += `background: ${tabBarStyle.backgroundColor};`
-      style += `border-color: ${tabBarStyle.borderStyle};`
-      return style
+      let style = `z-index: ${+cssVariables.tabBarZIndex};`;
+      style += `background: ${tabBarStyle.backgroundColor};`;
+      style += `border-color: ${tabBarStyle.borderStyle};`;
+      return style;
     },
   },
   methods: {
     onSwitchTab({ pagePath }) {
-      uni.switchTab({ url: '/' + pagePath })
+      uni.switchTab({ url: '/' + pagePath });
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

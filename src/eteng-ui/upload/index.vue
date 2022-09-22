@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/shared/platform/weixin/api'
+import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/lib/weixin/API'
 import { sleep, isEmpty } from '@/shared'
 import { addUnit } from '../common/util'
 

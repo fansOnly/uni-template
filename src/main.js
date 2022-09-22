@@ -2,18 +2,13 @@ import Vue from 'vue';
 import App from './App';
 import store from './store';
 import methods from '@/mixins/methods';
-import router from './router';
+import {router, RouterMount} from './router';
+Vue.use(router);
 
 // 全局mixin
 Vue.mixin(methods);
 
-Vue.prototype.$wxRouter = router;
 Vue.config.productionTip = false;
-
-// 让页面的 onLoad 在 onLaunch 之后执行
-Vue.prototype.$onLaunched = new Promise(resolve => {
-  Vue.prototype.$isResolve = resolve;
-});
 
 // 挡板数据
 if (process.env.USE_MOCK) {
@@ -26,4 +21,12 @@ const app = new Vue({
   store,
   ...App
 });
-app.$mount();
+
+//v1.3.5起 H5端 你应该去除原有的app.$mount();使用路由自带的渲染方式
+// #ifdef H5
+RouterMount(app, router, '#app');
+// #endif
+
+// #ifndef H5
+app.$mount(); //为了兼容小程序及app端必须这样写才有效果
+// #endif

@@ -8,10 +8,9 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('state')
-import { getRect } from '@/shared/platform'
-import { addUnit } from '../common/util'
+import { getRect } from '@/shared';
+import { addUnit } from '../common/util';
+import { getAppData } from '../common/globalData';
 
 export default {
   name: 'et-index-anchor',
@@ -38,33 +37,35 @@ export default {
       height: 0,
       isSticky: false,
       offsetTop: 0,
-      isCustomNavigation: false
-    }
+      customNavigationStyle: false,
+      navHeight: 0
+    };
   },
   computed: {
-    ...mapState(['navHeight']),
-    anchorStyled({ offsetTop, navHeight, isCustomNavigation, isSticky, customStyle }) {
-      if (!isSticky) return customStyle
+    anchorStyled({ offsetTop, navHeight, customNavigationStyle, isSticky, customStyle }) {
+      if (!isSticky) return customStyle;
       /* #ifdef H5 */
-      offsetTop += 44
+      offsetTop += 44;
       /* #endif */
-      return `top: ${offsetTop + (isCustomNavigation ? navHeight : 0) }px;${customStyle ? customStyle : ''}`
+      return `top: ${offsetTop + (customNavigationStyle ? navHeight : 0) }px;${customStyle ? customStyle : ''}`;
     }
   },
   async mounted() {
-    this.parent.children.push(this)
-    this.isCustomNavigation = this.parent.isCustomNavigation
-    const rect = await getRect(this, '.index-bar-anchor')
-    this.height = rect.height
+    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+    this.parent.children.push(this);
+    this.customNavigationStyle = customNavigationStyle;
+    this.navHeight = navHeight;
+    const rect = await getRect(this, '.index-bar-anchor');
+    this.height = rect.height;
   },
   methods: {
     setStickyAnchor(val = false, top = 0) {
-      this.isSticky = val
-      this.offsetTop = top
+      this.isSticky = val;
+      this.offsetTop = top;
     },
     useIndexAnchor() {}
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

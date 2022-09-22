@@ -1,5 +1,6 @@
 <template>
   <view class="page-wrapper">
+    <view class="gap"></view>
     <et-cell title="动画 Fade" is-link border @click="startTransition()"></et-cell>
     <et-cell title="动画 SlideUp" is-link border @click="startTransition('slide-up')"></et-cell>
     <et-cell title="动画 SlideDown" is-link border @click="startTransition('slide-down')"></et-cell>
@@ -18,18 +19,18 @@ export default {
     return {
       visible: false,
       name: 'fade'
-    }
+    };
   },
   methods: {
     startTransition(name = 'fade') {
-      this.name = name
-      this.visible = true
+      this.name = name;
+      this.visible = true;
       setTimeout(() => {
-        this.visible = false
-      }, 500)
+        this.visible = false;
+      }, 500);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

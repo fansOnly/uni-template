@@ -1,6 +1,6 @@
 <template>
-  <view>
-    <view v-show="initialized" :class="['et-popup', `et-popup--${position}`, round ? 'et-popup--round' : null, safeAreaInsetTop ? 'et-popup--top--safe' : null, safeAreaInsetBottom ? 'et-popup--bottom--safe' : null, classes]" :style="styled" @transitionend="onTransitionEnd">
+  <view @touchmove.stop="noop">
+    <view v-if="display" :class="['et-popup', `et-popup--${position}`, round ? 'et-popup--round' : null, safeAreaInsetTop ? 'et-popup--top--safe' : null, safeAreaInsetBottom ? 'et-popup--bottom--safe' : null, classes]" :style="styled" @transitionend="onTransitionEnd">
       <slot name="header">
         <view v-if="title && title.length" :class="['et-popup-header', border ? 'et-hairline--bottom' : null]">
           <view class="et-popup-header-title">{{title}}</view>
@@ -11,20 +11,19 @@
           <et-icon name="cross" size="28" @click="close" />
         </slot>
       </view>
-      <view class="et-popup-body" :style="bodyStyled">
+      <scroll-view scroll-y :style="bodyStyled" class="et-popup-body">
         <slot />
-      </view>
+      </scroll-view>
     </view>
     <et-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex - 1" :custom-style="overlayStyle" @click="clickOverlay"></et-overlay>
   </view>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('state')
-import transition from '../mixins/transition'
-import cssVariables from '@/shared/css-variables'
-import { addUnit, appendStyles } from '../common/util'
+import transition from '../mixins/transition';
+import cssVariables from '@/common/lib/theme';
+import { addUnit, appendStyles } from '../common/util';
+import { getAppData } from '../common/globalData';
 
 export default {
   name: 'et-popup',
@@ -35,7 +34,7 @@ export default {
       type: String,
       default: 'center',
       validator(value) {
-        return ['center', 'top', 'bottom', 'right', 'left'].includes(value)
+        return ['center', 'top', 'bottom', 'right', 'left'].includes(value);
       }
     },
     // 弹窗标题
@@ -104,11 +103,6 @@ export default {
       type: Number,
       default: +cssVariables.popupZIndex
     },
-    // 是否自定义导航页面
-    useCustomNav: {
-      type: Boolean,
-      default: false
-    },
     // 是否为 iPhoneX 留出底部安全距离
     safeAreaInsetBottom: {
       type: Boolean,
@@ -127,56 +121,57 @@ export default {
     overlayStyle: null
   },
   computed: {
-    ...mapState(['navHeight']),
     animationName({ position }) {
       switch (position) {
       case 'top':
-        return 'slide-down'
+        return 'slide-down';
       case 'bottom':
-        return 'slide-up'
+        return 'slide-up';
       case 'left':
-        return 'slide-left'
+        return 'slide-left';
       case 'right':
-        return 'slide-right'
+        return 'slide-right';
       default:
-        return 'fade'
+        return 'fade';
       }
     },
-    styled({ offset, bottom, zIndex, currentDuration, display, customStyle, navHeight, useCustomNav}) {
-      let style = `z-index: ${zIndex};`
-      style += `margin-top: calc(${addUnit(offset, 'px')} + ${useCustomNav ? navHeight : 0}px);`
-      if (bottom) style += `margin-bottom: ${addUnit(bottom, 'px')};`
-      style += `transition-duration: ${currentDuration}ms;`
-      if (!display) style += 'display: none;'
-      return appendStyles([style, customStyle])
+    styled({ offset, bottom, zIndex, currentDuration, display, customStyle}) {
+      const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+      let style = `z-index: ${zIndex};`;
+      style += `margin-top: calc(${offset}px + ${customNavigationStyle ? navHeight : 0}px);`;
+      if (bottom) style += `margin-bottom: ${bottom}px;`;
+      style += `transition-duration: ${currentDuration}ms;`;
+      if (!display) style += 'display: none;';
+      return appendStyles([style, customStyle]);
     },
     bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
-      let style = ''
-      style += `height: calc(${unitedHeight} - 120rpx);`
-      style += `width: calc(${unitedWidth} - 120rpx);`
-      style += `max-height: ${addUnit(maxHeight)};`
-      style += `min-height: ${addUnit(minHeight)};`
-      return appendStyles([style, bodyStyle])
+      let style = '';
+      style += `height: calc(${unitedHeight} - 120rpx);`;
+      style += `width: calc(${unitedWidth} - 120rpx);`;
+      style += `max-height: ${addUnit(maxHeight)};`;
+      style += `min-height: ${addUnit(minHeight)};`;
+      return appendStyles([style, bodyStyle]);
     },
     unitedHeight({ height }) {
-      return height === 'auto' ? height : addUnit(height, 'vh')
+      return height === 'auto' ? height : addUnit(height, 'vh');
     },
     unitedWidth({ width }) {
-      return width === 'auto' ? width : addUnit(width, 'vh')
+      return width === 'auto' ? width : addUnit(width, 'vh');
     },
   },
   methods: {
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return
-      this.$emit('click-overlay')
-      this.$emit('update:visible', false)
+      if (!this.closeOnClickOverlay) return;
+      this.$emit('click-overlay');
+      this.$emit('update:visible', false);
     },
     close() {
-      this.$emit('close')
-      this.$emit('update:visible', false)
+      this.$emit('close');
+      this.$emit('update:visible', false);
     },
+    noop() {}
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -261,7 +256,7 @@ export default {
   }
   .et-popup-body {
     overflow-y: auto;
-    &::-webkit-scrollbar {
+    &::-webkit-scrollbar {
       display: none;
     }
   }

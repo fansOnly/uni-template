@@ -10924,10 +10924,15 @@ unbox-primitive@^1.0.2:
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
 
-uni-simple-router@^2.0.8-beta.4:
-  version "2.0.8-beta.4"
-  resolved "https://registry.npmmirror.com/uni-simple-router/-/uni-simple-router-2.0.8-beta.4.tgz#2f86ef17b361c251e14361ffd860a82669770cc5"
-  integrity sha512-ipTHhOaRvjV8qrt3HosX5pNMhwFYBnFOuKyV5joH0evfXubjrGI5tjdwpmwzfW5h3VBth3iAqScv+pW/QmIJXw==
+uni-read-pages@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmmirror.com/uni-read-pages/-/uni-read-pages-1.0.5.tgz#452c8dcaa8977bbaef600909be926c8d9704387c"
+  integrity sha512-GkrrZ0LX0vn9R5k6RKEi0Ez3Q3e2vUpjXQ8Z6/K/d28KudI9ajqgt8WEjQFlG5EPm1K6uTArN8LlqmZTEixDUA==
+
+uni-simple-router@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.npmmirror.com/uni-simple-router/-/uni-simple-router-2.0.7.tgz#04e0b5be6cd733a1ecb9d35a3dbe82f27f48204e"
+  integrity sha512-8FKv5dw7Eoonm0gkO8udprrxzin0fNUI0+AvIphFkFRH5ZmP5ZWJ2pvnWzb2NiiqQSECTSU5VSB7HhvOSwD5eA==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"

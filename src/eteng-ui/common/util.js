@@ -1,4 +1,4 @@
 
-export { addUnit } from './add-unit';
-export { mergeStyle, appendStyles } from './merge-style';
-export { formatDate } from './date';
+export * from './add-unit';
+export * from './merge-style';
+export * from './date';

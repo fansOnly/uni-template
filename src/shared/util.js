@@ -89,3 +89,41 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
 export const transformData = str => {
   return String(str).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天');
 };
+
+/**
+ * 获取元素节点信息
+ * @param {string} 实例 this
+ * @param {string} 选择器
+ */
+export function getRect(context, selector) {
+  return new Promise(
+    (resolve) => {
+      wx.createSelectorQuery()
+        .in(context)
+        .select(selector)
+        .boundingClientRect()
+        .exec((rect = []) => resolve(rect[0]));
+    }
+  );
+}
+
+/**
+ * 缓动动画
+ */
+export function requestAnimationFrame() {
+  return new Promise((resolve) => {
+    const systemInfo = uni.getSystemInfoSync();
+    if (systemInfo.platform === 'devtools') {
+      return setTimeout(function () {
+        resolve();
+      }, 1000 / 30);
+    }
+    return wx
+      .createSelectorQuery()
+      .selectViewport()
+      .boundingClientRect()
+      .exec(function () {
+        resolve();
+      });
+  });
+}

@@ -2,19 +2,10 @@
   <view :class="['et-input-wrapper', border ? 'et-hairline--surround' : null, isTextarea ? 'et-textarea-class' : null]"
     :style="wrapperStyled">
     <slot name="prefix"></slot>
-    <template v-if="disabled || isReadonly">
-      <view v-if="value" :class="['et-input et-ellipsis', disabled ? 'is-disabled' : null]" :style="inputStyled"
-        @click="$emit('click')">{{ password ? '******' : value }}</view>
-      <view v-else :class="['et-input et-ellipsis', 'input-placeholder', disabled ? 'is-disabled' : null]"
-        :style="placeholderStyled" @click="$emit('click')">{{ placeholder }}</view>
-      <view v-if="showLimit" class="et-textarea-limit">{{ inputValueCount }}/{{ Math.max(maxlength,
-          TEXTAREA_MAX_LENGTH)
-      }}</view>
-    </template>
-    <view v-else class="et-input--input">
+    <view class="et-input--input">
       <template v-if="type === 'textarea'">
         <view class="et-textarea-wrap">
-          <textarea class="et-textarea" :name="name" :value="formatterValue" :placeholder="placeholder"
+          <textarea class="et-textarea" :name="name" :value="formatterValue" :disabled="disabled" :placeholder="placeholder"
             :maxlength="textAreaMaxLength" :cursor-spacing="10" :focus="isFocus" :auto-height="autoHeight"
             :style="inputStyled" :placeholder-style="placeholderStyled" @blur="onBlur" @focus="onFocus"
             @input="onTextareaChange" />
@@ -39,18 +30,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { INPUT_HEIGHT_DEF } from '../common/constant'
-import { addUnit, appendStyles } from '../common/util'
+import { INPUT_HEIGHT_DEF } from '../common/constant';
+import { addUnit, appendStyles } from '../common/util';
 
 function debounce(fn, delay) {
-  let timer = null
+  let timer = null;
   return function () {
-    if (timer) clearTimeout(timer)
+    if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      fn.apply(this, arguments)
-    }, delay)
-  }
+      fn.apply(this, arguments);
+    }, delay);
+  };
 }
 
 export default {
@@ -173,88 +163,82 @@ export default {
       initValue: '', // 原始输入值
       inputFocus: false,
       status: '', // 表单状态
-      // errorText: '', // 错误文本
-      // validateDone: false,
       inputType: this.type,
       passIconName: 'eye-open'
-    }
+    };
   },
   computed: {
-    ...mapState('state', ['activeInputName']),
     isTextarea() {
-      return this.type === 'textarea'
+      return this.type === 'textarea';
     },
     isPassInput() {
-      return this.inputType === 'password'
+      return this.inputType === 'password';
     },
     style() {
-      let style = ''
-      let height = this.inputHeight
-      let lineHeight = this.inputHeight
+      let style = '';
+      let height = this.inputHeight;
+      let lineHeight = this.inputHeight;
       if (this.isTextarea) {
-        height = Math.max(height, 80)
-        lineHeight = Math.min(height, 22)
+        height = Math.max(height, 80);
+        lineHeight = Math.min(height, 22);
       }
-      style += `height: ${this.autoHeight ? 'auto' : height + 'px'};`
-      style += `min-height: ${this.minHeight}px;`
-      style += `line-height: ${lineHeight}px;`
-      return style
+      style += `height: ${this.autoHeight ? 'auto' : height + 'px'};`;
+      style += `min-height: ${this.minHeight}px;`;
+      style += `line-height: ${lineHeight}px;`;
+      return style;
     },
     wrapperStyled({ radius, customStyle, clearable }) {
-      let style = ''
-      radius && (style += `border-radius: ${addUnit(radius)};`)
+      let style = '';
+      radius && (style += `border-radius: ${addUnit(radius)};`);
       if (clearable) {
-        style += 'padding-right: 0;'
+        style += 'padding-right: 0;';
       }
-      return appendStyles([this.style, style, customStyle])
+      return appendStyles([this.style, style, customStyle]);
     },
     inputStyled() {
-      return appendStyles([this.style, this.inputStyle])
+      return appendStyles([this.style, this.inputStyle]);
     },
     placeholderStyled() {
-      return appendStyles([this.style, this.placeholderStyle])
-    },
-    isReadonly() {
-      return this.readonly || (this.supportView && ((this.activeInputName && this.activeInputName !== 'transition-magic') ? this.activeInputName !== this.name : false))
+      return appendStyles([this.style, this.placeholderStyle]);
     },
     isFocus() {
-      return this.focus || this.inputFocus
+      return this.focus || this.inputFocus;
     },
     formatterValue() {
       return this.initValue && typeof this.formatter === 'function'
         ? this.formatter(this.initValue)
-        : this.initValue
+        : this.initValue;
     },
     inputValueCount() {
       // 计数已输入文本字符数
-      return this.initValue.length
+      return this.initValue.length;
     },
     textAreaMaxLength() {
-      return Math.max(this.maxlength, this.TEXTAREA_MAX_LENGTH)
+      return Math.max(this.maxlength, this.TEXTAREA_MAX_LENGTH);
     },
     showClear() {
-      if (this.isTextarea) return false
+      if (this.isTextarea) return false;
       if (this.clearTrigger === 'focus') {
-        return this.clearable && this.initValue.length && this.isFocus
+        return this.clearable && this.initValue.length && this.isFocus;
       } else if (this.clearTrigger === 'always') {
-        return this.clearable && this.initValue.length
+        return this.clearable && this.initValue.length;
       }
-      return false
+      return false;
     }
   },
   watch: {
     value: {
       handler(val) {
         if (!val) {
-          return (this.initValue = '')
+          return (this.initValue = '');
         }
-        let initValue = val
+        let initValue = val;
         if (this.type === 'textarea') {
-          initValue = initValue.length > this.textAreaMaxLength ? initValue.substring(0, this.textAreaMaxLength) : initValue
+          initValue = initValue.length > this.textAreaMaxLength ? initValue.substring(0, this.textAreaMaxLength) : initValue;
         } else {
-          initValue = initValue.length > this.maxlength ? initValue.substring(0, this.maxlength) : initValue
+          initValue = initValue.length > this.maxlength ? initValue.substring(0, this.maxlength) : initValue;
         }
-        this.initValue = initValue
+        this.initValue = initValue;
       },
       immediate: true
     }
@@ -262,39 +246,38 @@ export default {
   behaviors: ['uni://form-field'],
   created() {
     if (this.form) {
-      this.inputHeight = this.form.height
+      this.inputHeight = this.form.height;
       this.$watch('form.value', (formValue) => {
-        this.initValue = formValue[this.name]
+        this.initValue = formValue[this.name];
       }, {
         immediate: true
-      })
+      });
     }
     if (this.formItem && this.form) {
-      this.formItem.name = this.name
+      this.formItem.name = this.name;
       // 初始化校验
       if (this.form.validateTrigger !== 'submit') {
-        this.formItem.validateForm(this.form.value[this.name], this.name)
+        this.formItem.validateForm(this.form.value[this.name], this.name);
       }
     }
   },
   methods: {
-    ...mapActions('state', ['setActiveInput']),
     onInput(evt) {
-      if (this.status === 'clear') return
-      const { value } = evt.detail
-      const output = typeof this.formatter === 'function' ? this.formatter(value) : value
-      this.initValue = output
-      this.$emit('input', output)
-      this.$emit('change', output)
+      if (this.status === 'clear') return;
+      const { value } = evt.detail;
+      const output = typeof this.formatter === 'function' ? this.formatter(value) : value;
+      this.initValue = output;
+      this.$emit('input', output);
+      this.$emit('change', output);
       if (this.form) {
-        this.form.onChange({[this.name]: output})
+        this.form.onChange({[this.name]: output});
         if (this.form.validateTrigger === 'input') {
-          this.formItem.validateForm(output, this.name)
+          this.formItem.validateForm(output, this.name);
         }
       }
       if (typeof this.formatter === 'function') {
         // 强制转换输入框输出
-        return output
+        return output;
       }
     },
     /**
@@ -302,62 +285,61 @@ export default {
      * Fix： debounce
      */
     onTextareaChange: debounce(function (evt) {
-      const { value } = evt.detail
+      const { value } = evt.detail;
       // fix: textarea 超过最大输入限制后依然可以输入内容
-      this.initValue = value.length > this.textAreaMaxLength ? value.substring(0, this.textAreaMaxLength) : value
-      this.$emit('input', this.initValue)
-      this.$emit('change', this.initValue)
+      this.initValue = value.length > this.textAreaMaxLength ? value.substring(0, this.textAreaMaxLength) : value;
+      this.$emit('input', this.initValue);
+      this.$emit('change', this.initValue);
     }, 60),
     async onBlur(evt) {
       // fix：H5 下清除按钮消失过快无法触发事件
       /* #ifdef H5 */
       setTimeout(() => {
-        this.inputFocus = false
-      }, 0)
+        this.inputFocus = false;
+      }, 0);
       /* #endif */
       /* #ifdef MP-WEIXIN */
-      this.inputFocus = false
+      this.inputFocus = false;
       /* #endif */
       // 表单校验
-      let { value } = evt.detail
+      let { value } = evt.detail;
       if (this.form && this.form.validateTrigger !== 'input') {
-        this.formItem.validateForm(value, this.name)
+        this.formItem.validateForm(value, this.name);
       }
-      this.$emit('blur', value)
+      this.$emit('blur', value);
     },
     onFocus(evt) {
-      this.inputFocus = true
-      this.setActiveInput(this.name)
-      this.$emit('focus', evt)
+      this.inputFocus = true;
+      this.$emit('focus', evt);
     },
     onConfirm(evt) {
-      this.$emit('confirm', evt.detail.value)
-      this.$emit('change', evt.detail.value)
+      this.$emit('confirm', evt.detail.value);
+      this.$emit('change', evt.detail.value);
     },
     onClear() {
       // Bug: 真机下，输入框聚焦状态下，点击清除按钮会触发一次 input 事件
-      this.status = 'clear'
-      this.initValue = ''
-      this.$emit('input', '')
-      this.$emit('change', '')
-      this.$emit('clear')
+      this.status = 'clear';
+      this.initValue = '';
+      this.$emit('input', '');
+      this.$emit('change', '');
+      this.$emit('clear');
       if (this.form) {
-        this.form.onChange({[this.name]: ''})
+        this.form.onChange({[this.name]: ''});
         if (this.form.validateTrigger !== 'submit') {
-          this.formItem.validateForm('', this.nam)
+          this.formItem.validateForm('', this.nam);
         }
       }
       this.$nextTick(() => {
-        this.status = ''
-      })
+        this.status = '';
+      });
     },
     togglePassType() {
-      const inputType = this.inputType === 'password' ? 'text' : 'password'
-      this.inputType = inputType
-      this.passIconName = inputType === 'password' ? 'eye-open' : 'eye-close'
+      const inputType = this.inputType === 'password' ? 'text' : 'password';
+      this.inputType = inputType;
+      this.passIconName = inputType === 'password' ? 'eye-open' : 'eye-close';
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -406,17 +388,6 @@ export default {
 .et-textarea {
   flex: 1;
   width: 100%;
-}
-
-.is-disabled {
-  color: $uni-text-color-disabled  !important;
-}
-
-.et-input-error-wrapper {
-  margin-top: -14px;
-  transition-property: height;
-  transition-timing-function: ease;
-  overflow: hidden;
 }
 
 .et-input--input {

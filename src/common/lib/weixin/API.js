@@ -1,4 +1,4 @@
-import { gte } from '@/shared/version';
+import { gte } from '@/common/lib/version';
 
 /**
  * 统一转换部分微信原生 API 为 Promise 风格

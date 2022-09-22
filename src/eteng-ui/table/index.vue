@@ -18,7 +18,7 @@
 
 <script>
 import { addUnit, appendStyles } from '../common/util'
-import cssVariables from '@/shared/css-variables'
+import cssVariables from '@/common/lib/theme'
 
 export default {
   name: 'et-table',

@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { getRect } from '@/shared/platform'
+import { getRect } from '@/shared';
+import { getAppData } from '../common/globalData';
 
 function genIndexList(withSpecial = true) {
-  const arr = []
-  const charCodeOfA = 'A'.charCodeAt(0)
+  const arr = [];
+  const charCodeOfA = 'A'.charCodeAt(0);
   for (let i = 0; i < 26; i++) {
-    arr.push(String.fromCharCode(charCodeOfA + i))
+    arr.push(String.fromCharCode(charCodeOfA + i));
   }
-  return withSpecial ? arr.concat('#') : arr
+  return withSpecial ? arr.concat('#') : arr;
 }
 
 export default {
@@ -27,7 +27,7 @@ export default {
   provide() {
     return {
       indexBar: this
-    }
+    };
   },
   props: {
     // 页面滚动距离
@@ -63,13 +63,8 @@ export default {
       type: [Number, String],
       default: 0,
       validator(val) {
-        return /^\d+$/.test(String(val))
+        return /^\d+$/.test(String(val));
       }
-    },
-    // 是否自定义导航页面
-    isCustomNavigation: {
-      type: Boolean,
-      default: true
     },
   },
   data() {
@@ -78,52 +73,56 @@ export default {
       anchorRects: [],
       // 当前索引项
       current: -1,
-      timer: null
-    }
+      timer: null,
+      navHeight: 0,
+      customNavigationStyle: false
+    };
   },
   computed: {
-    ...mapState('state', ['navHeight']),
-    sidebarStyled({ navHeight, isCustomNavigation }) {
-      let style = ''
-      if (isCustomNavigation) {
-        style += `margin-top: ${navHeight / 2}px;`
+    sidebarStyled({ navHeight, customNavigationStyle }) {
+      let style = '';
+      if (customNavigationStyle) {
+        style += `margin-top: ${navHeight / 2}px;`;
       }
-      return style
+      return style;
     }
   },
   watch: {
     scrollTop: {
       handler(val) {
-        this.onScroll(val)
+        this.onScroll(val);
       },
       immediate: true
     },
     current: {
       handler(val) {
-        this.setStickyAnchor()
+        this.setStickyAnchor();
       },
       immediate: true
     }
   },
   created() {
-    this.children = []
+    this.children = [];
   },
   mounted() {
+    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+    this.customNavigationStyle = customNavigationStyle;
+    this.navHeight = navHeight;
     /**
      * Bug: 设置自定义导航时，如果页面不是首页，获取的节点 top 值会有误差（navHeight）
      * 延迟获取
      */
     setTimeout(() => {
-      this.getAnchorsRect()
-      this.getWrapperRect()
-    }, 60)
+      this.getAnchorsRect();
+      this.getWrapperRect();
+    }, 60);
   },
   methods: {
     async onClickAnchor(item, index) {
-      const keys = this.children.map(v => v.index)
+      const keys = this.children.map(v => v.index);
 
-      const existKeyIdx = keys.indexOf(item)
-      if (existKeyIdx === -1) return
+      const existKeyIdx = keys.indexOf(item);
+      if (existKeyIdx === -1) return;
 
       // Bug: 上级节点不能是 scroll-view 或者设置 overflow: auto
       uni.pageScrollTo({
@@ -131,61 +130,61 @@ export default {
         // Bug: selector 不生效？？？
         // selector: '.anchor-' + index,
         duration: 100
-      })
+      });
     },
     onScroll(val) {
       this.$nextTick(() => {
         // 滚动结束后判断滚动位置是否在索引区域
         if (this.boundary) {
-          const { start, end } = this.boundary
+          const { start, end } = this.boundary;
           if (val < start || val > end) {
-            return (this.current = -1)
+            return (this.current = -1);
           }
         }
         for (let i = 1; i < this.anchorRects.length - 1; i++) {
-          const currentAnchor = this.anchorRects[i]; const preAnchor = this.anchorRects[i - 1]; const nextAnchor = this.anchorRects[i + 1]
+          const currentAnchor = this.anchorRects[i]; const preAnchor = this.anchorRects[i - 1]; const nextAnchor = this.anchorRects[i + 1];
           if (val >= currentAnchor.top && val < nextAnchor.top) {
             // 向下滚动
-            this.current = this.getAnchorIndexByKey(currentAnchor.index)
+            this.current = this.getAnchorIndexByKey(currentAnchor.index);
           } else if (val >= preAnchor.top && val < currentAnchor.top) {
             // 向上滚动
-            this.current = this.getAnchorIndexByKey(preAnchor.index)
+            this.current = this.getAnchorIndexByKey(preAnchor.index);
           } else if (val >= nextAnchor.top) {
             // 滚动到底
-            this.current = this.getAnchorIndexByKey(nextAnchor.index)
+            this.current = this.getAnchorIndexByKey(nextAnchor.index);
           }
         }
-      })
+      });
     },
     setStickyAnchor() {
-      if (!this.sticky) return
+      if (!this.sticky) return;
       this.$nextTick(() => {
         this.children.forEach((child, index) => {
-          child.setStickyAnchor(index === this.current, this.stickyOffsetTop)
-        })
-      })
+          child.setStickyAnchor(index === this.current, this.stickyOffsetTop);
+        });
+      });
     },
     getAnchorIndexByKey(key) {
-      return this.indexList.map(v => v + '').indexOf(key)
+      return this.indexList.map(v => v + '').indexOf(key);
     },
     getActiveChild(index) {
-      return this.children.find(child => child.index == index)
+      return this.children.find(child => child.index == index);
     },
     getAnchorsRect() {
       this.children.forEach(async (child) => {
-        const targetClass = `.anchor-${child.index === '#' ? 'special' : child.index}`
-        const rect = await getRect(child, targetClass)
-        const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
-        this.anchorRects.push({ index: child.index + '', name: targetClass, top, height: rect.height })
-      })
+        const targetClass = `.anchor-${child.index === '#' ? 'special' : child.index}`;
+        const rect = await getRect(child, targetClass);
+        const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
+        this.anchorRects.push({ index: child.index + '', name: targetClass, top, height: rect.height });
+      });
     },
     async getWrapperRect() {
-      const rect = await getRect(this, '.index-bar-wrapper')
-      const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
-      this.boundary = { start: top, end: rect.bottom }
+      const rect = await getRect(this, '.index-bar-wrapper');
+      const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
+      this.boundary = { start: top, end: rect.bottom };
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

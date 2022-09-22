@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { wxGetLocation } from '@/shared/platform/weixin/api'
+import { wxGetLocation } from '@/common/lib/weixin/API'
   export default {
     data() {
       return {

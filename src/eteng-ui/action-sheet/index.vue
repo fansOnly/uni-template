@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util'
-import cssVariables from '@/shared/css-variables'
+import { addUnit, appendStyles } from '../common/util';
+import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-action-sheet',
   props: {
@@ -94,33 +94,33 @@ export default {
   },
   computed: {
     styled() {
-      let style = ''
-      style += `height: ${addUnit(this.height)};`
-      style += `color: ${cssVariables.textColor};`
-      return appendStyles([style, this.customStyle])
+      let style = '';
+      style += `height: ${addUnit(this.height)};`;
+      style += `color: ${cssVariables.textColor};`;
+      return appendStyles([style, this.customStyle]);
     },
   },
   methods: {
     onSelect(item) {
-      if (item.disabled) return
-      if (this.value === item[this.valueProp] && !this.refresh) return
-      this.$emit('select', item)
-      this.closeOnClickAction && this.close()
+      if (item.disabled) return;
+      if (this.value === item[this.valueProp] && !this.refresh) return;
+      this.$emit('select', item);
+      this.closeOnClickAction && this.close();
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return
-      this.close()
+      if (!this.closeOnClickOverlay) return;
+      this.close();
     },
     cancel() {
-      this.$emit('cancel')
-      this.$emit('update:visible', false)
+      this.$emit('cancel');
+      this.$emit('update:visible', false);
     },
     close() {
-      this.$emit('close')
-      this.$emit('update:visible', false)
+      this.$emit('close');
+      this.$emit('update:visible', false);
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

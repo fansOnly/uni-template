@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -66,16 +66,16 @@ export default {
       visible4: false,
       visible5: false,
       position: 'center',
-    }
+    };
   },
   computed: {
     style() {
       return ['top', 'bottom'].includes(this.position)
         ? 'height:200px;'
-        : 'width:100px;'
+        : 'width:100px;';
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

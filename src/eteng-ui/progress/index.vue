@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '@/shared/platform'
-import cssVariables from '@/shared/css-variables'
+import { getRect, requestAnimationFrame } from '@/shared'
+import cssVariables from '@/common/lib/theme'
 import { addUnit } from '../common/util'
 export default {
   name: 'et-progress',

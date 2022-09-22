@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
-import page from '@/mixins/page'
-import list from '../config'
-import { demo } from '@p/api/demo'
+import DemoBlock from '@p/components/demo-block';
+import page from '@/mixins/page';
+import list from '../config';
+import { demo } from '@p/api/demo';
 
 export default {
   components: {
@@ -34,43 +34,46 @@ export default {
     return {
       list,
       visible2: false,
-    }
+    };
   },
   async onLoad() {
-    await this.$onLaunched
+    console.log('on home page load', this.$Route.query);
+    await this.$onLaunched;
 
-    await demo({ a: 1, b: 2 })
+    await demo({ a: 1, b: 2 });
   },
   async onShow() {
-    await this.$onLaunched
+    console.log('on home page show');
+    await this.$onLaunched;
   },
   onReady() {
-    this.pageReady = true
+    console.log('on home page ready');
+    this.pageReady = true;
   },
   onHide() {
-    console.log('on home page hide')
+    console.log('on home page hide');
   },
   methods: {
     handleRouter({ prefix, path }) {
-      let url = ''
+      let url = '';
       if (prefix === 'sub-package-a') {
-        url = `/ui-demo/sub-package-a${path}/index`
+        url = `/ui-demo/sub-package-a${path}/index`;
       } else {
-        url = `/ui-demo/pages/${prefix}${path}/index`
+        url = `/ui-demo/pages/${prefix}${path}/index`;
       }
       if (path === '/navigation') {
-        this.$wxRouter.switchTab({ url })
+        this.$Router.pushTab(url);
       } else {
-        this.$wxRouter.navigateTo({ url })
+        this.$Router.push(url);
       }
     },
     onShareAppMessage() {
       return {
         title: 'UI 组件库演示',
-      }
+      };
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

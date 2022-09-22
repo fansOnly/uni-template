@@ -1,9 +1,6 @@
 import store from '@/store';
 import encrypt from '@/plugins/encrypt/encrypt-gm';
-import { getCurrentPage } from '@/shared/platform/weixin/route';
-// import { unLoginInterception } from '@/shared/token'
 import { isJsonString, formatDate } from '@/shared';
-// import { createGatewayHeaders } from '@p/config/gateway'
 
 const aresKey = encrypt.getEncryptKey();
 const useMock = process.env.USE_MOCK;
@@ -43,18 +40,6 @@ const httpRequest = {
    * @param {*} customHeaders 自定义请求头
    */
   post: async function (action, params = {}, customHeaders = {}) {
-    // 设置不同网关子应用的 appid
-    // const msa = action.split('/')[0]
-    // const gatewayHeaders = createGatewayHeaders(msa)
-    // console.log(`[debug] ${msa} 子应用的网关头配置：`, gatewayHeaders);
-
-    // if (!customHeaders.preventLoading) {
-    //   uni.showLoading({
-    //     title: "加载中",
-    //     mask: true
-    //   })
-    // }
-
     // 过滤 undefined null 参数
     const parameter = {};
     for (const [key, value] of Object.entries(params)) {
@@ -62,7 +47,7 @@ const httpRequest = {
     }
 
     /**
-    * 小程序登录头信息
+    * 登录 sessionId 携带
     */
     let tokenHeaders = {};
     const sessLoginKey = store.state.user.sessLoginKey;
@@ -73,7 +58,7 @@ const httpRequest = {
     }
 
     // 请求参数
-    const generateData = () => {
+    const transformData = () => {
       let result;
       // #ifdef H5
       result = (useMock || !useEncrypt) ? parameter : encrypt.encrypt(parameter, aresKey);
@@ -92,12 +77,11 @@ const httpRequest = {
         method: 'POST',
         url: `${requestUrl}/${apiContext}/${action}`,
         header: {
-          // ...gatewayHeaders,
           ...extraHeaders(),
           ...tokenHeaders,
           ...customHeaders
         },
-        data: generateData(),
+        data: transformData(),
         withCredentials: true,
         timeout,
         success: (res) => {
@@ -124,6 +108,9 @@ const httpRequest = {
 
           if (result.STATUS == '1') {
             resolve(result);
+          } else if (result.STATUS == '2') {
+            // TODO 统一拦截有用的错误提示
+            resolve(result);
           } else { // 枚举并拦截异常状态
             switch (result.STATUS) {
             case '005':
@@ -137,35 +124,13 @@ const httpRequest = {
                   success: function () {
                     store.dispatch('user/clearSessionToken');
                     errorCount--;
-                    // 处理未登录逻辑
-                    const path = getCurrentPage().route;
-                    const data = {
-                      message: '接口统一拦截请求登录过期',
-                      type: '2',
-                      sourceUrl: path,
-                    };
-                    // unLoginInterception(data)
+                    // TODO 处理未登录逻辑
                   }
                 });
               }
               resolve(result);
               break;
-              break;
-              // 统一处理其他错误返回
-            case '400202':
-              if (errorCount++ == 0) {
-                uni.showModal({
-                  title: '温馨提示',
-                  content: result.MSG,
-                  showCancel: false,
-                  success: function () {
-                    errorCount--;
-                  }
-                });
-              }
-              resolve(result);
-              break;
-              // 默认弹窗
+            // 默认弹窗
             default:
               resolve(result);
               uni.showModal({
@@ -179,6 +144,7 @@ const httpRequest = {
         },
         fail: (error) => {
           if (errorCount++ == 0) {
+            resolve({ STATUS: 'timeout' });
             console.log('├─', new Date());
             console.log('├─[url]', action);
             console.log('├─[params]', parameter);
@@ -190,15 +156,12 @@ const httpRequest = {
               content: '请求失败，请稍后重试',
               showCancel: false,
               success: function () {
-                resolve({ STATUS: '请求超时' });
                 errorCount = 0;
               }
             });
           }
         },
-        complete: () => {
-          // if (!customHeaders.preventLoading) uni.hideLoading()
-        }
+        complete: () => {}
       });
     });
   }

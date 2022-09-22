@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import cssVariables from '@/shared/css-variables'
+import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-steps',
   props: {
@@ -50,7 +50,7 @@ export default {
       default: 'desc'
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

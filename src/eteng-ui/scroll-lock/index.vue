@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('state')
+import { getAppData } from '../common/globalData';
+
 export default {
   name: 'et-scroll-lock',
   props: {
@@ -29,14 +29,17 @@ export default {
   },
   data() {
     return {
-      windowHeight: wx.getSystemInfoSync().windowHeight
-    }
+      windowHeight: wx.getSystemInfoSync().windowHeight,
+      shouldPageScroll: true
+    };
   },
   computed: {
-    ...mapState(['shouldPageScroll']),
     scrollable() {
-      return this.shouldPageScroll && this.useScroll
+      return this.shouldPageScroll && this.useScroll;
     }
+  },
+  mounted() {
+    this.shouldPageScroll = getAppData('shouldPageScroll');
   }
-}
+};
 </script>

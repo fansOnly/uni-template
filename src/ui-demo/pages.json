@@ -2,14 +2,24 @@
   "pages": [
     {
       "path": "pages/home/index",
+      "name": "home",
+      "meta": {
+        "auth": false,
+        "title": "UI 组件演示库"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/other/index",
+      "name": "other",
+      "meta": {
+        "auth": false,
+        "title": "UI 组件演示库"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库",
+        "navigationBarTitleText": "",
         "usingComponents": {
           "e-test": "/wxcomponents/e-test/index"
         }
@@ -17,285 +27,543 @@
     },
     {
       "path": "pages/custom-ui/action-sheet/index",
+      "name": "action-sheet",
+      "meta": {
+        "auth": false,
+        "title": "动作面板"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/business/index",
+      "name": "business",
+      "meta": {
+        "auth": false,
+        "title": "业务组件"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/button/index",
+      "name": "button",
+      "meta": {
+        "auth": false,
+        "title": "按钮"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/canvas/index",
+      "name": "canvas",
+      "meta": {
+        "auth": false,
+        "title": "画布"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/calendar/index",
+      "name": "calendar",
+      "meta": {
+        "auth": false,
+        "title": "日历"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/cell/index",
+      "name": "cell",
+      "meta": {
+        "auth": false,
+        "title": "单元格"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/checkbox/index",
+      "name": "checkbox",
+      "meta": {
+        "auth": false,
+        "title": "多选框"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/collapse/index",
+      "name": "collapse",
+      "meta": {
+        "auth": false,
+        "title": "折叠面板"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/count-down/index",
+      "name": "count-down",
+      "meta": {
+        "auth": false,
+        "title": "倒计时"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/dialog/index",
+      "name": "dialog",
+      "meta": {
+        "auth": false,
+        "title": "对话框"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/dropdown/index",
+      "name": "dropdown",
+      "meta": {
+        "auth": false,
+        "title": "下拉选框"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/echarts/index",
+      "name": "echarts",
+      "meta": {
+        "auth": false,
+        "title": "图表"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/empty/index",
+      "name": "empty",
+      "meta": {
+        "auth": false,
+        "title": "空数据"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/icon/index",
+      "name": "icon",
+      "meta": {
+        "auth": false,
+        "title": "图标"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/image/index",
+      "name": "image",
+      "meta": {
+        "auth": false,
+        "title": "图片"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/index-bar/index",
+      "name": "index-bar",
+      "meta": {
+        "auth": false,
+        "title": "索引栏"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/input/index",
+      "name": "input",
+      "meta": {
+        "auth": false,
+        "title": "输入框"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/loading/index",
+      "name": "loading",
+      "meta": {
+        "auth": false,
+        "title": "加载效果"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/navigation/index",
+      "name": "navigation",
+      "meta": {
+        "auth": false,
+        "title": "小程序自定义导航",
+        "customNavigationStyle": true
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库",
+        "navigationBarTitleText": "",
         "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/custom-ui/overlay/index",
+      "name": "overlay",
+      "meta": {
+        "auth": false,
+        "title": "遮罩层"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/picker/index",
+      "name": "picker",
+      "meta": {
+        "auth": false,
+        "title": "选择器"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/date-picker/index",
+      "name": "date-picker",
+      "meta": {
+        "auth": false,
+        "title": "日期选择器"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/area/index",
+      "name": "area",
+      "meta": {
+        "auth": false,
+        "title": "地区选择器"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/popup/index",
+      "name": "popup",
+      "meta": {
+        "auth": false,
+        "title": "弹出层"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/progress/index",
+      "name": "progress",
+      "meta": {
+        "auth": false,
+        "title": "进度条"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/radio/index",
+      "name": "radio",
+      "meta": {
+        "auth": false,
+        "title": "单选按钮"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/route/interception/index",
+      "name": "route-interception",
+      "meta": {
+        "auth": true,
+        "title": "路由拦截"
+      },
+      "style": {
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/route/index",
+      "name": "route",
+      "meta": {
+        "auth": false,
+        "title": "路由跳转"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/route/detail",
+      "name": "route-detail",
+      "meta": {
+        "auth": false,
+        "title": "路由跳转详情"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/scroll-list/index",
+      "name": "scroll-list",
+      "meta": {
+        "auth": false,
+        "title": "触底加载"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/scroll-lock/index",
+      "name": "scroll-lock",
+      "meta": {
+        "auth": false,
+        "title": "锁定滚动穿透"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/scroll-num/index",
+      "name": "scroll-num",
+      "meta": {
+        "auth": false,
+        "title": "滚动数字"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/search/index",
+      "name": "search",
+      "meta": {
+        "auth": false,
+        "title": "搜索栏"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/skeleton/index",
+      "name": "skeleton",
+      "meta": {
+        "auth": false,
+        "title": "骨架屏"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/steps/index",
+      "name": "steps",
+      "meta": {
+        "auth": false,
+        "title": "步骤条"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/swiper/index",
+      "name": "swiper",
+      "meta": {
+        "auth": false,
+        "title": "滑块视图容器"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/switch/index",
+      "name": "switch",
+      "meta": {
+        "auth": false,
+        "title": "开关"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/tab/index",
+      "name": "tab",
+      "meta": {
+        "auth": false,
+        "title": "标签页"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/table/index",
+      "name": "table",
+      "meta": {
+        "auth": false,
+        "title": "表格"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/transition/index",
+      "name": "transition",
+      "meta": {
+        "auth": false,
+        "title": "过渡动画"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/style/index",
+      "name": "style",
+      "meta": {
+        "auth": false,
+        "title": "内置样式"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/form/index",
+      "name": "form",
+      "meta": {
+        "auth": false,
+        "title": "表单"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/movable/index",
+      "name": "movable",
+      "meta": {
+        "auth": false,
+        "title": "可移动区域"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/map/index",
+      "name": "map",
+      "meta": {
+        "auth": false,
+        "title": "小程序内置地图"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/business/sms-field/index",
+      "name": "sms-field",
+      "meta": {
+        "auth": false,
+        "title": "短信验证"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/business/safe-keyboard/index",
+      "name": "safe-keyboard",
+      "meta": {
+        "auth": false,
+        "title": "安全键盘"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/platform-wx/soter-auth/index",
+      "name": "soter-auth",
+      "meta": {
+        "auth": false,
+        "title": "生物认证"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
       }
     },
     {
       "path": "pages/custom-ui/upload/index",
+      "name": "upload",
+      "meta": {
+        "auth": false,
+        "title": "文件上传"
+      },
       "style": {
-        "navigationBarTitleText": "UI 组件演示库"
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/bug/index",
+      "name": "bug",
+      "meta": {
+        "auth": false,
+        "title": "Bug 测试"
+      },
+      "style": {
+        "navigationBarTitleText": ""
       }
     }
   ],
@@ -305,8 +573,13 @@
       "pages": [
         {
           "path": "echarts/index",
+          "name": "echarts",
+          "meta": {
+            "auth": false,
+            "title": "echarts 图表"
+          },
           "style": {
-            "navigationBarTitleText": "UI 组件演示库"
+            "navigationBarTitleText": ""
           }
         }
       ]

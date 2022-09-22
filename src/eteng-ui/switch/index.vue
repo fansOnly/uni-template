@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { addUnit } from '../common/util'
-import cssVariables from '@/shared/css-variables'
+import { addUnit } from '../common/util';
+import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-switch',
   props: {
@@ -74,32 +74,32 @@ export default {
   computed: {
     checked: {
       get() {
-        return this.value === this.activeValue
+        return this.value === this.activeValue;
       },
       set(val) {
-        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val)
+        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val);
       }
     },
     styled() {
-      let style = ''
-      style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`
-      style += `font-size: ${addUnit(this.size)};`
-      return style
+      let style = '';
+      style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`;
+      style += `font-size: ${addUnit(this.size)};`;
+      return style;
     },
     textStyled() {
-      let style = ''
-      style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`
-      style += `font-size: ${addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`
-      return style
+      let style = '';
+      style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`;
+      style += `font-size: ${addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`;
+      return style;
     }
   },
   methods: {
     click() {
-      if (this.disabled) return
-      this.checked = !this.checked
+      if (this.disabled) return;
+      this.checked = !this.checked;
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

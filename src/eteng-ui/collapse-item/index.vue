@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getRect } from '@/shared/platform'
+import { getRect } from '@/shared';
 
 export default {
   name: 'et-collapse-item',
@@ -69,58 +69,58 @@ export default {
       animation: false,
       expanded: false,
       height: 0,
-    }
+    };
   },
   computed: {
     bodyStyled({ expanded, animation, height }) {
-      let style = ''
+      let style = '';
       if (animation) {
-        style += 'transition: height ease 0.3s;'
+        style += 'transition: height ease 0.3s;';
       }
       // Bug: 安卓下 rpx 转换有误差
-      style += `height: ${expanded ? height : 0}px;`
-      return style
+      style += `height: ${expanded ? height : 0}px;`;
+      return style;
     },
   },
   watch: {
     expanded: {
       handler(val) {
-        val && this.getBodyHeight()
+        val && this.getBodyHeight();
       },
       immediate: true
     }
   },
   created() {
-    this.collapse.children.push(this)
+    this.collapse.children.push(this);
   },
   mounted() {
-    if (!this.collapse) return
+    if (!this.collapse) return;
   },
   methods: {
     initRender(val, firstInit = false) {
-      this.animation = !firstInit
+      this.animation = !firstInit;
       if (Array.isArray(val)) {
-        this.expanded = val.includes(this.name)
+        this.expanded = val.includes(this.name);
       } else {
         if (typeof val === 'boolean') {
-          this.expanded = val
+          this.expanded = val;
         } else {
-          this.expanded = this.name === val
+          this.expanded = this.name === val;
         }
       }
     },
     onClick() {
-      if (this.disabled) return
-      this.collapse.change({name: this.name, expanded: !this.expanded})
+      if (this.disabled) return;
+      this.collapse.change({name: this.name, expanded: !this.expanded});
     },
     getBodyHeight() {
       this.$nextTick(async () => {
-        const rect = await getRect(this, '.et-collapse-item-content')
-        this.height = rect.height
-      })
+        const rect = await getRect(this, '.et-collapse-item-content');
+        this.height = rect.height;
+      });
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

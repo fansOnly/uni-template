@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block/index.vue'
+import DemoBlock from '@p/components/demo-block/index.vue';
 export default {
   components: {
     DemoBlock
@@ -116,62 +116,62 @@ export default {
       start: '',
       end: '',
       active: 'start'
-    }
+    };
   },
   methods: {
     handleQuarterConfirm(data) {
-      console.log('[info] 季度选择的值>>>: ', data)
-      this.selectedDate11 = data
-      this.quarterValues = data.map((v) => v)
+      console.log('[info] 季度选择的值>>>: ', data);
+      this.selectedDate11 = data;
+      this.quarterValues = data.map((v) => v);
     },
     handleDateConfirm(data) {
-      console.log('[info] 选择日期的值>>>: ', data)
-      this.selectedDate = data
-      this.dateValues1 = data.map((v) => v)
+      console.log('[info] 选择日期的值>>>: ', data);
+      this.selectedDate = data;
+      this.dateValues1 = data.map((v) => v);
     },
     handleIdDateConfirm(data) {
-      console.log('[info] 选择日期的值>>>: ', data)
-      this.selectedDate7 = data
-      this.idDateValues = data.map((v) => v)
+      console.log('[info] 选择日期的值>>>: ', data);
+      this.selectedDate7 = data;
+      this.idDateValues = data.map((v) => v);
     },
     handleTimeConfirm(data) {
-      console.log('[info] 选择时间的值>>>: ', data)
-      this.selectedDate8 = data
-      this.timeValues = data.map((v) => v)
+      console.log('[info] 选择时间的值>>>: ', data);
+      this.selectedDate8 = data;
+      this.timeValues = data.map((v) => v);
     },
     handleDateTimeConfirm(data) {
-      console.log('[info] 日期选择日期的值>>>: ', data)
-      this.selectedDate9 = data
-      this.dateTimeValues = data.map((v) => v)
+      console.log('[info] 日期选择日期的值>>>: ', data);
+      this.selectedDate9 = data;
+      this.dateTimeValues = data.map((v) => v);
     },
     handleStart() {
-      this.active = 'start'
-      this.dateValues = this.date1
-      this.visible = true
-      this.$refs.dateView.initRender(this.dateValues)
+      this.active = 'start';
+      this.dateValues = this.date1;
+      this.visible = true;
+      this.$refs.dateView.initRender(this.dateValues);
     },
     handleEnd() {
-      this.active = 'end'
-      this.dateValues = this.date2
-      this.visible = true
-      this.$refs.dateView.initRender(this.dateValues)
+      this.active = 'end';
+      this.dateValues = this.date2;
+      this.visible = true;
+      this.$refs.dateView.initRender(this.dateValues);
     },
     handleChange(data) {
-      console.log('[debug] date-view change')
-      data.map(v => console.log({ ...v }))
+      console.log('[debug] date-view change');
+      data.map(v => console.log({ ...v }));
       if (this.active === 'start') {
-        this.date1 = data.map(v => v)
+        this.date1 = data.map(v => v);
       } else if (this.active === 'end') {
-        this.date2 = data.map(v => v)
+        this.date2 = data.map(v => v);
       }
     },
     handleClose() {
-      this.visible = false
-      this.active = 'start'
-      this.dateValues = []
+      this.visible = false;
+      this.active = 'start';
+      this.dateValues = [];
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

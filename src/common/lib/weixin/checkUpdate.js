@@ -1,4 +1,4 @@
-import { shouldUpdateWx } from '@/shared';
+import { shouldUpdateWx } from '@/common/lib/version';
 
 function updateWeixin() {
   if (shouldUpdateWx()) {

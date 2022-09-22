@@ -1,8 +1,9 @@
 'use strict';
-// const webpack = require('webpack')
+const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const copyPluginsList = require('./build/lib/copy-plugin');
+const TransformPages = require('uni-read-pages');
 require('./build/lib/load-env');
 
 // 获取工程运行配置
@@ -24,7 +25,15 @@ module.exports = {
       }
     },
     plugins: [
-      new CopyWebpackPlugin(copyPluginsList)
+      new CopyWebpackPlugin(copyPluginsList),
+      new webpack.DefinePlugin({
+        ROUTES: webpack.DefinePlugin.runtimeValue(() => {
+          const tfPages = new TransformPages({
+            includes: ['path', 'name', 'meta']
+          });
+          return JSON.stringify(tfPages.routes);
+        }, true)
+      })
     ]
   },
   chainWebpack: (config) => {
@@ -40,15 +49,15 @@ module.exports = {
         return args;
       });
     // 发行或运行时启用了压缩时会生效
-    // config.optimization.minimizer('terser').tap((args) => {
-    // const compress = args[0].terserOptions.compress
-    // 非 App 平台移除 console 代码(包含所有 console 方法，如 log,debug,info...)
-    // compress.drop_console = true
-    // compress.pure_funcs = [
-    // '__f__', // App 平台 vue 移除日志代码
-    // 'console.debug' // 可移除指定的 console 方法
-    // ]
-    // return args
-    // })
+    config.optimization.minimizer('terser').tap((args) => {
+      const compress = args[0].terserOptions.compress;
+      // 非 App 平台移除 console 代码(包含所有 console 方法，如 log,debug,info...)
+      // compress.drop_console = true;
+      compress.pure_funcs = [
+        // '__f__', // App 平台 vue 移除日志代码
+        'console.debug' // 可移除指定的 console 方法
+      ];
+      return args;
+    });
   }
 };

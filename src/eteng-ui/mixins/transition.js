@@ -1,9 +1,7 @@
 
-
-import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('state');
-import { requestAnimationFrame } from '@/shared/platform';
+import { requestAnimationFrame } from '@/shared';
 import { isObject } from '@/shared';
+
 export default {
   props: {
     // 显示开关
@@ -20,7 +18,6 @@ export default {
   data() {
     return {
       status: '',
-      initialized: false,
       display: false,
       currentDuration: 0,
       classes: '',
@@ -38,10 +35,8 @@ export default {
   },
   beforeDestroy() {
     // remove screen lock
-    this.clearActiveInput();
   },
   methods: {
-    ...mapActions(['setActiveInput', 'clearActiveInput']),
     async enter() {
       const classNames = this.getClassNames(this.animationName);
       const currentDuration = isObject(this.duration) ? this.duration.enter : this.duration;
@@ -51,18 +46,15 @@ export default {
       await requestAnimationFrame();
       if (this.status !== 'enter') return;
       this.$emit('enter');
-      this.initialized = true;
       this.display = true;
-      this.setActiveInput('transition-magic');
-      this.classes = classNames.enter;
       this.currentDuration = currentDuration;
+      this.classes = classNames.enter;
 
       await requestAnimationFrame();
       if (this.status !== 'enter') return;
       this.transitionEnded = false;
       this.classes = classNames['enter-to'];
       // magic: this line will make animation in device be real smooth
-      console.log(' 动画执行优化器 ');
     },
     async leave() {
       if (!this.display) return;
@@ -91,7 +83,6 @@ export default {
       this.$emit('after-' + this.status);
       if (!this.visible && this.display) {
         this.display = false;
-        this.clearActiveInput();
       }
     },
     getClassNames(name) {

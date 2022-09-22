@@ -21,10 +21,6 @@ const state = {
   pageQuery: {},
   // 自定义导航高度
   navHeight: 0,
-  // 自定义导航标题高度
-  titleHeight: 0,
-  // 自定义导航标题顶部留白
-  navOffsetTop: 0
 };
 
 const getters = {
@@ -75,12 +71,6 @@ const mutations = {
   SET_NAV_HEIGHT(state, payload) {
     state.navHeight = payload;
   },
-  SET_TITLE_HEIGHT(state, payload) {
-    state.titleHeight = payload;
-  },
-  SET_NAV_OFFSET_TOP(state, payload) {
-    state.navOffsetTop = payload;
-  }
 };
 
 const actions = {
@@ -113,12 +103,6 @@ const actions = {
   setNavHeight({ commit }, payload) {
     commit('SET_NAV_HEIGHT', payload);
   },
-  setTitleHeight({ commit }, payload) {
-    commit('SET_TITLE_HEIGHT', payload);
-  },
-  setNavOffsetTop({ commit }, payload) {
-    commit('SET_NAV_OFFSET_TOP', payload);
-  }
 };
 
 export default {

@@ -19,12 +19,11 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('state')
-import { getRect, requestAnimationFrame } from '@/shared/platform'
-import { compareVersion } from '@/shared'
-import cssVariables from '@/shared/css-variables'
-import { addUnit, appendStyles } from '../common/util'
+import { getRect, requestAnimationFrame } from '@/shared';
+import { compareVersion } from '@/shared';
+import cssVariables from '@/common/lib/theme';
+import { addUnit, appendStyles } from '../common/util';
+import { getAppData } from '../common/globalData';
 
 export default {
   name: 'et-tab',
@@ -54,11 +53,6 @@ export default {
     fixed: {
       type: Boolean,
       default: false,
-    },
-    // 是否自定义导航页面
-    isCustomNavigation: {
-      type: Boolean,
-      default: true
     },
     // 是否显示下边框
     border: {
@@ -116,41 +110,41 @@ export default {
       width: 0, // 每个 tab 项的宽度
       current: 0, // 当前激活的滑块索引
       bottom: 0, // 滑块在 y 轴的底部定位值
-    }
+    };
   },
   computed: {
-    ...mapState(['navHeight']),
     heightStyled({ height }) {
-      return `height: ${addUnit(height)};`
+      return `height: ${addUnit(height)};`;
     },
-    tabBarStyled({ shouldFix, isCustomNavigation, zIndex, navHeight, customStyle, heightStyled }) {
-      let style = `top: ${shouldFix && isCustomNavigation ? navHeight : 0}px;`
-      style += `z-index: ${zIndex};`
-      return appendStyles([style, heightStyled, customStyle])
+    tabBarStyled({ shouldFix, zIndex, customStyle, heightStyled }) {
+      const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+      let style = `top: ${shouldFix && customNavigationStyle ? navHeight : 0}px;`;
+      style += `z-index: ${zIndex};`;
+      return appendStyles([style, heightStyled, customStyle]);
     },
     baseStyle({ lineWidth, lineHeight, lineBackground, bottom }) {
-      let style = ''
-      style += `width: ${addUnit(lineWidth)};`
-      style += `height: ${lineHeight}px;`
-      style += `background: ${lineBackground};`
-      style += `bottom: ${bottom};`
-      return style
+      let style = '';
+      style += `width: ${addUnit(lineWidth)};`;
+      style += `height: ${lineHeight}px;`;
+      style += `background: ${lineBackground};`;
+      style += `bottom: ${bottom};`;
+      return style;
     },
     barStyled({ width, current, baseStyle }) {
-      let style = ''
-      const left = width * current + width / 2
-      style += `left: ${left}px;`
-      return style + baseStyle
+      let style = '';
+      const left = width * current + width / 2;
+      style += `left: ${left}px;`;
+      return style + baseStyle;
     },
     currentView({ current }) {
-      return 'tab-' + current
+      return 'tab-' + current;
     }
   },
   watch: {
     value: {
       handler(val) {
         if (val !== this.current) {
-          this.current = val
+          this.current = val;
         }
       },
       immediate: true
@@ -160,54 +154,55 @@ export default {
     // Bug: A，B 页面都设置自定义导航且包含 tab 组件时， A 页面 跳转 B 页面 获取的 top 值不一致
     // 会产生 navHeight 的误差
     setTimeout(async () => {
-      await this.resolveTabRect()
+      await this.resolveTabRect();
 
       // Bug: 模拟器、iOS 15.4+ 系统下，滑块位置会往下偏移 20px 左右
-      const { platform, system } = wx.getSystemInfoSync()
-      let shouldFixPosition = platform === 'devtools'
+      const { platform, system } = wx.getSystemInfoSync();
+      let shouldFixPosition = platform === 'devtools';
       if (platform === 'ios') {
-        const [_, version] = system.split(' ')
-        shouldFixPosition = compareVersion(version, '15.4.1') > -1
+        const [_, version] = system.split(' ');
+        shouldFixPosition = compareVersion(version, '15.4.1') > -1;
       }
       if (shouldFixPosition) {
-        this.bottom = '20px'
+        this.bottom = '20px';
       }
 
-      await requestAnimationFrame()
+      await requestAnimationFrame();
       // 初始化时滑块不产生动画效果
       if (!this.initialized) {
         setTimeout(() => {
-          this.initialized = true
-        }, 300)
+          this.initialized = true;
+        }, 300);
       }
 
       if (this.fixed) {
         this.$watch('scrollTop', val => {
           if (val >= this.top) {
-            this.shouldFix = true
+            this.shouldFix = true;
           } else {
-            this.shouldFix = false
+            this.shouldFix = false;
           }
         }, {
           immediate: true
-        })
+        });
       }
-    }, 60)
+    }, 60);
   },
   methods: {
     onClick(item, index) {
       if (this.current !== index) {
-        this.current = index
-        this.$emit('click-item', item, index)
+        this.current = index;
+        this.$emit('click-item', item, index);
       }
     },
     async resolveTabRect() {
-      const rect = await getRect(this, '.et-tab-item')
-      this.width = rect.width
-      this.top = rect.top - (this.isCustomNavigation ? this.navHeight : 0)
+      const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+      const rect = await getRect(this, '.et-tab-item');
+      this.width = rect.width;
+      this.top = rect.top - (customNavigationStyle ? navHeight : 0);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

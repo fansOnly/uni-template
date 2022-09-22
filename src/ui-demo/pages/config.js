@@ -271,9 +271,25 @@ export default [
     groupId: 'route',
     list: [
       {
-        title: 'Route 路由',
+        title: 'RouteInterception 路由拦截',
+        prefix: 'route',
+        path: '/interception'
+      },
+      {
+        title: 'Route 路由跳转',
         prefix: '',
         path: 'route'
+      },
+    ]
+  },
+  {
+    groupName: '小程序 Bug 测试',
+    groupId: 'bug',
+    list: [
+      {
+        title: 'Bugs 汇总',
+        prefix: 'bug',
+        path: ''
       },
     ]
   }

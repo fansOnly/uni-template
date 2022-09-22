@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import variables from '@/shared/css-variables'
+import variables from '@/common/lib/theme';
 
 export default {
   name: 'et-icon',
@@ -30,8 +30,8 @@ export default {
   },
   computed: {
     isStatic() {
-      return this.static
+      return this.static;
     }
   }
-}
+};
 </script>

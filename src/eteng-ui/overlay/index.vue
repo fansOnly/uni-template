@@ -1,20 +1,23 @@
 <template>
-<!-- 直接将 class 挂载在 et-transition上，不然遮罩层级有bug -->
-  <et-transition custom-class="et-overlay" :custom-style="styled" :visible="visible" :animation-name="name" :duration="duration" @click="close">
-    <slot />
+<!-- 需要将 class 挂载在 et-transition 上，不然遮罩层级有bug -->
+  <et-transition :custom-style="styled" :visible="visible" :animation-name="name" :duration="duration" @click="close">
+    <view class="et-overlay">
+      <slot />
+    </view>
   </et-transition>
 </template>
 
 <script>
-import { appendStyles } from '../common/util'
-import cssVariables from '@/shared/css-variables'
+import { appendStyles } from '../common/util';
+import cssVariables from '@/common/lib/theme';
+import { getAppData } from '../common/globalData';
 export default {
   name: 'et-overlay',
   props: {
     // 显示开关
     visible: {
       type: Boolean,
-      default: true
+      default: false
     },
     // 动画名称
     name: {
@@ -46,16 +49,29 @@ export default {
   },
   computed: {
     styled() {
-      let style = `z-index: ${this.zIndex};`
-      return appendStyles([style, this.customStyle])
+      const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+      let style = `z-index: ${this.zIndex};`;
+      if (customNavigationStyle) style += `top: ${navHeight}px;`;
+      return appendStyles([style, this.customStyle]);
     }
   },
   methods: {
     close() {
-      if (!this.clickable) return
-      this.$emit('click')
-      this.$emit('update:visible', false)
+      if (!this.clickable) return;
+      this.$emit('click');
+      this.$emit('update:visible', false);
     }
   }
-}
+};
 </script>
+
+<style lang="scss" scoped>
+  .et-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  </style>
