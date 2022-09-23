@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getRect } from '@/shared';
+import { getRect } from '../common/util';
 
 export default {
   name: 'et-collapse-item',

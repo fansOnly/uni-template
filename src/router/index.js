@@ -11,6 +11,7 @@ const router = createRouter({
       router.$lockStatus = false;
     }
   },
+  // 拦截生命周期
   beforeProxyHooks: {
     // onLaunch: async ([options], next)=>{
     //   await getToken();

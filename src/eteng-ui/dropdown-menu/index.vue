@@ -1,6 +1,6 @@
 <template>
   <div class="et-dropdown-wrapper">
-    <view :class="['et-dropdown-menu', menuIndex > -1 ? 'et-hairline--bottom' : null]" :style="customStyle">
+    <view :class="['et-dropdown-menu', menuIndex > -1 ? 'et-hairline--bottom' : null]" :style="menuStyled">
       <view v-for="(item, index) in menus" :key="index" :class="['et-dropdown-menu__title', item.active ? 'is-active' : null, item.disabled ? 'is-disabled' : null]" :style="{color: item.active ? activeColor : null, 'z-index': zIndex}" @click="onClickMenu(item, index)">
         <view>{{genMenuName(item)}}</view>
         <et-icon class="et-dropdown-menu__icon" name="triangle-down" size="12" />
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '@/shared';
+import { getRect, requestAnimationFrame } from '../common/util';
 import cssVariables from '@/common/lib/theme';
 
 export default {
@@ -61,10 +61,17 @@ export default {
       menuIndex: -1,
     };
   },
+  computed: {
+    menuStyled() {
+      let style = '';
+      style += `z-index: ${this.zIndex};`;
+      return style + (this.customStyle ? this.customStyle : '');
+    }
+  },
   created() {
     this.children = [];
   },
-  async mounted() {
+  mounted() {
     this.updateMenu();
   },
   methods: {
@@ -119,6 +126,7 @@ export default {
 <style lang="scss" scoped>
   .et-dropdown-menu {
     display: flex;
+    position: relative;
     background-color: $uni-bg-white;
   }
   .et-dropdown-menu__title {

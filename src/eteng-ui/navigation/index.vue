@@ -19,7 +19,7 @@
 <script>
 import cssVariables from '@/common/lib/theme';
 import { tabBarPages, homePage } from '../common/tab-bar';
-import { getAppData, setAppData } from '../common/globalData';
+import { getAppData, setAppData } from '../common/global-data';
 
 export default {
   name: 'et-navigation',

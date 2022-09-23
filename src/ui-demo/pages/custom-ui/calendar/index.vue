@@ -1,9 +1,7 @@
 <template>
-  <et-scroll-lock>
   <view class="page-wrapper">
     <demo-block title="基础用法" padding>
       <et-button type="primary" block @click="visible1 = true">选择日期</et-button>
-      <et-calendar :visible.sync="visible1" :value="date1" @confirm="handleConfirm1"></et-calendar>
       <view class="gap"></view>
       <view>选中的日期: {{ date1 }}</view>
     </demo-block>
@@ -13,8 +11,6 @@
       <view class="gap"></view>
       <view>选中的多个日期</view>
       <view v-for="(item, index) in date2" :key="index">{{ item }}</view>
-
-      <et-calendar :visible.sync="visible2" :value="date2" type="multiple" @confirm="handleConfirm2"></et-calendar>
     </demo-block>
 
     <demo-block title="选择日期区间" padding>
@@ -22,8 +18,6 @@
       <view class="gap"></view>
       <view>选中的日期区间</view>
       <view v-for="(item, index) in date3" :key="index">{{ item }}</view>
-
-      <et-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5" @confirm="handleConfirm3"></et-calendar>
     </demo-block>
 
     <demo-block title="页面显示" padding>
@@ -31,8 +25,14 @@
       <et-calendar v-model="date4" :popupable="false"></et-calendar>
       <view class="gap"></view>
     </demo-block>
+
+    <et-calendar :visible.sync="visible1" :value="date1" @confirm="handleConfirm1"></et-calendar>
+
+    <et-calendar :visible.sync="visible2" :value="date2" type="multiple" @confirm="handleConfirm2"></et-calendar>
+
+    <et-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5"
+      @confirm="handleConfirm3"></et-calendar>
   </view>
-</et-scroll-lock>
 </template>
 
 <script>
@@ -71,4 +71,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

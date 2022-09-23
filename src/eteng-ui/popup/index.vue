@@ -23,7 +23,7 @@
 import transition from '../mixins/transition';
 import cssVariables from '@/common/lib/theme';
 import { addUnit, appendStyles } from '../common/util';
-import { getAppData } from '../common/globalData';
+import { getAppData } from '../common/global-data';
 
 export default {
   name: 'et-popup',
@@ -179,6 +179,7 @@ export default {
     position: fixed;
     box-sizing: border-box;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     animation-timing-function: ease;
     animation: ease both;
     background-color: #fff;
@@ -256,6 +257,7 @@ export default {
   }
   .et-popup-body {
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
       display: none;
     }

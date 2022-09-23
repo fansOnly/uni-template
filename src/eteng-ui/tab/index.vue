@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '@/shared';
-import { compareVersion } from '@/shared';
+import { getRect, requestAnimationFrame } from '../common/util';
+import { compareVersion } from '../common/util';
 import cssVariables from '@/common/lib/theme';
 import { addUnit, appendStyles } from '../common/util';
-import { getAppData } from '../common/globalData';
+import { getAppData } from '../common/global-data';
 
 export default {
   name: 'et-tab',

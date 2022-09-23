@@ -22,7 +22,7 @@
 
 <script>
 import { addUnit } from '../common/util'
-import { isEmpty } from '@/shared'
+import { isEmpty } from '../common/util'
 export default {
   name: 'et-picker',
   props: {

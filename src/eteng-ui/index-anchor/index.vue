@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { getRect } from '@/shared';
+import { getRect } from '../common/util';
 import { addUnit } from '../common/util';
-import { getAppData } from '../common/globalData';
+import { getAppData } from '../common/global-data';
 
 export default {
   name: 'et-index-anchor',
@@ -51,8 +51,8 @@ export default {
     }
   },
   async mounted() {
-    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
     this.parent.children.push(this);
+    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
     this.customNavigationStyle = customNavigationStyle;
     this.navHeight = navHeight;
     const rect = await getRect(this, '.index-bar-anchor');

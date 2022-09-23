@@ -1,5 +1,4 @@
 <template>
-<et-scroll-lock>
   <view class="page-wrapper" style="height: 2000px;">
 
     <demo-block title="基础用法">
@@ -20,11 +19,10 @@
     </demo-block>
 
   </view>
-  </et-scroll-lock>
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -57,15 +55,15 @@ export default {
       value1: 0,
       value2: '4',
       value3: 'a',
-    }
+    };
   },
   methods: {
     handleChange(item, index) {
-      console.log('[debug] 第' + (index + 1) + '个菜单选择 >>>', { ...item })
-      this['value' + (index + 1)] = item.value
+      console.log('[debug] 第' + (index + 1) + '个菜单选择 >>>', { ...item });
+      this['value' + (index + 1)] = item.value;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util'
+import { appendStyles } from '../common/util';
 export default {
   name: 'et-dialog',
   props: {
@@ -122,48 +122,48 @@ export default {
     return {
       cancelLoading: false,
       confirmLoading: false,
-    }
+    };
   },
   computed: {
     style() {
-      let style = ''
-      if (this.offsetTop) style += `margin-top: ${this.offsetTop};`
-      return appendStyles([style, this.customStyle])
+      let style = '';
+      if (this.offsetTop) style += `margin-top: ${this.offsetTop};`;
+      return appendStyles([style, this.customStyle]);
     }
   },
   methods: {
     async onConfirm() {
-      let result = true
+      let result = true;
       if (this.beforeClose && typeof this.beforeClose === 'function') {
-        this.confirmLoading = true
-        result = await this.beforeClose({confirm: true})
-        this.confirmLoading = false
+        this.confirmLoading = true;
+        result = await this.beforeClose({confirm: true});
+        this.confirmLoading = false;
       }
-      if (!result) return
-      this.$emit('update:visible', false)
-      this.$emit('confirm')
+      if (!result) return;
+      this.$emit('update:visible', false);
+      this.$emit('confirm');
     },
     async onCancel() {
-      let result = true
+      let result = true;
       if (this.beforeClose && typeof this.beforeClose === 'function') {
-        this.cancelLoading = true
-        result = await this.beforeClose({cancel: true})
-        this.cancelLoading = false
+        this.cancelLoading = true;
+        result = await this.beforeClose({cancel: true});
+        this.cancelLoading = false;
       }
-      if (!result) return
-      this.$emit('update:visible', false)
-      this.$emit('cancel')
+      if (!result) return;
+      this.$emit('update:visible', false);
+      this.$emit('cancel');
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return
-      this.close()
+      if (!this.closeOnClickOverlay) return;
+      this.close();
     },
     close() {
-      this.$emit('close')
-      this.$emit('update:visible', false)
+      this.$emit('close');
+      this.$emit('update:visible', false);
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -200,8 +200,5 @@ export default {
   .et-button--confirm,
   .et-button--cancel {
     flex: 1;
-    &:active {
-      background: #ececec;
-    }
   }
 </style>

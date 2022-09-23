@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import { formatDate } from '../../common/date'
-import { ROW_HEIGHT, getMonthEndDay, hexToRgb, getPrevYearMonth, getNextYearMonth } from '../util'
-import lunar from '../lunar'
+import { formatDate } from '../../common/util';
+import { ROW_HEIGHT, getMonthEndDay, hexToRgb, getPrevYearMonth, getNextYearMonth } from '../util';
+import lunar from '../lunar';
 
 export default {
   name: 'vc-month',
@@ -48,68 +48,68 @@ export default {
       days: [],
       color: '',
       lunar: false,
-    }
+    };
   },
   computed: {
     colorLighter() {
-      const [red, green, blue] = hexToRgb(this.color)
-      return `rgba(${red}, ${green}, ${blue}, 0.2)`
+      const [red, green, blue] = hexToRgb(this.color);
+      return `rgba(${red}, ${green}, ${blue}, 0.2)`;
     }
   },
   watch: {
     value: {
       handler(val) {
-        this.setDays()
+        this.setDays();
       },
       immediate: true,
       deep: true
     },
     yearMonth: {
       handler(val) {
-        if (!val) return
-        this.setDays()
+        if (!val) return;
+        this.setDays();
       },
       immediate: true
     }
   },
   created() {
-    this.rowHeight = this.calendar.rowHeight
-    this.color = this.calendar.color
-    this.lunar = this.calendar.lunar
-    this.solarTerm = this.calendar.solarTerm
+    this.rowHeight = this.calendar.rowHeight;
+    this.color = this.calendar.color;
+    this.lunar = this.calendar.lunar;
+    this.solarTerm = this.calendar.solarTerm;
   },
   methods: {
     onClick(item) {
-      if (item.type === 'disabled') return
-      this.$emit('click', item)
+      if (item.type === 'disabled') return;
+      this.$emit('click', item);
     },
     setDays() {
-      const [year, month] = this.yearMonth.split('-')
-      const days = this.generateDays(year, month)
+      const [year, month] = this.yearMonth.split('-');
+      const days = this.generateDays(year, month);
 
-      const { year: prevYear, month: prevMonth } = getPrevYearMonth(this.yearMonth)
-      let prevMonthDays = this.generateDays(prevYear, prevMonth, true)
+      const { year: prevYear, month: prevMonth } = getPrevYearMonth(this.yearMonth);
+      let prevMonthDays = this.generateDays(prevYear, prevMonth, true);
 
-      const { year: nextYear, month: nextMonth } = getNextYearMonth(this.yearMonth)
-      const nextMonthDays = this.generateDays(nextYear, nextMonth, true)
+      const { year: nextYear, month: nextMonth } = getNextYearMonth(this.yearMonth);
+      const nextMonthDays = this.generateDays(nextYear, nextMonth, true);
 
-      const startDate = new Date(days[0].value)
-      const endDate = new Date(days[days.length - 1].value)
-      const monthStartWeekDay = startDate.getDay()
-      if (monthStartWeekDay === 0) prevMonthDays = []
-      const monthEndWeekDay = endDate.getDay()
+      const startDate = new Date(days[0].value);
+      const endDate = new Date(days[days.length - 1].value);
+      const monthStartWeekDay = startDate.getDay();
+      if (monthStartWeekDay === 0) prevMonthDays = [];
+      const monthEndWeekDay = endDate.getDay();
 
-      this.days = [...prevMonthDays.slice(-monthStartWeekDay), ...days, ...nextMonthDays.slice(0, 6 - monthEndWeekDay)]
+      this.days = [...prevMonthDays.slice(-monthStartWeekDay), ...days, ...nextMonthDays.slice(0, 6 - monthEndWeekDay)];
     },
     generateDays(year, month, disabled = false) {
-      const days = []
-      const endDay = getMonthEndDay(year, month)
+      const days = [];
+      const endDay = getMonthEndDay(year, month);
       for (let i = 1; i <= endDay; i++) {
-        const date = formatDate(`${year}-${month}-${i}`, 'YYYY-MM-DD')
-        const type = disabled ? 'disabled' : this.getDayType(date)
-        const mark = disabled ? '' : this.getDayMark(type)
-        const lunar = this.getDayLunar(year, month, i)
-        const lunarText = lunar.isToday ? '今日' : lunar.Term ?? lunar.IDayCn
+        const date = formatDate(`${year}-${month}-${i}`, 'YYYY-MM-DD');
+        const type = disabled ? 'disabled' : this.getDayType(date);
+        const mark = disabled ? '' : this.getDayMark(type);
+        const lunar = this.getDayLunar(year, month, i);
+        const lunarText = lunar.isToday ? '今日' : lunar.Term ?? lunar.IDayCn;
 
         let item = {
           text: i, // 当前天
@@ -118,66 +118,66 @@ export default {
           lunar,
           lunarText, // 农历日期
           mark, // 备注
-        }
+        };
         if (this.calendar.formatter) {
-          item = this.calendar.formatter(item)
+          item = this.calendar.formatter(item);
         }
-        days.push(item)
+        days.push(item);
       }
-      return days
+      return days;
     },
     getDayType(day) {
-      const { type, minDate, maxDate } = this.calendar
+      const { type, minDate, maxDate } = this.calendar;
       if ((minDate && day < minDate) || (maxDate && day > maxDate)) {
-        return 'disabled'
+        return 'disabled';
       }
       if (type === 'single') {
-        return day === this.value ? 'selected' : ''
+        return day === this.value ? 'selected' : '';
       }
       if (type === 'multiple') {
-        return this.getMultiDayType(day)
+        return this.getMultiDayType(day);
       }
       if (type === 'range') {
-        return this.getRangeDayType(day)
+        return this.getRangeDayType(day);
       }
-      return ''
+      return '';
     },
     getMultiDayType(day) {
-      if (!Array.isArray(this.value) || !this.value.length) return ''
-      const selected = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
-      return selected.includes(day) ? 'multiple-selected' : ''
+      if (!Array.isArray(this.value) || !this.value.length) return '';
+      const selected = this.value.map(v => formatDate(v, 'YYYY-MM-DD'));
+      return selected.includes(day) ? 'multiple-selected' : '';
     },
     getRangeDayType(day) {
-      if (!Array.isArray(this.value) || !this.value.length) return ''
-      const [startDate, endDate] = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
+      if (!Array.isArray(this.value) || !this.value.length) return '';
+      const [startDate, endDate] = this.value.map(v => formatDate(v, 'YYYY-MM-DD'));
       if (day === startDate && startDate === endDate) {
-        return 'start-end'
+        return 'start-end';
       }
       if (day === startDate) {
-        return 'start'
+        return 'start';
       } else if (day === endDate) {
-        return 'end'
+        return 'end';
       } else if (day > startDate && day < endDate) {
-        return 'middle'
+        return 'middle';
       }
-      return ''
+      return '';
     },
     getDayLunar(year, month, day) {
-      return lunar.solar2lunar(year, month, day)
+      return lunar.solar2lunar(year, month, day);
     },
     getDayMark(type) {
       if (this.calendar.type === 'range') {
         if (type === 'start') {
-          return '开始'
+          return '开始';
         } else if (type === 'end') {
-          return '结束'
+          return '结束';
         } else if (type === 'start-end') {
-          return '开始/结束'
+          return '开始/结束';
         }
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

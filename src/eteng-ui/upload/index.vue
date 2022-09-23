@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/lib/weixin/API'
-import { sleep, isEmpty } from '@/shared'
-import { addUnit } from '../common/util'
+import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/lib/weixin/API';
+import { isEmpty } from '../common/validate';
+import { addUnit } from '../common/util';
 
 export default {
   name: 'et-upload',
@@ -129,7 +129,7 @@ export default {
       type: String,
       default: 'back',
       validator(value) {
-        return ['back', 'front'].includes(value)
+        return ['back', 'front'].includes(value);
       }
     },
     // 图片地址属性映射
@@ -151,55 +151,55 @@ export default {
         { title: '重新上传', value: 'upload' },
       ],
       file: '', // h5 下上传
-    }
+    };
   },
   computed: {
     style({ width, height }) {
-      let style = ''
-      style += `width: ${addUnit(width)};`
-      style += `height: ${addUnit(height)};`
-      style += `flex: ${width === '100%' ? '1' : '0 0 auto'};`
-      return style
+      let style = '';
+      style += `width: ${addUnit(width)};`;
+      style += `height: ${addUnit(height)};`;
+      style += `flex: ${width === '100%' ? '1' : '0 0 auto'};`;
+      return style;
     },
     max() {
-      return this.count - this.fileList.length
+      return this.count - this.fileList.length;
     },
   },
   methods: {
     onClickItem(index) {
-      this.activeIdx = index
-      this.visible = true
+      this.activeIdx = index;
+      this.visible = true;
     },
     onSelect({value}) {
       if (value === 'preview') {
-        this.onPreview()
+        this.onPreview();
       } else if (value === 'upload') {
-        this.onUpload(true)
+        this.onUpload(true);
       }
     },
     reUpload(index) {
-      console.log('[info] retry upload >>>', index)
-      this.activeIdx = index
-      this.onUpload(true)
+      console.log('[info] retry upload >>>', index);
+      this.activeIdx = index;
+      this.onUpload(true);
     },
     onRemove(index) {
-      if (this.disabled) return
-      this.fileList.splice(index, 1)
-      this.$emit('remove', index)
+      if (this.disabled) return;
+      this.fileList.splice(index, 1);
+      this.$emit('remove', index);
     },
     async onPreview() {
-      let sources = this.fileList.map((v) => ({ url: v[this.srcProp] }))
+      let sources = this.fileList.map((v) => ({ url: v[this.srcProp] }));
       const params = {
         sources,
         current: this.activeIdx,
-      }
-      await wxPreviewMedia(params)
+      };
+      await wxPreviewMedia(params);
     },
     async onUpload(replace = false) {
       /* #ifdef MP-WEIXIN */
-      if (this.disabled) return
-      if (!this.clickable) return
-      this.clickable = false
+      if (this.disabled) return;
+      if (!this.clickable) return;
+      this.clickable = false;
       try {
         const params = {
           count: this.max,
@@ -208,57 +208,56 @@ export default {
           sourceType: this.sourceType,
           maxDuration: this.maxDuration,
           camera: this.camera,
-        }
-        const { tempFiles = [] } = await wxChooseMedia(params)
-        if (!tempFiles.length) return this.$emit('cancel')
-        this.tempFiles = tempFiles
+        };
+        const { tempFiles = [] } = await wxChooseMedia(params);
+        if (!tempFiles.length) return this.$emit('cancel');
+        this.tempFiles = tempFiles;
         if (this.compress) {
-          await this.compressFiles()
+          await this.compressFiles();
         }
         const files = this.tempFiles.map((v) => ({
           ...v,
           [this.srcProp]: v.tempFilePath,
-        }))
+        }));
         if (!replace) {
-          this.fileList = this.fileList.concat(files)
+          this.fileList = this.fileList.concat(files);
         } else {
-          this.fileList.splice(this.activeIdx, 1, files[0])
+          this.fileList.splice(this.activeIdx, 1, files[0]);
         }
-        this.loading = true
+        this.loading = true;
         // 这里进行文件的真实上传
-        await sleep(1000)
-        // debug 模拟上传失败
-        this.fileList = this.fileList.map((file, index) => ({...file, status: index == 1 ? 'fail' : 'success'}))
-        this.loading = false
-        this.$emit('success', this.fileList)
-        this.clickable = true
+        // TODO 模拟上传失败
+        this.fileList = this.fileList.map((file, index) => ({...file, status: index == 1 ? 'fail' : 'success'}));
+        this.loading = false;
+        this.$emit('success', this.fileList);
+        this.clickable = true;
       } catch (error) {
-        console.error('[debug] wxChooseMedia>>>', error)
-        this.clickable = true
+        console.error('[debug] wxChooseMedia>>>', error);
+        this.clickable = true;
       }
       /* #endif */
       /* #ifdef H5 */
-      this.onUploadH5()
+      this.onUploadH5();
       /* #endif */
     },
     async compressFiles() {
-      let promises = []
+      let promises = [];
       this.tempFiles.map(async (file) => {
         promises.push(
           wxCompressImage({ quality: this.quality, src: file.tempFilePath })
-        )
-      })
-      const res = await Promise.all(promises)
+        );
+      });
+      const res = await Promise.all(promises);
       this.tempFiles.map((file, index) => {
-        const newFile = res[index]
+        const newFile = res[index];
         if (newFile.errMsg === 'wxCompressImage:ok') {
-          file.tempFilePath = newFile.tempFilePath
+          file.tempFilePath = newFile.tempFilePath;
         }
-        return file
-      })
+        return file;
+      });
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 
-import { requestAnimationFrame } from '@/shared';
-import { isObject } from '@/shared';
+import { requestAnimationFrame } from '../common/util';
+import { isObject } from '../common/validate';
 
 export default {
   props: {

@@ -358,17 +358,6 @@
       }
     },
     {
-      "path": "pages/platform-wx/scroll-lock/index",
-      "name": "scroll-lock",
-      "meta": {
-        "auth": false,
-        "title": "锁定滚动穿透"
-      },
-      "style": {
-        "navigationBarTitleText": ""
-      }
-    },
-    {
       "path": "pages/custom-ui/scroll-num/index",
       "name": "scroll-num",
       "meta": {

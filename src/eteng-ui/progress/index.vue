@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '@/shared'
+import { getRect, requestAnimationFrame } from '../common/util'
 import cssVariables from '@/common/lib/theme'
 import { addUnit } from '../common/util'
 export default {

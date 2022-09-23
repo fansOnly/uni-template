@@ -1,7 +1,7 @@
 <template>
 <!-- 需要将 class 挂载在 et-transition 上，不然遮罩层级有bug -->
-  <et-transition :custom-style="styled" :visible="visible" :animation-name="name" :duration="duration" @click="close">
-    <view class="et-overlay">
+  <et-transition :visible="visible" :animation-name="name" :duration="duration" @click="close">
+    <view class="et-overlay" :style="styled">
       <slot />
     </view>
   </et-transition>
@@ -10,7 +10,7 @@
 <script>
 import { appendStyles } from '../common/util';
 import cssVariables from '@/common/lib/theme';
-import { getAppData } from '../common/globalData';
+import { getAppData } from '../common/global-data';
 export default {
   name: 'et-overlay',
   props: {
@@ -69,9 +69,9 @@ export default {
   .et-overlay {
     position: fixed;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.6);
   }
   </style>

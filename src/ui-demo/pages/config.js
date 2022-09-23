@@ -34,11 +34,6 @@ export default [
         path: '/transition'
       },
       {
-        title: 'ScrollLock 滚动穿透锁定',
-        prefix: 'platform-wx',
-        path: '/scroll-lock'
-      },
-      {
         title: 'Style 内置样式',
         prefix: '',
         path: 'style'

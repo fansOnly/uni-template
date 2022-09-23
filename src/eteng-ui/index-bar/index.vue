@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { getRect } from '@/shared';
-import { getAppData } from '../common/globalData';
+import { getRect } from '../common/util';
+import { getAppData } from '../common/global-data';
 
 function genIndexList(withSpecial = true) {
   const arr = [];
@@ -132,7 +132,11 @@ export default {
         duration: 100
       });
     },
-    onScroll(val) {
+    async onScroll(val) {
+      if (!this.anchorRects.length) {
+        await this.getAnchorsRect();
+        return;
+      }
       this.$nextTick(() => {
         // 滚动结束后判断滚动位置是否在索引区域
         if (this.boundary) {
@@ -171,11 +175,13 @@ export default {
       return this.children.find(child => child.index == index);
     },
     getAnchorsRect() {
-      this.children.forEach(async (child) => {
-        const targetClass = `.anchor-${child.index === '#' ? 'special' : child.index}`;
-        const rect = await getRect(child, targetClass);
-        const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
-        this.anchorRects.push({ index: child.index + '', name: targetClass, top, height: rect.height });
+      this.$nextTick(() => {
+        this.children.forEach(async (child) => {
+          const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`;
+          const rect = await getRect(child, childClassName);
+          const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
+          this.anchorRects.push({ index: child.index + '', name: childClassName, top, height: rect.height });
+        });
       });
     },
     async getWrapperRect() {
