@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { addUnit } from '../common/util'
-import { isEmpty } from '../common/util'
+import { addUnit } from '../common/util';
+
 export default {
   name: 'et-picker',
   props: {
@@ -118,39 +118,39 @@ export default {
     return {
       show: this.visible,
       activeIndexes: new Array(this.options.length).fill(0), // 默认索引
-    }
+    };
   },
   computed: {
     bodyStyled({ rowHeight, rows }) {
       // tip: 这里的单位要设为 px，rpx 在真机下转换有偏差
-      let style = ''
-      style += `height: ${rowHeight * rows}px;`
-      return style
+      let style = '';
+      style += `height: ${rowHeight * rows}px;`;
+      return style;
     },
     activeStyled({ rowHeight }) {
       // tip: 这里的单位要设为 px，rpx 在真机下转换有偏差
-      let style = ''
-      style += `height: ${rowHeight}px;`
-      return style
+      let style = '';
+      style += `height: ${rowHeight}px;`;
+      return style;
     },
     maskStyled({ rowHeight, rows }) {
       // note: 遮罩效果
-      let style = ''
-      style += `background-size: 100% ${addUnit((rowHeight * (rows - 1)) / 2)};`
-      return style
+      let style = '';
+      style += `background-size: 100% ${addUnit((rowHeight * (rows - 1)) / 2)};`;
+      return style;
     }
   },
   watch: {
     visible: {
       handler(val) {
-        if (val) this.show = val
-        val && this.initValues()
+        if (val) this.show = val;
+        val && this.initValues();
       },
       immediate: true,
     },
     values: {
       handler(val) {
-        this.initValues()
+        this.initValues();
       },
       deep: true
     }
@@ -158,50 +158,48 @@ export default {
   methods: {
     initValues() {
       if (this.optionKey === 'value') {
-        let arr = []
+        let arr = [];
         this.options.map((columnData, i) => {
-          const index = columnData.findIndex(v => v[this.optionKey] === this.values[i])
-          arr.push(index > -1 ? index : 0)
-        })
-        this.activeIndexes = arr
+          const index = columnData.findIndex(v => v[this.optionKey] === this.values[i]);
+          arr.push(index > -1 ? index : 0);
+        });
+        this.activeIndexes = arr;
       } else if (this.optionKey === 'index') {
-        this.activeIndexes = [...this.values]
+        this.activeIndexes = [...this.values];
       }
     },
     onChange(index, column) {
       // console.log(`[debug] >>> 当前操作第${column}列，第${index}项`);
       // 找到当前的操作的选择器列，更新后续的选择器列
-      this.activeIndexes.splice(column, 1, index)
+      this.activeIndexes.splice(column, 1, index);
       for (let i = column; i < this.options.length; i++) {
-        if (this.cascade) this.$emit('update', column, index)
-        let rollback = false
+        if (this.cascade) this.$emit('update', column, index);
+        let rollback = false;
         if (this.config.length) {
-          const columnCfg = this.config.find(v => v.column === column)
-          if (!isEmpty(columnCfg)) {
-            rollback = columnCfg.rollback
-          }
+          const columnCfg = this.config.find(v => v.column === column) || {rollback: false};
+          rollback = columnCfg.rollback;
         }
         // 当前列滚动时，后面的列是否回滚初始位置
-        rollback && (i < this.options.length - 1) && this.activeIndexes.splice(i + 1, 1, 0)
+        rollback && (i < this.options.length - 1) && this.activeIndexes.splice(i + 1, 1, 0);
       }
     },
     onConfirm() {
-      const data = this.activeIndexes.reduce((acc, cur, index) => [...acc, this.options[index][cur]], [])
-      this.$emit('confirm', data)
-      this.close()
+      const data = this.activeIndexes.reduce((acc, cur, index) => [...acc, this.options[index][cur]], []);
+      this.$emit('confirm', data);
+      this.close();
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return
-      this.activeIndexes.length = 0
-      this.close()
+      if (!this.closeOnClickOverlay) return;
+      this.activeIndexes.length = 0;
+      this.close();
     },
     close() {
-      this.$emit('close')
-      this.$emit('update:visible', false)
+      this.$emit('close');
+      this.$emit('update:visible', false);
     },
     noop() {}
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

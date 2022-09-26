@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -24,24 +24,24 @@ export default {
       visible5: false, // 地区picker
       selectedArea: [], // 省市区的选择项
       areaValues: ['520000', '520100', '520102'], // 省市区的选择值 - value
-    }
+    };
   },
   created() {
   },
   methods: {
     handleAreaConfirm(data) {
-      console.log('[debug] 选择省市区的值>>>: ', data)
-      this.selectedArea = data
-      this.areaValues = this.selectedArea.map((v) => v.value)
-      const value = data.map((v) => v.text).join('')
+      console.log('[debug] 选择省市区的值>>>: ', data);
+      this.selectedArea = data;
+      this.areaValues = this.selectedArea.map((v) => v.value);
+      const value = data.map((v) => v.text).join('');
       const reg = new RegExp(
         /.*?(省|市|自治区|岛|九龙|新界|盟|自治州|县|区|旗|乡|镇)/,
         'g'
-      )
-      console.log('[debug]', value.match(reg))
+      );
+      console.log('[debug]', value.match(reg));
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
