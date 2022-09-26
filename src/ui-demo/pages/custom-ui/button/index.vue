@@ -25,6 +25,9 @@
     <demo-block title="朴素按钮" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
+          <et-button type="default" plain>普通按钮</et-button>
+        </view>
+        <view class="demo-item-space">
           <et-button type="primary" plain>确认按钮</et-button>
         </view>
         <view class="demo-item-space">
@@ -79,10 +82,10 @@
           <et-button type="error" disabled>错误按钮</et-button>
         </view>
         <view class="demo-item-space">
-          <et-button color="#6149f6" disabled>自定义颜色按钮</et-button>
+          <et-button type="custom" color="#6149f6" disabled>自定义颜色按钮</et-button>
         </view>
         <view class="demo-item-space">
-          <et-button color="linear-gradient(to right, #4bb0ff, #6149f6)" disabled>渐变色按钮</et-button>
+          <et-button type="custom" color="linear-gradient(to right, #4bb0ff, #6149f6)" disabled>渐变色按钮</et-button>
         </view>
       </view>
     </demo-block>
@@ -119,13 +122,13 @@
     <demo-block title="自定义颜色" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-button color="#6149f6">单色按钮</et-button>
+          <et-button type="custom" color="#6149f6">单色按钮</et-button>
         </view>
         <view class="demo-item-space">
-          <et-button color="#6149f6" plain>朴素按钮</et-button>
+          <et-button type="custom" color="#6149f6" plain>朴素按钮</et-button>
         </view>
         <view class="demo-item-space">
-          <et-button color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</et-button>
+          <et-button type="custom" color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</et-button>
         </view>
       </view>
     </demo-block>
@@ -139,22 +142,22 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block/index.vue'
+import DemoBlock from '@p/components/demo-block/index.vue';
 export default {
   components: {
     DemoBlock
   },
   methods: {
     async getPhoneNumber({ errMsg, iv, encryptedData }) {
-      console.log('[info] getPhoneNumber >>> ', errMsg)
+      console.log('[info] getPhoneNumber >>> ', errMsg);
       if (errMsg === 'getPhoneNumber:ok') {
-        console.log('[info] 获取手机号 success >>>', iv, encryptedData)
+        console.log('[info] 获取手机号 success >>>', iv, encryptedData);
       } else {
-        console.log('[error] 获取手机号 fail >>>', errMsg)
+        console.log('[error] 获取手机号 fail >>>', errMsg);
       }
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

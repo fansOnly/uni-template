@@ -1,0 +1,16 @@
+// 按钮组件样式混入
+@mixin button-color($color, $bg) {
+  background: $bg;
+  border-color: $bg;
+  color: $color;
+
+  & .et-button--plain {
+    color: $bg;
+  }
+
+  &.et-button--disabled {
+    background: $bg;
+    border-color: $bg;
+    color: $color;
+  }
+}

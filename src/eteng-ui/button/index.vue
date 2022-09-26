@@ -1,7 +1,7 @@
 <template>
   <button
     :class="['et-button-wrapper', 'et-button--' + type, customClass, block || size === 'auto' ? 'et-button--block' : null, disabled ? 'et-button--disabled' : null]"
-    :style="wrapperStyled" :disabled="disabled" :open-type="openType"
+    :hover-class=" hoverClass || 'et-button--hover'" :style="wrapperStyled" :disabled="disabled" :open-type="openType"
     @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetUserInfo" @opensetting="onOpenSetting" @tap="onClick">
     <view
       :class="['et-button', plain ? 'et-button--plain' : null, border && !isLinearGradient && !disabled ? 'et-hairline--surround' : null]"
@@ -11,7 +11,6 @@
         <slot v-if="icon" name="icon">
           <et-icon class="et-button__icon" :name="icon" :size="iconSize" />
         </slot>
-        <!-- Bug: text 标签包裹 slot 不能触发更新 -->
         <view class="et-button__text">
           <slot></slot>
         </view>
@@ -22,6 +21,7 @@
 
 <script>
 import { addUnit, appendStyles } from '../common/util';
+
 export default {
   name: 'et-button',
   props: {
@@ -30,7 +30,7 @@ export default {
       type: String,
       default: 'default',
       validator(value) {
-        return ['default', 'primary', 'info', 'success', 'error', 'text'].includes(value);
+        return ['default', 'primary', 'info', 'success', 'error', 'text', 'custom'].includes(value);
       },
     },
     // 左侧图标图片链接
@@ -86,6 +86,7 @@ export default {
       type: Boolean,
       default: false
     },
+    hoverClass: null,
     // 自定义组件 class
     customClass: null,
     // 自定义组件样式
@@ -109,14 +110,21 @@ export default {
         }
       } else {
         // 背景色
-        let color = '';
-        if (this.color) {
-          color += `background: ${this.color};border-color: ${this.color};color: #fff;`;
+        if (this.type === 'custom') {
+          let colorStyle = '';
+          if (this.color) {
+            colorStyle += `background: ${this.color};border-color: ${this.color};color: #fff;`;
+          }
+          if (this.plain) {
+            colorStyle += `color: ${this.color};border-color: ${this.color};`;
+          }
+          style += colorStyle;
         }
+
         if (this.plain) {
-          color += `color: ${this.color};border-color: ${this.color};background: #fff;`;
+          style += 'background: none;';
         }
-        style += color;
+
         // 圆角
         if (this.round) {
           style += 'border-radius: 999px;';
@@ -174,6 +182,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../common/style/mixins/button.scss';
+
 .et-button-wrapper {
   display: inline-flex;
   height: 100%;
@@ -193,8 +203,10 @@ export default {
 }
 
 .et-button--disabled {
+  /* #ifdef H5 */
   cursor: not-allowed;
-  opacity: .5;
+  /* #endif */
+  opacity: .7;
 }
 
 .et-button {
@@ -206,6 +218,7 @@ export default {
   padding: 0 28rpx;
   border-width: 0;
   border-color: inherit;
+  color: inherit;
 
   &::after {
     border-radius: inherit;
@@ -217,101 +230,40 @@ export default {
 }
 
 .et-button--default {
-  background: #fff;
-  color: $uni-text-color;
+  @include button-color($uni-text-color, #fff);
 
-  &.et-button--disabled {
-    background: #fff;
+  & .et-button--plain {
     color: $uni-text-color;
+    border-color: $uni-text-color;
   }
 }
 
 .et-button--primary {
-  background: $uni-color-primary;
-  border-color: $uni-color-primary;
-  color: #fff;
-
-  & .et-button--plain {
-    background: #fff;
-    color: $uni-color-primary;
-  }
-
-  &.et-button--disabled {
-    background: $uni-color-primary;
-    color: #fff;
-  }
+  @include button-color(#fff, $uni-color-primary);
 }
 
 .et-button--info {
-  background: $uni-color-info;
-  border-color: $uni-color-info;
-  color: #fff;
-
-  & .et-button--plain {
-    background: #fff;
-    color: $uni-color-info;
-  }
-
-  &.et-button--disabled {
-    background: $uni-color-info;
-    color: #fff;
-  }
+  @include button-color(#fff, $uni-color-info);
 }
 
 .et-button--success {
-  background: $uni-color-success;
-  border-color: $uni-color-success;
-  color: #fff;
-
-  & .et-button--plain {
-    background: #fff;
-    color: $uni-color-success;
-  }
-
-  &.et-button--disabled {
-    background: $uni-color-success;
-    color: #fff;
-  }
+  @include button-color(#fff, $uni-color-success);
 }
 
 .et-button--warning {
-  background: $uni-color-warning;
-  border-color: $uni-color-warning;
-  color: #fff;
-
-  & .et-button--plain {
-    background: #fff;
-    color: $uni-color-warning;
-  }
-
-  &.et-button--disabled {
-    background: $uni-color-warning;
-    color: #fff;
-  }
+  @include button-color(#fff, $uni-color-warning);
 }
 
 .et-button--error {
-  background: $uni-color-error;
-  border-color: $uni-color-error;
-  color: #fff;
-
-  & .et-button--plain {
-    background: #fff;
-    color: $uni-color-error;
-  }
-
-  &.et-button--disabled {
-    background: $uni-color-error;
-    color: #fff;
-  }
-}
-
-.et-button-default--hover {
-  background: #F6F6F6 !important;
+  @include button-color(#fff, $uni-color-error);
 }
 
 .et-button--hover {
-  background: #ececec;
+  opacity: 0.6;
+}
+
+.et-dialog__button--hover {
+  background: #ececec !important;
 }
 
 .et-button__icon+.et-button__text:not(:empty) {

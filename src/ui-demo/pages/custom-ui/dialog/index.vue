@@ -29,11 +29,12 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
-import { sleep } from '@/shared'
+import DemoBlock from '@p/components/demo-block';
+import { sleep } from '@/shared';
+
 export default {
   components: {
-    DemoBlock
+    DemoBlock,
   },
   data() {
     return {
@@ -41,26 +42,23 @@ export default {
       visible2: false,
       visible3: false,
       visible4: false,
-    }
+    };
   },
   methods: {
     onConfirm() {
-      console.log('[debug] dialog 弹窗点击了确认按钮')
+      console.log('[debug] dialog 弹窗点击了确认按钮');
     },
     onCancel() {
-      console.log('[debug] dialog 弹窗点击了取消按钮')
+      console.log('[debug] dialog 弹窗点击了取消按钮');
     },
     onClose() {
-      console.log('[debug] dialog 弹窗关闭')
+      console.log('[debug] dialog 弹窗关闭');
     },
     async onBeforeClose({ confirm, cancel }) {
-      await sleep(500)
+      await sleep(500);
       // 返回 true 关闭弹窗，返回 false 取消关闭弹窗
-      return !!confirm
+      return !!confirm;
     }
   }
-}
+};
 </script>
-
-<style lang="scss" scoped>
-</style>
