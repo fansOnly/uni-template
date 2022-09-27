@@ -5,7 +5,7 @@
   <view :class="['et-upload-wrapper', disabled ? 'et-upload-wrapper--disabled' : null]">
     <template v-if="fileList.length">
       <view v-for="(item, index) in fileList" :key="index" class="et-upload__file" :style="style">
-        <et-image :src="item.src" :mode="mode" :width="width" :height="height"></et-image>
+        <et-image v-if="item.src" :src="item.src" :mode="mode" :width="width" :height="height"></et-image>
         <view v-if="showRemove && (!showLoading || !loading || index < fileList.length - 1)" class="et-upload__file-remove" @click.stop="onRemove(index)">
           <view class="et-upload__remove-text">X</view>
         </view>
@@ -27,7 +27,7 @@
       </view>
     </template>
     <view v-if="fileList.length < count" :class="['et-upload__button', icon ? 'et-upload__button--flex' : null]" :style="style" @click="onUpload(false)">
-      <slot><et-icon name="upload" size="32" /></slot>
+      <slot><et-icon name="cloud-upload" size="32" /></slot>
     </view>
     <!-- #ifdef H5 -->
     <!-- uni-app 会将 input type = file 渲染成 type = text ？？？？？？ -->
@@ -226,7 +226,12 @@ export default {
         }
         this.loading = true;
         // 这里进行文件的真实上传
-        // TODO 模拟上传失败
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 1000);
+        });
+        // TODO 第二个文件模拟上传失败
         this.fileList = this.fileList.map((file, index) => ({...file, status: index == 1 ? 'fail' : 'success'}));
         this.loading = false;
         this.$emit('success', this.fileList);

@@ -122,8 +122,14 @@ export default {
       return style;
     },
     iconSize({ height }) {
-      height = String(height).replace(/\d+([px|rpx])/, '');
-      return Math.max(Math.min(50, height / 3), 30);
+      let size;
+      if (String(height).endsWith('%')) {
+        size = 50;
+      } else {
+        size = String(height).replace(/\d+([px|rpx])/, '');
+        size = Math.floor(size / 3);
+      }
+      return Math.max(Math.min(50, size), 30);
     }
   },
   watch: {

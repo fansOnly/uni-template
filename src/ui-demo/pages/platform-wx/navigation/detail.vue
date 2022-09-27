@@ -11,8 +11,6 @@
         </view>
       </view>
     </view>
-
-    <et-tab-bar></et-tab-bar>
   </et-page>
 </template>
 
