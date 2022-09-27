@@ -1,6 +1,6 @@
 <template>
   <div :class="['et-checkbox', block ? 'et-checkbox--block' : null ,multiple ? 'et-checkbox--multiple' : null, customClass]" :style="customStyle">
-    <et-icon class="et-checkbox__icon" :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
+    <et-icon class="et-checkbox__icon" :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
     <view class="et-checkbox__label" :style="{ flex: block ? 1 :'auto' }" @click="onClickText">
       <slot></slot>
     </view>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-checkbox',
   inject: {
@@ -27,7 +28,7 @@ export default {
     // 组件尺寸
     size: {
       type: [String, Number],
-      default: 20,
+      default: cssVariables.iconSize,
     },
     // 是否块级元素
     block: {
@@ -57,7 +58,7 @@ export default {
     // 组件未激活的图标样式
     inactiveIcon: {
       type: String,
-      default: 'checkbox'
+      default: 'checkbox-off'
     },
     // 自定义样式覆盖
     customStyle: null,
@@ -69,31 +70,34 @@ export default {
   computed: {
     checked: {
       get() {
-        return this.parent ? this.parent.value.includes(this.name) : this.value
+        return this.parent ? this.parent.value.includes(this.name) : this.value;
       },
       set(val) {
         if (this.parent) {
-          this.parent.change({ name: this.name, checked: val })
+          this.parent.change({ name: this.name, checked: val });
         } else {
-          this.$emit('input', val)
-          this.$emit('change', val)
+          this.$emit('input', val);
+          this.$emit('change', val);
         }
       },
     },
+    color() {
+      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor;
+    }
   },
   methods: {
     onClickIcon() {
-      this.$emit('click-icon')
-      if (this.iconDisabled) return
-      this.checked = !this.checked
+      this.$emit('click-icon');
+      if (this.iconDisabled) return;
+      this.checked = !this.checked;
     },
     onClickText() {
-      this.$emit('click-label')
-      if (this.labelDisabled) return
-      this.checked = !this.checked
+      this.$emit('click-label');
+      if (this.labelDisabled) return;
+      this.checked = !this.checked;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

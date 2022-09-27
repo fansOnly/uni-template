@@ -20,7 +20,7 @@
     </demo-block>
 
     <demo-block title="自定义图标" padding>
-      <et-checkbox v-model="checkbox4" inactive-icon="checkbox-square" active-icon="checkbox-square-on">复选框a
+      <et-checkbox v-model="checkbox4" inactive-icon="checkbox-off" active-icon="checkbox-on-fill">复选框a
       </et-checkbox>
     </demo-block>
 
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -46,9 +46,9 @@ export default {
       checkbox2: ['b'],
       checkbox3: false,
       checkbox4: false,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

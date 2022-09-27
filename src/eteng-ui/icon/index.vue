@@ -1,9 +1,9 @@
 <template>
-  <et-image :src="`icon/icon-${name}.png`" :width="size" :height="size" :block="block" :static="isStatic" :custom-style="customStyle" @click="$emit('click')"></et-image>
+  <text class="iconfont" :class="[block ? 'is-block' : null, 'icon-' + name]" :style="{'font-size': size + 'px', 'color': color}" @click="onClick"></text>
 </template>
 
 <script>
-import variables from '@/common/lib/theme';
+import cssVariables from '@/common/lib/theme';
 
 export default {
   name: 'et-icon',
@@ -13,12 +13,14 @@ export default {
     // 图标尺寸
     size: {
       type: [String, Number],
-      default: variables.iconSize || 20
+      default: cssVariables.iconSize,
+      validator(val) {
+        return /^\d+$/.test(String(val));
+      }
     },
-    // 是否使用本地静态资源
-    static: {
-      type: Boolean,
-      default: true
+    color: {
+      type: String,
+      default: cssVariables.iconColor
     },
     // 是否块级元素
     block: {
@@ -28,10 +30,18 @@ export default {
     // 自定义组件样式
     customStyle: null
   },
-  computed: {
-    isStatic() {
-      return this.static;
+  methods: {
+    onClick() {
+      this.$emit('click');
+      this.$emit('tap');
     }
   }
 };
 </script>
+
+<style lang="scss" >
+@import "../common/iconfont/iconfont.scss";
+.is-block {
+  display: block;
+}
+</style>

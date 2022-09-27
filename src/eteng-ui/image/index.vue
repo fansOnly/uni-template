@@ -4,13 +4,16 @@
       <et-loading type="spinner" />
     </view>
     <image class="et-image" :src="resolvePath(src)" :mode="mode" :lazy-load="lazyLoad" :show-menu-by-longpress="showMenuByLongpress" @error="onImageError" @load="onImageLoad"></image>
-    <view v-if="error" class="et-image--error" :style="failStyled">加载失败</view>
+    <view v-if="error" class="et-image--error" :style="failStyled">
+      <!-- 加载失败 -->
+      <et-icon name="image-fail" :size="iconSize" />
+    </view>
   </view>
 </template>
 
 <script>
-const path = require('path')
-import { addUnit, appendStyles } from '../common/util'
+const path = require('path');
+import { addUnit, appendStyles } from '../common/util';
 
 export default {
   name: 'et-image',
@@ -90,65 +93,70 @@ export default {
     return {
       error: false,
       loaded: false
-    }
+    };
   },
   computed: {
     styled({ width, height, radius, block, round, customStyle }) {
-      let style = ''
-      style += `width: ${addUnit(width)};`
+      let style = '';
+      style += `width: ${addUnit(width)};`;
       // fix：修复编译 H5 图片宽度被压缩
-      style += `min-width: ${addUnit(width)};`
-      style += `height: ${addUnit(height)};`
+      style += `min-width: ${addUnit(width)};`;
+      style += `height: ${addUnit(height)};`;
       // 块级
       if (block) {
-        style += 'display: flex;'
+        style += 'display: flex;';
       }
       // 圆角
       if (round) {
-        style += 'border-radius: 100%;'
+        style += 'border-radius: 100%;';
       } else {
-        style += `border-radius: ${addUnit(radius)};`
+        style += `border-radius: ${addUnit(radius)};`;
       }
-      return appendStyles([style, customStyle])
+      return appendStyles([style, customStyle]);
     },
     failStyled({ height }) {
-      let style = ''
-      style += `height: ${addUnit(height)};`
-      style += `font-size: ${addUnit(Math.max(Math.min(16, height / 5), 10))};`
-      return style
+      let style = '';
+      style += `height: ${addUnit(height)};`;
+      // 文字字体大小
+      style += `font-size: ${addUnit(Math.max(Math.min(16, height / 5), 10))};`;
+      return style;
+    },
+    iconSize({ height }) {
+      height = String(height).replace(/\d+([px|rpx])/, '');
+      return Math.max(Math.min(50, height / 3), 30);
     }
   },
   watch: {
     src: {
       handler(val, oldVal) {
         if (val !== oldVal) {
-          this.error = false
+          this.error = false;
         }
       }
     }
   },
   methods: {
     onImageError(event) {
-      this.error = this.loaded = true
-      this.$emit('error', event.detail)
-      this.$emit('loaded')
+      this.error = this.loaded = true;
+      this.$emit('error', event.detail);
+      this.$emit('loaded');
     },
     onImageLoad(event) {
-      this.loaded = true
-      this.$emit('load', event.detail)
-      this.$emit('loaded')
+      this.loaded = true;
+      this.$emit('load', event.detail);
+      this.$emit('loaded');
     },
     resolvePath(src) {
       if (this.static) {
-        return path.join('/static/images/', src)
+        return path.join('/static/images/', src);
       } else if (this.fullPath || /[https?|wxfile]:\/\/.+$/g.test(src)) {
-        return src
+        return src;
       } else {
-        return process.env.RESOURCE_URL + src
+        return process.env.RESOURCE_URL + src;
       }
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -186,7 +194,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #f7f8fa;
+    background: #fff;
     color: #dcdee0;
     line-height: 1.3;
   }

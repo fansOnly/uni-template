@@ -6,9 +6,9 @@
           <view class="et-popup-header-title">{{title}}</view>
         </view>
       </slot>
-      <view v-if="closeable" :class="['et-popup-header-close', 'et-popup-close--'+closeIconPosition]">
+      <view v-if="closeable" :class="['et-popup-header-close', 'et-popup-close--'+closeIconPosition]" @click="close">
         <slot name="close">
-          <et-icon name="cross" size="28" @click="close" />
+          <et-icon name="cross-blank"/>
         </slot>
       </view>
       <scroll-view scroll-y :style="bodyStyled" class="et-popup-body">
@@ -166,6 +166,7 @@ export default {
       this.$emit('update:visible', false);
     },
     close() {
+      console.log(1111111111);
       this.$emit('close');
       this.$emit('update:visible', false);
     },

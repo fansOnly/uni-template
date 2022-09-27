@@ -1,6 +1,6 @@
 <template>
   <div :class="['et-radio', `et-radio--${direction}`, disabled ? 'et-radio--disabled' : null]" :style="customStyle">
-    <et-icon class="et-radio__icon" :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
+    <et-icon class="et-radio__icon" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
     <view class="et-radio__txt" @click="onClickText">
       <slot></slot>
     </view>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-radio',
   inject: {
@@ -22,7 +23,7 @@ export default {
     // 单选框的尺寸
     size: {
       type: [String, Number],
-      default: 20
+      default: cssVariables.iconSize
     },
     // 是否禁用
     disabled: {
@@ -37,7 +38,7 @@ export default {
     // 未选中的图标
     inactiveIcon: {
       type: String,
-      default: 'radio'
+      default: 'radio-off'
     },
     // 禁用 label 文本点击事件
     labelDisabled: {
@@ -56,37 +57,42 @@ export default {
     return {
       direction: '',
       checked: false,
+    };
+  },
+  computed: {
+    color() {
+      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor;
     }
   },
   created() {
     if (this.parent) {
-      this.parent.children.push(this)
+      this.parent.children.push(this);
     }
   },
   methods: {
     onClickIcon() {
-      this.$emit('click-icon')
-      if (this.iconDisabled) return
-      this.onClick()
+      this.$emit('click-icon');
+      if (this.iconDisabled) return;
+      this.onClick();
     },
     onClickText() {
-      this.$emit('click-label')
-      if (this.labelDisabled) return
-      this.onClick()
+      this.$emit('click-label');
+      if (this.labelDisabled) return;
+      this.onClick();
     },
     onClick() {
-      if (this.disabled || this.checked) return
+      if (this.disabled || this.checked) return;
       if (this.parent) {
-        if (this.parent.value === this.name) return
-        this.parent.change(this.name, this)
+        if (this.parent.value === this.name) return;
+        this.parent.change(this.name, this);
       }
     },
     update(parent) {
-      this.direction = parent.direction
-      this.checked = parent.value === this.name
+      this.direction = parent.direction;
+      this.checked = parent.value === this.name;
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

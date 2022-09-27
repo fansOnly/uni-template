@@ -15,13 +15,13 @@
         </view>
         <!-- 上传失败状态 -->
         <view v-if="item.status === 'fail'" class="et-upload__loading">
-          <et-icon name="fail-white" size="32" />
+          <et-icon name="fail" size="32" color="#fff" />
           <view class="et-upload__loading-text--fail">上传失败</view>
           <view class="et-upload__button-retry" @click="reUpload(index)">重新上传</view>
         </view>
         <!-- 上传成功状态 -->
         <view v-if="item.status === 'success'" class="et-upload__loading" @click="onClickItem(index)">
-          <et-icon name="success-white" size="32" />
+          <et-icon name="success" size="32" color="#fff" />
           <view class="et-upload__loading-text--fail">上传成功</view>
         </view>
       </view>

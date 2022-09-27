@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util'
+import { appendStyles } from '../common/util';
 export default {
   name: 'et-empty',
   props: {
@@ -18,7 +18,7 @@ export default {
     // 图标路径
     icon: {
       type: String,
-      default: 'icon/icon-empty.png'
+      default: 'icon-empty.png'
     },
     // 背景色
     background: {
@@ -50,12 +50,12 @@ export default {
   },
   computed: {
     customStyled({ customStyle, background }) {
-      let style = ''
-      style += `background: ${background};`
-      return appendStyles([style, customStyle])
+      let style = '';
+      style += `background: ${background};`;
+      return appendStyles([style, customStyle]);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

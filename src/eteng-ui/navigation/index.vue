@@ -5,8 +5,8 @@
       <view v-if="backgroundImage" class="page-bg-image"><et-image :src="backgroundImage" mode="widthFix" /></view>
       <view class="et-navigation-buttons" :style="buttonStyled">
         <slot name="icon">
-          <et-icon v-if="showBack" class="et-navigation__button--back" :name="backIcon" size="24" @click="navigateBack" />
-          <et-icon v-if="showHome" class="et-navigation__button--home" :name="homeIcon" size="22" @click="reLaunchHome" />
+          <et-icon v-if="showBack" class="et-navigation__button--back" name="arrow-left" :color="iconColor" @click="navigateBack" />
+          <et-icon v-if="showHome" class="et-navigation__button--home" name="home" :color="iconColor" @click="reLaunchHome" />
         </slot>
       </view>
       <slot>
@@ -70,11 +70,8 @@ export default {
     };
   },
   computed: {
-    homeIcon({ mode }) {
-      return mode === 'light' ? 'nav-home' : 'nav-home-white';
-    },
-    backIcon({ mode }) {
-      return mode === 'light' ? 'nav-back' : 'nav-back-white';
+    iconColor({ mode }) {
+      return mode === 'light' ? '#252525' : '#fff';
     },
     frontColor({ mode }) {
       return mode === 'light' ? '#000000' : '#ffffff';
@@ -115,13 +112,12 @@ export default {
     }
   },
   async mounted() {
-    let navHeight = getAppData('navHeight');
-    if (!navHeight) {
-      const rect = wx.getMenuButtonBoundingClientRect();
-      navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
-      this.titleHeight = rect.height;
-      this.navOffsetTop = rect.top;
+    const rect = wx.getMenuButtonBoundingClientRect();
+    let navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
+    this.titleHeight = rect.height;
+    this.navOffsetTop = rect.top;
 
+    if (!getAppData('navHeight')) {
       setAppData('navHeight', navHeight);
     }
 

@@ -5,50 +5,50 @@
 </template>
 
 <script>
-  export default {
-    name: 'et-loading-mask',
-    props: {
-      // 显示开关
-      visible: {
-        type: Boolean,
-        default: false
-      },
-      // 层级
-      zIndex: {
-        type: Number,
-        default: 2
-      },
-      // 加载类型 - 透传 loading 组件
-      type: {
-        type: String,
-        default: 'spinner'
-      },
-      // 垂直布局 - 透传 loading 组件
-      vertical: {
-        type: Boolean,
-        default: false
-      },
-      // 背景色
-      background: {
-        type: String,
-        default: 'rgba(0, 0, 0, .1)'
-      },
-      // 图标及文案颜色 - 透传 loading 组件
-      color: {
-        type: String,
-        default: '#fff'
-      },
-      // 图标大小 - 透传 loading 组件
-      size: {
-        type: [String, Number],
-        default: 20
-      },
+export default {
+  name: 'et-loading-mask',
+  props: {
+    // 显示开关
+    visible: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      // for prevent touchmove
-      noop: function () {},
-    }
+    // 层级
+    zIndex: {
+      type: Number,
+      default: 2
+    },
+    // 加载类型 - 透传 loading 组件
+    type: {
+      type: String,
+      default: 'spinner'
+    },
+    // 垂直布局 - 透传 loading 组件
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    // 背景色
+    background: {
+      type: String,
+      default: 'rgba(0, 0, 0, .1)'
+    },
+    // 图标及文案颜色 - 透传 loading 组件
+    color: {
+      type: String,
+      default: '#fff'
+    },
+    // 图标大小 - 透传 loading 组件
+    size: {
+      type: [String, Number],
+      default: 20
+    },
+  },
+  methods: {
+    // for prevent touchmove
+    noop: function () {},
   }
+};
 </script>
 
 <style lang="scss" scoped>

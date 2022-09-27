@@ -19,7 +19,7 @@
           @blur="onBlur" @focus="onFocus" @confirm="onConfirm" />
       </template>
       <view v-show="showClear" class="et-input__close-area" :style="style" @click="onClear">
-        <et-icon class="et-input__icon--close" name="clear" />
+        <et-icon class="et-input__icon--close" name="close-fill" />
       </view>
     </view>
     <view v-if="type === 'password'" class="et-input__eye-area" @click="togglePassType">
@@ -164,7 +164,7 @@ export default {
       inputFocus: false,
       status: '', // 表单状态
       inputType: this.type,
-      passIconName: 'eye-open'
+      passIconName: 'eye-on'
     };
   },
   computed: {
@@ -336,7 +336,7 @@ export default {
     togglePassType() {
       const inputType = this.inputType === 'password' ? 'text' : 'password';
       this.inputType = inputType;
-      this.passIconName = inputType === 'password' ? 'eye-open' : 'eye-close';
+      this.passIconName = inputType === 'password' ? 'eye-on' : 'eye-off';
     },
   }
 };

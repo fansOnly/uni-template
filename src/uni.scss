@@ -96,7 +96,8 @@ $uni-tab-bar-height: 106rpx;
 $uni-h5-head-height: 88rpx;
 
 /* 图标大小 */
-$uni-icon-size: 40rpx;
+$uni-icon-size: 24;
+$uni-icon-color: #d3d3d3;
 
 :export {
   primaryColor: $uni-color-primary;
@@ -111,4 +112,5 @@ $uni-icon-size: 40rpx;
   overlayZIndex: $uni-overlay-index;
   popupZIndex: $uni-popup-index;
   iconSize: $uni-icon-size;
+  iconColor: $uni-icon-color;
 }

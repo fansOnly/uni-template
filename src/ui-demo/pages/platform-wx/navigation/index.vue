@@ -17,6 +17,12 @@
             <et-button type="primary" :radius="4" block @click="visible = true">拉起弹窗</et-button>
           </view>
           <view class="demo-margin-bottom">
+            <et-button type="primary" :radius="4" block @click="jumpDetail">跳转内页 - navigate</et-button>
+          </view>
+          <view class="demo-margin-bottom">
+            <et-button type="primary" :radius="4" block @click="jumpDetail2">跳转内页 - redirect</et-button>
+          </view>
+          <view class="demo-margin-bottom">
             <et-button type="primary" :radius="4" block @click="jumpHome">去首页 - reLaunch</et-button>
           </view>
           <view class="demo-margin-bottom">
@@ -66,6 +72,12 @@ export default {
     async getRectInfo() {
       const rect = await getRect(this, '.color');
       console.log('rect: ', rect);
+    },
+    jumpDetail() {
+      this.$Router.push('/ui-demo/pages/platform-wx/navigation/detail');
+    },
+    jumpDetail2() {
+      this.$Router.replace('/ui-demo/pages/platform-wx/navigation/detail');
     },
     jumpHome() {
       this.$Router.replaceAll('/ui-demo/pages/home/index');

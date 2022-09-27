@@ -111,10 +111,10 @@
     <demo-block title="图标按钮" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-button icon="checkbox" type="primary">按钮</et-button>
+          <et-button icon="home" type="primary">按钮</et-button>
         </view>
         <view class="demo-item-space">
-          <et-button icon="download" type="primary"></et-button>
+          <et-button icon="cloud-upload" type="primary"></et-button>
         </view>
       </view>
     </demo-block>

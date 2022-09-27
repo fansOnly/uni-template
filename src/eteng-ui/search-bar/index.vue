@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { INPUT_HEIGHT_DEF } from '../common/constant'
-import { addUnit } from '../common/util'
+import { INPUT_HEIGHT_DEF } from '../common/constant';
+import { addUnit } from '../common/util';
 export default {
   name: 'et-search-bar',
   props: {
@@ -123,64 +123,64 @@ export default {
     return {
       inputFocus: false,
       showInput: false
-    }
+    };
   },
   computed: {
     isActivated() {
-      return this.showInput || this.value
+      return this.showInput || this.value;
     },
     isFocus() {
-      return this.focus || this.inputFocus
+      return this.focus || this.inputFocus;
     },
     wrapperStyled({ isActivated, height, radius, round }) {
-      let style = ''
-      style += `height: ${addUnit(height)};`
+      let style = '';
+      style += `height: ${addUnit(height)};`;
       if (!isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`
+        style += `border-radius: ${round ? 999 : radius}px;`;
       }
-      return style
+      return style;
     },
     deactivatedStyled({ background }) {
-      let style = ''
-      style += `background: ${background};`
-      return style
+      let style = '';
+      style += `background: ${background};`;
+      return style;
     },
     inputStyled({ isActivated, background, clearable, round, radius }) {
-      let style = `padding: 0 ${clearable ? 0 : '32rpx'} 0 32rpx;`
-      style += `background: ${background};`
+      let style = `padding: 0 ${clearable ? 0 : '32rpx'} 0 32rpx;`;
+      style += `background: ${background};`;
       if (isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`
+        style += `border-radius: ${round ? 999 : radius}px;`;
       }
-      return style
+      return style;
     },
   },
   methods: {
     handleCancel() {
-      this.$emit('input', '')
-      this.inputFocus = this.showInput = false
+      this.$emit('input', '');
+      this.inputFocus = this.showInput = false;
     },
     handleInput(value) {
-      this.$emit('input', value)
+      this.$emit('input', value);
     },
     handleFocus() {
-      this.inputFocus = true
-      this.$emit('focus')
+      this.inputFocus = true;
+      this.$emit('focus');
     },
     handleBlur(value) {
-      this.$emit('input', value)
+      this.$emit('input', value);
       setTimeout(() => {
-        this.inputFocus = false
-      }, 0)
+        this.inputFocus = false;
+      }, 0);
     },
     onConfirm(value) {
-      this.$emit('on-search', value)
+      this.$emit('on-search', value);
     },
     handleClear() {
-      this.$emit('input', '')
-      this.$emit('clear')
+      this.$emit('input', '');
+      this.$emit('clear');
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

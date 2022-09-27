@@ -21,15 +21,6 @@ export default {
     wx.setEnableDebug({enableDebug: true});
     /* #endif */
 
-    // 加载网络字体
-    uni.loadFontFace({
-      family: 'Bitstream Vera Serif Bold',
-      source: 'url("https://sungd.github.io/Pacifico.ttf")',
-      complete(res) {
-        console.log('[debug] loadFontFace: ', res);
-      }
-    });
-
     /* #ifdef MP-WEIXIN */
     checkUpdate();
     /* #endif */

@@ -9,7 +9,7 @@
       <et-loading v-if="loading" type="spinner" color="#fff"></et-loading>
       <template v-else>
         <slot v-if="icon" name="icon">
-          <et-icon class="et-button__icon" :name="icon" :size="iconSize" />
+          <et-icon class="et-button__icon" :name="icon" :size="iconSize" :color="iconColor" />
         </slot>
         <view class="et-button__text">
           <slot></slot>
@@ -39,6 +39,11 @@ export default {
     iconSize: {
       type: [Number, String],
       default: 16
+    },
+    // 左侧图标颜色
+    iconColor: {
+      type: String,
+      default: '#fff'
     },
     // 按钮颜色，支持传入linear-gradient渐变色
     color: null,

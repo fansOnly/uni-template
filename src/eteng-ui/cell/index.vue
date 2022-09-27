@@ -11,7 +11,7 @@
       </view>
       <view v-if="isLink" class="et-cell__right-icon">
         <!-- slot 命名 right-icon 不支持？？？ -->
-        <slot name="icon"><et-icon name="arrow-right" size="20" /></slot>
+        <slot name="icon"><et-icon name="arrow-right" /></slot>
       </view>
       <slot name="extra"></slot>
     </view>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util'
+import { addUnit, appendStyles } from '../common/util';
 
 export default {
   name: 'et-cell',
@@ -54,7 +54,7 @@ export default {
       type: String,
       default: 'normal',
       validator(value) {
-        return ['normal', 'small', 'mini', 'large'].includes(value)
+        return ['normal', 'small', 'mini', 'large'].includes(value);
       }
     },
     // 当 isLink 为 true 可设置高亮颜色
@@ -88,50 +88,50 @@ export default {
   },
   computed: {
     wrapperStyled() {
-      let style = ''
-      const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px'
-      style += `height: ${lineHeight};`
-      return appendStyles([style, this.customStyle, this.parent?.customStyle])
+      let style = '';
+      const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px';
+      style += `height: ${lineHeight};`;
+      return appendStyles([style, this.customStyle, this.parent?.customStyle]);
     },
     titleStyled() {
-      let style = ''
+      let style = '';
       if (this.titleWidth) {
-        style += `min-width: ${addUnit(this.titleWidth)};`
+        style += `min-width: ${addUnit(this.titleWidth)};`;
       } else {
-        style += 'flex: 1;'
+        style += 'flex: 1;';
       }
-      return appendStyles([style, this.titleStyle, this.parent?.titleStyle])
+      return appendStyles([style, this.titleStyle, this.parent?.titleStyle]);
     },
     rightStyled() {
-      return Number(this.titleWidth) === 0 ? '' : 'flex: 1;'
+      return Number(this.titleWidth) === 0 ? '' : 'flex: 1;';
     },
     textStyled() {
-      let style = ''
+      let style = '';
       if (this.isLinkActive && this.linkActiveColor) {
-        style += `color: ${this.linkActiveColor};`
+        style += `color: ${this.linkActiveColor};`;
       }
-      return appendStyles([style, this.textStyle, this.parent?.textStyle])
+      return appendStyles([style, this.textStyle, this.parent?.textStyle]);
     },
     customClasses() {
-      return appendStyles([this.customClass, this.parent?.customClass])
+      return appendStyles([this.customClass, this.parent?.customClass]);
     },
     titleClasses() {
-      return appendStyles([this.titleClass, this.parent?.titleClass])
+      return appendStyles([this.titleClass, this.parent?.titleClass]);
     },
     textClasses() {
-      return appendStyles([this.textClass, this.parent?.textClass])
+      return appendStyles([this.textClass, this.parent?.textClass]);
     },
     isBorder() {
-      return this.border === null ? this.parent?.border : this.border
+      return this.border === null ? this.parent?.border : this.border;
     }
   },
   methods: {
     onClick(evt) {
-      if (this.disabled) return
-      this.$emit('click', evt)
+      if (this.disabled) return;
+      this.$emit('click', evt);
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

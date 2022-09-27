@@ -237,6 +237,19 @@
       }
     },
     {
+      "path": "pages/platform-wx/navigation/detail",
+      "name": "navigation-detail",
+      "meta": {
+        "auth": false,
+        "title": "自定义导航内页",
+        "customNavigationStyle": true
+      },
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/custom-ui/overlay/index",
       "name": "overlay",
       "meta": {

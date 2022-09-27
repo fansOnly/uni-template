@@ -3,7 +3,7 @@
     <view :class="['et-dropdown-menu', menuIndex > -1 ? 'et-hairline--bottom' : null]" :style="menuStyled">
       <view v-for="(item, index) in menus" :key="index" :class="['et-dropdown-menu__title', item.active ? 'is-active' : null, item.disabled ? 'is-disabled' : null]" :style="{color: item.active ? activeColor : null, 'z-index': zIndex}" @click="onClickMenu(item, index)">
         <view>{{genMenuName(item)}}</view>
-        <et-icon class="et-dropdown-menu__icon" name="triangle-down" size="12" />
+        <et-icon class="et-dropdown-menu__icon" name="caret-down" size="14" />
       </view>
     </view>
     <slot></slot>

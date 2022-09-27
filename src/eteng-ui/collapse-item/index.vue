@@ -1,13 +1,15 @@
 <template>
   <div class="et-collapse-item">
     <et-cell :title="title" :text="text" :border="expanded && border" :title-width="titleWidth" :is-link="isLink" :disabled="disabled" :class="customClass" :custom-style="customStyle" :title-style="titleStyle" :text-style="textStyle" hover-class="none" @click="onClick">
-      <template slot="title">
+      <template #title>
         <slot name="title"></slot>
       </template>
-      <template slot="text">
+      <template #text>
         <slot name="text"></slot>
       </template>
-      <et-icon slot="icon" :class="['et-collapse-item-icon', expanded ? 'is-expanded' : null]" :name="icon" size="20" />
+      <template #icon >
+      <et-icon :class="['et-collapse-item-icon', expanded ? 'is-expanded' : null]" :name="icon" />
+    </template>
     </et-cell>
     <view class="et-collapse-item-body" :style="bodyStyled">
       <view class="et-collapse-item-content">

@@ -2,7 +2,7 @@
   <div v-show="showWrapper" class="et-dropdown-item-wrapper" :style="wrapperStyled">
     <et-popup :visible.sync="visible" custom-style="position: absolute;" :duration="duration" :overlay-style="overlayStyled" max-height="40vh" :position="direction === 'down' ? 'top' : 'bottom'" :overlay="overlay" @click-overlay="onClickOverlay" @after-leave="onClosed">
       <et-cell v-for="(item, index) in options" :key="index" :title="item.text" is-link :disabled="item.disabled" :border="index < options.length - 1" @click="onClickItem(item, index)">
-        <et-icon v-show="item.value === value" slot="icon" name="selected" size="20" />
+          <et-icon v-show="item.value === value" slot="icon" name="selected" :color="activeColor" />
       </et-cell>
     </et-popup>
   </div>
@@ -10,6 +10,7 @@
 
 <script>
 import { requestAnimationFrame } from '../common/util';
+import cssVariables from '@/common/lib/theme';
 
 export default {
   name: 'et-dropdown-item',
@@ -30,6 +31,7 @@ export default {
   },
   data() {
     return {
+      activeColor: cssVariables.primaryColor,
       overlay: true,
       closeOnClickOverlay: true,
       showWrapper: false,

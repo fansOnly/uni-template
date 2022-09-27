@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 
 export default {
   components: {
     DemoBlock
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
