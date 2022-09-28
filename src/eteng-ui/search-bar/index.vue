@@ -4,11 +4,11 @@
       @click="showInput = inputFocus = true">
       <et-icon class="search-left__icon" name="search" size="20" />{{ placeholder }}
     </view>
-    <view class="search-bar-body">
+    <view v-else class="search-bar-body">
       <view v-if="label" class="search-bar__label" :style="{'width': labelWidth +'px'}">{{label}}</view>
       <view class="search-bar__input">
         <et-input name="search" type="text" :value="value" :height="height" :placeholder="placeholder" :radius="radius"
-          :maxlength="maxlength" support-view :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger" :readonly="!isActivated" :disabled="disabled"
+          :maxlength="maxlength" :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger" :disabled="disabled"
           :confirm-type="confirmType" :custom-style="inputStyled" @focus="handleFocus" @blur="handleBlur"
           @input="handleInput" @confirm="onConfirm" @clear="handleClear">
           <template #prefix>
@@ -25,7 +25,7 @@
 
 <script>
 import { INPUT_HEIGHT_DEF } from '../common/constant';
-import { addUnit } from '../common/util';
+
 export default {
   name: 'et-search-bar',
   props: {
@@ -134,7 +134,7 @@ export default {
     },
     wrapperStyled({ isActivated, height, radius, round }) {
       let style = '';
-      style += `height: ${addUnit(height)};`;
+      style += `height: ${height}px;`;
       if (!isActivated) {
         style += `border-radius: ${round ? 999 : radius}px;`;
       }

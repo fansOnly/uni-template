@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util'
+import { appendStyles } from '../common/util';
 export default {
   name: 'animation-num',
   props: {
@@ -41,43 +41,43 @@ export default {
       numbers: new Array(10).fill(0).map((_, i) => i),
       start: 0,
       transformY: 0,
-    }
+    };
   },
   computed: {
     wrapperStyled({ height }) {
-      let style = ''
-      style += `height: ${height}px; line-height: ${height}px;`
-      return style
+      let style = '';
+      style += `height: ${height}px; line-height: ${height}px;`;
+      return style;
     },
     numStyled() {
-      let style = ''
-      style += `transform: translateY(-${this.transformY}px);`
-      return appendStyles([style, this.customStyle])
+      let style = '';
+      style += `transform: translateY(-${this.transformY}px);`;
+      return appendStyles([style, this.customStyle]);
     },
   },
   watch: {
     once: {
       handler(val) {
-        if (val) this.startTimer()
+        if (val) this.startTimer();
       },
       immediate: true,
     },
   },
   methods: {
     startTimer() {
-      if (this.timer) return
+      if (this.timer) return;
       this.timer = setInterval(() => {
         if (this.start < this.value) {
-          this.transformY = ++this.start * +this.height
+          this.transformY = ++this.start * +this.height;
         } else {
-          clearTimeout(this.timer)
-          this.start = 0
-          this.timer = null
+          clearTimeout(this.timer);
+          this.start = 0;
+          this.timer = null;
         }
-      }, 100)
+      }, 100);
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -22,27 +22,27 @@ export default {
     return {
       keyword: '',
       keyword2: 'hahhahha',
-    }
+    };
   },
   methods: {
     handleSearch(value) {
-      console.log('=====keyword===', this.keyword)
+      console.log('=====keyword===', this.keyword);
       uni.showToast({
         title: this.keyword,
         icon: 'none',
         mask: true
-      })
+      });
     },
     handleSearch2(value) {
-      console.log('=====keyword===', this.keyword2)
+      console.log('=====keyword===', this.keyword2);
       uni.showToast({
         title: this.keyword2,
         icon: 'none',
         mask: true
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

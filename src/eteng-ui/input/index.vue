@@ -107,18 +107,8 @@ export default {
       type: String,
       default: 'focus'
     },
-    // 是否开启标签转换
-    supportView: {
-      type: Boolean,
-      default: false
-    },
     // 将 input 切换为 view 标签，显示为 disabled 样式
     disabled: {
-      type: Boolean,
-      default: false
-    },
-    // 只读模式 - 将 input 切换为 view 标签
-    readonly: {
       type: Boolean,
       default: false
     },
