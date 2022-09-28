@@ -46,10 +46,15 @@ router.beforeEach((to, from, next) => {
 });
 
 // 全局路由后置守卫
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   // 设置窗口高度
   store.dispatch('app/setWindowHeight', !!to?.meta?.customNavigationStyle);
+  // #ifdef MP-WEIXIN
   uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' });
+  // #endif
+  // #ifdef H5
+  document.title = to?.meta?.title || 'UI 组件演示库';
+  // #endif
 });
 
 export {

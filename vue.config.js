@@ -2,13 +2,22 @@
 const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const copyPluginsList = require('./build/lib/copy-plugin');
 const TransformPages = require('uni-read-pages');
+const copyPluginsList = require('./build/lib/copy-plugin');
+const updateManifest = require('./build/lib/manifest-updater');
 require('./build/lib/load-env');
 
 // 获取工程运行配置
 const { project, useMock, useEncrypt } = require('./config');
 const projectRoot = path.join(__dirname, `./src/${project}`);
+
+// 替换 h5 devServer 代理地址
+// #ifdef H5
+updateManifest({
+  'h5.devServer.proxy./dev-server.target': JSON.stringify(process.env.HTTP_BASE_URL + '/' + process.env.HTTP_CONTEXT),
+  // 'h5.devServer.open': true
+});
+// #endif
 
 module.exports = {
   css: {

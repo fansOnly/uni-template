@@ -11,7 +11,7 @@ console.log('[debug]', `${requestUrl}/${apiContext}`);
 
 // H5端新增webServer proxy请求代理配置
 // #ifdef H5
-requestUrl = process.env.NODE_ENV === 'development' ? 'service' : requestUrl;
+requestUrl = process.env.NODE_ENV === 'development' ? 'dev-server' : requestUrl;
 // #endif
 
 /**

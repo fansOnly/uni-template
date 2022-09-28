@@ -6,9 +6,11 @@
         <view>子工程 vuex 数据: {{ msg }}</view>
       </demo-block>
 
+      <!-- #ifdef MP-WEIXIN -->
       <demo-block title="微信自定义组件" padding>
         <e-test msg="hello mini component"></e-test>
       </demo-block>
+      <!-- #endif -->
 
       <et-tab-bar></et-tab-bar>
     </view>

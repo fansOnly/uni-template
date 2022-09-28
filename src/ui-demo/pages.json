@@ -19,10 +19,12 @@
         "title": "UI 组件演示库"
       },
       "style": {
-        "navigationBarTitleText": "",
-        "usingComponents": {
-          "e-test": "/wxcomponents/e-test/index"
-        }
+        "navigationBarTitleText": ""
+        /*  #ifdef  MP-WEIXIN  */
+        // "usingComponents": {
+        //   "e-test": "/wxcomponents/e-test/index"
+        // }
+        /* #endif */
       }
     },
     {
@@ -596,33 +598,33 @@
       "background": "#efeff4"
     }
   },
-	"tabBar": {
+  "tabBar": {
     "custom": true,
-		"color": "#909090",
-		"selectedColor": "#EA4C2F",
-		"backgroundColor": "#ffffff",
-		"borderStyle": "white",
-		"list": [
-			{
-				"selectedIconPath": "static/images/tab-finance-on-icon.png",
-				"iconPath": "static/images/tab-finance-icon.png",
-				"pagePath": "pages/home/index",
-				"text": "首页"
-			},
-			{
-				"selectedIconPath": "static/images/tab-finance-on-icon.png",
-				"iconPath": "static/images/tab-finance-icon.png",
-				"pagePath": "pages/other/index",
-				"text": "其他"
-			},
-			{
-				"selectedIconPath": "static/images/tab-mine-on-icon.png",
-				"iconPath": "static/images/tab-mine-icon.png",
-				"pagePath": "pages/platform-wx/navigation/index",
-				"text": "自定义导航"
-			}
-		]
-	},
+    "color": "#909090",
+    "selectedColor": "#EA4C2F",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "static/images/tab-finance-on-icon.png",
+        "iconPath": "static/images/tab-finance-icon.png",
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "static/images/tab-finance-on-icon.png",
+        "iconPath": "static/images/tab-finance-icon.png",
+        "pagePath": "pages/other/index",
+        "text": "其他"
+      },
+      {
+        "selectedIconPath": "static/images/tab-mine-on-icon.png",
+        "iconPath": "static/images/tab-mine-icon.png",
+        "pagePath": "pages/platform-wx/navigation/index",
+        "text": "自定义导航"
+      }
+    ]
+  },
   "condition": { //模式配置，仅开发期间生效
     "current": 0, //当前激活的模式（list 的索引项）
     "list": []

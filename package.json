@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "init": "node ./build/init.js",
+    "init:prj": "node ./build/init.js",
     "open": "node ./build/start",
     "serve": "npm run dev:mp-weixin",
     "build": "npm run build:mp-weixin",

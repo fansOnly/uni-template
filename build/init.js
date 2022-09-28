@@ -8,7 +8,25 @@ function resolve(url) {
   return path.join(__dirname, url)
 }
 
+// 参数配置优先级更高
 // console.log(process.argv)
+// const [,, config = 'dev:mp-weixin', projectName] = process.argv
+// const [mode, platform] = config.split(':')
+// if (!['dev', 'build'].includes(mode)) {
+//   console.log('编译模式目前只支持 dev(开发运行) 和 build(打包发行) 两种')
+//   process.exit(-1)
+// }
+// if (!['mp-weixin', 'h5'].includes(platform)) {
+//   console.log('编译平台目前只支持 h5 和 mp-weixin(微信小程序) 两种')
+//   process.exit(-1)
+// }
+
+// const configJsonPath = resolve('../config/index.json')
+// let configData = fs.readFileSync(configJsonPath, 'utf8')
+// configData = parseJson(configData)
+// configData.project = projectName || configData.project
+// configData.mode = mode
+// fs.writeJsonSync(configJsonPath, configData, { spaces: '\t' })
 
 // 获取工程运行配置
 const { project, env } = require('../config')
@@ -73,7 +91,7 @@ projectCfg.easycom = {
     }
 }
 
-fs.writeJsonSync(mpWeixinJsonPath, projectCfg)
+fs.writeJsonSync(mpWeixinJsonPath, projectCfg, { spaces: '\t' })
 
 // 运行时 manifest 配置
 const projectManifestJsonPath = resolve(`../src/${project}/manifest.json`)
@@ -84,7 +102,7 @@ projectManifestConfig = parseJson(projectManifestConfig)
 projectManifestConfig['mp-weixin'].appid = process.env.WECHAT_APP_ID
 
 // 重写 manifest.json 文件
-fs.writeJsonSync(manifestJsonPath, projectManifestConfig)
+fs.writeJsonSync(manifestJsonPath, projectManifestConfig, { spaces: '\t' })
 
 // 初始化环境结束
 stopSpinner(false)
