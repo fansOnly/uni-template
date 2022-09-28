@@ -5,8 +5,8 @@
       <view v-if="backgroundImage" class="page-bg-image"><et-image :src="backgroundImage" mode="widthFix" /></view>
       <view class="et-navigation-buttons" :style="buttonStyled">
         <slot name="icon">
-          <et-icon v-if="showBack" class="et-navigation__button--back" name="arrow-left" :color="iconColor" @click="navigateBack" />
-          <et-icon v-if="showHome" class="et-navigation__button--home" name="home" :color="iconColor" @click="reLaunchHome" />
+          <et-icon v-if="showBack" class="et-navigation__button--back" name="back" :color="iconColor" size="22" @click="navigateBack" />
+          <et-icon v-if="showHome" class="et-navigation__button--home" name="home" :color="iconColor" size="22" @click="reLaunchHome" />
         </slot>
       </view>
       <slot>
@@ -166,11 +166,10 @@ export default {
     display: flex;
     align-items: center;
     position: absolute;
-    bottom: 0;
-    left: $uni-spacing-16;
+    left: 8px;
   }
   .et-navigation__button--back {
-    margin-right: 22rpx;
+    margin-right: 10px;
   }
   .navigation-block {
     background: $uni-bg-page;

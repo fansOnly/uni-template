@@ -1,5 +1,5 @@
 <template>
-  <view class="et-page">
+  <view v-if="ready" class="et-page">
     <view :class="['et-progress-bar', show || failed ? 'fade' : null]"
       :style="{ 'top': top + 'px', 'height': height + 'px', 'animation-duration': duration + 'ms' }">
       <view :class="['et-progress-bar--before', paused ? 'animation-paused' : null, done ? 'animation-done' : null]"
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { getAppData, setAppData } from '../common/global-data';
 export default {
   name: 'et-page',
   props: {
@@ -32,14 +33,11 @@ export default {
       type: Number,
       default: 4
     },
-    // Y 轴偏移量
-    top: {
-      type: Number,
-      default: 0
-    }
   },
   data() {
     return {
+      ready: false,
+      top: 0,
       duration: 300,
       paused: false,
       done: false,
@@ -66,6 +64,16 @@ export default {
     }
   },
   created() {
+    let [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+    if (customNavigationStyle) {
+      if (!navHeight) {
+        const rect = wx.getMenuButtonBoundingClientRect();
+        navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
+        setAppData({ navHeight });
+      }
+      this.top = navHeight;
+    }
+    this.ready = true;
     uni.showLoading({
       title: '加载中...',
       mask: true

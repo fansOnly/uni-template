@@ -14,6 +14,14 @@ const state = {
    *  @value choose-file 拍照 / 选择文件
    */
   hideScene: '',
+  // 实际窗口高度
+  windowHeight: 0,
+  // 默认窗口高度
+  defaultWindowHeight: 0,
+  // 自定义导航时窗口高度
+  customWindowHeight: 0,
+  // 自定义导航高度
+  navHeight: 0,
 };
 
 const mutations = {
@@ -22,6 +30,24 @@ const mutations = {
   },
   SET_HIDE_SCENE(state, payload = '') {
     state.hideScene = payload;
+  },
+  SET_WINDOW_HEIGHT(state, isCustom = false) {
+    let height = 0;
+    if (isCustom) {
+      if (state.defaultWindowHeight) {
+        height = state.defaultWindowHeight;
+      } else {
+        height = state.customWindowHeight || (state.customWindowHeight = uni.getSystemInfoSync().windowHeight);
+        if (!state.navHeight) {
+          const rect = wx.getMenuButtonBoundingClientRect();
+          state.navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
+        }
+        height -= state.navHeight;
+      }
+    } else {
+      height = state.defaultWindowHeight || (state.defaultWindowHeight = uni.getSystemInfoSync().windowHeight);
+    }
+    state.windowHeight = height;
   }
 };
 
@@ -34,6 +60,9 @@ const actions = {
   },
   setHideScene({ commit }, payload) {
     commit('SET_HIDE_SCENE', payload);
+  },
+  setWindowHeight({ commit }, payload) {
+    commit('SET_WINDOW_HEIGHT', payload);
   }
 };
 

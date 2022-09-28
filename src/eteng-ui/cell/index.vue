@@ -1,5 +1,5 @@
 <template>
-  <view :class="['et-cell', `et-cell-${size}`, isBorder ? 'et-hairline--bottom' : null, disabled ? 'et-cell--disabled' : null, customClasses]" :style="wrapperStyled" :hover-class="hoverClass" :hover-stay-time="200" @click="onClick">
+  <view :class="['et-cell', `et-cell-${size}`, isBorder ? 'et-hairline--bottom' : null, disabled ? 'et-cell--disabled' : null, customClasses]" :style="wrapperStyled" :hover-class="cellHoverClass" :hover-stay-time="200" @click="onClick">
     <view :class="['et-cell__title', titleClasses]" :style="titleStyled">
       <template v-if="title">{{title}}</template>
       <slot v-else name="title"></slot>
@@ -72,7 +72,10 @@ export default {
       default: false
     },
     // 微信 view 标签的 hover-class
-    hoverClass: null,
+    hoverClass: {
+      type: [String, null],
+      default: 'et-cell-hover-class'
+    },
     // 自定义组件类 class
     customClass: null,
     // 自定义左侧标题类 class
@@ -123,6 +126,9 @@ export default {
     },
     isBorder() {
       return this.border === null ? this.parent?.border : this.border;
+    },
+    cellHoverClass() {
+      return this.isLink ? this.hoverClass : null;
     }
   },
   methods: {
@@ -177,5 +183,8 @@ export default {
     flex: 1;
     color: $uni-text-color-sub;
     text-align: right;
+  }
+  .et-cell-hover-class {
+    background: #fafafa;
   }
 </style>

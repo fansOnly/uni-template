@@ -1,3 +1,4 @@
+import store from '@/store';
 import { RouterMount, createRouter } from 'uni-simple-router';
 
 const router = createRouter({
@@ -30,7 +31,6 @@ const router = createRouter({
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
   console.log('to, from: ', to, from);
-  // 是否自定义导航
   // eslint-disable-next-line no-undef
   const appInstance = getApp();
   appInstance.globalData.customNavigationStyle = !!to?.meta?.customNavigationStyle;
@@ -47,6 +47,8 @@ router.beforeEach((to, from, next) => {
 
 // 全局路由后置守卫
 router.afterEach((to, from) => {
+  // 设置窗口高度
+  store.dispatch('app/setWindowHeight', !!to?.meta?.customNavigationStyle);
   uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' });
 });
 

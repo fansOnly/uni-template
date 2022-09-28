@@ -1,6 +1,6 @@
 <template>
-  <et-page :show="pageReady" :top="navHeight">
-    <et-navigation :title="title" background-image="icon/bg-userinfo.png" @after-mounted="navMounted = true" />
+  <et-page :show="pageReady">
+    <et-navigation :title="title" background-image="http://139.199.251.138:7080/miniResFile/mgr/icon/bg-userinfo.png" @after-mounted="navMounted = true" />
     <view v-if="navMounted" class="page-wrapper is-custom-tab-bar"
       :style="{ 'min-height': windowHeight + 'px', 'height': '1500px' }">
       <view class="demo-block">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import page from '@/mixins/page';
 import { getRect, requestAnimationFrame } from '@/shared';
 
@@ -56,14 +56,16 @@ export default {
     };
   },
   computed: {
-    ...mapState('state', ['navHeight']),
-    ...mapGetters('state', ['windowHeight'])
+    ...mapState('app', ['windowHeight'])
   },
   async onLoad() {
     await requestAnimationFrame();
     setTimeout(() => {
       this.getRectInfo();
     }, 60);
+  },
+  async onShow() {
+    console.log('=== app/windowHeight =====', this.windowHeight);
   },
   onReady() {
     this.pageReady = true;

@@ -1,5 +1,5 @@
 <template>
-  <et-page :show="pageReady" :top="navHeight">
+  <et-page :show="pageReady">
     <et-navigation :title="title" @after-mounted="navMounted = true" />
     <view v-if="navMounted" class="page-wrapper is-custom-tab-bar"
       :style="{ 'min-height': windowHeight + 'px' }">
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import page from '@/mixins/page';
 
 export default {
@@ -28,11 +28,10 @@ export default {
     };
   },
   computed: {
-    ...mapState('state', ['navHeight']),
-    ...mapGetters('state', ['windowHeight'])
+    ...mapState('app', ['windowHeight'])
   },
   async onLoad() {
-
+    console.log('=== app/windowHeight =====', this.windowHeight);
   },
   onReady() {
     this.pageReady = true;

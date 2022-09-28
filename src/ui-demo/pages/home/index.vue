@@ -24,6 +24,7 @@ import DemoBlock from '@p/components/demo-block';
 import page from '@/mixins/page';
 import list from '../config';
 import { demo } from '@p/api/demo';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -36,6 +37,9 @@ export default {
       visible2: false,
     };
   },
+  computed: {
+    ...mapState('app', ['windowHeight'])
+  },
   async onLoad() {
     console.log('on home page load', this.$Route.query);
     await this.$onLaunched;
@@ -45,6 +49,7 @@ export default {
   async onShow() {
     console.log('on home page show');
     await this.$onLaunched;
+    console.log('=== app/windowHeight =====', this.windowHeight);
   },
   onReady() {
     console.log('on home page ready');
