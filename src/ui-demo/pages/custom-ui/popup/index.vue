@@ -29,13 +29,13 @@
       </view>
     </et-popup>
     <et-popup :visible.sync="visible" :position="position">
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
-      <view style="line-height: 100px;">这里是银行卡列表</view>
+      <view style="line-height: 100px;">这里是银行卡列表11</view>
+      <view style="line-height: 100px;">这里是银行卡列表22</view>
+      <view style="line-height: 100px;">这里是银行卡列表33</view>
+      <view style="line-height: 100px;">这里是银行卡列表44</view>
+      <view style="line-height: 100px;">这里是银行卡列表55</view>
+      <view style="line-height: 100px;">这里是银行卡列表66</view>
+      <view style="line-height: 100px;">这里是银行卡列表77</view>
     </et-popup>
     <et-popup :visible.sync="visible2" :position="position" round>
       <scroll-view scroll-y :style="style">

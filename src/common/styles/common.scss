@@ -17,7 +17,9 @@ page {
 }
 // 自定义 tab-bar
 .page-wrapper.is-custom-tab-bar {
+  /* #ifdef MP-WEIXIN */
   padding-bottom: calc(24rpx + 106rpx + env(safe-area-inset-bottom));
+  /* #endif */
 }
 // fix布局适配iphone的底部Home Indicator
 .iphone-inset-bottom--fixed {

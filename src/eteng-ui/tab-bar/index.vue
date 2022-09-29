@@ -22,6 +22,7 @@ export default {
   computed: {
     current() {
       const pages = getCurrentPages();
+      if (!pages.length) return;
       const { route } = pages[pages.length - 1];
       return route;
     },

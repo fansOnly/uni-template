@@ -52,9 +52,7 @@ router.afterEach((to) => {
   // #ifdef MP-WEIXIN
   uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' });
   // #endif
-  // #ifdef H5
-  document.title = to?.meta?.title || 'UI 组件演示库';
-  // #endif
+  // H5 需要在 onReady 设置
 });
 
 export {

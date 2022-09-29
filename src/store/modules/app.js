@@ -38,11 +38,13 @@ const mutations = {
         height = state.defaultWindowHeight;
       } else {
         height = state.customWindowHeight || (state.customWindowHeight = uni.getSystemInfoSync().windowHeight);
+        // #ifdef MP-WEIXIN
         if (!state.navHeight) {
           const rect = wx.getMenuButtonBoundingClientRect();
           state.navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
         }
         height -= state.navHeight;
+        // #endif
       }
     } else {
       height = state.defaultWindowHeight || (state.defaultWindowHeight = uni.getSystemInfoSync().windowHeight);

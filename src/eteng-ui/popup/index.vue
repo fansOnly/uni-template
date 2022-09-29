@@ -11,9 +11,16 @@
           <et-icon name="cross-blank"/>
         </slot>
       </view>
-      <scroll-view scroll-y :style="bodyStyled" class="et-popup-body">
+      <!-- #ifdef MP-WEIXIN -->
+      <scroll-view scroll-y class="et-popup-body" :style="bodyStyled">
         <slot />
       </scroll-view>
+      <!-- #endif -->
+      <!-- #ifdef H5 -->
+      <view class="et-popup-body" :style="bodyStyled">
+        <slot />
+      </view>
+      <!-- #endif -->
     </view>
     <et-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex - 1" :custom-style="overlayStyle" @click="clickOverlay"></et-overlay>
   </view>
@@ -257,10 +264,8 @@ export default {
     right: $uni-spacing-12
   }
   .et-popup-body {
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    overflow-y: auto;
+    overscroll-behavior: none;
   }
 </style>

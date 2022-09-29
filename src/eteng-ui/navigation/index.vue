@@ -100,18 +100,19 @@ export default {
       return style;
     },
     showBack() {
-      // 返回按钮
       const pages = getCurrentPages();
+      if (!pages.length) return;
       return this.showBackButton && pages.length > 1;
     },
     showHome() {
-      // 返回首页按钮
       const pages = getCurrentPages();
+      if (!pages.length) return;
       const current = pages[pages.length - 1]?.route;
       return this.showHomeButton && (pages.length === 1 && !tabBarPages.includes(current));
     }
   },
   async mounted() {
+    // #ifdef MP-WEIXIN
     const rect = wx.getMenuButtonBoundingClientRect();
     let navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
     this.titleHeight = rect.height;
@@ -120,8 +121,8 @@ export default {
     if (!getAppData('navHeight')) {
       setAppData('navHeight', navHeight);
     }
-
     this.navHeight = navHeight;
+    // #endif
 
     uni.setNavigationBarColor({
       frontColor: this.frontColor,

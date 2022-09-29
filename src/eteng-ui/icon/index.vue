@@ -1,9 +1,10 @@
 <template>
-  <text class="iconfont" :class="[block ? 'is-block' : null, 'icon-' + name]" :style="{'font-size': size + 'px', 'color': color}" @click="onClick"></text>
+  <text class="iconfont" :class="[block ? 'is-block' : null, 'icon-' + name]" :style="styled" @click="onClick"></text>
 </template>
 
 <script>
 import cssVariables from '@/common/lib/theme';
+import { appendStyles } from '../common/util';
 
 export default {
   name: 'et-icon',
@@ -29,6 +30,14 @@ export default {
     },
     // 自定义组件样式
     customStyle: null
+  },
+  computed: {
+    styled({ size, color, customStyle }) {
+      let style = '';
+      style += `font-size: ${size}px;`;
+      style += `color: ${color};`;
+      return appendStyles([style, customStyle]);
+    }
   },
   methods: {
     onClick() {

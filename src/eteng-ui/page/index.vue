@@ -64,6 +64,7 @@ export default {
     }
   },
   created() {
+    // #ifdef MP-WEIXIN
     let [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
     if (customNavigationStyle) {
       if (!navHeight) {
@@ -73,13 +74,14 @@ export default {
       }
       this.top = navHeight;
     }
+    // #endif
     this.ready = true;
     uni.showLoading({
       title: '加载中...',
       mask: true
     });
     this.start = +new Date();
-    // 加载等待界限
+    // 加载时长上限 5s
     this.timer = setTimeout(() => {
       if (!this.show) {
         this.paused = true;

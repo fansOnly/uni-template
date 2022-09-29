@@ -1,9 +1,9 @@
 <template>
   <view class="vc-calender">
     <view class="vc-calender-bar">
-      <et-icon name="arrow-left" @click="onChangePrev" />
+      <et-icon name="arrow-left" size="20" custom-style="font-weight: 800;" @click="onChangePrev" />
       <view class="vc-calender__subtitle">{{subtitle}}</view>
-      <et-icon name="arrow-right" @click="onChangeNext" />
+      <et-icon name="arrow-right" size="20" custom-style="font-weight: 800;" @click="onChangeNext" />
       <view class="vc-calendar__today et-hairline--surround" :class="{'is-show': notCurrent}" @click="backCurrent">今日</view>
     </view>
     <view class="vc-calender__week">
@@ -135,6 +135,7 @@ export default {
 }
 .vc-calender__subtitle {
   height: 88rpx;
+  margin: 0 16rpx;
   font-weight: 500;
   line-height: 88rpx;
   text-align: center;

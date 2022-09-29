@@ -149,17 +149,6 @@
       }
     },
     {
-      "path": "pages/platform-wx/echarts/index",
-      "name": "echarts",
-      "meta": {
-        "auth": false,
-        "title": "图表"
-      },
-      "style": {
-        "navigationBarTitleText": ""
-      }
-    },
-    {
       "path": "pages/custom-ui/empty/index",
       "name": "empty",
       "meta": {

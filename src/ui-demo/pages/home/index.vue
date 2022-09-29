@@ -42,6 +42,7 @@ export default {
   },
   async onLoad() {
     console.log('on home page load', this.$Route.query);
+    console.log('=== app/windowHeight =====', this.windowHeight);
     await this.$onLaunched;
 
     await demo({ a: 1, b: 2 });
@@ -49,7 +50,6 @@ export default {
   async onShow() {
     console.log('on home page show');
     await this.$onLaunched;
-    console.log('=== app/windowHeight =====', this.windowHeight);
   },
   onReady() {
     console.log('on home page ready');

@@ -1,6 +1,6 @@
 <template>
   <div :class="['et-checkbox', block ? 'et-checkbox--block' : null ,multiple ? 'et-checkbox--multiple' : null, customClass]" :style="customStyle">
-    <et-icon class="et-checkbox__icon" :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
+    <et-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
     <view class="et-checkbox__label" :style="{ flex: block ? 1 :'auto' }" @click="onClickText">
       <slot></slot>
     </view>
