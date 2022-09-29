@@ -9,5 +9,8 @@ export default {
   },
   onReady() {
     console.timeEnd('[page-load-time]');
+    // #ifdef H5
+    uni.setNavigationBarTitle({ title: 'UI 组件演示库' });
+    // #endif
   },
 };

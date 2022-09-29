@@ -19,11 +19,11 @@
         "title": "UI 组件演示库"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "",
         /*  #ifdef  MP-WEIXIN  */
-        // "usingComponents": {
-        //   "e-test": "/wxcomponents/e-test/index"
-        // }
+        "usingComponents": {
+          "e-test": "/wxcomponents/e-test/index"
+        }
         /* #endif */
       }
     },

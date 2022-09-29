@@ -259,7 +259,7 @@ export default {
 }
 
 .vc-calender__mark {
-  font-size: 12px;
+  font-size: 10px;
   color: #737373;
 }
 </style>
