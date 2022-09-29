@@ -48,6 +48,9 @@ const mutations = {
       }
     } else {
       height = state.defaultWindowHeight || (state.defaultWindowHeight = uni.getSystemInfoSync().windowHeight);
+      // #ifdef H5
+      height -= 44;
+      // #endif
     }
     state.windowHeight = height;
   }

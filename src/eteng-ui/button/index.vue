@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 
 export default {
   name: 'et-button',
@@ -148,7 +148,7 @@ export default {
           style += 'height: 88rpx; font-size: 32rpx;';
         }
       }
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     },
     buttonStyled() {
       let style = '';

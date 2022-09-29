@@ -117,12 +117,16 @@ export default {
     let navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
     this.titleHeight = rect.height;
     this.navOffsetTop = rect.top;
-
-    if (!getAppData('navHeight')) {
-      setAppData('navHeight', navHeight);
-    }
     this.navHeight = navHeight;
     // #endif
+    // #ifdef H5
+    this.navHeight = 44;
+    this.titleHeight = 44;
+    // #endif
+
+    if (!getAppData('navHeight')) {
+      setAppData('navHeight', this.navHeight);
+    }
 
     uni.setNavigationBarColor({
       frontColor: this.frontColor,
@@ -154,7 +158,9 @@ export default {
     top: 0;
     right: 0;
     left: 0;
+    /* #ifdef MP-WEIXIN */
     padding-bottom: 16rpx;
+    /* #endif */
     overflow: hidden;
   }
   .et-navigation__title {

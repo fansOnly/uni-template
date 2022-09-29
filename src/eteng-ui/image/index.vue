@@ -13,7 +13,7 @@
 
 <script>
 const path = require('path');
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 
 export default {
   name: 'et-image',
@@ -112,7 +112,7 @@ export default {
       } else {
         style += `border-radius: ${addUnit(radius)};`;
       }
-      return appendStyles([style, customStyle]);
+      return style + customStyle;
     },
     failStyled({ height }) {
       let style = '';

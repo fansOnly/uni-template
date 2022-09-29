@@ -4,7 +4,6 @@
 
 <script>
 import cssVariables from '@/common/lib/theme';
-import { appendStyles } from '../common/util';
 
 export default {
   name: 'et-icon',
@@ -36,7 +35,7 @@ export default {
       let style = '';
       style += `font-size: ${size}px;`;
       style += `color: ${color};`;
-      return appendStyles([style, customStyle]);
+      return style + customStyle;
     }
   },
   methods: {

@@ -12,13 +12,13 @@
       <slot name="footer">
         <view v-if="showCancel || showConfirm" :class="['et-dialog-footer', 'et-hairline--top', reverse ? 'et-dialog-footer--reverse' : null]">
           <view v-if="showCancel" class="et-button--cancel">
-            <et-button :color="cancelButtonColor" block plain :border="false" hover-class="et-dialog__button--hover" custom-style="height:56px;font-weight:500;" @click="onCancel">
+            <et-button :color="cancelButtonColor" block plain :border="false" hover-class="et-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onCancel">
               <et-loading v-if="cancelLoading" type="spinner"></et-loading>
               <template v-else>{{cancelButtonText}}</template>
             </et-button>
           </view>
           <view v-if="showConfirm" :class="['et-button--confirm', showCancel ? reverse ? 'et-hairline--right' : 'et-hairline--left' : null]">
-            <et-button type="info" :color="confirmButtonColor" block plain :border="false" hover-class="et-dialog__button--hover" custom-style="height:56px;font-weight:500;" @click="onConfirm">
+            <et-button type="info" :color="confirmButtonColor" block plain :border="false" hover-class="et-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onConfirm">
               <et-loading v-if="confirmLoading" type="spinner"></et-loading>
               <template v-else>{{confirmButtonText}}</template>
             </et-button>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util';
 export default {
   name: 'et-dialog',
   props: {
@@ -128,7 +127,7 @@ export default {
     style() {
       let style = '';
       if (this.offsetTop) style += `margin-top: ${this.offsetTop};`;
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     }
   },
   methods: {

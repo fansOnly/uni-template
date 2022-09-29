@@ -1,5 +1,5 @@
 <template>
-  <view class="page-wrapper">
+  <view class="page-wrapper" :style="{'height': windowHeight +'px'}">
     <view class="gap"></view>
     <et-cell title="动画 Fade" is-link border @click="startTransition()"></et-cell>
     <et-cell title="动画 SlideUp" is-link border @click="startTransition('slide-up')"></et-cell>
@@ -14,12 +14,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
       visible: false,
       name: 'fade'
     };
+  },
+  computed: {
+    ...mapState('app', ['windowHeight'])
   },
   methods: {
     startTransition(name = 'fade') {

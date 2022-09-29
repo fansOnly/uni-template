@@ -1,5 +1,8 @@
 <template>
   <div v-show="initialized" :class="['et-table', 'et-hairline--surround', customClass]" :style="tableStyled">
+    <!-- #ifdef H5 -->
+    <slot />
+    <!-- #endif -->
     <view class="et-table-header et-hairline--bottom" :style="theadStyled">
       <view v-for="(item, index) in tableHeaders" :key="index" :class="['et-table-row__item', verticalLine && index > 0 ? 'et-hairline--left' : null]" :style="item.theadStyle">
         <view v-if="item.label" class="et-table-header__title" :style="titleStyle">{{item.label}}</view>
@@ -17,15 +20,15 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util'
-import cssVariables from '@/common/lib/theme'
+import { addUnit } from '../common/util';
+import cssVariables from '@/common/lib/theme';
 
 export default {
   name: 'et-table',
   provide() {
     return {
       table: this
-    }
+    };
   },
   props: {
     // 表格数据源
@@ -74,31 +77,31 @@ export default {
       initialized: false,
       tableHeaders: [],
       isActive: false,
-    }
+    };
   },
   computed: {
     tableStyled({ radius, borderColor }) {
-      let style = ''
-      if (radius) style += `border-radius: ${radius}px;`
-      if (borderColor) style += `border-color: ${borderColor};`
-      return style
+      let style = '';
+      if (radius) style += `border-radius: ${radius}px;`;
+      if (borderColor) style += `border-color: ${borderColor};`;
+      return style;
     },
     theadStyled({ background, radius, theadStyle }) {
-      let style = `background: ${background};`
-      if (radius) style += `border-radius: ${addUnit(radius / 2)} ${addUnit(radius / 2)} 0 0;`
-      return appendStyles([style, theadStyle])
+      let style = `background: ${background};`;
+      if (radius) style += `border-radius: ${addUnit(radius / 2)} ${addUnit(radius / 2)} 0 0;`;
+      return style + theadStyle;
     },
   },
   created() {
-    this.children = []
+    this.children = [];
   },
   mounted() {
     this.tableHeaders = this.children.map(child => {
       // Bug: :style 不支持 computed = fn(item) 语法
-      let style = `align-items: ${child.align === 'left' ? 'flex-start' : child.align === 'right' ? 'flex-end' : child.align};`
-      style += `width: ${child.width ? addUnit(child.width) : 'auto'};`
-      style += `flex: ${child.width ? '0 0 auto' : '1 1 0'};`
-      if (this.borderColor) style += `border-color: ${this.borderColor};`
+      let style = `align-items: ${child.align === 'left' ? 'flex-start' : child.align === 'right' ? 'flex-end' : child.align};`;
+      style += `width: ${child.width ? addUnit(child.width) : 'auto'};`;
+      style += `flex: ${child.width ? '0 0 auto' : '1 1 0'};`;
+      if (this.borderColor) style += `border-color: ${this.borderColor};`;
 
       return {
         label: child.label,
@@ -109,16 +112,16 @@ export default {
         formatter: child.formatter,
         theadStyle: style,
         tbodyStyle: style + this.tdStyle,
-      }
-    })
-    this.initialized = true
+      };
+    });
+    this.initialized = true;
   },
   methods: {
     formatter(fn, value, item) {
-      return typeof fn === 'function' ? fn(value, item, this) : value
+      return typeof fn === 'function' ? fn(value, item, this) : value;
     },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

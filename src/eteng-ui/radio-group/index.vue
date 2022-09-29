@@ -10,7 +10,7 @@ export default {
   provide() {
     return {
       radioGroup: this
-    }
+    };
   },
   props: {
     // 默认选中的值，对应单选框的 name 属性
@@ -24,27 +24,27 @@ export default {
   watch: {
     value: {
       handler(val) {
-        this.update()
+        this.update();
       },
       immediate: true
     }
   },
   created() {
-    this.children = []
+    this.children = [];
   },
   methods: {
     change(value) {
       // 小程序绑定 v-model 不支持自定义 value 和 input
-      this.$emit('input', value)
-      this.update()
+      this.$emit('input', value);
+      this.update();
     },
     update() {
       this.$nextTick(() => {
         this.children.map(child => {
-          child.update(this)
-        })
-      })
+          child.update(this);
+        });
+      });
     }
   }
-}
+};
 </script>

@@ -2,7 +2,7 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-steps :active="-1" :options="options" />
+      <et-steps :active="2" :options="options" />
     </demo-block>
 
     <demo-block title="垂直布局" padding>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -31,9 +31,9 @@ export default {
         { title: '产品份额确认，开始产生收益', desc: '2019-06-22  星期一' },
         { title: '产品到期', desc: '2020-07-22  星期一' },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

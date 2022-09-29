@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { addUnit } from '../common/util'
+import { addUnit } from '../common/util';
 export default {
   name: 'et-loading',
   props: {
@@ -23,7 +23,7 @@ export default {
       type: String,
       default: 'circular',
       validator(value) {
-        return ['circular', 'spinner', 'shine'].includes(value)
+        return ['circular', 'spinner', 'shine'].includes(value);
       }
     },
     // 垂直布局
@@ -46,17 +46,17 @@ export default {
     return {
       array4: Array.from({ length: 4 }),
       array12: Array.from({ length: 12 }),
-    }
+    };
   },
   computed: {
     styled() {
-      let style = ''
-      style += `width: ${addUnit(this.size)}; height: ${addUnit(this.size)};`
-      style += `color: ${this.color};`
-      return style
+      let style = '';
+      style += `width: ${this.size}px; height: ${this.size}px;`;
+      style += `color: ${this.color};`;
+      return style;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

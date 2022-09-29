@@ -9,9 +9,9 @@
     </demo-block>
 
     <et-popup :visible.sync="visible" title="测试" position="bottom" closeable :close-on-click-overlay="false">
-      <view class="popup">
-        <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈</view>
-      </view>
+      <!-- <view class="popup"> -->
+        <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈---{{index+1}}</view>
+      <!-- </view> -->
     </et-popup>
   </view>
 </template>
@@ -41,6 +41,7 @@ export default {
 .popup {
   height: 200px;
   background: #fff;
+  overflow: auto;
 }
 
 .item {

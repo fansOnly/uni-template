@@ -169,7 +169,7 @@ export default {
   font-size: $uni-font-size-12;
   line-height: 1;
   opacity: 0;
-  transition: transform 0.3s;
+  transition: transform 300ms;
   transform: translateY(-100%);
 
   &.is-active {

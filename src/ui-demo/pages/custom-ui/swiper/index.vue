@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -32,32 +32,32 @@ export default {
         {
           id: '1',
           title: 'banner1',
-          src: 'tip-img.png',
+          src: 'idcard-front.png',
         },
         {
           id: '2',
           title: 'banner2',
-          src: 'id-card-img.png',
+          src: 'idcard-front.png',
         },
         {
           id: '3',
           title: 'banner3',
-          src: '',
+          src: 'idcard-front',
         },
       ],
       active: 0,
-    }
+    };
   },
   methods: {
     onSwiperChange(item, index) {
-      console.log('[debug] swiper item', item)
+      console.log('[debug] swiper item', item);
       uni.showToast({
         title: `点击了第${index}项`,
         icon: 'none',
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

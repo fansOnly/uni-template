@@ -31,7 +31,7 @@
 
 <script>
 import { INPUT_HEIGHT_DEF } from '../common/constant';
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 
 function debounce(fn, delay) {
   let timer = null;
@@ -183,13 +183,13 @@ export default {
       if (clearable) {
         style += 'padding-right: 0;';
       }
-      return appendStyles([this.style, style, customStyle]);
+      return this.style + style + customStyle;
     },
     inputStyled() {
-      return appendStyles([this.style, this.inputStyle]);
+      return this.style + this.inputStyle;
     },
     placeholderStyled() {
-      return appendStyles([this.style, this.placeholderStyle]);
+      return this.style + this.placeholderStyle;
     },
     isFocus() {
       return this.focus || this.inputFocus;

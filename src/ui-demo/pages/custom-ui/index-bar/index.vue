@@ -1,6 +1,6 @@
 <template>
   <view class="page-wrapper">
-    <!-- <et-navigation title="索引栏" /> -->
+    <!-- <et-navigation title="索引栏" @after-mounted="navMounted = true" /> -->
     <view class="gap"></view>
     <view class="demo-title">IndexBar 索引栏</view>
 
@@ -13,7 +13,7 @@
 
     <template v-if="activeIndex == 0">
       <et-index-bar :key="activeIndex" :scroll-top="scrollTop">
-        <view v-for="(item, index) in CONTACT_LIST" :key="item.key">
+        <view v-for="(item) in CONTACT_LIST" :key="item.key">
           <et-index-anchor :index="item.key" custom-class="custom-anthor"></et-index-anchor>
 
           <et-cell v-for="(sub, sindex) in item.values" :key="sindex" class="et-cell-move--right" :title="sub.name"
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { genPinyinSortData } from '@/common/lib/pinyin'
+import { genPinyinSortData } from '@/common/lib/pinyin';
 export default {
   data() {
     return {
@@ -136,23 +136,24 @@ export default {
         { name: '高亮' },
       ],
       CONTACT_LIST: [],
-    }
+      navMounted: false
+    };
   },
   onLoad(options) {
-    this.CONTACT_LIST = genPinyinSortData(this.LIST, 'name')
+    this.CONTACT_LIST = genPinyinSortData(this.LIST, 'name');
   },
   methods: {
     onClickItem(item, index) {
-      this.activeIndex = index
-      this.active = item
-      this.scrollTop = 0
+      this.activeIndex = index;
+      this.active = item;
+      this.scrollTop = 0;
     },
   },
   onPageScroll({ scrollTop }) {
     // console.log('=====scrollTop======', scrollTop)
-    this.scrollTop = scrollTop
+    this.scrollTop = scrollTop;
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

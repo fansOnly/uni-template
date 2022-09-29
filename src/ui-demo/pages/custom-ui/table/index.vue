@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import DemoBlock from '@p/components/demo-block'
+import DemoBlock from '@p/components/demo-block';
 export default {
   components: {
     DemoBlock
@@ -84,18 +84,19 @@ export default {
         },
       ],
       active: 1
-    }
+    };
   },
   methods: {
     randomActive() {
-      this.active = ~~(Math.random() * this.tableData.length)
+      if (this.active === this.tableData.length - 1) {
+        this.active = 0;
+      } else {
+        this.active++;
+      }
     },
     formatterDate(value) {
-      return value + '%'
+      return value + '%';
     }
   },
-}
+};
 </script>
-
-<style lang="scss" scoped>
-</style>

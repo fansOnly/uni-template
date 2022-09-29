@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 import cssVariables from '@/common/lib/theme';
 export default {
   name: 'et-action-sheet',
@@ -97,7 +97,7 @@ export default {
       let style = '';
       style += `height: ${addUnit(this.height)};`;
       style += `color: ${cssVariables.textColor};`;
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     },
   },
   methods: {

@@ -29,10 +29,10 @@ export default {
     formatter: null
   },
   created() {
-    this.table.children.push(this)
+    this.table.children.push(this);
   },
   // render(h) {
   //   return h()
   // }
-}
+};
 </script>

@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util';
 import cssVariables from '@/common/lib/theme';
 import { getAppData } from '../common/global-data';
 export default {
@@ -52,7 +51,7 @@ export default {
       const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
       let style = `z-index: ${this.zIndex};`;
       if (customNavigationStyle) style += `top: ${navHeight}px;`;
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     }
   },
   methods: {

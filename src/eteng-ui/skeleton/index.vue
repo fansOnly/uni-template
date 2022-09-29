@@ -41,19 +41,15 @@ export default {
       default: 'round'
     }
   },
-  data() {
-    return {
-    }
-  },
   computed: {
     rows() {
-      return new Array(this.row)
+      return new Array(this.row);
     },
     isArray() {
-      return this.rowWidth instanceof Array
+      return this.rowWidth instanceof Array;
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

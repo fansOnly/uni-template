@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { appendStyles } from '../common/util';
 export default {
   name: 'animation-num',
   props: {
@@ -52,7 +51,7 @@ export default {
     numStyled() {
       let style = '';
       style += `transform: translateY(-${this.transformY}px);`;
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     },
   },
   watch: {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 
 export default {
   name: 'et-cell',
@@ -92,9 +92,9 @@ export default {
   computed: {
     wrapperStyled() {
       let style = '';
-      const lineHeight = this.height === 'auto' ? 'inherit' : this.height + 'px';
+      const lineHeight = this.height === 'auto' ? 'auto' : this.height + 'px';
       style += `height: ${lineHeight};`;
-      return appendStyles([style, this.customStyle, this.parent?.customStyle]);
+      return style + (this.customStyle ?? '') + (this.parent?.customStyle ?? '');
     },
     titleStyled() {
       let style = '';
@@ -103,7 +103,7 @@ export default {
       } else {
         style += 'flex: 1;';
       }
-      return appendStyles([style, this.titleStyle, this.parent?.titleStyle]);
+      return style + (this.titleStyle ?? '') + (this.parent?.titleStyle ?? '');
     },
     rightStyled() {
       return Number(this.titleWidth) === 0 ? '' : 'flex: 1;';
@@ -113,16 +113,16 @@ export default {
       if (this.isLinkActive && this.linkActiveColor) {
         style += `color: ${this.linkActiveColor};`;
       }
-      return appendStyles([style, this.textStyle, this.parent?.textStyle]);
+      return style + (this.textStyle ?? '') + (this.parent?.textStyle ?? '');
     },
     customClasses() {
-      return appendStyles([this.customClass, this.parent?.customClass]);
+      return this.customClass + (this.parent?.customClass ?? '');
     },
     titleClasses() {
-      return appendStyles([this.titleClass, this.parent?.titleClass]);
+      return this.titleClass + (this.parent?.titleClass ?? '');
     },
     textClasses() {
-      return appendStyles([this.textClass, this.parent?.textClass]);
+      return this.textClass + (this.parent?.textClass ?? '');
     },
     isBorder() {
       return this.border === null ? this.parent?.border : this.border;

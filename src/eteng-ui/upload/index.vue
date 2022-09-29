@@ -241,9 +241,6 @@ export default {
         this.clickable = true;
       }
       /* #endif */
-      /* #ifdef H5 */
-      this.onUploadH5();
-      /* #endif */
     },
     async compressFiles() {
       let promises = [];

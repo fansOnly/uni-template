@@ -11,16 +11,9 @@
           <et-icon name="cross-blank"/>
         </slot>
       </view>
-      <!-- #ifdef MP-WEIXIN -->
       <scroll-view scroll-y class="et-popup-body" :style="bodyStyled">
         <slot />
       </scroll-view>
-      <!-- #endif -->
-      <!-- #ifdef H5 -->
-      <view class="et-popup-body" :style="bodyStyled">
-        <slot />
-      </view>
-      <!-- #endif -->
     </view>
     <et-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex - 1" :custom-style="overlayStyle" @click="clickOverlay"></et-overlay>
   </view>
@@ -29,7 +22,7 @@
 <script>
 import transition from '../mixins/transition';
 import cssVariables from '@/common/lib/theme';
-import { addUnit, appendStyles } from '../common/util';
+import { addUnit } from '../common/util';
 import { getAppData } from '../common/global-data';
 
 export default {
@@ -149,7 +142,7 @@ export default {
       if (bottom) style += `margin-bottom: ${bottom}px;`;
       style += `transition-duration: ${currentDuration}ms;`;
       if (!display) style += 'display: none;';
-      return appendStyles([style, customStyle]);
+      return style + customStyle;
     },
     bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
       let style = '';
@@ -157,7 +150,7 @@ export default {
       style += `width: calc(${unitedWidth} - 120rpx);`;
       style += `max-height: ${addUnit(maxHeight)};`;
       style += `min-height: ${addUnit(minHeight)};`;
-      return appendStyles([style, bodyStyle]);
+      return style + bodyStyle;
     },
     unitedHeight({ height }) {
       return height === 'auto' ? height : addUnit(height, 'vh');
@@ -173,7 +166,6 @@ export default {
       this.$emit('update:visible', false);
     },
     close() {
-      console.log(1111111111);
       this.$emit('close');
       this.$emit('update:visible', false);
     },
@@ -183,6 +175,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "../common/style/transition.scss";
   .et-popup {
     position: fixed;
     box-sizing: border-box;

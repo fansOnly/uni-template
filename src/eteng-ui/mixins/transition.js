@@ -48,7 +48,7 @@ export default {
       this.$emit('enter');
       this.display = true;
       this.currentDuration = currentDuration;
-      this.classes = classNames.enter;
+      this.classes = classNames['enter'];
 
       await requestAnimationFrame();
       if (this.status !== 'enter') return;
@@ -66,7 +66,7 @@ export default {
       await requestAnimationFrame();
       if (this.status !== 'leave') return;
       this.$emit('leave');
-      this.classes = classNames.enter;
+      this.classes = classNames['leave'];
       this.currentDuration = currentDuration;
 
       await requestAnimationFrame();
@@ -87,9 +87,9 @@ export default {
     },
     getClassNames(name) {
       return ({
-        enter: `et-${name}-enter et-${name}-enter-active`,
+        'enter': `et-${name}-enter et-${name}-enter-active`,
         'enter-to': `et-${name}-enter-to et-${name}-enter-active`,
-        leave: `et-${name}-leave et-${name}-leave-active`,
+        'leave': `et-${name}-leave et-${name}-leave-active`,
         'leave-to': `et-${name}-leave-to et-${name}-leave-active`,
       });
     },

@@ -19,10 +19,8 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '../common/util';
-import { compareVersion } from '../common/util';
+import { getRect, requestAnimationFrame, compareVersion, addUnit } from '../common/util';
 import cssVariables from '@/common/lib/theme';
-import { addUnit, appendStyles } from '../common/util';
 import { getAppData } from '../common/global-data';
 
 export default {
@@ -118,9 +116,20 @@ export default {
     },
     tabBarStyled({ shouldFix, zIndex, customStyle, heightStyled }) {
       const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
-      let style = `top: ${shouldFix && customNavigationStyle ? navHeight : 0}px;`;
+      let top = 0;
+      // #ifdef MP-WEIXIN
+      if (customNavigationStyle && shouldFix) {
+        top = navHeight;
+      }
+      // #endif
+      // #ifdef H5
+      if (shouldFix) {
+        top = 44;
+      }
+      // #endif
+      let style = `top: ${top}px;`;
       style += `z-index: ${zIndex};`;
-      return appendStyles([style, heightStyled, customStyle]);
+      return style + heightStyled + customStyle;
     },
     baseStyle({ lineWidth, lineHeight, lineBackground, bottom }) {
       let style = '';

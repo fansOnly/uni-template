@@ -6,7 +6,6 @@
 
 <script>
 import transition from '../mixins/transition';
-import { appendStyles } from '../common/util';
 
 export default {
   name: 'et-transition',
@@ -25,8 +24,12 @@ export default {
       let style = '';
       style += `transition-duration: ${this.currentDuration}ms;`;
       if (!this.display) style += 'display: none;';
-      return appendStyles([style, this.customStyle]);
+      return style + this.customStyle;
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../common/style/transition.scss";
+</style>

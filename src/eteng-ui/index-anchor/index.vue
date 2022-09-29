@@ -44,10 +44,14 @@ export default {
   computed: {
     anchorStyled({ offsetTop, navHeight, customNavigationStyle, isSticky, customStyle }) {
       if (!isSticky) return customStyle;
+      let top = offsetTop;
       /* #ifdef H5 */
-      offsetTop += 44;
+      top += 44;
       /* #endif */
-      return `top: ${offsetTop + (customNavigationStyle ? navHeight : 0) }px;${customStyle ? customStyle : ''}`;
+      // #ifdef MP-WEIXIN
+      top += customNavigationStyle ? navHeight : 0;
+      // #endif
+      return `top: ${top}px;${customStyle ? customStyle : ''}`;
     }
   },
   async mounted() {
