@@ -5,9 +5,7 @@
         <van-index-bar v-if="activeTab === 0" :scroll-top="scrollTop">
           <view v-for="(item, index) in indexList" :key="item">
             <van-index-anchor :index="item" />
-            <van-cell title="文本" />
-            <van-cell title="文本" />
-            <van-cell title="文本" />
+            <van-cell v-for="(_, index2) in 'x'.repeat(40)" :key="index2" title="文本" />
           </view>
         </van-index-bar>
       </van-tab>
