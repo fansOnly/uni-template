@@ -587,6 +587,10 @@
       "background": "#efeff4"
     }
   },
+  "usingComponents": {
+    "van-index-anchor": "../wxcomponents/vant/index-anchor/index",
+    "van-index-bar": "../wxcomponents/vant/index-bar/index"
+  },
   "tabBar": {
     "custom": true,
     "color": "#909090",

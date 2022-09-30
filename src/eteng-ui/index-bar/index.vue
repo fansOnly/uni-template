@@ -112,8 +112,8 @@ export default {
      * Bug: 设置自定义导航时，如果页面不是首页，获取的节点 top 值会有误差（navHeight）
      * 延迟获取
      */
-    setTimeout(() => {
-      this.getAnchorsRect();
+    setTimeout(async () => {
+      await this.getAnchorsRect();
       this.getWrapperRect();
     }, 60);
   },
@@ -176,6 +176,7 @@ export default {
     },
     getAnchorsRect() {
       this.$nextTick(() => {
+        console.log('this.children: ', this.children);
         this.children.forEach(async (child) => {
           const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`;
           const rect = await getRect(child, childClassName);

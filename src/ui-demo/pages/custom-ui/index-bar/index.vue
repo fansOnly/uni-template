@@ -6,107 +6,64 @@
 
     <et-tab :value="activeIndex" :options="tabList" @click-item="onClickItem"></et-tab>
 
-    <view class="demo-title2">这里是组件外部区域了</view>
-    <view class="demo-title2">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title2">这里是组件外部区域了</view>
+    <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
 
     <template v-if="activeIndex == 0">
-      <et-index-bar :key="activeIndex" :scroll-top="scrollTop">
+      <van-index-bar :key="activeIndex" :sticky="false" :scroll-top="scrollTop">
         <view v-for="(item) in CONTACT_LIST" :key="item.key">
-          <et-index-anchor :index="item.key" custom-class="custom-anthor"></et-index-anchor>
+          <!-- <et-index-anchor :index="item.key" custom-class="custom-anthor"></et-index-anchor> -->
+          <van-index-anchor :index="item.key"></van-index-anchor>
 
-          <et-cell v-for="(sub, sindex) in item.values" :key="sindex" class="et-cell-move--right" :title="sub.name"
-            border></et-cell>
+          <et-cell v-for="(user, sindex) in item.values" :key="sindex" class="et-cell-move--right" border>
+            <view slot="title" class="user-info">
+              <view class="user-avatar">
+                <!-- <et-image v-if="user.headImg" :src="user.headImg" width="40" height="04" round /> -->
+                <view class="user-avatar-re">{{user.userName.substring(0, 1)}}</view>
+              </view>
+              <view class="user-name">{{user.userName}}</view>
+            </view>
+          </et-cell>
         </view>
-      </et-index-bar>
+      </van-index-bar>
     </template>
 
-    <template v-if="activeIndex == 1">
-      <et-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
+    <!-- <template v-if="activeIndex == 1">
+      <van-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
 
         <view class="demo-content">
-          <et-index-anchor index="1">
+          <van-index-anchor index="1">
             <view class="custom-anchor-item">一</view>
-          </et-index-anchor>
-
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
-          <view class="demo-title2">1111111</view>
+          </van-index-anchor>
+          <view v-for="(_, index) in '1'.repeat(5)" :key="index" class="demo-title2">1111111</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="2">
+          <van-index-anchor index="2">
             <view class="custom-anchor-item">二</view>
-          </et-index-anchor>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
-          <view class="demo-title2">2222222</view>
+          </van-index-anchor>
+          <view v-for="(_, index) in '2'.repeat(17)" :key="index" class="demo-title2">2222222</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="3">三</et-index-anchor>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
-          <view class="demo-title2">3333333</view>
+          <van-index-anchor index="3">三</van-index-anchor>
+          <view v-for="(_, index) in '3'.repeat(7)" :key="index" class="demo-title2">3333333</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="4">四</et-index-anchor>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
-          <view class="demo-title2" style="line-height:80px;">44444444</view>
+          <van-index-anchor index="4">四</van-index-anchor>
+          <view v-for="(_, index) in '4'.repeat(10)" :key="index" class="demo-title2" style="line-height:80px;">44444444</view>
         </view>
+      </van-index-bar>
+    </template> -->
 
-      </et-index-bar>
-    </template>
-
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-    <view class="demo-title3">这里是组件外部区域了</view>
-
+    <view v-for="(_, index) in 'y'.repeat(10)" :key="index" class="demo-title3">这里是组件外部区域了</view>
   </view>
 </template>
 
 <script>
 import { genPinyinSortData } from '@/common/lib/pinyin';
+import customers from './customer.json';
+
 export default {
   data() {
     return {
@@ -139,8 +96,8 @@ export default {
       navMounted: false
     };
   },
-  onLoad(options) {
-    this.CONTACT_LIST = genPinyinSortData(this.LIST, 'name');
+  onLoad() {
+    this.CONTACT_LIST = genPinyinSortData(customers, 'userName');
   },
   methods: {
     onClickItem(item, index) {
@@ -158,6 +115,27 @@ export default {
 
 <style lang="scss" scoped>
 @import '@p/assets/styles/index.scss';
+
+.user-info {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.user-avatar {
+  margin-right: 8px;
+}
+.user-avatar-re {
+  width: 40px;
+  height: 40px;
+  background: #FFC05D;
+  border-radius: 100%;
+  font-size: 17px;
+  text-align: center;
+  line-height: 40px;
+}
+.user-name {
+  flex: 1;
+}
 
 .demo-title2 {
   line-height: 30px;

@@ -30,7 +30,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@p': projectRoot
+        '@p': projectRoot,
+        '@vant-ui': path.join(__dirname, './src/wxcomponents/vant')
       }
     },
     plugins: [
