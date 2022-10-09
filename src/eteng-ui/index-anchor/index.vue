@@ -1,6 +1,6 @@
 <template>
   <div class="index-bar-anchor">
-    <view class="anchor--placeholder" :style="{ 'height': isSticky ? addUnit(height) : 0 }"></view>
+    <view class="anchor--placeholder" :style="{ 'height': isSticky ? height + 'px' : 0 }"></view>
     <view :class="['anchor-' + (index === '#' ? 'special' : index), isSticky ? 'index-bar-anchor--sticky' : null, customClass]" :style="anchorStyled">
       <slot>{{index}}</slot>
     </view>
@@ -9,7 +9,6 @@
 
 <script>
 import { getRect } from '../common/util';
-import { addUnit } from '../common/util';
 import { getAppData } from '../common/global-data';
 
 export default {
@@ -33,7 +32,6 @@ export default {
   },
   data() {
     return {
-      addUnit,
       height: 0,
       isSticky: false,
       offsetTop: 0,
@@ -56,6 +54,7 @@ export default {
   },
   async mounted() {
     this.parent.children.push(this);
+    this.parent.len++;
     const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
     this.customNavigationStyle = customNavigationStyle;
     this.navHeight = navHeight;
@@ -67,7 +66,6 @@ export default {
       this.isSticky = val;
       this.offsetTop = top;
     },
-    useIndexAnchor() {}
   },
 };
 </script>

@@ -11,8 +11,8 @@
     <template v-if="activeIndex == 0">
       <van-index-bar :key="activeIndex" :sticky="false" :scroll-top="scrollTop">
         <view v-for="(item) in CONTACT_LIST" :key="item.key">
-          <!-- <et-index-anchor :index="item.key" custom-class="custom-anthor"></et-index-anchor> -->
-          <van-index-anchor :index="item.key"></van-index-anchor>
+          <!-- <et-index-anchor :index="item.key" custom-class="custom-anchor" /> -->
+          <van-index-anchor :index="item.key" />
 
           <et-cell v-for="(user, sindex) in item.values" :key="sindex" class="et-cell-move--right" border>
             <view slot="title" class="user-info">
@@ -27,34 +27,34 @@
       </van-index-bar>
     </template>
 
-    <!-- <template v-if="activeIndex == 1">
-      <van-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
+    <template v-if="activeIndex == 1">
+      <et-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
 
         <view class="demo-content">
-          <van-index-anchor index="1">
+          <et-index-anchor index="1">
             <view class="custom-anchor-item">一</view>
-          </van-index-anchor>
+          </et-index-anchor>
           <view v-for="(_, index) in '1'.repeat(5)" :key="index" class="demo-title2">1111111</view>
         </view>
 
         <view class="demo-content">
-          <van-index-anchor index="2">
+          <et-index-anchor index="2">
             <view class="custom-anchor-item">二</view>
-          </van-index-anchor>
+          </et-index-anchor>
           <view v-for="(_, index) in '2'.repeat(17)" :key="index" class="demo-title2">2222222</view>
         </view>
 
         <view class="demo-content">
-          <van-index-anchor index="3">三</van-index-anchor>
+          <et-index-anchor index="3">三</et-index-anchor>
           <view v-for="(_, index) in '3'.repeat(7)" :key="index" class="demo-title2">3333333</view>
         </view>
 
         <view class="demo-content">
-          <van-index-anchor index="4">四</van-index-anchor>
+          <et-index-anchor index="4">四</et-index-anchor>
           <view v-for="(_, index) in '4'.repeat(10)" :key="index" class="demo-title2" style="line-height:80px;">44444444</view>
         </view>
-      </van-index-bar>
-    </template> -->
+      </et-index-bar>
+    </template>
 
     <view v-for="(_, index) in 'y'.repeat(10)" :key="index" class="demo-title3">这里是组件外部区域了</view>
   </view>
@@ -97,7 +97,7 @@ export default {
     };
   },
   onLoad() {
-    this.CONTACT_LIST = genPinyinSortData(customers, 'userName');
+    this.CONTACT_LIST = genPinyinSortData(customers.slice(0, 1500), 'userName');
   },
   methods: {
     onClickItem(item, index) {
@@ -149,13 +149,14 @@ export default {
   line-height: 40px;
   font-size: 16px;
   font-weight: 500;
+  background: #ccc;
 }
 
 .custom-index-bar ::v-deep .et-index-anchor--sticky {
   background: #ccc;
 }
 
-::v-deep .custom-anthor {
+::v-deep .custom-anchor {
   padding: 16px;
 }
 </style>
