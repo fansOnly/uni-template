@@ -5,14 +5,7 @@
         <van-index-bar v-if="activeTab === 0" :scroll-top="scrollTop">
           <view v-for="(item, index) in indexList" :key="item">
             <van-index-anchor :index="item" />
-            <van-cell v-for="(_, index2) in 'x'.repeat(50)" :key="index2" :title="`文本${index2+1}`" />
-
-            <!-- <view v-for="(user, sindex) in item.values" :key="sindex" class="user-info van-hairline--bottom">
-              <view class="user-avatar">
-                <view class="user-avatar-re">{{user.userName.substring(0, 1)}}</view>
-              </view>
-              <view class="user-name">{{user.userName}}</view>
-            </view> -->
+            <van-cell v-for="(_, index2) in 'x'.repeat(100)" :key="index2" title="文本" />
           </view>
         </van-index-bar>
       </van-tab>
@@ -37,8 +30,6 @@
 
 <script>
 import DemoBlock from '@p/components/demo-block'
-import list from './data.json'
-import { genPinyinSortData } from './pinyin'
 
 const indexList = [];
 const charCodeOfA = 'A'.charCodeAt(0);
@@ -57,9 +48,6 @@ export default {
       scrollTop: 0,
     }
   },
-  onLoad() {
-    // this.indexList = genPinyinSortData(list.slice(0, 300), 'userName');
-  },
   methods: {
     onChange(event) {
       this.activeTab = event.detail.name
@@ -72,26 +60,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-info {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  padding: 20px 16px;
-  background: #fff;
-}
-.user-avatar {
-  margin-right: 8px;
-}
-.user-avatar-re {
-  width: 40px;
-  height: 40px;
-  background: #FFC05D;
-  border-radius: 100%;
-  font-size: 17px;
-  text-align: center;
-  line-height: 40px;
-}
-.user-name {
-  flex: 1;
-}
 </style>

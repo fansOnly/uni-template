@@ -2,8 +2,8 @@
 // const webpack = require('webpack')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const copyPluginsList = require('./build/copy-plugin')
-require('./build/load-env')
+const copyPluginsList = require('./build/lib/copy-plugin')
+require('./build/lib/load-env')
 
 // 获取工程运行配置
 const { project } = require('./config')
