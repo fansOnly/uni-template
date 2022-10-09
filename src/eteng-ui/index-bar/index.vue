@@ -147,29 +147,49 @@ export default {
     onScroll(val) {
       if (!this.ready) return;
 
-      if (this.longList) {
-        if (this.timer2) clearTimeout(this.timer2);
-        this.timer2 = setTimeout(() => {
-          this.whenScroll(val);
-          this.timer2 = null;
-        }, 0);
-      } else {
-        this.whenScroll(val);
-      }
-    },
-    whenScroll(scrollTop) {
       this.$nextTick(() => {
-        // 滚动结束后判断滚动位置是否在索引区域
-        if (this.boundary) {
-          const { start, end } = this.boundary;
-          if (scrollTop < start || scrollTop > end) {
-            this.current = -1;
-          } else {
-            this.prev = this.current > -1 ? this.current : 0;
-            this.current = this.getAnchorIndex(scrollTop);
-          }
+        if (this.longList) {
+          if (this.timer2) clearTimeout(this.timer2);
+          this.timer2 = setTimeout(() => {
+            this.whenScroll(val);
+            this.timer2 = null;
+          }, 60);
+        } else {
+          this.whenScroll(val);
         }
       });
+    },
+    whenScroll(scrollTop) {
+      // 滚动结束后判断滚动位置是否在索引区域
+      if (this.boundary) {
+        const { start, end } = this.boundary;
+        if (scrollTop < start || scrollTop > end) {
+          this.current = -1;
+        } else {
+          this.current = this.getAnchorIndex(scrollTop);
+        }
+      }
+    },
+    getAnchorIndex(scrollTop) {
+      let key = '';
+      for (let i = 1; i < this.anchorRects.length - 1; i++) {
+        const currentAnchor = this.anchorRects[i];
+        const preAnchor = this.anchorRects[i - 1];
+        const nextAnchor = this.anchorRects[i + 1];
+        if (scrollTop >= currentAnchor.top && scrollTop < nextAnchor.top) {
+          // 向下滚动
+          key = currentAnchor.index;
+        } else if (scrollTop >= preAnchor.top && scrollTop < currentAnchor.top) {
+          // 向上滚动
+          key = preAnchor.index;
+        } else if (scrollTop >= nextAnchor.top) {
+          key = nextAnchor.index;
+        }
+      }
+      return this.getAnchorIndexByKey(key);
+    },
+    getAnchorIndexByKey(key) {
+      return this.indexList.map(v => v + '').indexOf(key);
     },
     setStickyAnchor() {
       if (!this.sticky) return;
@@ -184,40 +204,6 @@ export default {
     },
     setRect() {
       return Promise.all([this.getAnchorsRect(), this.getWrapperRect()]);
-    },
-    getAnchorIndex(scrollTop) {
-      let effectiveAnchors = [];
-      let i = 0;
-      const prevPos = this.anchorRects[this.prev].top;
-      if (scrollTop > prevPos) {
-        // 向下滚动
-        effectiveAnchors = this.anchorRects.slice(this.prev);
-        const max = effectiveAnchors.length - 1;
-        while (i < effectiveAnchors.length) {
-          if (scrollTop > effectiveAnchors[max].top) {
-            i = max;
-            break;
-          } else if (scrollTop > effectiveAnchors[i].top) {
-            i++;
-          } else {
-            i--;
-            break;
-          }
-        }
-      } else if (scrollTop < prevPos) {
-        // 向上滚动
-        effectiveAnchors = this.anchorRects.slice(0, this.prev);
-        i = this.prev;
-        while (i > 0) {
-          if (scrollTop > effectiveAnchors[i - 1].top) {
-            i--;
-          } else {
-            i++;
-            break;
-          }
-        }
-      }
-      return this.indexList.map(v => v + '').indexOf(effectiveAnchors[i]?.index);
     },
     getAnchorsRect() {
       this.children.forEach(async (child) => {
@@ -251,10 +237,10 @@ export default {
 
 .sidebar-item {
   padding: 6rpx;
-  font-size: 28rpx;
+  font-size: 24rpx;
   line-height: 1;
   text-align: center;
-  border-radius: 8rpx;
+  border-radius: 6rpx;
 
   &.is-active {
     background: #d8e9f7;
