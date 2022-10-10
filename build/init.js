@@ -87,7 +87,7 @@ if (projectCfg.tabBar && projectCfg.tabBar.list) {
 projectCfg.easycom = {
   "autoscan": true,
     "custom": {
-      "^et-(.*)": "@/eteng-ui/$1/index.vue"
+      "^vc-(.*)": "@/vitamincc-ui/$1/index.vue"
     }
 }
 
