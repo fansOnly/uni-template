@@ -1,58 +1,58 @@
 <template>
   <view class="page-wrapper">
-    <!-- <et-navigation title="索引栏" @after-mounted="navMounted = true" /> -->
+    <!-- <vc-navigation title="索引栏" @after-mounted="navMounted = true" /> -->
     <view class="gap"></view>
     <view class="demo-title">IndexBar 索引栏</view>
 
-    <et-tab :value="activeIndex" :options="tabList" @click-item="onClickItem"></et-tab>
+    <vc-tab :value="activeIndex" :options="tabList" @click-item="onClickItem"></vc-tab>
 
     <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
 
     <template v-if="activeIndex == 0">
-      <et-index-bar :key="activeIndex" :sticky="false" :scroll-top="scrollTop" long-list>
+      <vc-index-bar :key="activeIndex" :sticky="false" :scroll-top="scrollTop" long-list>
         <view v-for="(item) in CONTACT_LIST" :key="item.key">
-          <et-index-anchor :index="item.key" custom-class="custom-anchor" />
+          <vc-index-anchor :index="item.key" custom-class="custom-anchor" />
 
-          <!-- <et-cell v-for="(_, index2) in 'x'.repeat(50)" :key="index2" :title="`文本${index2+1}`" border /> -->
-          <et-cell v-for="(user, sindex) in item.values" :key="sindex" class="et-cell-move--right" border>
+          <!-- <vc-cell v-for="(_, index2) in 'x'.repeat(50)" :key="index2" :title="`文本${index2+1}`" border /> -->
+          <vc-cell v-for="(user, sindex) in item.values" :key="sindex" class="vc-cell-move--right" border>
             <view slot="title" class="user-info">
               <view class="user-avatar">
                 <view class="user-avatar-re">{{user.userName.substring(0, 1)}}</view>
               </view>
               <view class="user-name">{{user.userName}}</view>
             </view>
-          </et-cell>
+          </vc-cell>
         </view>
-      </et-index-bar>
+      </vc-index-bar>
     </template>
 
     <template v-if="activeIndex == 1">
-      <et-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
+      <vc-index-bar :key="activeIndex" class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
 
         <view class="demo-content">
-          <et-index-anchor index="1">
+          <vc-index-anchor index="1">
             <view class="custom-anchor-item">一</view>
-          </et-index-anchor>
+          </vc-index-anchor>
           <view v-for="(_, index) in '1'.repeat(15)" :key="index" class="demo-title2">1111111</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="2">
+          <vc-index-anchor index="2">
             <view class="custom-anchor-item">二</view>
-          </et-index-anchor>
+          </vc-index-anchor>
           <view v-for="(_, index) in '2'.repeat(30)" :key="index" class="demo-title2">2222222</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="3">三</et-index-anchor>
+          <vc-index-anchor index="3">三</vc-index-anchor>
           <view v-for="(_, index) in '3'.repeat(20)" :key="index" class="demo-title2">3333333</view>
         </view>
 
         <view class="demo-content">
-          <et-index-anchor index="4">四</et-index-anchor>
+          <vc-index-anchor index="4">四</vc-index-anchor>
           <view v-for="(_, index) in '4'.repeat(30)" :key="index" class="demo-title2" style="line-height:80px;">44444444</view>
         </view>
-      </et-index-bar>
+      </vc-index-bar>
     </template>
 
     <view v-for="(_, index) in 'y'.repeat(10)" :key="index" class="demo-title3">这里是组件外部区域了</view>
@@ -96,10 +96,70 @@ export default {
     };
   },
   onLoad() {
-    this.CONTACT_LIST = genPinyinSortData(customers.slice(0, 500), 'userName');
-    // this.CONTACT_LIST = this.genIndexList()
+    this.t0 = +new Date;
+    let CONTACT_LIST = genPinyinSortData(customers.slice(0, 500), 'userName');
+    // this.CONTACT_LIST = CONTACT_LIST;
+
+    this.CONTACT_LIST1 = CONTACT_LIST.slice();
+    let timer = setInterval(() => {
+      const data = this.appendData();
+      this.CONTACT_LIST = this.concatData(this.CONTACT_LIST, data);
+      if (!this.CONTACT_LIST1.length) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }, 60);
+  },
+  onReady() {
+    console.log('onready', +new Date() - this.t0);
   },
   methods: {
+    concatData(arr1, arr2) {
+      if (!arr1.length) return arr2;
+      let res = [];
+      const end = arr1[arr1.length - 1];
+      const concat = arr2[0];
+      if (end.key === concat.key) {
+        res = [
+          ...arr1.slice(0, -1),
+          {
+            key: arr2[0].key,
+            values: [...end.values, ...concat.values]
+          },
+          ...arr2.slice(1)
+        ];
+      } else {
+        res = [...arr1, ...arr2];
+      }
+      return res;
+    },
+    appendData() {
+      let res = [];
+      let num = 50;
+      let i = 0;
+      while (i < this.CONTACT_LIST1.length) {
+        const item = this.CONTACT_LIST1[i];
+        const count = item.values.length;
+        if (count < num) {
+          num -= count;
+          res.push(...this.CONTACT_LIST1.splice(i, 1, { key: item.key, values: [] }));
+          i++;
+        } else {
+          if (count === num) {
+            res.push(...this.CONTACT_LIST1.splice(i, 1, { key: item.key, values: [] }));
+          } else {
+            const val = item.values.splice(0, num);
+            res.push({
+              key: item.key,
+              values: val
+            });
+          }
+          break;
+        }
+      }
+      this.CONTACT_LIST1 = this.CONTACT_LIST1.filter(v => v.values.length);
+      return res;
+    },
     genIndexList(withSpecial = true) {
       const arr = [];
       const charCodeOfA = 'A'.charCodeAt(0);
@@ -160,7 +220,7 @@ export default {
   background: #ccc;
 }
 
-.custom-index-bar ::v-deep .et-index-anchor--sticky {
+.custom-index-bar ::v-deep .vc-index-anchor--sticky {
   background: #ccc;
 }
 
