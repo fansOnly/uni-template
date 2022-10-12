@@ -2,19 +2,19 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding background="#fff">
-      <et-swiper :options="list" :value="1" indicator-dots @click="onSwiperChange" />
+      <vc-swiper :options="list" :value="1" indicator-dots @click="onSwiperChange" />
     </demo-block>
 
     <demo-block title="缩放特效" padding background="#fff">
-      <et-swiper :options="list" effect="scale" height="100" />
+      <vc-swiper :options="list" effect="scale" height="100" />
     </demo-block>
 
     <demo-block title="自定义内容" padding background="#fff">
-      <et-swiper :options="list" height="80">
+      <vc-swiper :options="list" height="80">
         <template #default="{ item, index }">
           <view style="height: 100%;background-color: #ccc;">自定义轮播内容：{{ item.title }}--{{ index }}</view>
         </template>
-      </et-swiper>
+      </vc-swiper>
     </demo-block>
 
   </view>

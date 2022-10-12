@@ -4,13 +4,13 @@
     <demo-block title="基础用法" padding >
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-loading></et-loading>
+          <vc-loading></vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="spinner"></et-loading>
+          <vc-loading type="spinner"></vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="shine" size="32" color="#3264DC"></et-loading>
+          <vc-loading type="shine" size="32" color="#3264DC"></vc-loading>
         </view>
       </view>
     </demo-block>
@@ -18,10 +18,10 @@
     <demo-block title="自定义颜色" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-loading color="#3264DC"></et-loading>
+          <vc-loading color="#3264DC"></vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="spinner" color="#4cd964"></et-loading>
+          <vc-loading type="spinner" color="#4cd964"></vc-loading>
         </view>
       </view>
     </demo-block>
@@ -29,10 +29,10 @@
     <demo-block title="自定义大小" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-loading size="10"></et-loading>
+          <vc-loading size="10"></vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="spinner" size="30"></et-loading>
+          <vc-loading type="spinner" size="30"></vc-loading>
         </view>
       </view>
     </demo-block>
@@ -40,10 +40,10 @@
     <demo-block title="加载文案" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-loading>加载中...</et-loading>
+          <vc-loading>加载中...</vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="spinner">加载中...</et-loading>
+          <vc-loading type="spinner">加载中...</vc-loading>
         </view>
       </view>
     </demo-block>
@@ -51,10 +51,10 @@
     <demo-block title="垂直排列" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <et-loading vertical>加载中...</et-loading>
+          <vc-loading vertical>加载中...</vc-loading>
         </view>
         <view class="demo-item-space">
-          <et-loading type="spinner" vertical>加载中...</et-loading>
+          <vc-loading type="spinner" vertical>加载中...</vc-loading>
         </view>
       </view>
     </demo-block>

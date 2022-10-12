@@ -4,12 +4,12 @@
       <view class="demo-title">基础用法</view>
       <view class="demo-content">
         <view class="demo-row--flex">
-          <view class="mgr12"><et-button type="primary" @click="checkIsSupport">检查可支持方式</et-button></view>
-          <view v-if="isSupportFacial || isSupportFingerPrint" class="mgr12"><et-button type="primary" @click="checkIsSoterEnrolled">检查是否录入</et-button></view>
+          <view class="mgr12"><vc-button type="primary" @click="checkIsSupport">检查可支持方式</vc-button></view>
+          <view v-if="isSupportFacial || isSupportFingerPrint" class="mgr12"><vc-button type="primary" @click="checkIsSoterEnrolled">检查是否录入</vc-button></view>
         </view>
         <view class="demo-row--flex">
-          <view v-if="isSupportFingerPrint" class="mgr12"><et-button type="primary" @click="startAuthFingerPrint">开始识别 - 指纹</et-button></view>
-          <view v-if="isSupportFacial" class="mgr12"><et-button type="primary" @click="startAuthFacial">开始识别 - 人脸</et-button></view>
+          <view v-if="isSupportFingerPrint" class="mgr12"><vc-button type="primary" @click="startAuthFingerPrint">开始识别 - 指纹</vc-button></view>
+          <view v-if="isSupportFacial" class="mgr12"><vc-button type="primary" @click="startAuthFacial">开始识别 - 人脸</vc-button></view>
         </view>
       </view>
     </view>

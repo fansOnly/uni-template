@@ -2,23 +2,23 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-upload :files="[file]" width="164" height="108" :icon="false" @remove="handleSingleRemove"
+      <vc-upload :files="[file]" width="164" height="108" :icon="false" @remove="handleSingleRemove"
         @success="handleSingleUpload">
-        <et-image src="idcard-front.png" static></et-image>
-      </et-upload>
+        <vc-image src="idcard-front.png" static></vc-image>
+      </vc-upload>
     </demo-block>
 
     <demo-block title="多文件上传" padding>
-      <et-upload :files="files" :count="5" @remove="handleRemove" @success="handleMultiUpload"></et-upload>
+      <vc-upload :files="files" :count="5" @remove="handleRemove" @success="handleMultiUpload"></vc-upload>
     </demo-block>
 
     <demo-block title="上传状态" padding>
-      <et-upload :files="files2" :count="5" show-loading @remove="handleRemove" @success="handleMultiUpload">
-      </et-upload>
+      <vc-upload :files="files2" :count="5" show-loading @remove="handleRemove" @success="handleMultiUpload">
+      </vc-upload>
     </demo-block>
 
     <demo-block title="禁用上传" padding>
-      <et-upload :files="localFile" :count="2" disabled></et-upload>
+      <vc-upload :files="localFile" :count="2" disabled></vc-upload>
     </demo-block>
 
   </view>

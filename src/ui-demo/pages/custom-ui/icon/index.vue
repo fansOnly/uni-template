@@ -3,8 +3,8 @@
 
     <demo-block title="基础用法">
       <view class="icon-wrap">
-        <view v-for="(item, index) in iconList" :key="index" class="icon-item et-hairline--surround">
-          <et-icon :name="item"></et-icon>
+        <view v-for="(item, index) in iconList" :key="index" class="icon-item vc-hairline--surround">
+          <vc-icon :name="item"></vc-icon>
           <view class="icon-name">{{item}}</view>
         </view>
       </view>
@@ -12,8 +12,8 @@
 
     <demo-block title="自定义颜色/大小">
       <view class="icon-wrap">
-        <view v-for="(item, index) in iconList" :key="index" class="icon-item et-hairline--surround">
-          <et-icon :name="item" color="#f60" size="30"></et-icon>
+        <view v-for="(item, index) in iconList" :key="index" class="icon-item vc-hairline--surround">
+          <vc-icon :name="item" color="#f60" size="30"></vc-icon>
           <view class="icon-name">{{item}}</view>
         </view>
       </view>

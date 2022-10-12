@@ -1,9 +1,9 @@
 <template>
   <view class="page-wrapper">
-    <map v-if="initialized" class="et-map" :latitude="latitude" :longitude="longitude" show-location @tap="onClick"></map>
+    <map v-if="initialized" class="vc-map" :latitude="latitude" :longitude="longitude" show-location @tap="onClick"></map>
     <view class="map-search-area">
-      <et-button @click="open">打开位置</et-button>
-      <et-button @click="choose">选择位置</et-button>
+      <vc-button @click="open">打开位置</vc-button>
+      <vc-button @click="choose">选择位置</vc-button>
     </view>
 
   </view>
@@ -65,7 +65,7 @@ import { wxGetLocation } from '@/common/lib/weixin/API'
       margin-right: 12px;
     }
   }
-  .et-map {
+  .vc-map {
     width: 100%;
     height: 60vh;
   }

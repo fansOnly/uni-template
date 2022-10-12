@@ -1,16 +1,16 @@
 <template>
   <view class="page-wrapper">
     <demo-block title="基础用法" padding>
-      <et-cell title="基础用法" is-link border @click="visible = true"></et-cell>
-        <et-cell title="取消按钮" is-link border @click="visible2 = true"></et-cell>
-        <et-cell title="禁用选项" is-link border @click="visible3 = true"></et-cell>
-        <et-cell title="圆角" is-link @click="visible4 = true"></et-cell>
+      <vc-cell title="基础用法" is-link border @click="visible = true"></vc-cell>
+        <vc-cell title="取消按钮" is-link border @click="visible2 = true"></vc-cell>
+        <vc-cell title="禁用选项" is-link border @click="visible3 = true"></vc-cell>
+        <vc-cell title="圆角" is-link @click="visible4 = true"></vc-cell>
     </demo-block>
 
-    <et-action-sheet :visible.sync="visible" :value="value" :data="list" @select="onSelect" @close="onClose"></et-action-sheet>
-    <et-action-sheet :visible.sync="visible2" :value="value2" show-cancel :data="list" @select="onSelect2" @cancel="onCancel"></et-action-sheet>
-    <et-action-sheet :visible.sync="visible3" :value="value3" :data="list2" @select="onSelect3"></et-action-sheet>
-    <et-action-sheet :visible.sync="visible4" :value="value3" :data="list2" round @select="onSelect3"></et-action-sheet>
+    <vc-action-sheet :visible.sync="visible" :value="value" :data="list" @select="onSelect" @close="onClose"></vc-action-sheet>
+    <vc-action-sheet :visible.sync="visible2" :value="value2" show-cancel :data="list" @select="onSelect2" @cancel="onCancel"></vc-action-sheet>
+    <vc-action-sheet :visible.sync="visible3" :value="value3" :data="list2" @select="onSelect3"></vc-action-sheet>
+    <vc-action-sheet :visible.sync="visible4" :value="value3" :data="list2" round @select="onSelect3"></vc-action-sheet>
   </view>
 </template>
 

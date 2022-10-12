@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import VcCalendar from './calendar.vue'
-import props from './props'
+import VcCalendar from './calendar.vue';
+import props from './props';
 
 export default {
   name: 'vc-calendar',
@@ -73,12 +73,12 @@ export default {
   data() {
     return {
       selectedDate: ''
-    }
+    };
   },
   watch: {
     visible: {
       handler(val) {
-        this.selectedDate = val ? this.value : ''
+        this.selectedDate = val ? this.value : '';
       },
       immediate: true,
     }
@@ -86,10 +86,10 @@ export default {
   methods: {
     onChange(value) {
       if (!this.popupable) {
-        this.$emit('change', value)
-        this.$emit('input', value)
+        this.$emit('change', value);
+        this.$emit('input', value);
       } else {
-        this.selectedDate = value
+        this.selectedDate = value;
       }
     },
     onConfirm() {
@@ -97,27 +97,27 @@ export default {
         return uni.showToast({
           title: '日期不能为空',
           icon: 'none',
-        })
+        });
       }
       if (this.type === 'range' && this.selectedDate.length !== 2) {
         return uni.showToast({
           title: '请选择结束日期',
           icon: 'none',
-        })
+        });
       }
-      this.$emit('confirm', this.selectedDate)
-      this.$emit('update:visible', false)
+      this.$emit('confirm', this.selectedDate);
+      this.$emit('update:visible', false);
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return
-      this.close()
+      if (!this.closeOnClickOverlay) return;
+      this.close();
     },
     close() {
-      this.$emit('close')
-      this.$emit('update:visible', false)
+      this.$emit('close');
+      this.$emit('update:visible', false);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

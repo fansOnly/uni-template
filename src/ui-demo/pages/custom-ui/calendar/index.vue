@@ -1,20 +1,20 @@
 <template>
   <view class="page-wrapper">
     <demo-block title="基础用法" padding>
-      <et-button type="primary" block @click="visible1 = true">选择日期</et-button>
+      <vc-button type="primary" block @click="visible1 = true">选择日期</vc-button>
       <view class="gap"></view>
       <view>选中的日期: {{ date1 }}</view>
     </demo-block>
 
     <demo-block title="选择多个日期" padding>
-      <et-button type="primary" block @click="visible2 = true">选择日期</et-button>
+      <vc-button type="primary" block @click="visible2 = true">选择日期</vc-button>
       <view class="gap"></view>
       <view>选中的多个日期</view>
       <view v-for="(item, index) in date2" :key="index">{{ item }}</view>
     </demo-block>
 
     <demo-block title="选择日期区间" padding>
-      <et-button type="primary" block @click="visible3 = true">选择日期</et-button>
+      <vc-button type="primary" block @click="visible3 = true">选择日期</vc-button>
       <view class="gap"></view>
       <view>选中的日期区间</view>
       <view v-for="(item, index) in date3" :key="index">{{ item }}</view>
@@ -22,16 +22,16 @@
 
     <demo-block title="页面显示" padding>
       <view>选中的日期: {{ date4 }}</view>
-      <et-calendar v-model="date4" :popupable="false"></et-calendar>
+      <vc-calendar v-model="date4" :popupable="false"></vc-calendar>
       <view class="gap"></view>
     </demo-block>
 
-    <et-calendar :visible.sync="visible1" :value="date1" @confirm="handleConfirm1"></et-calendar>
+    <vc-calendar :visible.sync="visible1" :value="date1" @confirm="handleConfirm1"></vc-calendar>
 
-    <et-calendar :visible.sync="visible2" :value="date2" type="multiple" @confirm="handleConfirm2"></et-calendar>
+    <vc-calendar :visible.sync="visible2" :value="date2" type="multiple" @confirm="handleConfirm2"></vc-calendar>
 
-    <et-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5"
-      @confirm="handleConfirm3"></et-calendar>
+    <vc-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5"
+      @confirm="handleConfirm3"></vc-calendar>
   </view>
 </template>
 

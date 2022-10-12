@@ -5,7 +5,7 @@
     <view v-for="(item, index) in queryList" :key="index">
       <view>{{item}}</view>
     </view>
-    <et-button block @click="refresh">刷新页面</et-button>
+    <vc-button block @click="refresh">刷新页面</vc-button>
   </view>
 </template>
 

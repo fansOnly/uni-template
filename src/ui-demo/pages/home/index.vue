@@ -1,5 +1,5 @@
 <template>
-  <et-page :show="pageReady">
+  <vc-page :show="pageReady">
     <view class="page-wrapper is-custom-tab-bar">
       <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
         <demo-block :title="group.groupName" padding background="#fff">
@@ -8,15 +8,15 @@
               @click="handleRouter(item)">
               <view class="demo-group-item__label">{{ item.title }}</view>
               <view class="demo-group-item__right-icon">
-                <et-icon name="arrow-right" size="20" />
+                <vc-icon name="arrow-right" size="20" />
               </view>
             </view>
           </view>
         </demo-block>
       </view>
-      <et-tab-bar></et-tab-bar>
+      <vc-tab-bar></vc-tab-bar>
     </view>
-  </et-page>
+  </vc-page>
 </template>
 
 <script>

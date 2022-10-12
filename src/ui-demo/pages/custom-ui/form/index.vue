@@ -2,58 +2,58 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding background="#fff">
-      <et-form ref="form" v-model="form" :rules="rules" @validate="val => formValid = val">
-        <et-form-item label="姓名">
-          <et-input name="name" type="text" placeholder="请输入姓名" border />
-        </et-form-item>
+      <vc-form ref="form" v-model="form" :rules="rules" @validate="val => formValid = val">
+        <vc-form-item label="姓名">
+          <vc-input name="name" type="text" placeholder="请输入姓名" border />
+        </vc-form-item>
         <view class="gap"></view>
-        <et-form-item label="邮箱">
-          <et-input name="email" type="text" placeholder="请输入邮箱" border />
-        </et-form-item>
+        <vc-form-item label="邮箱">
+          <vc-input name="email" type="text" placeholder="请输入邮箱" border />
+        </vc-form-item>
         <view class="gap"></view>
-        <et-form-item label="手机号" :rules="{required: false, message: 'not empty'}">
-          <et-input name="phone" type="text" placeholder="请输入手机号" border />
-        </et-form-item>
+        <vc-form-item label="手机号" :rules="{required: false, message: 'not empty'}">
+          <vc-input name="phone" type="text" placeholder="请输入手机号" border />
+        </vc-form-item>
         <view class="gap"></view>
-        <et-form-item label="职业">
-          <et-input name="job" type="text" placeholder="请输入职业" border />
-        </et-form-item>
+        <vc-form-item label="职业">
+          <vc-input name="job" type="text" placeholder="请输入职业" border />
+        </vc-form-item>
 
         <view class="gap"></view>
-        <et-button type="primary" block :disabled="!formValid" @click="onSubmit('form')">submit</et-button>
+        <vc-button type="primary" block :disabled="!formValid" @click="onSubmit('form')">submit</vc-button>
         <view class="gap"></view>
-        <et-button block @click="onReset('form')">reset</et-button>
-      </et-form>
+        <vc-button block @click="onReset('form')">reset</vc-button>
+      </vc-form>
     </demo-block>
 
     <demo-block title="基础用法 - 输入校验" padding background="#fff">
-      <et-form ref="form3" v-model="form3" :rules="rules3" validate-trigger="input">
-        <et-form-item label="姓名">
-          <et-input name="name" type="text" placeholder="请输入姓名" border />
-        </et-form-item>
+      <vc-form ref="form3" v-model="form3" :rules="rules3" validate-trigger="input">
+        <vc-form-item label="姓名">
+          <vc-input name="name" type="text" placeholder="请输入姓名" border />
+        </vc-form-item>
 
         <view class="gap"></view>
-        <et-button type="primary" block :disabled="!formValid3" @click="onSubmit3('form3')">submit</et-button>
+        <vc-button type="primary" block :disabled="!formValid3" @click="onSubmit3('form3')">submit</vc-button>
         <view class="gap"></view>
-        <et-button block @click="onReset('form3')">reset</et-button>
-      </et-form>
+        <vc-button block @click="onReset('form3')">reset</vc-button>
+      </vc-form>
     </demo-block>
 
     <demo-block title="基础用法 - 提交校验" padding background="#fff">
-      <et-form ref="form2" v-model="form2" :rules="rules2" validate-trigger="submit">
-        <et-form-item label="姓名">
-          <et-input name="name" type="text" placeholder="请输入姓名" border />
-        </et-form-item>
+      <vc-form ref="form2" v-model="form2" :rules="rules2" validate-trigger="submit">
+        <vc-form-item label="姓名">
+          <vc-input name="name" type="text" placeholder="请输入姓名" border />
+        </vc-form-item>
         <view class="gap"></view>
-        <et-form-item label="邮箱">
-          <et-input name="email" type="text" placeholder="请输入邮箱" border />
-        </et-form-item>
+        <vc-form-item label="邮箱">
+          <vc-input name="email" type="text" placeholder="请输入邮箱" border />
+        </vc-form-item>
 
         <view class="gap"></view>
-        <et-button type="primary" block :disabled="!formValid2" @click="onSubmit2('form2')">submit</et-button>
+        <vc-button type="primary" block :disabled="!formValid2" @click="onSubmit2('form2')">submit</vc-button>
         <view class="gap"></view>
-        <et-button block @click="onReset('form2')">reset</et-button>
-      </et-form>
+        <vc-button block @click="onReset('form2')">reset</vc-button>
+      </vc-form>
     </demo-block>
 
   </view>

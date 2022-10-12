@@ -2,18 +2,18 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-button type="primary" block :radius="4" @click="visible1 = true">单栏 picker</et-button>
+      <vc-button type="primary" block :radius="4" @click="visible1 = true">单栏 picker</vc-button>
       <view v-if="selected1.value">{{ selected1.text }} - {{ selected1.value }}</view>
       <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible2 = true">两栏 - 不关联 picker</et-button>
+      <vc-button type="primary" block :radius="4" @click="visible2 = true">两栏 - 不关联 picker</vc-button>
       <view v-for="(item, index) in selected2" :key="index">{{ item.text }} - {{ item.value }}</view>
       <view class="gap"></view>
-      <et-button type="primary" block :radius="4" @click="visible3 = true">两栏 - 关联 picker</et-button>
+      <vc-button type="primary" block :radius="4" @click="visible3 = true">两栏 - 关联 picker</vc-button>
       <view v-for="(item, index) in selected3" :key="index">{{ item.text }} - {{ item.value }}</view>
     </demo-block>
 
     <demo-block title="分步选择器" padding>
-      <et-button type="primary" block :radius="4" @click="handleOpenStepPicker">分步选择器</et-button>
+      <vc-button type="primary" block :radius="4" @click="handleOpenStepPicker">分步选择器</vc-button>
       <view class="gap"></view>
       <view v-if="stepPickerValues.length">
         {{ stepPickerValues[0].text }}/{{ stepPickerValues[1].text }}/{{ stepPickerValues[2].text }}</view>
@@ -22,22 +22,22 @@
     </demo-block>
 
     <!-- 单栏 picker -->
-    <et-picker :visible.sync="visible1" :values="singlePickerValues" :options="[singlePickerOption]" title="单栏选择器"
-      @confirm="handleSinglePickerConfirm"></et-picker>
+    <vc-picker :visible.sync="visible1" :values="singlePickerValues" :options="[singlePickerOption]" title="单栏选择器"
+      @confirm="handleSinglePickerConfirm"></vc-picker>
 
     <!-- 两栏 - 不关联 picker -->
-    <et-picker :visible.sync="visible2" :values="doublePickerValues" :options="doublePickerOptions" title="两栏选择器"
-      @confirm="handleDoublePickerConfirm"></et-picker>
+    <vc-picker :visible.sync="visible2" :values="doublePickerValues" :options="doublePickerOptions" title="两栏选择器"
+      @confirm="handleDoublePickerConfirm"></vc-picker>
 
     <!-- 两栏 - 关联 picker -->
-    <et-picker :visible.sync="visible3" title="两栏选择器" :values="values3" :options="[column1, column2]"
+    <vc-picker :visible.sync="visible3" title="两栏选择器" :values="values3" :options="[column1, column2]"
       :config="[{ column: 0, rollback: true }]" cascade @update="onUpdate" @confirm="handleDoublePickerConfirm2">
-    </et-picker>
+    </vc-picker>
 
     <!-- 分步选择器  -->
-    <et-steps-picker :visible.sync="visible12" :values="stepPickerValues" :options="stepPickerOptions" :range="[0, 2]"
+    <vc-steps-picker :visible.sync="visible12" :values="stepPickerValues" :options="stepPickerOptions" :range="[0, 2]"
       :step="step" :has-next="hasNext" closeable cascade @update="onParentChange" @next="handleNext" @back="handleBack"
-      @confirm="handleStepsPickerConfirm" @close="handleResetStepsPicker"></et-steps-picker>
+      @confirm="handleStepsPickerConfirm" @close="handleResetStepsPicker"></vc-steps-picker>
   </view>
 </template>
 

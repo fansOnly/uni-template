@@ -1,6 +1,6 @@
 <template>
 <view class="demo-block" >
-  <view class="demo-title et-hairline--bottom">{{title}}</view>
+  <view class="demo-title vc-hairline--bottom">{{title}}</view>
   <view :class="['demo-content', padding ? 'demo-content--padding' : null]" :style="{'background': background}">
     <slot></slot>
   </view>

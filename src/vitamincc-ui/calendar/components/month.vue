@@ -29,7 +29,7 @@ import { ROW_HEIGHT, getMonthEndDay, hexToRgb, getPrevYearMonth, getNextYearMont
 import lunar from '../lunar';
 
 export default {
-  name: 'vc-month',
+  name: 'v-month',
   inject: ['calendar'],
   props: {
     value: {

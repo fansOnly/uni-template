@@ -1,14 +1,14 @@
 <template>
   <view class="page-wrapper">
     <view class="gap"></view>
-    <et-scroll-list :first-load="firstLoad" :is-loading="isLoading" :finished="finished" :empty="isEmpty">
+    <vc-scroll-list :first-load="firstLoad" :is-loading="isLoading" :finished="finished" :empty="isEmpty">
       <view class="work-list-wrap">
         <view v-for="item in WORKS_LIST" :key="item.ID" class="work-list-item">
           <view class="work-item__image"></view>
           <view class="work-item__info">{{ item.TITLE }}</view>
         </view>
       </view>
-    </et-scroll-list>
+    </vc-scroll-list>
   </view>
 </template>
 

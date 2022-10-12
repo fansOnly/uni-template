@@ -1,17 +1,17 @@
 <template>
-  <et-page :show="pageReady">
-    <et-navigation :title="title" @after-mounted="navMounted = true" />
+  <vc-page :show="pageReady">
+    <vc-navigation :title="title" @after-mounted="navMounted = true" />
     <view v-if="navMounted" class="page-wrapper is-custom-tab-bar"
       :style="{ 'min-height': windowHeight + 'px' }">
       <view class="demo-block">
         <view class="color"></view>
         <view class="demo-title">请输入页面标题: </view>
         <view class="demo-title demo-margin-bottom">
-          <et-input v-model="title" border placeholder="请输入页面标题" background="#fff"></et-input>
+          <vc-input v-model="title" border placeholder="请输入页面标题" background="#fff"></vc-input>
         </view>
       </view>
     </view>
-  </et-page>
+  </vc-page>
 </template>
 
 <script>

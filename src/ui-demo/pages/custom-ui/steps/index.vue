@@ -2,11 +2,11 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-steps :active="2" :options="options" />
+      <vc-steps :active="2" :options="options" />
     </demo-block>
 
     <demo-block title="垂直布局" padding>
-      <et-steps :active="0" direction="vertical" :options="options2" />
+      <vc-steps :active="0" direction="vertical" :options="options2" />
     </demo-block>
 
   </view>

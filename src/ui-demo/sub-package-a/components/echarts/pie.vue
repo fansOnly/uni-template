@@ -1,5 +1,5 @@
 <template>
-  <view class="et-chart-wrapper" :style="{'height': height + 'px'}">
+  <view class="vc-chart-wrapper" :style="{'height': height + 'px'}">
     <ec-canvas type="pie" :ec="{}" :option="option" @click="(evt, current) => $emit('click', evt, current)"></ec-canvas>
   </view>
 </template>
@@ -7,7 +7,7 @@
 <script>
 import EcCanvas from './ec-canvas'
 export default {
-  name: 'et-charts-pie',
+  name: 'vc-charts-pie',
   components: {
     EcCanvas
   },
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.et-chart-wrapper {
+.vc-chart-wrapper {
   width: 100%;
 }
 </style>

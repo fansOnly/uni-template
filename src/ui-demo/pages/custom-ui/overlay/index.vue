@@ -2,15 +2,15 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-cell title="基础用法" is-link border hover-class="" @click="visible = true"></et-cell>
-      <et-cell title="包含内容" is-link hover-class="" @click="visible2 = true"></et-cell>
+      <vc-cell title="基础用法" is-link border hover-class="" @click="visible = true"></vc-cell>
+      <vc-cell title="包含内容" is-link hover-class="" @click="visible2 = true"></vc-cell>
     </demo-block>
 
-    <et-overlay :visible.sync="visible"></et-overlay>
-    <et-overlay :visible.sync="visible2">
+    <vc-overlay :visible.sync="visible"></vc-overlay>
+    <vc-overlay :visible.sync="visible2">
       <view class="content">
         渺渺清音，演奏的是落英缤纷时的一场邂逅，亦或是内心记忆深处的烙印，回首往事，不堪的是那一丝轻狂，亦或是早已成风的夸下的海口，这般深的情，这般痴的心，难道皆抗拒不了漫长时间的流逝？牵着记忆的手，追寻罢……</view>
-    </et-overlay>
+    </vc-overlay>
   </view>
 </template>
 

@@ -1,15 +1,15 @@
 <template>
   <view class="page-wrapper">
     <demo-block title="基础用法" padding background="#fff">
-      <et-count-down :time="time"></et-count-down>
+      <vc-count-down :time="time"></vc-count-down>
     </demo-block>
 
     <demo-block title="自定义格式" padding background="#fff">
-      <et-count-down :time="time" format="DD 天 HH 时 mm 分 ss 秒"></et-count-down>
+      <vc-count-down :time="time" format="DD 天 HH 时 mm 分 ss 秒"></vc-count-down>
     </demo-block>
 
     <demo-block title="自定义样式" padding background="#fff">
-      <et-count-down :time="time" @change="onTimeChange">
+      <vc-count-down :time="time" @change="onTimeChange">
         <view class="time-flex">
           <view class="time-value">{{ timeData.day }}</view>
           <view class="time-colon">:</view>
@@ -19,26 +19,26 @@
           <view class="time-colon">:</view>
           <view class="time-value">{{ timeData.second }}</view>
         </view>
-      </et-count-down>
+      </vc-count-down>
     </demo-block>
 
     <demo-block title="毫秒级" padding background="#fff">
-      <et-count-down :time="time" millisecond></et-count-down>
+      <vc-count-down :time="time" millisecond></vc-count-down>
     </demo-block>
 
     <demo-block title="调用方法" padding background="#fff">
       <view class="flex">
         <view class="margin-right">
-          <et-button type="primary" @click="onStart">开始</et-button>
+          <vc-button type="primary" @click="onStart">开始</vc-button>
         </view>
         <view class="margin-right">
-          <et-button type="primary" @click="onPause">暂停</et-button>
+          <vc-button type="primary" @click="onPause">暂停</vc-button>
         </view>
-        <et-button type="primary" @click="onReset">重置</et-button>
+        <vc-button type="primary" @click="onReset">重置</vc-button>
       </view>
 
       <view class="gap"></view>
-      <et-count-down ref="countdown" :time="time2" :auto-start="false" millisecond></et-count-down>
+      <vc-count-down ref="countdown" :time="time2" :auto-start="false" millisecond></vc-count-down>
     </demo-block>
   </view>
 </template>

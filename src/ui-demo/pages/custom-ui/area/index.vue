@@ -2,13 +2,13 @@
   <view class="page-wrapper">
 
     <demo-block title="地区选择器" padding>
-      <et-button type="primary" block :radius="4" @click="visible5 = true">地区选择</et-button>
+      <vc-button type="primary" block :radius="4" @click="visible5 = true">地区选择</vc-button>
       <view v-if="selectedArea.length">{{ selectedArea[0].text }}/{{ selectedArea[1].text }}/{{ selectedArea[2].text }}</view>
       <view v-for="(item, index) in selectedArea" :key="index">{{ item.text }} - {{ item.value }}</view>
     </demo-block>
 
     <!-- 地区选择器 -->
-    <et-area :visible.sync="visible5" :values="areaValues" @confirm="handleAreaConfirm"></et-area>
+    <vc-area :visible.sync="visible5" :values="areaValues" @confirm="handleAreaConfirm"></vc-area>
   </view>
 </template>
 

@@ -2,52 +2,52 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding background="#fff">
-      <et-table :data="tableData">
-        <et-table-column prop="date" label="日期"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址"></et-table-column>
-      </et-table>
+      <vc-table :data="tableData">
+        <vc-table-column prop="date" label="日期"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址"></vc-table-column>
+      </vc-table>
     </demo-block>
 
     <demo-block title="设置高亮" padding background="#fff">
-      <et-button type="primary" block @click="randomActive">随机高亮 - {{ active }}</et-button>
-      <et-table :data="tableData" :active="active">
-        <et-table-column prop="date" label="日期"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址"></et-table-column>
-      </et-table>
+      <vc-button type="primary" block @click="randomActive">随机高亮 - {{ active }}</vc-button>
+      <vc-table :data="tableData" :active="active">
+        <vc-table-column prop="date" label="日期"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址"></vc-table-column>
+      </vc-table>
     </demo-block>
 
     <demo-block title="表格头备注" padding background="#fff">
-      <et-table :data="tableData">
-        <et-table-column prop="date" label="日期"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址" tip="上海市"></et-table-column>
-      </et-table>
+      <vc-table :data="tableData">
+        <vc-table-column prop="date" label="日期"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址" tip="上海市"></vc-table-column>
+      </vc-table>
     </demo-block>
 
     <demo-block title="格式化数据" padding background="#fff">
-      <et-table :data="tableData">
-        <et-table-column prop="date" label="日期" :formatter="formatterDate"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址"></et-table-column>
-      </et-table>
+      <vc-table :data="tableData">
+        <vc-table-column prop="date" label="日期" :formatter="formatterDate"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址"></vc-table-column>
+      </vc-table>
     </demo-block>
 
     <demo-block title="圆角边框" padding background="#fff">
-      <et-table :data="tableData" :radius="20">
-        <et-table-column prop="date" label="日期"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址"></et-table-column>
-      </et-table>
+      <vc-table :data="tableData" :radius="20">
+        <vc-table-column prop="date" label="日期"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址"></vc-table-column>
+      </vc-table>
     </demo-block>
 
     <demo-block title="自定义样式" padding background="#fff">
-      <et-table :data="tableData" td-style="background:#ccc;">
-        <et-table-column prop="date" label="日期"></et-table-column>
-        <et-table-column prop="name" label="姓名"></et-table-column>
-        <et-table-column prop="address" label="地址"></et-table-column>
-      </et-table>
+      <vc-table :data="tableData" td-style="background:#ccc;">
+        <vc-table-column prop="date" label="日期"></vc-table-column>
+        <vc-table-column prop="name" label="姓名"></vc-table-column>
+        <vc-table-column prop="address" label="地址"></vc-table-column>
+      </vc-table>
     </demo-block>
 
   </view>

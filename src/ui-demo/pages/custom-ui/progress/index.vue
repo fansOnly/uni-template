@@ -2,34 +2,34 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <et-button type="primary" size="mini" style="margin-right:12px;" @click="increment">递增 +10</et-button>
-      <et-button type="primary" size="mini" @click="decrement">递减 -10</et-button>
+      <vc-button type="primary" size="mini" style="margin-right:12px;" @click="increment">递增 +10</vc-button>
+      <vc-button type="primary" size="mini" @click="decrement">递减 -10</vc-button>
       <view style="padding:16px;background:#fff;">
-        <et-progress :value="value" />
+        <vc-progress :value="value" />
       </view>
     </demo-block>
 
     <demo-block title="自定义样式" padding background>
-      <et-progress :value="value2" :stroke-width="4" track-color="#0c328e"
+      <vc-progress :value="value2" :stroke-width="4" track-color="#0c328e"
         background="linear-gradient(270deg, #FFFFFF 0%, #3264DC 100%)" :dot="false">
-      </et-progress>
+      </vc-progress>
     </demo-block>
 
     <demo-block title="文字排列" padding background>
       <view class="demo-row">
-        <et-progress position="bottom" :value="81">
+        <vc-progress position="bottom" :value="81">
           <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </et-progress>
+        </vc-progress>
       </view>
       <view class="demo-row">
-        <et-progress position="top" :value="37">
+        <vc-progress position="top" :value="37">
           <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </et-progress>
+        </vc-progress>
       </view>
       <view class="demo-row">
-        <et-progress position="left" :value="65">
+        <vc-progress position="left" :value="65">
           <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </et-progress>
+        </vc-progress>
       </view>
     </demo-block>
 

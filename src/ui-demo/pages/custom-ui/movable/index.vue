@@ -7,13 +7,13 @@
         <view class="">source: {{source}}</view>
       </view>
     </view>
-    <et-button type="primary" @click="onMove">点击移动(180 * 180)</et-button>
+    <vc-button type="primary" @click="onMove">点击移动(180 * 180)</vc-button>
       <!-- 可拖拽工具 -->
-    <et-movable :x="startX" :y="startY" width="56" height="56" @change="onChange">
-      <view class="et-moveable-button">
-        <view class="et-moveable-button__text">拖拽工具</view>
+    <vc-movable :x="startX" :y="startY" width="56" height="56" @change="onChange">
+      <view class="vc-moveable-button">
+        <view class="vc-moveable-button__text">拖拽工具</view>
       </view>
-    </et-movable>
+    </vc-movable>
   </view>
 </template>
 
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.et-moveable-button {
+.vc-moveable-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +60,7 @@ export default {
   box-shadow: 0px 0px 12px 0px rgba(228, 24, 44, 0.33);
   border-radius: 100%;
 }
-.et-moveable-button__text {
+.vc-moveable-button__text {
   width: 56rpx;
   height: 80rpx;
   color: #fff;

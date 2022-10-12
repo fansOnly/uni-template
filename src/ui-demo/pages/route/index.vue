@@ -1,16 +1,16 @@
 <template>
-  <et-page :show="pageReady">
+  <vc-page :show="pageReady">
     <view class="page-wrapper">
       <view class="gap"></view>
-      <et-input v-model="value" type="text" border placeholder="请输入 JSON 字符串格式" custom-style="background:#fff;" />
+      <vc-input v-model="value" type="text" border placeholder="请输入 JSON 字符串格式" custom-style="background:#fff;" />
       <view class="gap"></view>
-      <et-button block @click="setQuery">设置自定义参数</et-button>
+      <vc-button block @click="setQuery">设置自定义参数</vc-button>
       <view class="gap"></view>
-      <et-button block @click="jump">跳转页面 - navigate</et-button>
-      <et-button block @click="jump2">跳转页面 - redirect</et-button>
-      <et-tab-bar></et-tab-bar>
+      <vc-button block @click="jump">跳转页面 - navigate</vc-button>
+      <vc-button block @click="jump2">跳转页面 - redirect</vc-button>
+      <vc-tab-bar></vc-tab-bar>
     </view>
-  </et-page>
+  </vc-page>
 </template>
 
 <script>

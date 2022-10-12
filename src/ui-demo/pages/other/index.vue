@@ -1,5 +1,5 @@
 <template>
-  <et-page :show="pageReady">
+  <vc-page :show="pageReady">
     <view class="page-wrapper is-custom-tab-bar">
 
       <demo-block title="vuex 数据" padding>
@@ -12,9 +12,9 @@
       </demo-block>
       <!-- #endif -->
 
-      <et-tab-bar></et-tab-bar>
+      <vc-tab-bar></vc-tab-bar>
     </view>
-  </et-page>
+  </vc-page>
 </template>
 
 <script>

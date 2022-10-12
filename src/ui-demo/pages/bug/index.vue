@@ -3,16 +3,16 @@
     <demo-block title="input 穿透" padding>
       <input type="text" style="border: 1px solid #000;">
       <view class="gap"></view>
-      <et-input border custom-style="background: #fff;" />
+      <vc-input border custom-style="background: #fff;" />
       <view class="gap"></view>
-      <et-button type="primary" block @click="visible = true">打开遮罩</et-button>
+      <vc-button type="primary" block @click="visible = true">打开遮罩</vc-button>
     </demo-block>
 
-    <et-popup :visible.sync="visible" title="测试" position="bottom" closeable :close-on-click-overlay="false">
+    <vc-popup :visible.sync="visible" title="测试" position="bottom" closeable :close-on-click-overlay="false">
       <!-- <view class="popup"> -->
         <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈---{{index+1}}</view>
       <!-- </view> -->
-    </et-popup>
+    </vc-popup>
   </view>
 </template>
 

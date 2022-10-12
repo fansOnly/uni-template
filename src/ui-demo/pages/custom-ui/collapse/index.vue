@@ -2,56 +2,56 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法">
-      <et-collapse v-model="value">
-        <et-collapse-item name="1" title="面板一">
+      <vc-collapse v-model="value">
+        <vc-collapse-item name="1" title="面板一">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-        <et-collapse-item name="2" title="面板2222">
+        </vc-collapse-item>
+        <vc-collapse-item name="2" title="面板2222">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-        <et-collapse-item name="3" title="面板3333">
+        </vc-collapse-item>
+        <vc-collapse-item name="3" title="面板3333">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-      </et-collapse>
+        </vc-collapse-item>
+      </vc-collapse>
     </demo-block>
 
     <demo-block title="手风琴模式">
-      <et-collapse :value="value2" accordion @change="onChange2">
-        <et-collapse-item name="a" title="面板a">
+      <vc-collapse :value="value2" accordion @change="onChange2">
+        <vc-collapse-item name="a" title="面板a">
           <view>本期产品募集资金主易的未到期余额不得超过组合资产净值的40%。</view>
-        </et-collapse-item>
-        <et-collapse-item name="b" title="面板b">
+        </vc-collapse-item>
+        <vc-collapse-item name="b" title="面板b">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-      </et-collapse>
+        </vc-collapse-item>
+      </vc-collapse>
     </demo-block>
 
     <demo-block title="不可用项">
-      <et-collapse :value="value3" accordion @change="onChange3">
-        <et-collapse-item name="x" title="面板x" disabled title-style="color:#f00" text="测试" text-style="color:#f60">
+      <vc-collapse :value="value3" accordion @change="onChange3">
+        <vc-collapse-item name="x" title="面板x" disabled title-style="color:#f00" text="测试" text-style="color:#f60">
           <view>产品募集资金主易的未到期余额不得超过组合资产净值的40%。</view>
-        </et-collapse-item>
-        <et-collapse-item name="y" title="面板y">
+        </vc-collapse-item>
+        <vc-collapse-item name="y" title="面板y">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-        <et-collapse-item name="z" title="面板z">
+        </vc-collapse-item>
+        <vc-collapse-item name="z" title="面板z">
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
-        </et-collapse-item>
-      </et-collapse>
+        </vc-collapse-item>
+      </vc-collapse>
     </demo-block>
   </view>
 </template>

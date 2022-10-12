@@ -7,12 +7,12 @@
   -->
   <view class="page-wrapper" :style="{'min-height': windowHeight + 'px'}">
     <view class="demo-content">
-      <et-button type="primary" block @click="createPoster">生成海报</et-button>
-      <et-button type="primary" block @click="onRandomStyle">切换样式</et-button>
+      <vc-button type="primary" block @click="createPoster">生成海报</vc-button>
+      <vc-button type="primary" block @click="onRandomStyle">切换样式</vc-button>
 
         <bs-canvas class="canvas" :title="title" :text="text" :desc="desc" :tag="tag" :type="type" canvas-width="315" canvas-height="450" @export="onExportImage"></bs-canvas>
       <view style="margin-top:30px">
-        <et-image v-if="src" :src="src" mode="widthFix" show-menu-by-longpress></et-image>
+        <vc-image v-if="src" :src="src" mode="widthFix" show-menu-by-longpress></vc-image>
       </view>
     </view>
   </view>

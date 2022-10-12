@@ -48,11 +48,11 @@ page {
   font-weight: 400;
 }
 // 单元格边框线右移
-.et-cell-move--right ::v-deep .et-cell.is-border::after {
+.vc-cell-move--right ::v-deep .vc-cell.is-border::after {
   left: 32rpx;
 }
 // 箭头样式
-.et-icon-arrow {
+.vc-icon-arrow {
   width: 0;
   height: 0;
   border-style: solid;
@@ -62,46 +62,46 @@ page {
   margin-top: 5px;
   // transition: all ease .2s;
 }
-.et-icon-arrow.is-active {
+.vc-icon-arrow.is-active {
   transform: rotate(180deg);
   margin-top: -5px;
 }
-.et-icon-arrow.is-black {
+.vc-icon-arrow.is-black {
   border-top-color: #252525;
 }
-.et-icon-arrow.is-blue {
+.vc-icon-arrow.is-blue {
   border-top-color: #3264DC;
 }
 // 常用的 cell 组件 标题 / 文本样式
-.et-cell-class--168 {
+.vc-cell-class--168 {
   color: #808080!important;
   font-size: 32rpx;
 }
-.et-cell-class--162 {
+.vc-cell-class--162 {
   color: #252525!important;
   font-size: 32rpx;
 }
-.et-cell-class--148 {
+.vc-cell-class--148 {
   color: #808080!important;
   font-size: 28rpx;
 }
-.et-cell-class--142 {
+.vc-cell-class--142 {
   color: #252525!important;
   font-size: 28rpx;
 }
-.et-cell-class--16b {
+.vc-cell-class--16b {
   color: #B3B3B3!important;
   font-size: 32rpx;
 }
-.et-cell-class--14b {
+.vc-cell-class--14b {
   color: #B3B3B3!important;
   font-size: 28rpx;
 }
-.et-cell-class--169 {
+.vc-cell-class--169 {
   color: #909090!important;
   font-size: 32rpx;
 }
-.et-cell-class--149 {
+.vc-cell-class--149 {
   color: #909090!important;
   font-size: 28rpx;
 }
