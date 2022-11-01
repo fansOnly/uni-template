@@ -1,0 +1,57 @@
+{
+	"name": "demo",
+	"appid": "",
+	"description": "demo 演示工程",
+	"networkTimeout": {
+		"request": 15000,
+		"connectSocket": 15000,
+		"uploadFile": 15000,
+		"downloadFile": 15000
+	},
+	"transformPx": false,
+	"mp-weixin": {
+		"setting": {
+			"urlCheck": true,
+			"minified": true,
+			"postcss": true,
+			"es6": true,
+			"bigPackageSizeSupport": true
+		},
+		"usingComponents": true,
+		"optimization": {
+			"subPackages": true
+		},
+		"plugins": {
+			"ocr-plugin": {
+				"version": "latest",
+				"provider": "wx4418e3e031e551be"
+			}
+		},
+		"appid": "wx3856f563dbdb7b53"
+	},
+	"h5": {
+		"router": {
+			"mode": "hash",
+			"base": "./"
+		},
+		"optimization": {
+			"treeShaking": {
+				"enable": true
+			}
+		},
+		"devServer": {
+			"open": false,
+			"proxy": {
+				"/dev-server": {
+					"target": "http://vitamincc.com/api",
+					"ws": false,
+					"changeOrigin": true,
+					"pathRewrite": {
+						"^/dev-server": ""
+					}
+				}
+			},
+			"https": false
+		}
+	}
+}

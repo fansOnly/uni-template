@@ -12,9 +12,6 @@
       "@/*": [
         "src/*"
       ],
-      "@p/*": [
-        "src/ui-demo/*"
-      ]
     },
   },
   "vueCompilerOptions": {

@@ -6,13 +6,13 @@ const { done, warn } = require('@vue/cli-shared-utils')
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') })
 
 console.log()
-const { mode } = require('../config')
 
 if (!process.env.WECHAT_WEB_DEV_TOOLS || !fs.existsSync(path.resolve(process.env.WECHAT_WEB_DEV_TOOLS))) {
   warn('It seems the wechatwebdevtools path is not correct. Please check before restart again.\n')
   process.exit(-1)
 }
 
+const mode = process.env.NODE_ENV === 'production' ? 'build' : 'dev'
 const res = exec(`${process.env.WECHAT_WEB_DEV_TOOLS}/cli open --project ${path.resolve(`./dist/${mode}/mp-weixin`)}`)
 
 res.stdout.on('data', function(data) {

@@ -144,12 +144,14 @@ export default {
       if (!display) style += 'display: none;';
       return style + customStyle;
     },
-    bodyStyled({ maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
+    bodyStyled({ position, maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
       let style = '';
-      style += `height: calc(${unitedHeight} - 120rpx);`;
-      style += `width: calc(${unitedWidth} - 120rpx);`;
-      style += `max-height: ${addUnit(maxHeight)};`;
-      style += `min-height: ${addUnit(minHeight)};`;
+      if (position === 'top' || position === 'bottom') {
+        style += `height: calc(${unitedHeight} - 120rpx);`;
+        style += `width: calc(${unitedWidth} - 120rpx);`;
+        style += `max-height: ${addUnit(maxHeight)};`;
+        style += `min-height: ${addUnit(minHeight)};`;
+      }
       return style + bodyStyle;
     },
     unitedHeight({ height }) {

@@ -116,13 +116,13 @@ export default {
       return style + (this.textStyle ?? '') + (this.parent?.textStyle ?? '');
     },
     customClasses() {
-      return this.customClass + (this.parent?.customClass ?? '');
+      return (this.customClass ?? '') + (this.parent?.customClass ?? '');
     },
     titleClasses() {
-      return this.titleClass + (this.parent?.titleClass ?? '');
+      return (this.titleClass ?? '') + (this.parent?.titleClass ?? '');
     },
     textClasses() {
-      return this.textClass + (this.parent?.textClass ?? '');
+      return (this.textClass ?? '') + (this.parent?.textClass ?? '');
     },
     isBorder() {
       return this.border === null ? this.parent?.border : this.border;

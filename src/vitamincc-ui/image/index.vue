@@ -153,10 +153,11 @@ export default {
       this.$emit('loaded');
     },
     resolvePath(src) {
-      if (this.static) {
-        return path.join('/static/images/', src);
-      } else if (this.fullPath || /[https?|wxfile]:\/\/.+$/g.test(src)) {
+      // 网络路径优先展示
+      if (this.fullPath || /[https?|wxfile]:\/\/.+$/g.test(src)) {
         return src;
+      } else if (this.static) {
+        return path.join('/static/images/', src);
       } else {
         return process.env.RESOURCE_URL + src;
       }

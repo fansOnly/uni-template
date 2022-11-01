@@ -1,6 +1,6 @@
 import store from '@/store';
 import encrypt from '@/plugins/encrypt/encrypt-gm';
-import { isJsonString, formatDate } from '@/shared';
+import { isJsonString } from '@/shared';
 
 const aresKey = encrypt.getEncryptKey();
 const useMock = process.env.USE_MOCK;
@@ -23,7 +23,7 @@ export const extraHeaders = () => {
   let _uuid = 'mkt' + _date.getDay() + _date.getHours() + _date.getMinutes() + _date.getSeconds() + _date.getMilliseconds() + rdm;
 
   return {
-    'X-GW-TIMESTAMP': formatDate(),
+    'X-GW-TIMESTAMP': +new Date(),
     'X-GW-NONCE': _uuid
   };
 };

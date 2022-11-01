@@ -6,7 +6,6 @@ import share from './modules/share.js';
 import user from './modules/user.js';
 import behavior from './modules/behavior.js';
 import business from './modules/business.js';
-import pModules from '@p/store';
 
 Vue.use(Vuex);
 
@@ -18,6 +17,5 @@ export default new Vuex.Store({
     user,
     behavior,
     business,
-    ...pModules
   }
 });

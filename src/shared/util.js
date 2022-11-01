@@ -79,18 +79,6 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
 };
 
 /**
- * 日期转换器
- * @example
- *  1. 1Y => 1年
- *  2. 6M => 6个月
- *  3. 30D => 30天
- * @param {string} 初始值
- */
-export const transformData = str => {
-  return String(str).replace(/[Yy]/, '年').replace(/[Mm]/, '个月').replace(/[Dd]/, '天');
-};
-
-/**
  * 获取元素节点信息
  * @param {string} 实例 this
  * @param {string} 选择器

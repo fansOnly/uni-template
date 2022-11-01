@@ -1,15 +1,9 @@
 'use strict';
 const webpack = require('webpack');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TransformPages = require('uni-read-pages');
-const copyPluginsList = require('./build/lib/copy-plugin');
 const updateManifest = require('./build/lib/manifest-updater');
-require('./build/lib/load-env');
-
-// 获取工程运行配置
-const { project, useMock, useEncrypt } = require('./config');
-const projectRoot = path.join(__dirname, `./src/${project}`);
+const { loadEnv } = require('./build/lib/load-env');
+loadEnv(process.env.NODE_ENV);
 
 // 替换 h5 devServer 代理地址
 // #ifdef H5
@@ -23,19 +17,16 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: `@import "~@/uni.scss";@import "~@/${project}/theme.scss";`
+        prependData: '@import "~@/uni.scss";'
       },
     }
   },
   configureWebpack: {
     resolve: {
       alias: {
-        '@p': projectRoot,
-        '@vant-ui': path.join(__dirname, './src/wxcomponents/vant')
       }
     },
     plugins: [
-      new CopyWebpackPlugin(copyPluginsList),
       new webpack.DefinePlugin({
         ROUTES: webpack.DefinePlugin.runtimeValue(() => {
           const tfPages = new TransformPages({
@@ -50,12 +41,11 @@ module.exports = {
     config
       .plugin('define')
       .tap(args => {
-        args[0]['process.env'].PROJECT_NAME = JSON.stringify(project);
         args[0]['process.env'].HTTP_BASE_URL = JSON.stringify(process.env.HTTP_BASE_URL);
         args[0]['process.env'].HTTP_CONTEXT = JSON.stringify(process.env.HTTP_CONTEXT);
         args[0]['process.env'].RESOURCE_URL = JSON.stringify(process.env.RESOURCE_URL);
-        args[0]['process.env'].USE_MOCK = JSON.stringify(useMock);
-        args[0]['process.env'].USE_ENCRYPT = JSON.stringify(useEncrypt);
+        args[0]['process.env'].USE_MOCK = JSON.stringify(process.env.USE_MOCK);
+        args[0]['process.env'].USE_ENCRYPT = JSON.stringify(process.env.USE_ENCRYPT);
         return args;
       });
     // 发行或运行时启用了压缩时会生效
