@@ -143,7 +143,7 @@ module.exports = {
     // 禁止在函数标识符和其调用之间有空格 --fix
     'func-call-spacing': 'error',
     // 禁用行尾空白 --fix
-    'no-trailing-spaces': ['error', { ignoreComments: true}],
+    'no-trailing-spaces': ['error', { ignoreComments: true }],
     // 不允许初始化变量值为 undefined --fix
     'no-undef-init': 'error',
     // 禁止可以表达为更简单结构的三元操作符 --fix
@@ -164,7 +164,7 @@ module.exports = {
     // 单引号 --fix
     quotes: ['error', 'single'],
     // 禁止使用分号代替 ASI --fix
-    semi: ['warn', 'always'],
+    semi: ['error', 'never'],
     // 强制分号前后有空格 --fix
     'semi-spacing': ['error', { before: false, after: true }],
     // 要求语句块之前的空格 --fix
@@ -183,4 +183,4 @@ module.exports = {
     yoda: ['error', 'never'], // 禁止Yoda条件 --fix
     // 'prefer-const': 'warn', // 建议使用const --fix
   },
-};
+}

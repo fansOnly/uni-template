@@ -10,7 +10,7 @@ function resolve(url) {
 }
 
 // 参数配置优先级更高
-console.log(process.argv)
+// console.log(process.argv)
 let [,, env = '--development'] = process.argv
 env = env.slice(2)
 loadEnv(env);
