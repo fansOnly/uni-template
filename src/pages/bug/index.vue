@@ -10,14 +10,14 @@
 
     <vc-popup :visible.sync="visible" title="测试" position="bottom" closeable :close-on-click-overlay="false">
       <!-- <view class="popup"> -->
-        <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈---{{index+1}}</view>
+      <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈---{{ index + 1 }}</view>
       <!-- </view> -->
     </vc-popup>
   </view>
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -25,14 +25,14 @@ export default {
   data() {
     return {
       visible: false,
-    };
+    }
   },
   computed: {},
   watch: {},
   async onLoad(options) { },
   async onShow() { },
   methods: {},
-};
+}
 </script>
 
 <style lang='scss' scoped>
