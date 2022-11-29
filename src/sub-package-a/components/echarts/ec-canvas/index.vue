@@ -1,14 +1,20 @@
 <template>
   <!-- type: 2d / webgl -->
-  <canvas :type="isUseNewCanvas ? '2d' : ''" class="ec-canvas" :canvas-id="canvasId" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd"></canvas>
+  <canvas :type="isUseNewCanvas ? '2d' : ''" class="ec-canvas" :canvas-id="canvasId" @touchstart="touchStart"
+    @touchmove="touchMove" @touchend="touchEnd"></canvas>
 </template>
 
 <script>
-import WxCanvas from './wx-canvas';
-// import * as echarts from './echarts.min';
-import * as echarts from './echarts';
+import WxCanvas from './wx-canvas'
+// 使用本地文件
+// import * as echarts from './echarts.min'
 
-let ctx;
+// 通过 echarts 包引入
+// 需要手动修改 zrender 包，不兼容小程序
+// node_modules/zrender/lib/core/event.js
+import * as echarts from './echarts'
+
+let ctx
 
 function compareVersion(v1, v2) {
   v1 = v1.split('.')
@@ -44,7 +50,7 @@ export default {
     },
     ec: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     // 图表类型
     type: null,
@@ -58,7 +64,7 @@ export default {
     },
     option: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     forceUseOldCanvas: {
       type: Boolean,
@@ -71,71 +77,71 @@ export default {
     }
   },
   mounted() {
-     // Disable prograssive because drawImage doesn't support DOM as parameter
+    // Disable prograssive because drawImage doesn't support DOM as parameter
     // See https://developers.weixin.qq.com/miniprogram/dev/api/canvas/CanvasContext.drawImage.html
-    echarts.registerPreprocessor(option => {
+    echarts.default.registerPreprocessor(option => {
       if (option && option.series) {
         if (option.series.length > 0) {
           option.series.forEach(series => {
-            series.progressive = 0;
-          });
+            series.progressive = 0
+          })
         }
         else if (typeof option.series === 'object') {
-          option.series.progressive = 0;
+          option.series.progressive = 0
         }
       }
-    });
+    })
 
     if (!this.ec) {
       console.warn('组件需绑定 ec 变量，例：<ec-canvas id="mychart-dom-bar" '
-        + 'canvas-id="mychart-bar" :ec="ec"></ec-canvas>');
-      return;
+        + 'canvas-id="mychart-bar" :ec="ec"></ec-canvas>')
+      return
     }
 
     if (!this.ec.lazyLoad) {
-      this.init();
+      this.init()
     }
   },
   methods: {
     init: function (callback) {
       const version = wx.getSystemInfoSync().SDKVersion
 
-      const canUseNewCanvas = compareVersion(version, '2.9.0') >= 0;
-      const forceUseOldCanvas = this.forceUseOldCanvas;
-      const isUseNewCanvas = canUseNewCanvas && !forceUseOldCanvas;
+      const canUseNewCanvas = compareVersion(version, '2.9.0') >= 0
+      const forceUseOldCanvas = this.forceUseOldCanvas
+      const isUseNewCanvas = canUseNewCanvas && !forceUseOldCanvas
       this.isUseNewCanvas = isUseNewCanvas
 
       if (forceUseOldCanvas && canUseNewCanvas) {
-        console.warn('开发者强制使用旧canvas,建议关闭');
+        console.warn('开发者强制使用旧canvas,建议关闭')
       }
 
       if (isUseNewCanvas) {
         // console.log('微信基础库版本大于2.9.0，开始使用<canvas type="2d"/>');
         // 2.9.0 可以使用 <canvas type="2d"></canvas>
-        this.initByNewWay(callback);
+        this.initByNewWay(callback)
       } else {
         const isValid = compareVersion(version, '1.9.91') >= 0
         if (!isValid) {
           console.error('微信基础库版本过低，需大于等于 1.9.91。'
             + '参见：https://github.com/ecomfe/echarts-for-weixin'
-            + '#%E5%BE%AE%E4%BF%A1%E7%89%88%E6%9C%AC%E8%A6%81%E6%B1%82');
-          return;
+            + '#%E5%BE%AE%E4%BF%A1%E7%89%88%E6%9C%AC%E8%A6%81%E6%B1%82')
+          return
         } else {
-          console.warn('建议将微信基础库调整大于等于2.9.0版本。升级后绘图将有更好性能');
-          this.initByOldWay(callback);
+          console.warn('建议将微信基础库调整大于等于2.9.0版本。升级后绘图将有更好性能')
+          this.initByOldWay(callback)
         }
       }
     },
     initByOldWay(callback) {
       // 1.9.91 <= version < 2.9.0：原来的方式初始化
-      ctx = wx.createCanvasContext(this.canvasId, this);
-      const canvas = new WxCanvas(ctx, this.canvasId, false);
-      echarts.setCanvasCreator(() => {
-        return canvas;
-      });
+      ctx = wx.createCanvasContext(this.canvasId, this)
+      const canvas = new WxCanvas(ctx, this.canvasId, false)
+      echarts.default.setCanvasCreator(() => {
+        return canvas
+      })
       // const canvasDpr = wx.getSystemInfoSync().pixelRatio // 微信旧的canvas不能传入dpr
       const canvasDpr = 1
-      var query = wx.createSelectorQuery().in(this);
+      var query = wx.createSelectorQuery().in(this)
       query.select('.ec-canvas').boundingClientRect(res => {
         this.chart = this.initChart(canvas, res.width, res.height, canvasDpr)
         // if (typeof callback === 'function') {
@@ -153,7 +159,7 @@ export default {
         //     canvasDpr: canvasDpr // 增加了dpr，可方便外面echarts.init
         //   });
         // }
-      }).exec();
+      }).exec()
     },
     initByNewWay(callback) {
       // version >= 2.9.0：使用新的方式初始化
@@ -171,7 +177,7 @@ export default {
 
           const ctx = canvasNode.getContext('2d')
           const canvas = new WxCanvas(ctx, this.canvasId, true, canvasNode)
-          echarts.setCanvasCreator(() => {
+          echarts.default.setCanvasCreator(() => {
             return canvas
           })
 
@@ -193,11 +199,11 @@ export default {
         })
     },
     initChart(canvas, width, height, dpr) {
-      const chart = echarts.init(canvas, null, {
+      const chart = echarts.default.init(canvas, null, {
         width: width,
         height: height,
         devicePixelRatio: dpr // new
-      });
+      })
       canvas.setChart(chart)
       chart.setOption(this.option)
 
@@ -206,7 +212,7 @@ export default {
         let current
         if (this.type !== 'pie') {
           const pointer = [evt.offsetX, evt.offsetY]
-          current = chart.convertFromPixel({seriesIndex: 0}, pointer)[0]
+          current = chart.convertFromPixel({ seriesIndex: 0 }, pointer)[0]
         }
         this.$emit('click', evt, current)
       })
@@ -228,64 +234,64 @@ export default {
       } else {
         // 旧的
         if (!opt.canvasId) {
-          opt.canvasId = this.canvasId;
+          opt.canvasId = this.canvasId
         }
         ctx.draw(true, () => {
-          wx.canvasToTempFilePath(opt, this);
-        });
+          wx.canvasToTempFilePath(opt, this)
+        })
       }
     },
     touchStart(e) {
       if (this.ec.disableTouch) return
       if (this.chart && e.touches.length > 0) {
-        var touch = e.touches[0];
-        var handler = this.chart.getZr().handler;
+        var touch = e.touches[0]
+        var handler = this.chart.getZr().handler
         handler.dispatch('mousedown', {
           zrX: touch.x,
           zrY: touch.y
-        });
+        })
         handler.dispatch('mousemove', {
           zrX: touch.x,
           zrY: touch.y
-        });
-        handler.processGesture(this.wrapTouch(e), 'start');
+        })
+        handler.processGesture(this.wrapTouch(e), 'start')
       }
     },
     touchMove(e) {
       if (this.ec.disableTouch) return
       if (this.chart && e.touches.length > 0) {
-        var touch = e.touches[0];
-        var handler = this.chart.getZr().handler;
+        var touch = e.touches[0]
+        var handler = this.chart.getZr().handler
         handler.dispatch('mousemove', {
           zrX: touch.x,
           zrY: touch.y
-        });
-        handler.processGesture(this.wrapTouch(e), 'change');
+        })
+        handler.processGesture(this.wrapTouch(e), 'change')
       }
     },
     touchEnd(e) {
       if (this.ec.disableTouch) return
       if (this.chart) {
-        const touch = e.changedTouches ? e.changedTouches[0] : {};
-        var handler = this.chart.getZr().handler;
+        const touch = e.changedTouches ? e.changedTouches[0] : {}
+        var handler = this.chart.getZr().handler
         handler.dispatch('mouseup', {
           zrX: touch.x,
           zrY: touch.y
-        });
+        })
         handler.dispatch('click', {
           zrX: touch.x,
           zrY: touch.y
-        });
-        handler.processGesture(this.wrapTouch(e), 'end');
+        })
+        handler.processGesture(this.wrapTouch(e), 'end')
       }
     },
     wrapTouch(event) {
       for (let i = 0; i < event.touches.length; ++i) {
-        const touch = event.touches[i];
-        touch.offsetX = touch.x;
-        touch.offsetY = touch.y;
+        const touch = event.touches[i]
+        touch.offsetX = touch.x
+        touch.offsetY = touch.y
       }
-      return event;
+      return event
     }
   }
 }
