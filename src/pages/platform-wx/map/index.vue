@@ -1,72 +1,71 @@
 <template>
   <view class="page-wrapper">
-    <map v-if="initialized" class="vc-map" :latitude="latitude" :longitude="longitude" show-location @tap="onClick"></map>
-    <view class="map-search-area">
-      <vc-button @click="open">打开位置</vc-button>
-      <vc-button @click="choose">选择位置</vc-button>
-    </view>
+    <demo-block title="基础用法" padding>
+      <map v-if="initialized" class="vc-map" :latitude="latitude" :longitude="longitude" show-location
+        @tap="onClick"></map>
 
+      <view class="gap--top">
+        <vc-button type="primary" @click="open">打开位置</vc-button>
+        <vc-button type="primary" @click="choose">选择位置</vc-button>
+      </view>
+
+      <template v-if="info.latitude">
+        <view class="gap"></view>
+        <view>名称：{{ info.name }}</view>
+        <view>地址：{{ info.address }}</view>
+        <view>维度：{{ info.latitude }}</view>
+        <view>经度：{{ info.longitude }}</view>
+      </template>
+    </demo-block>
   </view>
 </template>
 
 <script>
-import { wxGetLocation } from '@/common/lib/weixin/API'
-  export default {
-    data() {
-      return {
-        initialized: false,
-        latitude: '',
-        longitude: '',
-      }
+import DemoBlock from '@/components/demo-block'
+import { wxGetLocation, wxOpenLocation, wxChooseLocation } from '@/common/lib/weixin/API'
+
+export default {
+  components: {
+    DemoBlock
+  },
+  data() {
+    return {
+      initialized: false,
+      latitude: '',
+      longitude: '',
+      info: {}
+    }
+  },
+  async onLoad() {
+    const { latitude, longitude } = await wxGetLocation({ type: 'gcj02' })
+    this.latitude = latitude
+    this.longitude = longitude
+    this.initialized = true
+  },
+  methods: {
+    onClick(evt) {
+      console.log('[debug] 点击地图', evt)
     },
-    async onLoad(options) {
-      const { latitude, longitude } = await wxGetLocation({ type: 'gcj02' })
-      this.latitude = latitude
-      this.longitude = longitude
-      this.initialized = true
+    open() {
+      wxOpenLocation({
+        latitude: +this.latitude,
+        longitude: +this.longitude,
+      })
     },
-    methods: {
-      onClick(evt) {
-        console.log('[debug] 点击地图', evt)
-      },
-      open() {
-        wx.openLocation({
-          latitude: this.latitude,
-          longitude: this.longitude,
-          complete: res => {
-            console.log('[debug] 打开位置', res)
-          }
-        })
-      },
-      choose() {
-        wx.chooseLocation({
-          latitude: this.latitude,
-          longitude: this.longitude,
-          complete: res => {
-            console.log('[debug] 选择位置', res)
-          }
-        })
-      }
+    async choose() {
+      const data = await wxChooseLocation({
+        latitude: +this.latitude,
+        longitude: +this.longitude,
+      })
+      this.info = data
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .demo-title {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    background: #fff;
-    &::before {
-      content: '';
-      width: 4px;
-      height: 20px;
-      background: #3264DC;
-      margin-right: 12px;
-    }
-  }
-  .vc-map {
-    width: 100%;
-    height: 60vh;
-  }
+.vc-map {
+  width: 100%;
+  height: 30vh;
+}
 </style>

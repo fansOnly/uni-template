@@ -1,8 +1,9 @@
 <template>
   <button
     :class="['vc-button-wrapper', 'vc-button--' + type, customClass, block || size === 'auto' ? 'vc-button--block' : null, disabled ? 'vc-button--disabled' : null]"
-    :hover-class=" hoverClass || 'vc-button--hover'" :style="wrapperStyled" :disabled="disabled" :open-type="openType"
-    @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetUserInfo" @opensetting="onOpenSetting" @tap="onClick">
+    :hover-class="hoverClass || 'vc-button--hover'" :style="wrapperStyled" :disabled="disabled" :open-type="openType"
+    @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetUserInfo" @opensetting="onOpenSetting"
+    @chooseavatar="onChooseAvatar" @tap="onClick">
     <view
       :class="['vc-button', plain ? 'vc-button--plain' : null, border && !isLinearGradient && !disabled ? 'vc-hairline--surround' : null]"
       :style="buttonStyled">
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { addUnit } from '../common/util';
+import { addUnit } from '../common/util'
 
 export default {
   name: 'vc-button',
@@ -30,7 +31,7 @@ export default {
       type: String,
       default: 'default',
       validator(value) {
-        return ['default', 'primary', 'info', 'success', 'error', 'text', 'custom'].includes(value);
+        return ['default', 'primary', 'info', 'success', 'error', 'text', 'custom'].includes(value)
       },
     },
     // 左侧图标图片链接
@@ -57,7 +58,7 @@ export default {
       type: String,
       default: 'default',
       validator(value) {
-        return ['default', 'mini', 'large', 'auto'].includes(value);
+        return ['default', 'mini', 'large', 'auto'].includes(value)
       }
     },
     // 是否为块级元素
@@ -82,6 +83,16 @@ export default {
     },
     // 小程序开放能力
     openType: null,
+    // 放重复点击
+    allowRepeatClick: {
+      type: Boolean,
+      default: false
+    },
+    // 点击间隔 ms
+    clickDelay: {
+      type: Number,
+      default: 500
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -100,90 +111,100 @@ export default {
   data() {
     return {
       antiRepeatClick: false
-    };
+    }
   },
   computed: {
     isLinearGradient() {
       // 是否自定义渐变色
-      return this.color && /^linear.+/.test(this.color);
+      return this.color && /^linear.+/.test(this.color)
     },
     wrapperStyled() {
-      let style = '';
+      let style = ''
       if (this.type === 'text') {
         if (this.disabled) {
-          style += 'background: none;';
+          style += 'background: none;'
         }
       } else {
         // 背景色
         if (this.type === 'custom') {
-          let colorStyle = '';
+          let colorStyle = ''
           if (this.color) {
-            colorStyle += `background: ${this.color};border-color: ${this.color};color: #fff;`;
+            colorStyle += `background: ${this.color};border-color: ${this.color};color: #fff;`
           }
           if (this.plain) {
-            colorStyle += `color: ${this.color};border-color: ${this.color};`;
+            colorStyle += `color: ${this.color};border-color: ${this.color};`
           }
-          style += colorStyle;
+          style += colorStyle
         }
 
         if (this.plain) {
-          style += 'background: none;';
+          style += 'background: none;'
         }
 
         // 圆角
         if (this.round) {
-          style += 'border-radius: 999px;';
+          style += 'border-radius: 999px;'
         } else {
-          style += `border-radius: ${addUnit(this.radius)};`;
+          style += `border-radius: ${addUnit(this.radius)};`
         }
 
         // 按钮尺寸
         if (this.size == 'mini') {
-          style += 'height: 72rpx; font-size: 24rpx;';
+          style += 'height: 72rpx; font-size: 24rpx;'
         } else if (this.size == 'large') {
-          style += 'height: 104rpx; font-size: 32rpx;';
+          style += 'height: 104rpx; font-size: 32rpx;'
         } else if (this.size == 'auto') {
-          style += 'height: 100%; font-size: inherit;';
+          style += 'height: 100%; font-size: inherit;'
         } else {
-          style += 'height: 88rpx; font-size: 32rpx;';
+          style += 'height: 88rpx; font-size: 32rpx;'
         }
       }
-      return style + this.customStyle;
+      return style + this.customStyle
     },
     buttonStyled() {
-      let style = '';
+      let style = ''
       // 圆角
       if (this.round) {
-        style += 'border-radius: 999px;';
+        style += 'border-radius: 999px;'
       } else {
-        style += `border-radius: ${addUnit(this.radius * (this.plain ? 1 : 2))};`;
+        style += `border-radius: ${addUnit(this.radius * (this.plain ? 1 : 2))};`
       }
-      return style;
+      return style
     },
     clickable() {
-      return !this.disabled && !this.loading && !this.antiRepeatClick;
+      return !this.disabled && !this.loading && !this.antiRepeatClick
     }
   },
   methods: {
     onClick(e) {
-      if (!this.clickable) return;
-      this.antiRepeatClick = true;
-      this.$emit('click', e);
-      setTimeout(() => {
-        this.antiRepeatClick = false;
-      }, 1000);
+      if (!this.clickable) return
+      if (this.allowRepeatClick) {
+        this.antiRepeatClick = true
+        setTimeout(() => {
+          this.antiRepeatClick = false
+        }, this.clickDelay)
+      }
+      this.$emit('click', e)
+      console.log('🚀 ™ 按钮点击埋点', new Date())
     },
     onGetPhoneNumber(e) {
-      this.$emit('getphonenumber', e.detail);
+      console.log('[debug]', e)
+      this.$emit('getphonenumber', e.detail)
     },
     onOpenSetting(e) {
-      this.emit('opensetting', e.detail);
+      console.log('[debug]', e)
+      this.emit('opensetting', e.detail)
     },
-    onGetUserInfo(e) {
-      this.$emit('getuserinfo', e.detail);
+    onGetuserinfo(e) {
+      console.log('[debug]', e)
+      this.$emit('getuserinfo', e.detail)
+    },
+    onChooseAvatar(e) {
+      console.log('[debug]', e)
+      this.$emit('chooseavatar', e.detail)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

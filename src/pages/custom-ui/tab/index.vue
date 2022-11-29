@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -48,27 +48,27 @@ export default {
         { text: '标签七', value: '7' },
         { text: '标签八', value: '8' },
       ],
-    };
+    }
   },
   methods: {
     onClickItem(item, index) {
-      console.log('item, index: ', item, index);
-      this.activeIndex = index;
-      this.active = item;
+      console.log('item, index: ', item, index)
+      this.activeIndex = index
+      this.active = item
     },
     onClickItem2(item, index) {
-      console.log('item, index222: ', item, index);
-      this.activeIndex2 = index;
+      console.log('item, index222: ', item, index)
+      this.activeIndex2 = index
     },
     onSliderChange(evt) {
       // 改变 tab 索引时模拟器会有样式bug，真机无
-      this.activeIndex2 = evt.detail.value;
+      this.activeIndex2 = evt.detail.value
     },
     onPageScroll({ scrollTop }) {
-      this.scrollTop = scrollTop;
+      this.scrollTop = scrollTop
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

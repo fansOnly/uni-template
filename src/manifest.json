@@ -27,6 +27,15 @@
         "provider": "wx4418e3e031e551be"
       }
     },
+    "requiredPrivateInfos": [
+      "chooseLocation",
+      "getLocation"
+    ],
+    "permission": {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序位置接口的效果展示"
+      }
+    },
     "appid": "wx3856f563dbdb7b53"
   },
   "h5": {

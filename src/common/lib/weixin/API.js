@@ -147,15 +147,48 @@ export const wxGetSetting = async params => {
  * @returns {number} verticalAccuracy 垂直精度，单位 m（Android 无法获取，返回 0）
  * @returns {number} horizontalAccuracy 水平精度，单位 m
  */
-export const wxGetLocation = params => {
+export const wxGetLocation = (params) => {
   // TODO: 获取地理位置需要申请接口权限
-  // return apiToPromise('getLocation', {
-  //   type: 'wgs84',
-  //   altitude: false,
-  //   isHighAccuracy: false,
-  //   highAccuracyExpireTime: 3000,
-  //   ...params
-  // }, false, '2.17.0')
+  return apiToPromise('getLocation', {
+    type: 'wgs84',
+    altitude: false,
+    isHighAccuracy: false,
+    highAccuracyExpireTime: 3000,
+    ...params
+  }, false, '2.17.0')
+}
+
+/**
+ * 使用微信内置地图查看位置
+ * @property {version}
+ *  @value Mac Plugin(1.9.6)
+ *
+ * @param {number} latitude 纬度，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系
+ * @param {number} longitude 经度，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系
+ * @param {number} [scale = 18] 缩放比例，范围5~18
+ * @param {string} name 位置名
+ * @param {string} address 地址的详细说明
+ */
+export const wxOpenLocation = (params) => {
+  return apiToPromise('openLocation', params, false)
+}
+
+/**
+ * 打开地图选择位置
+ * @property {version}
+ *  @value Plugin(1.9.6)
+ *  @scope scope.userLocation
+ *
+ * @param {number} latitude 目标地纬度 (2.9.0)
+ * @param {number} longitude 目标地经度 (2.9.0)
+ * 
+ * @returns {string} name 位置名
+ * @returns {string} address 详细地址
+ * @returns {number} latitude 纬度，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系
+ * @returns {number} longitude 经度，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系
+ */
+export const wxChooseLocation = (params) => {
+  return apiToPromise('chooseLocation', params, false)
 }
 
 /**

@@ -7,7 +7,7 @@ const router = createRouter({
   applet: {
     animationDuration: 300, // 默认 300ms  v2.0.6+
   },
-  routerErrorEach: (error, router)=>{
+  routerErrorEach: (error, router) => {
     if (error.type === 3 || error.type === 0) {
       router.$lockStatus = false
     }
@@ -30,7 +30,8 @@ const router = createRouter({
 
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
-  console.log('to, from: ', to, from)
+  // console.log('to, from: ', to, from)
+  console.log('🚀 ™ 页面埋点 ', new Date())
   // eslint-disable-next-line no-undef
   const appInstance = getApp()
   appInstance.globalData.customNavigationStyle = !!to?.meta?.customNavigationStyle
