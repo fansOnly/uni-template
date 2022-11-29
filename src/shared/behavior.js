@@ -1,4 +1,4 @@
-import store from '@/store';
+import store from '@/store'
 
 /**
  * 统一拦截未登录触发流程
@@ -8,19 +8,19 @@ import store from '@/store';
  */
 export const userBehaviorInterception = data => {
   // 记录用户行为
-  store.dispatch('behavior/setActionBehavior', data);
-  const isAuthUserInfo = store.getters['user/isAuthUserInfo'];
-  const isAuthPhone = store.getters['user/isAuthPhone'];
-  const isRegistered = store.getters['user/isRegistered'];
-  const isLogin = store.getters['user/isLogin'];
+  store.dispatch('behavior/setActionBehavior', data)
+  const isAuthUserInfo = store.getters['user/isAuthUserInfo']
+  const isAuthPhone = store.getters['user/isAuthPhone']
+  const isRegistered = store.getters['user/isRegistered']
+  const isLogin = store.getters['user/isLogin']
   if (!isAuthUserInfo || !isAuthPhone) {
     // 未授权
-    uni.navigateTo({ url: '/pages/login/auth/index' });
+    uni.navigateTo({ url: '/pages/login/auth/index' })
   } else if (!isRegistered) {
     // 未注册
-    uni.navigateTo({ url: '/pages/login/register/index' });
+    uni.navigateTo({ url: '/pages/login/register/index' })
   } else if (!isLogin) {
     // 未登录
-    uni.navigateTo({ url: '/pages/login/login/index' });
+    uni.navigateTo({ url: '/pages/login/login/index' })
   }
-};
+}

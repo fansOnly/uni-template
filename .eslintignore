@@ -6,3 +6,4 @@ plugins
 wxcomponents
 ec-canvas
 *.min.*
+uni_modules

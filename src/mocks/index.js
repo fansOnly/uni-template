@@ -1,26 +1,26 @@
-import Mock from '@/plugins/mock';
+import Mock from '@/plugins/mock'
 
 // 公共 API 拦截
-const commonMockFiles = require.context('./', true, /\.js$/);
+const commonMockFiles = require.context('./', true, /\.js$/)
 
-const modules = {};
+const modules = {}
 commonMockFiles.keys().forEach(key => {
-  const api = key.replace(/^\.\//, '').replace(/\.js$/, '.do');
+  const api = key.replace(/^\.\//, '').replace(/\.js$/, '.do')
   if (api !== 'index.do') {
-    modules[api] = commonMockFiles(key).default;
+    modules[api] = commonMockFiles(key).default
   }
-});
+})
 
 Mock.setup({
   timeout: '600-1000'
-});
+})
 
 Mock.mock(/\/*\.do/, 'post', function (config) {
   // console.log('[debug] mock request config >>> ', config);
-  const reg = new RegExp('^' + (process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server') + '/' + process.env.HTTP_CONTEXT + '/');
-  const api = config.url.replace(reg, '');
+  const reg = new RegExp('^' + (process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server') + '/' + process.env.HTTP_CONTEXT + '/')
+  const api = config.url.replace(reg, '')
   return modules[api] ?? {
     STATUS: 'mock data undefined',
     MSG: 'mock 数据不存在',
-  };
-});
+  }
+})

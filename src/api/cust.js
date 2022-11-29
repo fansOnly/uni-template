@@ -1,3 +1,3 @@
-import http from '@/common/lib/http';
+import http from '@/common/lib/http'
 
-export const wxLogin = params => http.post('cust/login/wxLogin.do', params);
+export const wxLogin = params => http.post('cust/login/wxLogin.do', params)

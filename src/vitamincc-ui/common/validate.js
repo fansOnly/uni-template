@@ -3,22 +3,22 @@
  * @param {Object} v
  */
 export const toString = (v) => {
-  return Object.prototype.toString.apply(v);
-};
+  return Object.prototype.toString.apply(v)
+}
 
 /**
  * 是否 json 字符串
  */
 export const isJsonString = str => {
-  return /^\{("(.+)":(.+))\}/.test(str);
-};
+  return /^\{("(.+)":(.+))\}/.test(str)
+}
 
 /**
 * 是否已定义
 * @param {} v
 */
 export function isDefined(v) {
-  return typeof v !== 'undefined';
+  return typeof v !== 'undefined'
 }
 
 /**
@@ -28,16 +28,16 @@ export function isDefined(v) {
  */
 export function isEmpty(v, allowBlank) {
   if (isObject(v)) {
-    let name;
+    let name
     for (name in v) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
   if (isArray(v)) {
-    return !v.length;
+    return !v.length
   }
-  return v === null || v === undefined || String(v).toUpperCase() === 'NULL' || (!allowBlank ? v === '' : false);
+  return v === null || v === undefined || String(v).toUpperCase() === 'NULL' || (!allowBlank ? v === '' : false)
 }
 
 /**
@@ -45,7 +45,7 @@ export function isEmpty(v, allowBlank) {
  * @param {} v
  */
 export function isArray(v) {
-  return toString(v) === '[object Array]';
+  return toString(v) === '[object Array]'
 }
 
 /**
@@ -53,7 +53,7 @@ export function isArray(v) {
  * @param {} v
  */
 export function isDate(v) {
-  return toString(v) === '[object Date]' && String(v) !== 'Invalid Date';
+  return toString(v) === '[object Date]' && String(v) !== 'Invalid Date'
 }
 
 /**
@@ -61,7 +61,7 @@ export function isDate(v) {
  * @param {} v
  */
 export function isObject(v) {
-  return toString(v) === '[object Object]';
+  return toString(v) === '[object Object]'
 }
 
 /**
@@ -69,7 +69,7 @@ export function isObject(v) {
  * @param {} v
  */
 export function isFunction(v) {
-  return toString(v) === '[object Function]';
+  return toString(v) === '[object Function]'
 }
 
 /**
@@ -77,7 +77,7 @@ export function isFunction(v) {
  * @param {} v
  */
 export function isPromise(v) {
-  return toString(v) === '[object Promise]';
+  return toString(v) === '[object Promise]'
 }
 
 /**
@@ -85,7 +85,7 @@ export function isPromise(v) {
  * @param {} v
  */
 export function isNumber(v) {
-  return typeof v === 'number' && isFinite(v);
+  return typeof v === 'number' && isFinite(v)
 }
 
 /**
@@ -93,7 +93,7 @@ export function isNumber(v) {
  * @param {} v
  */
 export function isString(v) {
-  return typeof v === 'string';
+  return typeof v === 'string'
 }
 
 /**
@@ -101,7 +101,7 @@ export function isString(v) {
  * @param {} v
  */
 export function isBoolean(v) {
-  return typeof v === 'boolean';
+  return typeof v === 'boolean'
 }
 
 /**
@@ -109,7 +109,7 @@ export function isBoolean(v) {
  * @param {} v
  */
 export function isPrimitive(v) {
-  return isString(v) || isNumber(v) || isBoolean(v);
+  return isString(v) || isNumber(v) || isBoolean(v)
 }
 
 /**
@@ -117,14 +117,14 @@ export function isPrimitive(v) {
  * @param {} v
  */
 export function isIterable(v) {
-  return (v && typeof v !== 'string') ? isDefined(v.length) : false;
+  return (v && typeof v !== 'string') ? isDefined(v.length) : false
 }
 
 /**
  * 手机号规则
  */
 export function checkMobile(v) {
-  return /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(String(v));
+  return /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(String(v))
 }
 
 /**
@@ -133,15 +133,15 @@ export function checkMobile(v) {
 export function checkUrl(v) {
   const reg = new RegExp(
     '^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$',
-    'i');
-  return reg.test(v);
+    'i')
+  return reg.test(v)
 }
 
 /**
  * 身份证规则
  */
 export function checkIdCard(v) {
-  return /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]/.test(v);
+  return /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]/.test(v)
 }
 
 /**
@@ -149,5 +149,5 @@ export function checkIdCard(v) {
  * 不能包含特殊字符
  */
 export function checkEmail(v) {
-  return /^\S+?@\S+?\.\S+?$/.test(String(v));
+  return /^\S+?@\S+?\.\S+?$/.test(String(v))
 }

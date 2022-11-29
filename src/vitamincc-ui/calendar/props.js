@@ -1,6 +1,6 @@
 
-import cssVariables from '../common/style/var.scss';
-import { ROW_HEIGHT } from './util';
+import cssVariables from '../common/style/var.scss'
+import { ROW_HEIGHT } from './util'
 
 export default {
   /**
@@ -78,4 +78,4 @@ export default {
     type: Function,
     default: null
   }
-};
+}

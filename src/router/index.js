@@ -1,5 +1,5 @@
-import store from '@/store';
-import { RouterMount, createRouter } from 'uni-simple-router';
+import store from '@/store'
+import { RouterMount, createRouter } from 'uni-simple-router'
 
 const router = createRouter({
   platform: process.env.VUE_APP_PLATFORM,
@@ -9,7 +9,7 @@ const router = createRouter({
   },
   routerErrorEach: (error, router)=>{
     if (error.type === 3 || error.type === 0) {
-      router.$lockStatus = false;
+      router.$lockStatus = false
     }
   },
   // 拦截生命周期
@@ -26,36 +26,36 @@ const router = createRouter({
     // eslint-disable-next-line no-undef
     ...ROUTES
   ],
-});
+})
 
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
-  console.log('to, from: ', to, from);
+  console.log('to, from: ', to, from)
   // eslint-disable-next-line no-undef
-  const appInstance = getApp();
-  appInstance.globalData.customNavigationStyle = !!to?.meta?.customNavigationStyle;
+  const appInstance = getApp()
+  appInstance.globalData.customNavigationStyle = !!to?.meta?.customNavigationStyle
   if (to.meta && to.meta.auth) {
     uni.showToast({
       title: '需要登录',
       mask: true
-    });
-    next(false);
+    })
+    next(false)
   } else {
-    next();
+    next()
   }
-});
+})
 
 // 全局路由后置守卫
 router.afterEach((to) => {
   // 设置窗口高度
-  store.dispatch('app/setWindowHeight', !!to?.meta?.customNavigationStyle);
+  store.dispatch('app/setWindowHeight', !!to?.meta?.customNavigationStyle)
   // #ifdef MP-WEIXIN
-  uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' });
+  uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' })
   // #endif
   // H5 需要在 onReady 设置
-});
+})
 
 export {
   router,
   RouterMount
-};
+}
