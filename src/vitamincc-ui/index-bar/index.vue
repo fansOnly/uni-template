@@ -6,22 +6,22 @@
     <view v-if="ready" class="sidebar--fixed" :style="sidebarStyled">
       <view v-for="(item, index) in indexList" :key="index"
         :class="['sidebar-item', index === current ? 'is-active' : null]"
-        :style="{'color': index === current ? activeColor : ''}" @click="onClickAnchor(item, index)">{{item}}</view>
+        :style="{ 'color': index === current ? activeColor : '' }" @click="onClickAnchor(item, index)">{{ item }}</view>
     </view>
   </div>
 </template>
 
 <script>
-import { getRect } from '../common/util';
-import { getAppData } from '../common/global-data';
+import { getRect } from '../common/util'
+import { getAppData } from '../common/global-data'
 
 function genIndexList(withSpecial = true) {
-  const arr = [];
-  const charCodeOfA = 'A'.charCodeAt(0);
+  const arr = []
+  const charCodeOfA = 'A'.charCodeAt(0)
   for (let i = 0; i < 26; i++) {
-    arr.push(String.fromCharCode(charCodeOfA + i));
+    arr.push(String.fromCharCode(charCodeOfA + i))
   }
-  return withSpecial ? arr.concat('#') : arr;
+  return withSpecial ? arr.concat('#') : arr
 }
 
 export default {
@@ -29,7 +29,7 @@ export default {
   provide() {
     return {
       indexBar: this
-    };
+    }
   },
   props: {
     // 页面滚动距离
@@ -69,7 +69,7 @@ export default {
       type: [Number, String],
       default: 0,
       validator(val) {
-        return /^\d+$/.test(String(val));
+        return /^\d+$/.test(String(val))
       }
     },
   },
@@ -82,59 +82,59 @@ export default {
       timer: null,
       navHeight: 0,
       customNavigationStyle: false
-    };
+    }
   },
   computed: {
     sidebarStyled({ navHeight, customNavigationStyle }) {
-      let style = '';
+      let style = ''
       if (customNavigationStyle) {
-        style += `margin-top: ${navHeight / 2}px;`;
+        style += `margin-top: ${navHeight / 2}px;`
       }
-      return style;
+      return style
     }
   },
   watch: {
     scrollTop: {
       handler(val) {
-        this.onScroll(val);
+        this.onScroll(val)
       },
     },
     current: {
       handler(val) {
-        this.setStickyAnchor();
+        this.setStickyAnchor()
       },
       immediate: true
     },
     len: {
       handler(val) {
-        val && this.init();
+        val && this.init()
       },
       immediate: true
     }
   },
   created() {
-    this.children = [];
-    this.anchorRects = [];
+    this.children = []
+    this.anchorRects = []
   },
   mounted() {
-    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
-    this.customNavigationStyle = customNavigationStyle;
-    this.navHeight = navHeight;
+    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight'])
+    this.customNavigationStyle = customNavigationStyle
+    this.navHeight = navHeight
   },
   methods: {
     init() {
-      if (this.timer) clearTimeout(this.timer);
+      if (this.timer) clearTimeout(this.timer)
       this.timer = setTimeout(async () => {
-        await this.setRect();
-        this.ready = true;
-        this.timer = null;
-      }, 0);
+        await this.setRect()
+        this.ready = true
+        this.timer = null
+      }, 60)
     },
     async onClickAnchor(item, index) {
-      const keys = this.children.map(v => v.index);
+      const keys = this.children.map(v => v.index)
 
-      const existKeyIdx = keys.indexOf(item);
-      if (existKeyIdx === -1) return;
+      const existKeyIdx = keys.indexOf(item)
+      if (existKeyIdx === -1) return
 
       // Bug: 上级节点不能是 scroll-view 或者设置 overflow: auto
       uni.pageScrollTo({
@@ -142,84 +142,85 @@ export default {
         // Bug: selector 不生效？？？
         // selector: '.anchor-' + index,
         duration: 0
-      });
+      })
     },
     onScroll(val) {
-      if (!this.ready) return;
+      if (!this.ready) return
 
       this.$nextTick(() => {
         if (this.longList) {
-          if (this.timer2) clearTimeout(this.timer2);
+          if (this.timer2) clearTimeout(this.timer2)
           this.timer2 = setTimeout(() => {
-            this.whenScroll(val);
-            this.timer2 = null;
-          }, 60);
+            this.whenScroll(val)
+            this.timer2 = null
+          }, 60)
         } else {
-          this.whenScroll(val);
+          this.whenScroll(val)
         }
-      });
+      })
     },
     whenScroll(scrollTop) {
       // 滚动结束后判断滚动位置是否在索引区域
       if (this.boundary) {
-        const { start, end } = this.boundary;
+        const { start, end } = this.boundary
         if (scrollTop < start || scrollTop > end) {
-          this.current = -1;
+          this.current = -1
         } else {
-          this.current = this.getAnchorIndex(scrollTop);
+          this.current = this.getAnchorIndex(scrollTop)
         }
       }
     },
     getAnchorIndex(scrollTop) {
-      let key = '';
+      let key = ''
       for (let i = 1; i < this.anchorRects.length - 1; i++) {
-        const currentAnchor = this.anchorRects[i];
-        const preAnchor = this.anchorRects[i - 1];
-        const nextAnchor = this.anchorRects[i + 1];
+        const currentAnchor = this.anchorRects[i]
+        const preAnchor = this.anchorRects[i - 1]
+        const nextAnchor = this.anchorRects[i + 1]
         if (scrollTop >= currentAnchor.top && scrollTop < nextAnchor.top) {
           // 向下滚动
-          key = currentAnchor.index;
+          key = currentAnchor.index
         } else if (scrollTop >= preAnchor.top && scrollTop < currentAnchor.top) {
           // 向上滚动
-          key = preAnchor.index;
+          key = preAnchor.index
         } else if (scrollTop >= nextAnchor.top) {
-          key = nextAnchor.index;
+          key = nextAnchor.index
         }
       }
-      return this.getAnchorIndexByKey(key);
+      return this.getAnchorIndexByKey(key)
     },
     getAnchorIndexByKey(key) {
-      return this.indexList.map(v => v + '').indexOf(key);
+      return this.indexList.map(v => v + '').indexOf(key)
     },
     setStickyAnchor() {
-      if (!this.sticky) return;
+      if (!this.sticky) return
       this.$nextTick(() => {
         this.children.forEach((child, index) => {
-          child.setStickyAnchor(index === this.current, this.stickyOffsetTop);
-        });
-      });
+          child.setStickyAnchor(index === this.current, this.stickyOffsetTop)
+        })
+      })
     },
     getActiveChild(index) {
-      return this.children.find(child => child.index == index);
+      return this.children.find(child => child.index == index)
     },
     setRect() {
-      return Promise.all([this.getAnchorsRect(), this.getWrapperRect()]);
+      return Promise.allSettled([this.getAnchorsRect(), this.getWrapperRect()])
     },
     getAnchorsRect() {
+      this.anchorRects = []
       this.children.forEach(async (child) => {
-        const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`;
-        const rect = await getRect(child, childClassName);
-        const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
-        this.anchorRects.push({ index: child.index + '', name: childClassName, top, height: rect.height });
-      });
+        const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`
+        const rect = await getRect(child, childClassName)
+        const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset
+        this.anchorRects.push({ index: child.index + '', name: childClassName, top, height: rect.height })
+      })
     },
     async getWrapperRect() {
-      const rect = await getRect(this, '.index-bar-wrapper');
-      const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset;
-      this.boundary = { start: top, end: rect.bottom };
+      const rect = await getRect(this, '.index-bar-wrapper')
+      const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset
+      this.boundary = { start: top, end: rect.bottom }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

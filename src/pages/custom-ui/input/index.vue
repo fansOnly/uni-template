@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/components/demo-block'
 
 export default {
   components: {
@@ -51,18 +51,19 @@ export default {
       value2: '',
       value3: '',
       phone: '我是有 空    格 的'
-    };
+    }
   },
   methods: {
     handleClear() {
-      console.log('====handleClear===');
+      console.log('====handleClear===')
     },
     trim(value) {
-      return value.replace(/\s+/g, '');
+      return value.replace(/\s+/g, '')
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
+
 </style>
