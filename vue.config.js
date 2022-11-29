@@ -1,4 +1,5 @@
 'use strict'
+const path = require('path')
 const webpack = require('webpack')
 const TransformPages = require('uni-read-pages')
 const updateManifest = require('./build/lib/manifest-updater')
@@ -24,6 +25,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
+        '@': path.resolve(__dirname, 'src')
       }
     },
     plugins: [

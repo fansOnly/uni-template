@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getAppData, setAppData } from '../common/global-data';
+import { getAppData, setAppData } from '../common/global-data'
 export default {
   name: 'vc-page',
   props: {
@@ -42,7 +42,7 @@ export default {
       paused: false,
       done: false,
       failed: false
-    };
+    }
   },
   watch: {
     show: {
@@ -50,14 +50,14 @@ export default {
         if (val) {
           if (+new Date() - this.start < 5000) {
             // 提前加载结束
-            this.done = true;
-            clearTimeout(this.timer);
-            clearTimeout(this.timer2);
+            this.done = true
+            clearTimeout(this.timer)
+            clearTimeout(this.timer2)
           }
           if (this.paused) {
-            this.paused = false;
+            this.paused = false
           }
-          uni.hideLoading();
+          uni.hideLoading()
         }
       },
       immediate: true
@@ -65,46 +65,46 @@ export default {
   },
   created() {
     // #ifdef MP-WEIXIN
-    let [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
+    let [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight'])
     if (customNavigationStyle) {
       if (!navHeight) {
-        const rect = wx.getMenuButtonBoundingClientRect();
-        navHeight = rect.bottom + 7; /** 胶囊距离内容区域底部临界值 */
-        setAppData({ navHeight });
+        const rect = wx.getMenuButtonBoundingClientRect()
+        navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
+        setAppData({ navHeight })
       }
-      this.top = navHeight;
+      this.top = navHeight
     }
     // #endif
-    this.ready = true;
+    this.ready = true
     uni.showLoading({
       title: '加载中...',
       mask: true
-    });
-    this.start = +new Date();
+    })
+    this.start = +new Date()
     // 加载时长上限 5s
     this.timer = setTimeout(() => {
       if (!this.show) {
-        this.paused = true;
+        this.paused = true
       } else {
-        clearTimeout(this.timer);
-        clearTimeout(this.timer2);
+        clearTimeout(this.timer)
+        clearTimeout(this.timer2)
       }
-    }, 5000);
+    }, 5000)
 
     this.timer2 = setTimeout(() => {
       if (!this.show) {
-        this.failed = true;
-        this.done = true;
+        this.failed = true
+        this.done = true
         uni.showToast({
           title: '加载失败，请稍后重试',
           icon: 'none',
           mask: true
-        });
-        clearTimeout(this.timer2);
+        })
+        clearTimeout(this.timer2)
       }
-    }, 15000);
+    }, 15000)
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

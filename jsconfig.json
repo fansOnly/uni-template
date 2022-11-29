@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "baseUrl": "./",
+    "target": "ES2018",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "types": [
       "@dcloudio/types",
       "miniprogram-api-typings",
       "mini-types"
     ],
-    "baseUrl": "./",
     "paths": {
       "@/*": [
         "src/*"
