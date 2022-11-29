@@ -5,12 +5,10 @@
     3. tip: iOS 暂不支持 pointer-events
     4. bug: 文本设置行高无效
   -->
-  <view class="page-wrapper" :style="{'min-height': windowHeight + 'px'}">
+  <view class="page-wrapper" :style="{ 'min-height': windowHeight + 'px' }">
     <view class="demo-content">
-      <vc-button type="primary" block @click="createPoster">生成海报</vc-button>
-      <vc-button type="primary" block @click="onRandomStyle">切换样式</vc-button>
-
-        <bs-canvas class="canvas" :title="title" :text="text" :desc="desc" :tag="tag" :type="type" canvas-width="315" canvas-height="450" @export="onExportImage"></bs-canvas>
+      <bs-canvas class="canvas" :title="title" :text="text" :desc="desc" :tag="tag" :type="type" canvas-width="315"
+        canvas-height="450" @export="onExportImage"></bs-canvas>
       <view style="margin-top:30px">
         <vc-image v-if="src" :src="src" mode="widthFix" show-menu-by-longpress></vc-image>
       </view>
@@ -20,20 +18,21 @@
 
 <script>
 import BsCanvas from '@/components/canvas'
+
 export default {
   components: {
     BsCanvas
   },
   data() {
     return {
-     windowHeight: wx.getSystemInfoSync().windowHeight,
-     rerender: true,
-     type: 1,
-     title: '',
-     text: '',
-     desc: [],
-     tag: '',
-     src: ''
+      windowHeight: wx.getSystemInfoSync().windowHeight,
+      rerender: true,
+      type: 1,
+      title: '',
+      text: '',
+      desc: [],
+      tag: '',
+      src: ''
     }
   },
   watch: {
@@ -81,7 +80,7 @@ export default {
       this.type = this.type === 8 ? 1 : this.type + 1
       setTimeout(() => {
         this.rerender = true
-      }, 0);
+      }, 0)
     }
   }
 }
@@ -91,9 +90,10 @@ export default {
 .demo-content {
   padding: 60rpx;
 }
+
 .canvas {
   position: absolute;
   top: -9999px;
-  width:100%;
+  width: 100%;
 }
 </style>

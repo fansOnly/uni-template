@@ -10,8 +10,8 @@
         <view class="gap"></view>
         <vc-button type="primary" @click="checkIsSoterEnrolled">检查是否录入</vc-button>
         <view class="gap"></view>
-        <view class="demo-title">是否已录入指纹：{{ isFingerPrintEnrolled }}</view>
-        <view class="demo-title">是否已录入人脸：{{ isFacialEnrolled }}</view>
+        <view v-if="isSupportFacial" class="demo-title">是否已录入指纹：{{ isFingerPrintEnrolled }}</view>
+        <view v-if="isSupportFingerPrint" class="demo-title">是否已录入人脸：{{ isFacialEnrolled }}</view>
         <view class="gap"></view>
         <view class="gap"></view>
         <template v-if="isSupportFingerPrint">
