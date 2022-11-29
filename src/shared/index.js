@@ -1,2 +1,2 @@
-export * from './util';
-export * from './validate';
+export * from './util'
+export * from './validate'

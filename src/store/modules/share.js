@@ -22,62 +22,62 @@ const state = {
   shareTicket: '',
   originalShareId: '',
   originalShareIdKey: '',
-};
+}
 
 const mutations = {
   SET_SCENE(state, payload = '') {
-    state.scene = payload;
+    state.scene = payload
   },
   SET_CHAT_TYPE(state, payload = '') {
-    state.chatType = payload;
+    state.chatType = payload
   },
   SET_SOURCE_APP_ID(state, payload = '') {
-    state.sourceAppId = payload;
+    state.sourceAppId = payload
   },
   SET_EXTRA_DATA(state, payload = {}) {
-    state.extraData = payload;
+    state.extraData = payload
   },
   SET_SHARE_TICKET(state, payload = '') {
-    state.shareTicket = payload;
+    state.shareTicket = payload
   },
   SET_OLD_SHARE_ID(state, { originalShareId = '', originalShareIdKey = '' }) {
-    state.originalShareId = originalShareId;
-    state.originalShareIdKey = originalShareIdKey;
+    state.originalShareId = originalShareId
+    state.originalShareIdKey = originalShareIdKey
   },
   CLEAR(state) {
-    state.scene = '';
-    state.sourceAppId = '';
-    state.extraData = {};
+    state.scene = ''
+    state.sourceAppId = ''
+    state.extraData = {}
   }
-};
+}
 
 const actions = {
   setScene({ commit }, payload) {
-    commit('SET_SCENE', payload);
+    commit('SET_SCENE', payload)
   },
   setChatType({ commit }, payload) {
-    commit('SET_CHAT_TYPE', payload);
+    commit('SET_CHAT_TYPE', payload)
   },
   setSourceAppId({ commit }, payload) {
-    commit('SET_SOURCE_APP_ID', payload);
+    commit('SET_SOURCE_APP_ID', payload)
   },
   setExtraData({ commit }, payload) {
-    commit('SET_EXTRA_DATA', payload);
+    commit('SET_EXTRA_DATA', payload)
   },
   setShareTicket({ commit }, payload) {
-    commit('SET_SHARE_TICKET', payload);
+    commit('SET_SHARE_TICKET', payload)
   },
   setOldShareId({ commit }, payload) {
-    commit('SET_OLD_SHARE_ID', payload);
+    commit('SET_OLD_SHARE_ID', payload)
   },
   clearShareInfo({ commit }) {
-    commit('CLEAR');
+    commit('CLEAR')
   },
-};
+}
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions
-};
+}

@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import app from './modules/app.js';
-import share from './modules/share.js';
-import user from './modules/user.js';
-import behavior from './modules/behavior.js';
-import business from './modules/business.js';
-import pModules from '@p/store';
+import app from './modules/app.js'
+import share from './modules/share.js'
+import user from './modules/user.js'
+import behavior from './modules/behavior.js'
+import business from './modules/business.js'
+import pModules from '@p/store'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   // plugins: process.env.NODE_ENV !== 'production' ? [Vuex.createLogger()] : [],
@@ -20,4 +20,4 @@ export default new Vuex.Store({
     business,
     ...pModules
   }
-});
+})

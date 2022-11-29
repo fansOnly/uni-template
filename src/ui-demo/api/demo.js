@@ -1,3 +1,3 @@
-import http from '@/common/lib/http';
+import http from '@/common/lib/http'
 
-export const demo = params => http.post('demo.do', params);
+export const demo = params => http.post('demo.do', params)

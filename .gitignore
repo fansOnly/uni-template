@@ -27,3 +27,4 @@ src/project-*/
 src/manifest.json
 src/pages.json
 * copy.*
+uni_modules

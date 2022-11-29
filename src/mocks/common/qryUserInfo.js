@@ -19,4 +19,4 @@ export default {
   'isMove': 'N',
   'email': '',
   'head_img_url': 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJKUia6Zv7m6LhqFoJA6PF4shYVcWjewWq6HEkaavoXuRqRC74MdW579icXLWX4sz78icj9d5gssDzxQ/132'
-};
+}

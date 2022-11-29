@@ -1,4 +1,4 @@
-import Mock from '@/plugins/mock';
+import Mock from '@/plugins/mock'
 
 export default {
   STATUS: '1',
@@ -9,4 +9,4 @@ export default {
       'title': Mock.Random.ctitle()
     }]
   })
-};
+}

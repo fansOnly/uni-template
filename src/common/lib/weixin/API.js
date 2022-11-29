@@ -1,4 +1,4 @@
-import { gte } from '@/common/lib/version';
+import { gte } from '@/common/lib/version'
 
 /**
  * 统一转换部分微信原生 API 为 Promise 风格
@@ -10,33 +10,33 @@ import { gte } from '@/common/lib/version';
 function apiToPromise(name, params, showLoading = false, version = '2.20.1') {
   /* #ifdef MP-WEIXIN */
   if (uni.canIUse(name) || wx[name]) {
-    const promiseLike = uni[name];
+    const promiseLike = uni[name]
     return new Promise((resolve) => {
       showLoading && uni.showLoading({
         title: '加载中',
         mask: true
-      });
+      })
       promiseLike({
         ...params,
         success(res) {
-          resolve(res);
+          resolve(res)
         },
         fail(err) {
-          resolve(err);
+          resolve(err)
         },
         complete(res) {
-          console.log('[debug]', res);
-          showLoading && uni.hideLoading();
+          console.log('[debug]', res)
+          showLoading && uni.hideLoading()
         }
-      });
-    });
+      })
+    })
   } else {
-    console.warn(`[system] ${name}: 您的微信基础库版本过低，请升级至${version}及以上版本`);
-    return { reason: 'low version' };
+    console.warn(`[system] ${name}: 您的微信基础库版本过低，请升级至${version}及以上版本`)
+    return { reason: 'low version' }
   }
   /* #endif */
   /* #ifdef H5 */
-  console.log('[debug] 待兼容');
+  console.log('[debug] 待兼容')
   /* #endif */
 }
 
@@ -48,9 +48,9 @@ function apiToPromise(name, params, showLoading = false, version = '2.20.1') {
  * @returns {boolean}
  */
 export const wxCheckSession = async () => {
-  const data = await apiToPromise('checkSession');
-  return data.errMsg === 'checkSession:ok';
-};
+  const data = await apiToPromise('checkSession')
+  return data.errMsg === 'checkSession:ok'
+}
 
 /**
  * 获取登录凭证
@@ -62,8 +62,8 @@ export const wxCheckSession = async () => {
  * @returns {string} code
  */
 export const wxLogin = params => {
-  return apiToPromise('login', params);
-};
+  return apiToPromise('login', params)
+}
 
 /**
  * 获取用户信息
@@ -84,8 +84,8 @@ export const wxGetUserProfile = () => {
   return apiToPromise('getUserProfile', {
     lang: 'zh_CN',
     desc: '为了给您提供更好的个性化服务',
-  });
-};
+  })
+}
 
 /**
  * 调起客户端小程序设置界面
@@ -94,8 +94,8 @@ export const wxGetUserProfile = () => {
  *  @value Mac Plugin(2.10.3)
  */
 export const wxOpenSetting = () => {
-  return apiToPromise('openSetting');
-};
+  return apiToPromise('openSetting')
+}
 
 /**
  * 调起客户端小程序设置界面
@@ -110,22 +110,22 @@ export const wxOpenSetting = () => {
  * @returns {SubscriptionsSetting} subscriptionsSetting 用户授权结果
  */
 export const wxGetSetting = async params => {
-  const data = await apiToPromise('getSetting', params);
-  const { authSetting } = data;
-  let agree = []; let deny = [];
+  const data = await apiToPromise('getSetting', params)
+  const { authSetting } = data
+  let agree = []; let deny = []
   if (Object.keys(authSetting).length) {
     for (let key in authSetting) {
       if (authSetting[key]) {
-        agree.push(key.split('.')[1]);
+        agree.push(key.split('.')[1])
       } else {
-        deny.push(key.split('.')[1]);
+        deny.push(key.split('.')[1])
       }
     }
   }
-  console.log('[debug] 用户已同意授权信息', agree);
-  console.log('[debug] 用户已拒绝授权信息', deny);
-  return { userAgreeAuth: agree, userDenyAuth: deny };
-};
+  console.log('[debug] 用户已同意授权信息', agree)
+  console.log('[debug] 用户已拒绝授权信息', deny)
+  return { userAgreeAuth: agree, userDenyAuth: deny }
+}
 
 /**
  * 获取当前的地理位置、速度
@@ -148,7 +148,15 @@ export const wxGetSetting = async params => {
  * @returns {number} horizontalAccuracy 水平精度，单位 m
  */
 export const wxGetLocation = params => {
-};
+  // TODO: 使用定位功能需要申请权限
+  // return apiToPromise('getLocation', {
+  //   type: 'wgs84',
+  //   altitude: false,
+  //   isHighAccuracy: false,
+  //   highAccuracyExpireTime: 3000,
+  //   ...params
+  // }, false, '2.17.0')
+}
 
 /**
  * 获取局域网IP地址
@@ -159,8 +167,8 @@ export const wxGetLocation = params => {
  * @returns {string} netmask 本机局域网子网掩码(2.24.0 )
  */
 export const wxGetLocalIPAddress = () => {
-  return apiToPromise('getLocalIPAddress', {}, false, '2.20.1');
-};
+  return apiToPromise('getLocalIPAddress', {}, false, '2.20.1')
+}
 
 /**
  * 拍摄或从手机相册中选择图片或视频
@@ -178,8 +186,8 @@ export const wxGetLocalIPAddress = () => {
  * @param {string} camera = back  / front 仅在 sourceType 为 camera 时生效，使用前置或后置摄像头
  */
 export const wxChooseMedia = params => {
-  return apiToPromise('chooseMedia', params, false, '2.10.0');
-};
+  return apiToPromise('chooseMedia', params, false, '2.10.0')
+}
 
 /**
  * 压缩图片接口，可选压缩质量
@@ -193,8 +201,8 @@ export const wxChooseMedia = params => {
  * @returns {string} tempFilePath 压缩后图片的临时文件路径 (本地路径)
  */
 export const wxCompressImage = params => {
-  return apiToPromise('compressImage', params, false, '2.4.0');
-};
+  return apiToPromise('compressImage', params, false, '2.4.0')
+}
 
 /**
  * 预览图片和视频
@@ -208,8 +216,8 @@ export const wxCompressImage = params => {
  * @param {string} referrerPolicy = no-referrer origin: 发送完整的 referrer ; no-referrer: 不发送
  */
 export const wxPreviewMedia = params => {
-  return apiToPromise('previewMedia', params, false, '2.12.0');
-};
+  return apiToPromise('previewMedia', params, false, '2.12.0')
+}
 
 /**
  * 预览图片
@@ -222,8 +230,8 @@ export const wxPreviewMedia = params => {
  * @param {string} referrerPolicy = no-referrer origin: 发送完整的 referrer ; no-referrer: 不发送
  */
 export const wxPreviewImage = params => {
-  return apiToPromise('previewImage', params);
-};
+  return apiToPromise('previewImage', params)
+}
 
 /**
  * 预览图片和视频
@@ -247,8 +255,8 @@ export const wxPreviewImage = params => {
  * @returns {string} type 图片格式(1.9.90)
  */
 export const wxGetImageInfo = params => {
-  return apiToPromise('getImageInfo', params);
-};
+  return apiToPromise('getImageInfo', params)
+}
 
 /**
  * 保存图片到系统相册
@@ -260,8 +268,8 @@ export const wxGetImageInfo = params => {
  * @param {string} filePath 图片文件路径，可以是临时文件路径或永久文件路径 (本地路径) ，不支持网络路径
  */
 export const wxSaveImageToPhotosAlbum = params => {
-  return apiToPromise('saveImageToPhotosAlbum', params);
-};
+  return apiToPromise('saveImageToPhotosAlbum', params)
+}
 
 /**
  * 获取本机支持的 SOTER 生物认证方式
@@ -274,8 +282,8 @@ export const wxSaveImageToPhotosAlbum = params => {
  *                           speech 声纹识别（暂未支持）
  */
 export const wxCheckIsSupportSoterAuthentication = () => {
-  return apiToPromise('checkIsSupportSoterAuthentication', {}, false, '1.5.0');
-};
+  return apiToPromise('checkIsSupportSoterAuthentication', {}, false, '1.5.0')
+}
 
 /**
  * 获取设备内是否录入如指纹等生物信息的接口
@@ -288,8 +296,8 @@ export const wxCheckIsSupportSoterAuthentication = () => {
  *                 speech 声纹识别（暂未支持）
  */
 export const wxCheckIsSoterEnrolledInDevice = params => {
-  return apiToPromise('checkIsSoterEnrolledInDevice', params, false, '1.6.0');
-};
+  return apiToPromise('checkIsSoterEnrolledInDevice', params, false, '1.6.0')
+}
 
 /**
  * 获取设备内是否录入如指纹等生物信息的接口
@@ -308,8 +316,8 @@ export const wxCheckIsSoterEnrolledInDevice = params => {
  * @returns {string} resultJSONSignature 用SOTER安全密钥对 resultJSON 的签名(SHA256 with RSA/PSS, saltlen=20)
  */
 export const wxStartSoterAuthentication = params => {
-  return apiToPromise('startSoterAuthentication', params, false, '1.5.0');
-};
+  return apiToPromise('startSoterAuthentication', params, false, '1.5.0')
+}
 
 /**
  * 检查设备是否支持人脸检测
@@ -322,8 +330,8 @@ export const wxStartSoterAuthentication = params => {
  * @param {number} checkAliveType 人脸核验的交互方式，默认读数字（见表1） 2	先检查是否可以屏幕闪烁，不可以则自动为读数字
  */
 export const wxCheckIsSupportFacialRecognition = () => {
-  return apiToPromise('checkIsSupportFacialRecognition', {}, false, '2.20.1');
-};
+  return apiToPromise('checkIsSupportFacialRecognition', {}, false, '2.20.1')
+}
 
 /**
  * 请求进行基于生物识别的人脸核身
@@ -337,11 +345,18 @@ export const wxCheckIsSupportFacialRecognition = () => {
  */
 export const wxStartFacialRecognitionVerify = params => {
   if (wx.startFacialRecognitionVerify) {
-    return apiToPromise('startFacialRecognitionVerify', params, false, '2.20.1');
+    return apiToPromise('startFacialRecognitionVerify', params, false, '2.20.1')
   } else if (wx.startFacialRecognitionVerifyAndUploadVideo) {
-    return apiToPromise('startFacialRecognitionVerifyAndUploadVideo', params, false, '2.20.1');
+    return apiToPromise('startFacialRecognitionVerifyAndUploadVideo', params, false, '2.20.1')
   }
-};
+}
+
+/**
+ * 老接口，可以拿回人脸的照片或者视频
+ */
+export const wxStartFacialRecognitionVerifyAndUploadVideo = params => {
+  return apiToPromise('startFacialRecognitionVerifyAndUploadVideo', params, false, '2.20.1')
+}
 
 /**
  * 下载文件资源到本地
@@ -359,10 +374,10 @@ export const wxStartFacialRecognitionVerify = params => {
  * @returns {string} netmask 本机局域网子网掩码(2.24.0 )
  */
 export const wxDownloadFile = params => {
-  const { fileType, filename } = params;
-  const filePath = fileType ? wx.env.USER_DATA_PATH + '/' + filename + '.' + fileType : '';
-  return apiToPromise('downloadFile', { ...params, filePath }, true);
-};
+  const { fileType, filename } = params
+  const filePath = fileType ? wx.env.USER_DATA_PATH + '/' + filename + '.' + fileType : ''
+  return apiToPromise('downloadFile', { ...params, filePath }, true)
+}
 
 /**
  * 微信打开文档，支持 pdf docs
@@ -375,14 +390,14 @@ export const wxDownloadFile = params => {
  * @param {*} fileType 文件类型
  */
 export const wxOpenFile = async (url, filename, fileType = 'pdf') => {
-  const { filePath } = await wxDownloadFile({ url, filename, fileType });
+  const { filePath } = await wxDownloadFile({ url, filename, fileType })
   filePath && wx.openDocument({
     filePath: filePath,
     success: function (res) {
-      console.log('[info] 打开文档成功 >>>', res);
+      console.log('[info] 打开文档成功 >>>', res)
     }
-  });
-};
+  })
+}
 
 /**
  * 批量添加卡券
@@ -390,8 +405,8 @@ export const wxOpenFile = async (url, filename, fileType = 'pdf') => {
  *  @value 基础库 1.1.0 开始支持
  */
 export const wxAddCard = async params => {
-  return apiToPromise('addCard', params);
-};
+  return apiToPromise('addCard', params)
+}
 
 /**
  * 打开小程序
@@ -400,8 +415,8 @@ export const wxAddCard = async params => {
  *  @value Windows Mac Plugin(2.118.1)
  */
 export const wxNavigateToMiniProgram = params => {
-  return apiToPromise('navigateToMiniProgram', params);
-};
+  return apiToPromise('navigateToMiniProgram', params)
+}
 
 /**
  * 打开半屏小程序
@@ -410,11 +425,11 @@ export const wxNavigateToMiniProgram = params => {
  */
 export const wxOpenEmbeddedMiniProgram = async params => {
   if (gte('2.20.1')) {
-    return apiToPromise('openEmbeddedMiniProgram', params);
+    return apiToPromise('openEmbeddedMiniProgram', params)
   } else {
-    return wxNavigateToMiniProgram(params);
+    return wxNavigateToMiniProgram(params)
   }
-};
+}
 
 /**
  * 获取群分享信息
@@ -423,5 +438,5 @@ export const wxOpenEmbeddedMiniProgram = async params => {
  *  @value Windows Mac Plugin(2.1.0)
  */
 export const wxGetShareInfo = async params => {
-  return apiToPromise('getShareInfo', params);
-};
+  return apiToPromise('getShareInfo', params)
+}

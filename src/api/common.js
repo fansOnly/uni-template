@@ -1,3 +1,3 @@
-import http from '@/common/lib/http';
+import http from '@/common/lib/http'
 
-export const qryUserInfo = params => http.post('common/qryUserInfo.do', params);
+export const qryUserInfo = params => http.post('common/qryUserInfo.do', params)
