@@ -1,5 +1,6 @@
-import store from '@/store'
 import { RouterMount, createRouter } from 'uni-simple-router'
+import store from '@/store'
+import { formatDate } from '@/shared'
 
 const router = createRouter({
   platform: process.env.VUE_APP_PLATFORM,
@@ -31,7 +32,15 @@ const router = createRouter({
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
   // console.log('to, from: ', to, from)
-  console.log('🚀 ™ 页面埋点 ', new Date())
+  const buryData = {
+    type: 'page',
+    openId: store.state.user.openId,
+    time: formatDate(),
+    from: from.fullPath,
+    to: to.fullPath,
+    device: JSON.stringify(uni.$sysInfo)
+  }
+  console.log('🚀 ™ 页面埋点 ', buryData)
   // eslint-disable-next-line no-undef
   const appInstance = getApp()
   appInstance.globalData.customNavigationStyle = !!to?.meta?.customNavigationStyle

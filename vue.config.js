@@ -2,8 +2,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const TransformPages = require('uni-read-pages')
-const updateManifest = require('./build/lib/manifest-updater')
-const { loadEnv } = require('./build/lib/load-env')
+const updateManifest = require('./build/utils/manifest-updater')
+const { loadEnv } = require('./build/utils/load-env')
 loadEnv(process.env.NODE_ENV)
 
 // 替换 h5 devServer 代理地址
@@ -36,7 +36,7 @@ module.exports = {
           })
           return JSON.stringify(tfPages.routes)
         }, true)
-      })
+      }),
     ]
   },
   chainWebpack: (config) => {

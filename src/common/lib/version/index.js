@@ -39,7 +39,6 @@ export const gte = (version) => {
 
 /**
  * 是否需要更新微信客户端
- * @version 6.0.0
  */
 export const shouldUpdateWx = () => {
   return gte('7.0.0')

@@ -2,8 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import methods from '@/mixins/methods'
-import {router, RouterMount} from './router'
+import { router, RouterMount } from './router'
+import { getSystemInfo } from './shared'
 Vue.use(router)
+
+Vue.prototype.$sysInfo = getSystemInfo()
+uni.$sysInfo = getSystemInfo()
 
 // 全局mixin
 Vue.mixin(methods)

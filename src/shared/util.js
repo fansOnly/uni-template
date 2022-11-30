@@ -115,3 +115,10 @@ export function requestAnimationFrame() {
       })
   })
 }
+
+
+let systemInfo = null
+
+export const getSystemInfo = () => {
+  return systemInfo || (systemInfo = wx.getSystemInfoSync())
+}

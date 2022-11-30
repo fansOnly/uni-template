@@ -1,24 +1,28 @@
 export default class WxCanvas {
   constructor(ctx, canvasId, isNew, canvasNode) {
-    this.ctx = ctx;
-    this.canvasId = canvasId;
-    this.chart = null;
+    this.ctx = ctx
+    this.canvasId = canvasId
+    this.chart = null
     this.isNew = isNew
     if (isNew) {
-      this.canvasNode = canvasNode;
+      this.canvasNode = canvasNode
     }
     else {
-      this._initStyle(ctx);
+      this._initStyle(ctx)
     }
+
+    // fix 小程序没有事件监听
+    this.addEventListener = () => { }
+    this.removeEventListener = () => { }
 
     // this._initCanvas(zrender, ctx);
 
-    this._initEvent();
+    this._initEvent()
   }
 
   getContext(contextType) {
     if (contextType === '2d') {
-      return this.ctx;
+      return this.ctx
     }
   }
 
@@ -30,7 +34,7 @@ export default class WxCanvas {
   // }
 
   setChart(chart) {
-    this.chart = chart;
+    this.chart = chart
   }
 
   attachEvent() {
@@ -43,23 +47,23 @@ export default class WxCanvas {
 
   _initCanvas(zrender, ctx) {
     zrender.util.getContext = function () {
-      return ctx;
-    };
+      return ctx
+    }
 
     zrender.util.$override('measureText', function (text, font) {
-      ctx.font = font || '12px sans-serif';
-      return ctx.measureText(text);
-    });
+      ctx.font = font || '12px sans-serif'
+      return ctx.measureText(text)
+    })
   }
 
   _initStyle(ctx) {
     ctx.createRadialGradient = () => {
-      return ctx.createCircularGradient(arguments);
-    };
+      return ctx.createCircularGradient(arguments)
+    }
   }
 
   _initEvent() {
-    this.event = {};
+    this.event = {}
     const eventNames = [{
       wxName: 'touchStart',
       ecName: 'mousedown'
@@ -72,17 +76,17 @@ export default class WxCanvas {
     }, {
       wxName: 'touchEnd',
       ecName: 'click'
-    }];
+    }]
 
     eventNames.forEach(name => {
       this.event[name.wxName] = e => {
-        const touch = e.touches[0];
+        const touch = e.touches[0]
         this.chart.getZr().handler.dispatch(name.ecName, {
           zrX: name.wxName === 'tap' ? touch.clientX : touch.x,
           zrY: name.wxName === 'tap' ? touch.clientY : touch.y
-        });
-      };
-    });
+        })
+      }
+    })
   }
 
   set width(w) {

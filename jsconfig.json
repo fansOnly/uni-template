@@ -3,8 +3,6 @@
     "baseUrl": "./",
     "target": "ES2018",
     "module": "esnext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "types": [
       "@dcloudio/types",
