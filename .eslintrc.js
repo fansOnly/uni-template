@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -29,7 +30,6 @@ module.exports = {
     uni: true,
     getCurrentPages: true
   },
-
   // add your custom rules here
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {

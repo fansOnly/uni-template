@@ -1,5 +1,3 @@
-import { APP_HIDE_SCENES } from '@/shared'
-
 const state = {
   /**
    * 小程序运行状态
@@ -27,19 +25,29 @@ const state = {
 }
 
 const mutations = {
-  SET_APP_VISIBILITY(state, payload) {
+  SET_APP_VISIBILITY(state: { visibility: any }, payload: any) {
     state.visibility = payload
   },
-  SET_HIDE_SCENE(state, payload = '') {
+  SET_HIDE_SCENE(state: { hideScene: string }, payload = '') {
     state.hideScene = payload
   },
-  SET_WINDOW_HEIGHT(state, isCustom = false) {
+  SET_WINDOW_HEIGHT(
+    state: {
+      defaultWindowHeight: number
+      customWindowHeight: number
+      navHeight: number
+      windowHeight: number
+    },
+    isCustom = false
+  ) {
     let height = 0
     if (isCustom) {
       if (state.defaultWindowHeight) {
         height = state.defaultWindowHeight
       } else {
-        height = state.customWindowHeight || (state.customWindowHeight = uni.getSystemInfoSync().windowHeight)
+        height =
+          state.customWindowHeight ||
+          (state.customWindowHeight = uni.getSystemInfoSync().windowHeight)
         // #ifdef MP-WEIXIN
         if (!state.navHeight) {
           const rect = wx.getMenuButtonBoundingClientRect()
@@ -49,13 +57,15 @@ const mutations = {
         // #endif
       }
     } else {
-      height = state.defaultWindowHeight || (state.defaultWindowHeight = uni.getSystemInfoSync().windowHeight)
+      height =
+        state.defaultWindowHeight ||
+        (state.defaultWindowHeight = uni.getSystemInfoSync().windowHeight)
       // #ifdef H5
       height -= 44
       // #endif
     }
     state.windowHeight = height
-  }
+  },
 }
 
 const actions = {
@@ -65,17 +75,17 @@ const actions = {
   setAppHide({ commit }) {
     commit('SET_APP_VISIBILITY', false)
   },
-  setHideScene({ commit }, payload) {
+  setHideScene({ commit }: any, payload: any) {
     commit('SET_HIDE_SCENE', payload)
   },
-  setWindowHeight({ commit }, payload) {
+  setWindowHeight({ commit }: any, payload: any) {
     commit('SET_WINDOW_HEIGHT', payload)
-  }
+  },
 }
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 }

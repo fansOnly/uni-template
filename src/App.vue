@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import store from '@/store'
 import checkUpdate from '@/common/lib/weixin/checkUpdate'
 import { getToken, APP_HIDE_SCENES } from '@/shared'
