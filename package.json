@@ -21,7 +21,6 @@
     "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i"
   },
   "dependencies": {
-    "-": "^0.0.1",
     "@dcloudio/uni-app-plus": "^2.0.1-34920220630001",
     "@dcloudio/uni-h5": "^2.0.1-34920220630001",
     "@dcloudio/uni-helper-json": "*",
@@ -40,8 +39,6 @@
     "@dcloudio/uni-quickapp-native": "^2.0.1-34920220630001",
     "@dcloudio/uni-quickapp-webview": "^2.0.1-34920220630001",
     "@dcloudio/uni-stat": "^2.0.1-34920220630001",
-    "@vue/shared": "^3.0.0",
-    "D": "^1.0.0",
     "core-js": "^3.6.5",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
