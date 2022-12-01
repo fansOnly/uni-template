@@ -2,7 +2,7 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100">
+      <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100" height="100">
       </vc-image>
     </demo-block>
 
@@ -10,22 +10,22 @@
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="scaleToFill"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="scaleToFill"></vc-image>
           </view>
           <view class="t1">scaleToFill</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="aspectFit"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="aspectFit"></vc-image>
           </view>
           <view class="t1">aspectFit</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="aspectFill"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="aspectFill"></vc-image>
           </view>
           <view class="t1">aspectFill</view>
         </view>
@@ -33,14 +33,14 @@
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100"
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
               mode="widthFix"></vc-image>
           </view>
           <view class="t1">widthFix</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" height="100"
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" height="100"
               mode="heightFix"></vc-image>
           </view>
           <view class="t1">heightFix</view>
@@ -52,22 +52,22 @@
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="top"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="top"></vc-image>
           </view>
           <view class="t1">top</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="bottom"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="bottom"></vc-image>
           </view>
           <view class="t1">bottom</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="center"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="center"></vc-image>
           </view>
           <view class="t1">center</view>
         </view>
@@ -75,15 +75,15 @@
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="left"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="left"></vc-image>
           </view>
           <view class="t1">left</view>
         </view>
         <view class="demo-item-space">
           <view class="bg">
-            <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100" height="100"
-              mode="right"></vc-image>
+            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+              height="100" mode="right"></vc-image>
           </view>
           <view class="t1">right</view>
         </view>
@@ -93,11 +93,11 @@
     <demo-block title="圆角图片" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" :radius="12" width="100"
+          <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" :radius="12" width="100"
             height="100"></vc-image>
         </view>
         <view class="demo-item-space">
-          <vc-image src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" round width="100"
+          <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" round width="100"
             height="100"></vc-image>
         </view>
       </view>
@@ -107,7 +107,7 @@
       <view class="demo-row--flex">
         <view class="demo-item-space loading-image">
           <view v-if="show" class="bg">
-            <vc-image loading src="http://139.199.251.138:7080/miniResFile/fixed/202205302019085.png" width="100"
+            <vc-image loading src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
               height="100"></vc-image>
           </view>
           <view class="t1">加载效果</view>
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -133,17 +133,17 @@ export default {
   data() {
     return {
       show: false
-    };
+    }
   },
   methods: {
     onPageScroll({ scrollTop }) {
-      if (this.show) return;
+      if (this.show) return
       if (scrollTop >= 400) {
-        this.show = true;
+        this.show = true
       }
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

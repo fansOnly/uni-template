@@ -1,9 +1,9 @@
 const path = require('path')
-module.exports = {
+const webpack = require('webpack')
+const config = {
   parser: require('postcss-comment'),
   plugins: [
     require('postcss-import')({
-      // eslint-disable-next-line no-unused-vars
       resolve(id, basedir, importOptions) {
         if (id.startsWith('~@/')) {
           return path.resolve(process.env.UNI_INPUT_DIR, id.substr(3))
@@ -21,3 +21,7 @@ module.exports = {
     require('@dcloudio/vue-cli-plugin-uni/packages/postcss')
   ]
 }
+if (webpack.version[0] > 4) {
+  delete config.parser
+}
+module.exports = config
