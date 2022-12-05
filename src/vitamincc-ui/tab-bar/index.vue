@@ -58,7 +58,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  height: $uni-tab-bar-height;
+  height: 106rpx;
   padding-bottom: env(safe-area-inset-bottom);
   box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
 }

@@ -2,7 +2,7 @@
   <view class="vc-navigation-wrapper" :style="{ 'height': navHeight + 'px' }">
     <view v-if="usePlaceholder" class="navigation-block"></view>
     <view v-show="navHeight" class="vc-navigation" :style="{ 'height': navHeight + 'px', 'z-index': zIndex }">
-      <view :class="[isGray ? 'is-gray' : null]" :style="headStyled">
+      <view :class="['et-navigation__head', isGray ? 'is-gray' : null]" :style="headStyled">
         <view v-if="backgroundImage" class="page-bg-image"><vc-image :src="backgroundImage" mode="widthFix" /></view>
         <view class="vc-navigation-buttons" :style="buttonStyled">
           <slot name="icon">
@@ -13,7 +13,7 @@
           </slot>
         </view>
         <slot>
-          <view v-if="navTitle" class="vc-navigation__title vc-ellipsis" :style="titleStyled">{{ navTitle }}</view>
+          <view v-if="navTitle" class="vc-ellipsis" :style="titleStyled">{{ navTitle }}</view>
         </slot>
       </view>
     </view>
@@ -79,6 +79,7 @@ export default {
       navHeight: 0,
       titleHeight: 0,
       navOffsetTop: 0,
+      platform: ''
     }
   },
   computed: {
@@ -91,23 +92,31 @@ export default {
     backgroundColor({ background, mode }) {
       return mode === 'transparent' ? 'transparent' : mode === 'light' ? '#ffffff' : background
     },
-    headStyled({ navHeight, backgroundColor }) {
+    headStyled({ navHeight, navOffsetTop, backgroundColor }) {
       let style = ''
-      style += `height: ${navHeight}px;`
+      style += `height: ${navHeight - navOffsetTop - 7}px;`
+      style += `padding-top: ${navOffsetTop}px;`
       style += `background: ${backgroundColor};`
       return style
     },
-    titleStyled({ frontColor, titleHeight, navOffsetTop }) {
+    titleStyled({ frontColor, titleHeight, platform }) {
       let style = ''
-      style += `padding-top: ${navOffsetTop}px;`
       style += `color: ${frontColor};`
       style += `line-height: ${titleHeight}px;`
+      if (platform === 'android') {
+        // 居左显示
+        style += 'font-size:17px;'
+      } else {
+        // 居中显示 [ios, devtools]
+        style += 'width: 50%; text-align: center; margin: 0 auto;font-size:17px;font-weight:500;'
+      }
       return style
     },
-    buttonStyled({ navOffsetTop, titleHeight }) {
+    buttonStyled() {
       let style = ''
-      style += `top: ${navOffsetTop}px;`
-      style += `height: ${titleHeight}px;`
+      if (this.platform !== 'android') {
+        style += 'position: absolute; left: 32rpx;'
+      }
       return style
     },
     showBack() {
@@ -115,11 +124,14 @@ export default {
       if (!pages.length) return
       return this.showBackButton && pages.length > 1
     },
-    showHome() {
+    isHomePage() {
       const pages = getCurrentPages()
       if (!pages.length) return
       const current = pages[pages.length - 1]?.route
-      return this.showHomeButton && (pages.length === 1 && !tabBarPages.includes(current))
+      return pages.length === 1 && !tabBarPages.includes(current)
+    },
+    showHome() {
+      return this.showHomeButton && this.isHomePage
     }
   },
   async mounted() {
@@ -138,6 +150,8 @@ export default {
     if (!getAppData('navHeight')) {
       setAppData('navHeight', this.navHeight)
     }
+    const systemInfo = wx.getSystemInfoSync()
+    this.platform = systemInfo.platform
 
     uni.setNavigationBarColor({
       frontColor: this.frontColor,
@@ -174,18 +188,15 @@ export default {
   overflow: hidden;
 }
 
-.vc-navigation__title {
-  width: 50%;
-  margin: 0 auto;
-  font-size: $uni-font-size-18;
-  text-align: center;
+.et-navigation__head {
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx 7px;
 }
 
 .vc-navigation-buttons {
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 8px;
 }
 
 .vc-navigation__button--back {

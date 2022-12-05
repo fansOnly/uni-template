@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block/index.vue';
-import page from '@/mixins/page';
-import { mapState } from 'vuex';
+import DemoBlock from '@/components/demo-block/index.vue'
+import page from '@/mixins/page'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -31,22 +31,22 @@ export default {
     ...mapState('p-state', ['msg'])
   },
   async onLoad() {
-    await this.$onLaunched;
+    await this.$onLaunched
   },
   async onShow() {
-    await this.$onLaunched;
+    await this.$onLaunched
   },
   onReady() {
-    this.pageReady = true;
+    this.pageReady = true
   },
   methods: {
     onShareAppMessage() {
       return {
         title: 'UI 组件库演示',
-      };
+      }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

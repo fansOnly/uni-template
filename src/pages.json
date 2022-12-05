@@ -546,9 +546,11 @@
       },
       "style": {
         "navigationBarTitleText": "OCR 识别",
+        /* #ifdef MP-WEIXIN */
         "usingComponents": {
           "ocr-navigator": "plugin://ocr-plugin/ocr-navigator"
         }
+        /* #endif */
       }
     },
     {

@@ -3,7 +3,6 @@
     <vc-navigation title="UI 组件演示库" mode="dark" :is-gray="isGray" @after-mounted="navMounted = true" />
     <view v-if="navMounted" class="page-wrapper is-custom-tab-bar">
       <view :class="[isGray ? 'is-gray' : null]">
-        <vc-button @click="isGray = !isGray">置灰页面</vc-button>
         <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
           <demo-block :title="group.groupName" padding background="#fff">
             <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
@@ -16,6 +15,8 @@
             </view>
           </demo-block>
         </view>
+        <view class="gap"></view>
+        <vc-button @click="isGray = !isGray">置灰页面</vc-button>
       </view>
       <vc-tab-bar :is-gray="isGray"></vc-tab-bar>
     </view>

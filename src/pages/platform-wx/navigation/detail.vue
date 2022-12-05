@@ -6,6 +6,7 @@
       <view class="title">这里是自定文字</view>
       <view class="title">这里是自定文字</view>
       <view class="title">这里是自定文字</view>
+      <vc-button type="primary" @click="onBack">返回首页</vc-button>
       <view class="page-bg-image"><vc-image
           src="https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg" mode="widthFix" /></view>
     </view>
@@ -37,6 +38,9 @@ export default {
     this.pageReady = true
   },
   methods: {
+    onBack() {
+      this.$Router.replaceAll('/pages/home/index')
+    }
   },
 }
 </script>
