@@ -1,24 +1,27 @@
 <template>
-  <vc-popup :visible="visible" position="bottom" :round="round" :duration="duration" :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay">
+  <vc-popup :visible="visible" position="bottom" :round="round" :duration="duration"
+    :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay">
     <view :class="['vc-popup-container', round ? 'vc-popup--round' : null]" :style="styled">
-      <view v-for="(item,index) in data" :key="index" class="vc-action-sheet-item vc-hairline--bottom" @click="onSelect(item)">
+      <view v-for="(item, index) in data" :key="index" class="vc-action-sheet-item vc-hairline--bottom"
+        @click="onSelect(item)">
         <view :class="['vc-action-sheet--flex', item.disabled ? 'vc-action-sheet--disabled' : 'tap-effect']">
           <view class="vc-action-sheet-info">
-            <view class="vc-action-sheet__title" :style="{'color': value === item[valueProp] ? color : 'inherit'}">{{item[textProp]}}</view>
+            <view class="vc-action-sheet__title" :style="{ 'color': value === item[valueProp] ? color : 'inherit' }">
+              {{ item[textProp] }}</view>
           </view>
         </view>
       </view>
       <template v-if="showCancel">
         <view class="vc-action-sheet__gap"></view>
-        <vc-button size="large" :border="false" plain block color="#737373" @click="cancel">{{cancelText}}</vc-button>
+        <vc-button size="large" :border="false" plain block color="#737373" @click="cancel">{{ cancelText }}</vc-button>
       </template>
     </view>
   </vc-popup>
 </template>
 
 <script>
-import { addUnit } from '../common/util';
-import cssVariables from '@/common/lib/theme';
+import { addUnit } from '../common/util'
+import cssVariables from '@/common/lib/theme'
 export default {
   name: 'vc-action-sheet',
   props: {
@@ -94,78 +97,86 @@ export default {
   },
   computed: {
     styled() {
-      let style = '';
-      style += `height: ${addUnit(this.height)};`;
-      style += `color: ${cssVariables.textColor};`;
-      return style + this.customStyle;
+      let style = ''
+      style += `height: ${addUnit(this.height)};`
+      style += `color: ${cssVariables.textColor};`
+      return style + this.customStyle
     },
   },
   methods: {
     onSelect(item) {
-      if (item.disabled) return;
-      if (this.value === item[this.valueProp] && !this.refresh) return;
-      this.$emit('select', item);
-      this.closeOnClickAction && this.close();
+      if (item.disabled) return
+      if (this.value === item[this.valueProp] && !this.refresh) return
+      this.$emit('select', item)
+      this.closeOnClickAction && this.close()
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return;
-      this.close();
+      if (!this.closeOnClickOverlay) return
+      this.close()
     },
     cancel() {
-      this.$emit('cancel');
-      this.$emit('update:visible', false);
+      this.$emit('cancel')
+      this.$emit('update:visible', false)
     },
     close() {
-      this.$emit('close');
-      this.$emit('update:visible', false);
+      this.$emit('close')
+      this.$emit('update:visible', false)
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-popup-container {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
+.vc-popup-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+.vc-popup--round {
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+
+.vc-popup__body {
+  max-height: 70%;
+}
+
+.vc-action-sheet-item:last-child:after {
+  display: none;
+}
+
+.vc-action-sheet--flex {
+  display: flex;
+  align-items: center;
+  height: 104rpx;
+  padding: 0 32rpx;
+}
+
+.vc-action-sheet--disabled {
+  // opacity: .5;
+  color: $uni-text-color-disabled;
+  cursor: not-allowed;
+}
+
+.vc-action-sheet-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-action-sheet__title {
+  &.is-active {
+    color: $uni-color-primary;
+    /* font-weight: 500; */
   }
-  .vc-popup--round {
-    border-top-left-radius: 16rpx;
-    border-top-right-radius: 16rpx;
-  }
-  .vc-popup__body {
-    max-height: 70%;
-  }
-  .vc-action-sheet-item:last-child:after {
-    display: none;
-  }
-  .vc-action-sheet--flex {
-    display: flex;
-    align-items: center;
-    height: 104rpx;
-    padding: 0 32rpx;
-  }
-  .vc-action-sheet--disabled {
-    // opacity: .5;
-    color: $uni-text-color-disabled;
-    cursor: not-allowed;
-  }
-  .vc-action-sheet-info {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .vc-action-sheet__title {
-    &.is-active {
-      color: $uni-color-primary;
-      /* font-weight: 500; */
-    }
-  }
-  .vc-action-sheet__gap {
-    height: 24rpx;
-    background-color: $uni-bg-grey;
-  }
+}
+
+.vc-action-sheet__gap {
+  height: 24rpx;
+  background-color: $uni-bg-grey;
+}
 </style>

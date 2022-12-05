@@ -1,14 +1,17 @@
 <template>
-  <div :class="['vc-checkbox', block ? 'vc-checkbox--block' : null ,multiple ? 'vc-checkbox--multiple' : null, customClass]" :style="customStyle">
-    <vc-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
-    <view class="vc-checkbox__label" :style="{ flex: block ? 1 :'auto' }" @click="onClickText">
+  <div
+    :class="['vc-checkbox', block ? 'vc-checkbox--block' : null, multiple ? 'vc-checkbox--multiple' : null, customClass]"
+    :style="customStyle">
+    <vc-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color"
+      @click="onClickIcon" />
+    <view class="vc-checkbox__label" :style="{ flex: block ? 1 : 'auto' }" @click="onClickText">
       <slot></slot>
     </view>
   </div>
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme';
+import cssVariables from '@/common/lib/theme'
 export default {
   name: 'vc-checkbox',
   inject: {
@@ -70,52 +73,56 @@ export default {
   computed: {
     checked: {
       get() {
-        return this.parent ? this.parent.value.includes(this.name) : this.value;
+        return this.parent ? this.parent.value.includes(this.name) : this.value
       },
       set(val) {
         if (this.parent) {
-          this.parent.change({ name: this.name, checked: val });
+          this.parent.change({ name: this.name, checked: val })
         } else {
-          this.$emit('input', val);
-          this.$emit('change', val);
+          this.$emit('input', val)
+          this.$emit('change', val)
         }
       },
     },
     color() {
-      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor;
+      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor
     }
   },
   methods: {
     onClickIcon() {
-      this.$emit('click-icon');
-      if (this.iconDisabled) return;
-      this.checked = !this.checked;
+      this.$emit('click-icon')
+      if (this.iconDisabled) return
+      this.checked = !this.checked
     },
     onClickText() {
-      this.$emit('click-label');
-      if (this.labelDisabled) return;
-      this.checked = !this.checked;
+      this.$emit('click-label')
+      if (this.labelDisabled) return
+      this.checked = !this.checked
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-checkbox {
-    display: inline-flex;
-    align-items: center;
-    user-select: none;
+.vc-checkbox {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.vc-checkbox--block {
+  display: flex;
+}
+
+.vc-checkbox__label:not(:empty) {
+  margin-left: 8px;
+}
+
+.vc-checkbox--multiple {
+  align-items: flex-start;
+
+  & .vc-checkbox__label:not(:empty) {
+    transform: translateY(-2rpx);
   }
-  .vc-checkbox--block {
-    display: flex;
-  }
-  .vc-checkbox__label:not(:empty) {
-    margin-left: 8px;
-  }
-  .vc-checkbox--multiple {
-    align-items: flex-start;
-    & .vc-checkbox__label:not(:empty) {
-      transform: translateY(-2rpx);
-    }
-  }
+}
 </style>

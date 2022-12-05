@@ -1,26 +1,32 @@
 <template>
-  <vc-popup :visible="visible" :round="round" :duration="duration" :close-on-click-overlay="closeOnClickOverlay" :closeable="closeable" :close-icon-position="closeIconPosition" :custom-style="style" @click-overlay="clickOverlay" @close="close">
+  <vc-popup :visible="visible" :round="round" :duration="duration" :close-on-click-overlay="closeOnClickOverlay"
+    :closeable="closeable" :close-icon-position="closeIconPosition" :custom-style="style" @click-overlay="clickOverlay"
+    @close="close">
     <view class="vc-dialog-wrapper">
       <view class="vc-dialog-header">
-        <view v-if="title" class="vc-dialog-header__title">{{title}}</view>
+        <view v-if="title" class="vc-dialog-header__title">{{ title }}</view>
         <slot v-else name="header"></slot>
       </view>
       <view class="vc-dialog-body">
-        <view v-if="content" :class="{'vc-dialog-content--center': center}">{{content}}</view>
+        <view v-if="content" :class="{ 'vc-dialog-content--center': center }">{{ content }}</view>
         <slot v-else></slot>
       </view>
       <slot name="footer">
-        <view v-if="showCancel || showConfirm" :class="['vc-dialog-footer', 'vc-hairline--top', reverse ? 'vc-dialog-footer--reverse' : null]">
+        <view v-if="showCancel || showConfirm"
+          :class="['vc-dialog-footer', 'vc-hairline--top', reverse ? 'vc-dialog-footer--reverse' : null]">
           <view v-if="showCancel" class="vc-button--cancel">
-            <vc-button :color="cancelButtonColor" block plain :border="false" hover-class="vc-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onCancel">
+            <vc-button :color="cancelButtonColor" block plain :border="false" hover-class="vc-dialog__button--hover"
+              custom-style="height:46px;font-weight:500;" @click="onCancel">
               <vc-loading v-if="cancelLoading" type="spinner"></vc-loading>
-              <template v-else>{{cancelButtonText}}</template>
+              <template v-else>{{ cancelButtonText }}</template>
             </vc-button>
           </view>
-          <view v-if="showConfirm" :class="['vc-button--confirm', showCancel ? reverse ? 'vc-hairline--right' : 'vc-hairline--left' : null]">
-            <vc-button type="info" :color="confirmButtonColor" block plain :border="false" hover-class="vc-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onConfirm">
+          <view v-if="showConfirm"
+            :class="['vc-button--confirm', showCancel ? reverse ? 'vc-hairline--right' : 'vc-hairline--left' : null]">
+            <vc-button type="info" :color="confirmButtonColor" block plain :border="false"
+              hover-class="vc-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onConfirm">
               <vc-loading v-if="confirmLoading" type="spinner"></vc-loading>
-              <template v-else>{{confirmButtonText}}</template>
+              <template v-else>{{ confirmButtonText }}</template>
             </vc-button>
           </view>
         </view>
@@ -121,83 +127,90 @@ export default {
     return {
       cancelLoading: false,
       confirmLoading: false,
-    };
+    }
   },
   computed: {
     style() {
-      let style = '';
-      if (this.offsetTop) style += `margin-top: ${this.offsetTop};`;
-      return style + this.customStyle;
+      let style = ''
+      if (this.offsetTop) style += `margin-top: ${this.offsetTop};`
+      return style + this.customStyle
     }
   },
   methods: {
     async onConfirm() {
-      let result = true;
+      let result = true
       if (this.beforeClose && typeof this.beforeClose === 'function') {
-        this.confirmLoading = true;
-        result = await this.beforeClose({confirm: true});
-        this.confirmLoading = false;
+        this.confirmLoading = true
+        result = await this.beforeClose({ confirm: true })
+        this.confirmLoading = false
       }
-      if (!result) return;
-      this.$emit('update:visible', false);
-      this.$emit('confirm');
+      if (!result) return
+      this.$emit('update:visible', false)
+      this.$emit('confirm')
     },
     async onCancel() {
-      let result = true;
+      let result = true
       if (this.beforeClose && typeof this.beforeClose === 'function') {
-        this.cancelLoading = true;
-        result = await this.beforeClose({cancel: true});
-        this.cancelLoading = false;
+        this.cancelLoading = true
+        result = await this.beforeClose({ cancel: true })
+        this.cancelLoading = false
       }
-      if (!result) return;
-      this.$emit('update:visible', false);
-      this.$emit('cancel');
+      if (!result) return
+      this.$emit('update:visible', false)
+      this.$emit('cancel')
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return;
-      this.close();
+      if (!this.closeOnClickOverlay) return
+      this.close()
     },
     close() {
-      this.$emit('close');
-      this.$emit('update:visible', false);
+      this.$emit('close')
+      this.$emit('update:visible', false)
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-dialog-wrapper {
-    width: 85vw;
-    border-radius: $uni-border-radius-8;
-    background-color: #fff;
-    overflow: hidden;
-  }
-  .vc-dialog-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .vc-dialog-header__title {
-    padding-top: 48rpx;
-    font-weight: 500;
-  }
-  .vc-dialog-body {
-    box-sizing: border-box;
-    /* min-height: 90px; */
-    padding: 56rpx 48rpx;
-  }
-  .vc-dialog-content--center {
-    text-align: center;
-  }
-  .vc-dialog-footer {
-    display: flex;
-    align-items: center;
-  }
-  .vc-dialog-footer--reverse {
-    flex-direction: row-reverse;
-  }
-  .vc-button--confirm,
-  .vc-button--cancel {
-    flex: 1;
-  }
+.vc-dialog-wrapper {
+  width: 85vw;
+  border-radius: $uni-border-radius-8;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.vc-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-dialog-header__title {
+  padding-top: 48rpx;
+  font-weight: 500;
+}
+
+.vc-dialog-body {
+  box-sizing: border-box;
+  /* min-height: 90px; */
+  padding: 56rpx 48rpx;
+}
+
+.vc-dialog-content--center {
+  text-align: center;
+}
+
+.vc-dialog-footer {
+  display: flex;
+  align-items: center;
+}
+
+.vc-dialog-footer--reverse {
+  flex-direction: row-reverse;
+}
+
+.vc-button--confirm,
+.vc-button--cancel {
+  flex: 1;
+}
 </style>

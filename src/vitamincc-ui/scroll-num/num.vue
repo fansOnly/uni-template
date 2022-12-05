@@ -1,7 +1,7 @@
 <template>
   <view :class="['animation-num-wrapper', customClass]" :style="wrapperStyled">
     <view class="animation-num" :style="numStyled">
-      <view v-for="(i, k) in numbers" :key="k" class="">{{i}}</view>
+      <view v-for="(i, k) in numbers" :key="k" class="">{{ i }}</view>
     </view>
   </view>
 </template>
@@ -40,51 +40,52 @@ export default {
       numbers: new Array(10).fill(0).map((_, i) => i),
       start: 0,
       transformY: 0,
-    };
+    }
   },
   computed: {
     wrapperStyled({ height }) {
-      let style = '';
-      style += `height: ${height}px; line-height: ${height}px;`;
-      return style;
+      let style = ''
+      style += `height: ${height}px; line-height: ${height}px;`
+      return style
     },
     numStyled() {
-      let style = '';
-      style += `transform: translateY(-${this.transformY}px);`;
-      return style + this.customStyle;
+      let style = ''
+      style += `transform: translateY(-${this.transformY}px);`
+      return style + this.customStyle
     },
   },
   watch: {
     once: {
       handler(val) {
-        if (val) this.startTimer();
+        if (val) this.startTimer()
       },
       immediate: true,
     },
   },
   methods: {
     startTimer() {
-      if (this.timer) return;
+      if (this.timer) return
       this.timer = setInterval(() => {
         if (this.start < this.value) {
-          this.transformY = ++this.start * +this.height;
+          this.transformY = ++this.start * +this.height
         } else {
-          clearTimeout(this.timer);
-          this.start = 0;
-          this.timer = null;
+          clearTimeout(this.timer)
+          this.start = 0
+          this.timer = null
         }
-      }, 100);
+      }, 100)
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .animation-num-wrapper {
-    display: inline-flex;
-    overflow: hidden;
-  }
-  .animation-num {
-    transition: all ease 300ms;
-  }
+.animation-num-wrapper {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.animation-num {
+  transition: all ease 300ms;
+}
 </style>

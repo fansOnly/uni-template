@@ -3,7 +3,8 @@
     <view v-if="loading && !loaded" class="vc-image-loading">
       <vc-loading type="spinner" />
     </view>
-    <image class="vc-image" :src="resolvePath(src)" :mode="mode" :lazy-load="lazyLoad" :show-menu-by-longpress="showMenuByLongpress" @error="onImageError" @load="onImageLoad"></image>
+    <image class="vc-image" :src="resolvePath(src)" :mode="mode" :lazy-load="lazyLoad"
+      :show-menu-by-longpress="showMenuByLongpress" @error="onImageError" @load="onImageLoad"></image>
     <view v-if="error" class="vc-image--error" :style="failStyled">
       <!-- 加载失败 -->
       <vc-icon name="image-fail" :size="iconSize" />
@@ -12,8 +13,8 @@
 </template>
 
 <script>
-const path = require('path');
-import { addUnit } from '../common/util';
+const path = require('path')
+import { addUnit } from '../common/util'
 
 export default {
   name: 'vc-image',
@@ -93,116 +94,119 @@ export default {
     return {
       error: false,
       loaded: false
-    };
+    }
   },
   computed: {
     styled({ width, height, radius, block, round, customStyle }) {
-      let style = '';
-      style += `width: ${addUnit(width)};`;
+      let style = ''
+      style += `width: ${addUnit(width)};`
       // fix：修复编译 H5 图片宽度被压缩
-      style += `min-width: ${addUnit(width)};`;
-      style += `height: ${addUnit(height)};`;
+      style += `min-width: ${addUnit(width)};`
+      style += `height: ${addUnit(height)};`
       // 块级
       if (block) {
-        style += 'display: flex;';
+        style += 'display: flex;'
       }
       // 圆角
       if (round) {
-        style += 'border-radius: 100%;';
+        style += 'border-radius: 100%;'
       } else {
-        style += `border-radius: ${addUnit(radius)};`;
+        style += `border-radius: ${addUnit(radius)};`
       }
-      return style + customStyle;
+      return style + customStyle
     },
     failStyled({ height }) {
-      let style = '';
-      style += `height: ${addUnit(height)};`;
+      let style = ''
+      style += `height: ${addUnit(height)};`
       // 文字字体大小
-      style += `font-size: ${addUnit(Math.max(Math.min(16, height / 5), 10))};`;
-      return style;
+      style += `font-size: ${addUnit(Math.max(Math.min(16, height / 5), 10))};`
+      return style
     },
     iconSize({ height }) {
-      let size;
+      let size
       if (String(height).endsWith('%')) {
-        size = 50;
+        size = 50
       } else {
-        size = String(height).replace(/\d+([px|rpx])/, '');
-        size = Math.floor(size / 3);
+        size = String(height).replace(/\d+([px|rpx])/, '')
+        size = Math.floor(size / 3)
       }
-      return Math.max(Math.min(50, size), 30);
+      return Math.max(Math.min(50, size), 30)
     }
   },
   watch: {
     src: {
       handler(val, oldVal) {
         if (val !== oldVal) {
-          this.error = false;
+          this.error = false
         }
       }
     }
   },
   methods: {
     onImageError(event) {
-      this.error = this.loaded = true;
-      this.$emit('error', event.detail);
-      this.$emit('loaded');
+      this.error = this.loaded = true
+      this.$emit('error', event.detail)
+      this.$emit('loaded')
     },
     onImageLoad(event) {
-      this.loaded = true;
-      this.$emit('load', event.detail);
-      this.$emit('loaded');
+      this.loaded = true
+      this.$emit('load', event.detail)
+      this.$emit('loaded')
     },
     resolvePath(src) {
       // 网络路径优先展示
       if (this.fullPath || /[https?|wxfile]:\/\/.+$/g.test(src)) {
-        return src;
+        return src
       } else if (this.static) {
-        return path.join('/static/images/', src);
+        return path.join('/static/images/', src)
       } else {
-        return process.env.RESOURCE_URL + src;
+        return process.env.RESOURCE_URL + src
       }
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-image-wrapper {
-    position: relative;
-    display: inline-flex;
-    vertical-align: top;
-    overflow: hidden;
-  }
-  .vc-image-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: #f7f8fa;
-    z-index: 2;
-  }
-  .vc-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  .vc-image--error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    color: #dcdee0;
-    line-height: 1.3;
-  }
+.vc-image-wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.vc-image-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #f7f8fa;
+  z-index: 2;
+}
+
+.vc-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vc-image--error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #dcdee0;
+  line-height: 1.3;
+}
 </style>

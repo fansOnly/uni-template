@@ -1,7 +1,7 @@
 <template>
   <view class="vc-empty-wrapper" :style="customStyle">
     <slot v-if="showIcon" name="icon"><vc-image :src="icon" :width="width" :height="height" :static="local" /></slot>
-    <text v-if="tip" class="vc-empty-text">{{tip}}</text>
+    <text v-if="tip" class="vc-empty-text">{{ tip }}</text>
   </view>
 </template>
 
@@ -49,26 +49,27 @@ export default {
   },
   computed: {
     customStyled({ customStyle, background }) {
-      let style = '';
-      style += `background: ${background};`;
-      return style + customStyle;
+      let style = ''
+      style += `background: ${background};`
+      return style + customStyle
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-empty-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50rpx $uni-spacing-16;
-  }
-  .vc-empty-text {
-    margin-top: $uni-spacing-12;
-    color: $uni-text-color-sub;
-    font-size: $uni-font-size-14;
-    text-align: center;
-  }
+.vc-empty-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50rpx $uni-spacing-16;
+}
+
+.vc-empty-text {
+  margin-top: $uni-spacing-12;
+  color: $uni-text-color-sub;
+  font-size: $uni-font-size-14;
+  text-align: center;
+}
 </style>

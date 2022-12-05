@@ -1,20 +1,21 @@
 <template>
-  <view :class="['vc-switch', customClass, checked ? 'vc-switch--on' : null, disabled ? 'vc-switch--disabled' : null]" :style="styled" @tap="click">
+  <view :class="['vc-switch', customClass, checked ? 'vc-switch--on' : null, disabled ? 'vc-switch--disabled' : null]"
+    :style="styled" @tap="click">
     <view class="vc-switch__node"></view>
     <template v-if="showText">
       <view v-show="checked" class="vc-switch__text vc-switch__text--active">
-        <view :style="textStyled">{{activeText}}</view>
+        <view :style="textStyled">{{ activeText }}</view>
       </view>
       <view v-show="!checked" class="vc-switch__text vc-switch__text--inactive">
-        <view :style="textStyled">{{inactiveText}}</view>
+        <view :style="textStyled">{{ inactiveText }}</view>
       </view>
     </template>
   </view>
 </template>
 
 <script>
-import { addUnit } from '../common/util';
-import cssVariables from '@/common/lib/theme';
+import { addUnit } from '../common/util'
+import cssVariables from '@/common/lib/theme'
 export default {
   name: 'vc-switch',
   props: {
@@ -74,82 +75,88 @@ export default {
   computed: {
     checked: {
       get() {
-        return this.value === this.activeValue;
+        return this.value === this.activeValue
       },
       set(val) {
-        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val);
+        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val)
       }
     },
     styled() {
-      let style = '';
-      style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`;
-      style += `font-size: ${addUnit(this.size)};`;
-      return style;
+      let style = ''
+      style += `background: ${this.checked ? this.activeColor : this.inactiveColor};`
+      style += `font-size: ${addUnit(this.size)};`
+      return style
     },
     textStyled() {
-      let style = '';
-      style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`;
-      style += `font-size: ${addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`;
-      return style;
+      let style = ''
+      style += `color: ${this.checked ? this.inactiveColor : this.activeColor};`
+      style += `font-size: ${addUnit(Math.max(Math.min(14, this.size / 2.5), 10))};`
+      return style
     }
   },
   methods: {
     click() {
-      if (this.disabled) return;
-      this.checked = !this.checked;
+      if (this.disabled) return
+      this.checked = !this.checked
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-switch {
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;
-    width: 2em;
-    height: 1em;
-    background: $uni-bg-white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 1em;
-    transition: background-color 0.3s;
-    vertical-align: top;
+.vc-switch {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+  background: $uni-bg-white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  transition: background-color 0.3s;
+  vertical-align: top;
+}
+
+.vc-switch__node {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: calc(1em - 4px);
+  height: calc(1em - 4px);
+  background: $uni-bg-white;
+  border-radius: 100%;
+  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
+  transition: 0.3s cubic-bezier(0.3, 1.05, 0.4, 1.05);
+  z-index: 1;
+}
+
+.vc-switch--on {
+  & .vc-switch__node {
+    transform: translateX(1em);
   }
-  .vc-switch__node {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    width: calc(1em - 4px);
-    height: calc(1em - 4px);
-    background: $uni-bg-white;
-    border-radius: 100%;
-    box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-    transition: 0.3s cubic-bezier(0.3, 1.05, 0.4, 1.05);
-    z-index: 1;
-  }
-  .vc-switch--on {
-    & .vc-switch__node {
-      transform: translateX(1em);
-    }
-  }
-  .vc-switch--disabled {
-    opacity: 0.4;
-  }
-  .vc-switch__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 1px;
-    width: calc(1em - 4px);
-    height: calc(1em - 4px);
-  }
-  .vc-switch__text--active {
-    left: 1px;
-    align-items: flex-end;
-  }
-  .vc-switch__text--inactive {
-    right: 1px;
-    align-items: flex-start;
-  }
+}
+
+.vc-switch--disabled {
+  opacity: 0.4;
+}
+
+.vc-switch__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 1px;
+  width: calc(1em - 4px);
+  height: calc(1em - 4px);
+}
+
+.vc-switch__text--active {
+  left: 1px;
+  align-items: flex-end;
+}
+
+.vc-switch__text--inactive {
+  right: 1px;
+  align-items: flex-start;
+}
 </style>

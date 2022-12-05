@@ -1,15 +1,17 @@
 <template>
   <div class="vc-collapse-item">
-    <vc-cell :title="title" :text="text" :border="expanded && border" :title-width="titleWidth" :is-link="isLink" :disabled="disabled" :class="customClass" :custom-style="customStyle" :title-style="titleStyle" :text-style="textStyle" hover-class="none" @click="onClick">
+    <vc-cell :title="title" :text="text" :border="expanded && border" :title-width="titleWidth" :is-link="isLink"
+      :disabled="disabled" :class="customClass" :custom-style="customStyle" :title-style="titleStyle"
+      :text-style="textStyle" hover-class="none" @click="onClick">
       <template #title>
         <slot name="title"></slot>
       </template>
       <template #text>
         <slot name="text"></slot>
       </template>
-      <template #icon >
-      <vc-icon :class="['vc-collapse-item-icon', expanded ? 'is-expanded' : null]" :name="icon" />
-    </template>
+      <template #icon>
+        <vc-icon :class="['vc-collapse-item-icon', expanded ? 'is-expanded' : null]" :name="icon" />
+      </template>
     </vc-cell>
     <view class="vc-collapse-item-body" :style="bodyStyled">
       <view class="vc-collapse-item-content">
@@ -20,7 +22,7 @@
 </template>
 
 <script>
-import { getRect } from '../common/util';
+import { getRect } from '../common/util'
 
 export default {
   name: 'vc-collapse-item',
@@ -71,71 +73,73 @@ export default {
       animation: false,
       expanded: false,
       height: 0,
-    };
+    }
   },
   computed: {
     bodyStyled({ expanded, animation, height }) {
-      let style = '';
+      let style = ''
       if (animation) {
-        style += 'transition: height ease 0.3s;';
+        style += 'transition: height ease 0.3s;'
       }
       // Bug: 安卓下 rpx 转换有误差
-      style += `height: ${expanded ? height : 0}px;`;
-      return style;
+      style += `height: ${expanded ? height : 0}px;`
+      return style
     },
   },
   watch: {
     expanded: {
       handler(val) {
-        val && this.getBodyHeight();
+        val && this.getBodyHeight()
       },
       immediate: true
     }
   },
   created() {
-    this.collapse.children.push(this);
+    this.collapse.children.push(this)
   },
   mounted() {
-    if (!this.collapse) return;
+    if (!this.collapse) return
   },
   methods: {
     initRender(val, firstInit = false) {
-      this.animation = !firstInit;
+      this.animation = !firstInit
       if (Array.isArray(val)) {
-        this.expanded = val.includes(this.name);
+        this.expanded = val.includes(this.name)
       } else {
         if (typeof val === 'boolean') {
-          this.expanded = val;
+          this.expanded = val
         } else {
-          this.expanded = this.name === val;
+          this.expanded = this.name === val
         }
       }
     },
     onClick() {
-      if (this.disabled) return;
-      this.collapse.change({name: this.name, expanded: !this.expanded});
+      if (this.disabled) return
+      this.collapse.change({ name: this.name, expanded: !this.expanded })
     },
     getBodyHeight() {
       this.$nextTick(async () => {
-        const rect = await getRect(this, '.vc-collapse-item-content');
-        this.height = rect.height;
-      });
+        const rect = await getRect(this, '.vc-collapse-item-content')
+        this.height = rect.height
+      })
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-collapse-item-icon {
-    display: block;
-    transition: all ease .3s;
-    &.is-expanded {
-      transform: rotate(180deg);
-    }
+.vc-collapse-item-icon {
+  display: block;
+  transition: all ease .3s;
+
+  &.is-expanded {
+    transform: rotate(180deg);
   }
-  .vc-collapse-item-body {
-    height: 0;
-    overflow: hidden;
-    /* transition: height ease 0.3s; */
-  }
+}
+
+.vc-collapse-item-body {
+  height: 0;
+  overflow: hidden;
+  /* transition: height ease 0.3s; */
+}
 </style>

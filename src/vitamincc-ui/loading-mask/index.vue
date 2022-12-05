@@ -1,5 +1,6 @@
 <template>
-  <view v-if="visible" class="vc-loading-mask" :style="{'z-index': zIndex, 'background-color': background}" @touchmove.stop="noop">
+  <view v-if="visible" class="vc-loading-mask" :style="{ 'z-index': zIndex, 'background-color': background }"
+    @touchmove.stop="noop">
     <vc-loading :type="type" :size="size" :vertical="vertical" :color="color" />
   </view>
 </template>
@@ -46,21 +47,21 @@ export default {
   },
   methods: {
     // for prevent touchmove
-    noop: function () {},
+    noop: function () { },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-loading-mask {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-  }
+.vc-loading-mask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>

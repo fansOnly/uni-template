@@ -1,21 +1,22 @@
 <template>
-  <view :class="['vc-steps', 'vc-steps--'+direction]">
+  <view :class="['vc-steps', 'vc-steps--' + direction]">
     <view v-for="(item, index) in options" :key="index" :class="['vc-step-item', 'vc-step-item--' + direction]">
-      <view v-if="item[descProp]" class="vc-step__desc" :style="{'color': index <= active ? activeColor : '#909090'}">{{
-      item[descProp] }}</view>
+      <view v-if="item[descProp]" class="vc-step__desc" :style="{ 'color': index <= active ? activeColor : '#909090' }">{{
+          item[descProp]
+      }}</view>
       <view class="vc-step__circle"
-        :style="{'background': index <= active ? activeColor : '#d4d4d4', 'color': index <= active ? activeColor : '#d4d4d4'}">
+        :style="{ 'background': index <= active ? activeColor : '#d4d4d4', 'color': index <= active ? activeColor : '#d4d4d4' }">
       </view>
       <view v-if="index < options.length - 1" class="vc-step__line"
-        :style="{'background': index < active ? activeColor : '#ebebeb'}"></view>
-      <view class="vc-step__title" :style="{'color': index <= active ? activeColor : '#909090'}">{{ item[textProp] }}
+        :style="{ 'background': index < active ? activeColor : '#ebebeb' }"></view>
+      <view class="vc-step__title" :style="{ 'color': index <= active ? activeColor : '#909090' }">{{ item[textProp] }}
       </view>
     </view>
   </view>
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme';
+import cssVariables from '@/common/lib/theme'
 export default {
   name: 'vc-steps',
   props: {
@@ -50,7 +51,7 @@ export default {
       default: 'desc'
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

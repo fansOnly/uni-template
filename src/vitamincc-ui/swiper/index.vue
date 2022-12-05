@@ -1,7 +1,10 @@
 <template>
   <view class="vc-swiper-wrapper">
-    <swiper class="vc-swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular" :previous-margin="previousMarginVal" :next-margin="nextMarginVal" snap-to-edge :current="current" :style="{height: unitedHeight}" @change="onChange">
-      <swiper-item v-for="(item, index) in options" :key="index" class="vc-swiper__item" @tap="onClickItem(item, index)">
+    <swiper class="vc-swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+      :duration="duration" :circular="circular" :previous-margin="previousMarginVal" :next-margin="nextMarginVal"
+      snap-to-edge :current="current" :style="{ height: unitedHeight }" @change="onChange">
+      <swiper-item v-for="(item, index) in options" :key="index" class="vc-swiper__item"
+        @tap="onClickItem(item, index)">
         <slot :item="item" :index="index">
           <view :class="['vc-swiper__image', current === index ? 'is-active' : null]" :style="style">
             <vc-image :src="item.src" :radius="radius"></vc-image>
@@ -132,16 +135,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .vc-swiper {
-    overflow: hidden;
+.vc-swiper {
+  overflow: hidden;
+}
+
+.vc-swiper__image {
+  width: 100%;
+  height: 100%;
+  transition: all ease 0.3s;
+
+  // transform: scale(.9);
+  &.is-active {
+    transform: scale(1) !important;
   }
-  .vc-swiper__image {
-    width: 100%;
-    height: 100%;
-    transition: all ease 0.3s;
-    // transform: scale(.9);
-    &.is-active {
-      transform: scale(1) !important;
-    }
-  }
+}
 </style>

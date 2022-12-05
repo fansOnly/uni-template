@@ -113,7 +113,7 @@ module.exports = {
     'no-empty': ['error', { 'allowEmptyCatch': true }],
     'no-async-promise-executor': 'off',
     // 两个空格 --fix
-    indent: ['error', 2],
+    indent: ['error', 2, { 'SwitchCase': 1 }],
     // 强制所有不包含双引号的 JSX 属性值使用双引号 --fix
     'jsx-quotes': ['error', 'prefer-double'],
     /**

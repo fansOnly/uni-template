@@ -1,6 +1,7 @@
 <template>
   <div :class="['vc-radio', `vc-radio--${direction}`, disabled ? 'vc-radio--disabled' : null]" :style="customStyle">
-    <vc-icon class="vc-radio__icon" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color" @click="onClickIcon" />
+    <vc-icon class="vc-radio__icon" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color"
+      @click="onClickIcon" />
     <view class="vc-radio__txt" @click="onClickText">
       <slot></slot>
     </view>
@@ -8,7 +9,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme';
+import cssVariables from '@/common/lib/theme'
 export default {
   name: 'vc-radio',
   inject: {
@@ -57,61 +58,64 @@ export default {
     return {
       direction: '',
       checked: false,
-    };
+    }
   },
   computed: {
     color() {
-      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor;
+      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor
     }
   },
   created() {
     if (this.parent) {
-      this.parent.children.push(this);
+      this.parent.children.push(this)
     }
   },
   methods: {
     onClickIcon() {
-      this.$emit('click-icon');
-      if (this.iconDisabled) return;
-      this.onClick();
+      this.$emit('click-icon')
+      if (this.iconDisabled) return
+      this.onClick()
     },
     onClickText() {
-      this.$emit('click-label');
-      if (this.labelDisabled) return;
-      this.onClick();
+      this.$emit('click-label')
+      if (this.labelDisabled) return
+      this.onClick()
     },
     onClick() {
-      if (this.disabled || this.checked) return;
+      if (this.disabled || this.checked) return
       if (this.parent) {
-        if (this.parent.value === this.name) return;
-        this.parent.change(this.name, this);
+        if (this.parent.value === this.name) return
+        this.parent.change(this.name, this)
       }
     },
     update(parent) {
-      this.direction = parent.direction;
-      this.checked = parent.value === this.name;
+      this.direction = parent.direction
+      this.checked = parent.value === this.name
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-radio {
-    display: flex;
-    align-items: center;
-    user-select: none;
-  }
-  .vc-radio__txt:not(:empty) {
-    margin-left: 8px;
-  }
-  .vc-radio--disabled {
-    opacity: .5;
-    /* #ifdef H5 */
-    cursor: pointer;
-    /* #endif */
-  }
-  .vc-radio--horizontal {
-    flex: 1;
-    display: inline-flex;
-  }
+.vc-radio {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.vc-radio__txt:not(:empty) {
+  margin-left: 8px;
+}
+
+.vc-radio--disabled {
+  opacity: .5;
+  /* #ifdef H5 */
+  cursor: pointer;
+  /* #endif */
+}
+
+.vc-radio--horizontal {
+  flex: 1;
+  display: inline-flex;
+}
 </style>

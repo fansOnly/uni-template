@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme';
+import cssVariables from '@/common/lib/theme'
 
 export default {
   name: 'vc-icon',
@@ -15,7 +15,7 @@ export default {
       type: [String, Number],
       default: cssVariables.iconSize,
       validator(val) {
-        return /^\d+$/.test(String(val));
+        return /^\d+$/.test(String(val))
       }
     },
     color: {
@@ -32,23 +32,24 @@ export default {
   },
   computed: {
     styled({ size, color, customStyle }) {
-      let style = '';
-      style += `font-size: ${size}px;`;
-      style += `color: ${color};`;
-      return style + customStyle;
+      let style = ''
+      style += `font-size: ${size}px;`
+      style += `color: ${color};`
+      return style + customStyle
     }
   },
   methods: {
     onClick() {
-      this.$emit('click');
-      this.$emit('tap');
+      this.$emit('click')
+      this.$emit('tap')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" >
 @import "../common/iconfont/iconfont.scss";
+
 .is-block {
   display: block;
 }

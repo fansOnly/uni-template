@@ -1,14 +1,15 @@
 <template>
   <view class="vc-scroll-num-wrapper">
     <view v-for="(i, k) in numbers" :key="k" class="vc-scroll-num">
-      <animation-num v-if="isNumber(i)" :value="i" :once="once" :height="height" :custom-class="customClass" :custom-style="customStyle"></animation-num>
-      <view v-else class="vc-scroll-dot">{{i}}</view>
+      <animation-num v-if="isNumber(i)" :value="i" :once="once" :height="height" :custom-class="customClass"
+        :custom-style="customStyle"></animation-num>
+      <view v-else class="vc-scroll-dot">{{ i }}</view>
     </view>
   </view>
 </template>
 
 <script>
-import AnimationNum from './num.vue';
+import AnimationNum from './num.vue'
 export default {
   name: 'vc-scroll-num',
   components: {
@@ -42,20 +43,20 @@ export default {
   },
   computed: {
     numbers() {
-      return String(this.value).split('');
+      return String(this.value).split('')
     },
   },
   methods: {
     isNumber(val) {
-      return !Number.isNaN(+val) && typeof +val === 'number';
+      return !Number.isNaN(+val) && typeof +val === 'number'
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-scroll-num-wrapper {
-    display: inline-flex;
-    align-items: center;
-  }
+.vc-scroll-num-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
 </style>

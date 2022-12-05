@@ -4,15 +4,21 @@
     <slot />
     <!-- #endif -->
     <view class="vc-table-header vc-hairline--bottom" :style="theadStyled">
-      <view v-for="(item, index) in tableHeaders" :key="index" :class="['vc-table-row__item', verticalLine && index > 0 ? 'vc-hairline--left' : null]" :style="item.theadStyle">
-        <view v-if="item.label" class="vc-table-header__title" :style="titleStyle">{{item.label}}</view>
-        <view v-if="item.tip" class="vc-table-header__sub">{{item.tip}}</view>
+      <view v-for="(item, index) in tableHeaders" :key="index"
+        :class="['vc-table-row__item', verticalLine && index > 0 ? 'vc-hairline--left' : null]"
+        :style="item.theadStyle">
+        <view v-if="item.label" class="vc-table-header__title" :style="titleStyle">{{ item.label }}</view>
+        <view v-if="item.tip" class="vc-table-header__sub">{{ item.tip }}</view>
       </view>
     </view>
     <view class="vc-table-body">
       <view v-for="(row, rowIndex) in data" :key="rowIndex" class="vc-table-row">
-        <view v-for="(item, index) in tableHeaders" :key="index" :class="['vc-table-row__item', rowIndex > 0 ? 'vc-hairline--top' : null, verticalLine && index > 0 ? 'vc-hairline--left' : null]" :style="item.tbodyStyle">
-        <view :style="{'color': rowIndex === active ? activeColor : 'inherit'}">{{formatter(item.formatter, row[item.prop], row)}}</view>
+        <view v-for="(item, index) in tableHeaders" :key="index"
+          :class="['vc-table-row__item', rowIndex > 0 ? 'vc-hairline--top' : null, verticalLine && index > 0 ? 'vc-hairline--left' : null]"
+          :style="item.tbodyStyle">
+          <view :style="{ 'color': rowIndex === active ? activeColor : 'inherit' }">{{ formatter(item.formatter,
+              row[item.prop], row)
+          }}</view>
         </view>
       </view>
     </view>
@@ -20,15 +26,15 @@
 </template>
 
 <script>
-import { addUnit } from '../common/util';
-import cssVariables from '@/common/lib/theme';
+import { addUnit } from '../common/util'
+import cssVariables from '@/common/lib/theme'
 
 export default {
   name: 'vc-table',
   provide() {
     return {
       table: this
-    };
+    }
   },
   props: {
     // 表格数据源
@@ -77,31 +83,31 @@ export default {
       initialized: false,
       tableHeaders: [],
       isActive: false,
-    };
+    }
   },
   computed: {
     tableStyled({ radius, borderColor }) {
-      let style = '';
-      if (radius) style += `border-radius: ${radius}px;`;
-      if (borderColor) style += `border-color: ${borderColor};`;
-      return style;
+      let style = ''
+      if (radius) style += `border-radius: ${radius}px;`
+      if (borderColor) style += `border-color: ${borderColor};`
+      return style
     },
     theadStyled({ background, radius, theadStyle }) {
-      let style = `background: ${background};`;
-      if (radius) style += `border-radius: ${addUnit(radius / 2)} ${addUnit(radius / 2)} 0 0;`;
-      return style + theadStyle;
+      let style = `background: ${background};`
+      if (radius) style += `border-radius: ${addUnit(radius / 2)} ${addUnit(radius / 2)} 0 0;`
+      return style + theadStyle
     },
   },
   created() {
-    this.children = [];
+    this.children = []
   },
   mounted() {
     this.tableHeaders = this.children.map(child => {
       // Bug: :style 不支持 computed = fn(item) 语法
-      let style = `align-items: ${child.align === 'left' ? 'flex-start' : child.align === 'right' ? 'flex-end' : child.align};`;
-      style += `width: ${child.width ? addUnit(child.width) : 'auto'};`;
-      style += `flex: ${child.width ? '0 0 auto' : '1 1 0'};`;
-      if (this.borderColor) style += `border-color: ${this.borderColor};`;
+      let style = `align-items: ${child.align === 'left' ? 'flex-start' : child.align === 'right' ? 'flex-end' : child.align};`
+      style += `width: ${child.width ? addUnit(child.width) : 'auto'};`
+      style += `flex: ${child.width ? '0 0 auto' : '1 1 0'};`
+      if (this.borderColor) style += `border-color: ${this.borderColor};`
 
       return {
         label: child.label,
@@ -112,33 +118,37 @@ export default {
         formatter: child.formatter,
         theadStyle: style,
         tbodyStyle: style + this.tdStyle,
-      };
-    });
-    this.initialized = true;
+      }
+    })
+    this.initialized = true
   },
   methods: {
     formatter(fn, value, item) {
-      return typeof fn === 'function' ? fn(value, item, this) : value;
+      return typeof fn === 'function' ? fn(value, item, this) : value
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .vc-table {
   width: 100%;
 }
+
 .vc-table-header {
   display: flex;
 }
+
 .vc-table-header__sub {
   margin-top: 4rpx;
   font-size: 20rpx;
   color: #909090;
 }
+
 .vc-table-row {
   display: flex;
 }
+
 .vc-table-row__item {
   display: flex;
   flex-direction: column;

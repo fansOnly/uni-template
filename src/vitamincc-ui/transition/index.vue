@@ -1,11 +1,12 @@
 <template>
-  <view v-if="display" :class="['vc-transition', classes]" :style="styled" @click="$emit('click')" @transitionend="onTransitionEnd">
+  <view v-if="display" :class="['vc-transition', classes]" :style="styled" @click="$emit('click')"
+    @transitionend="onTransitionEnd">
     <slot />
   </view>
 </template>
 
 <script>
-import transition from '../mixins/transition';
+import transition from '../mixins/transition'
 
 export default {
   name: 'vc-transition',
@@ -21,13 +22,13 @@ export default {
   },
   computed: {
     styled() {
-      let style = '';
-      style += `transition-duration: ${this.currentDuration}ms;`;
-      if (!this.display) style += 'display: none;';
-      return style + this.customStyle;
+      let style = ''
+      style += `transition-duration: ${this.currentDuration}ms;`
+      if (!this.display) style += 'display: none;'
+      return style + this.customStyle
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

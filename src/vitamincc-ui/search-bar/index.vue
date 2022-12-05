@@ -5,16 +5,16 @@
       <vc-icon class="search-left__icon" name="search" size="20" />{{ placeholder }}
     </view>
     <view v-else class="search-bar-body">
-      <view v-if="label" class="search-bar__label" :style="{'width': labelWidth +'px'}">{{label}}</view>
+      <view v-if="label" class="search-bar__label" :style="{ 'width': labelWidth + 'px' }">{{ label }}</view>
       <view class="search-bar__input">
         <vc-input name="search" type="text" :value="value" :height="height" :placeholder="placeholder" :radius="radius"
-          :maxlength="maxlength" :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger" :disabled="disabled"
-          :confirm-type="confirmType" :custom-style="inputStyled" @focus="handleFocus" @blur="handleBlur"
-          @input="handleInput" @confirm="onConfirm" @clear="handleClear">
+          :maxlength="maxlength" :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger"
+          :disabled="disabled" :confirm-type="confirmType" :custom-style="inputStyled" @focus="handleFocus"
+          @blur="handleBlur" @input="handleInput" @confirm="onConfirm" @clear="handleClear">
           <template #prefix>
             <view v-if="leftIcon" class="search-left__icon--focus">
-            <vc-icon class="search-left__icon" name="search" size="20" />
-          </view>
+              <vc-icon class="search-left__icon" name="search" size="20" />
+            </view>
           </template>
         </vc-input>
       </view>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { INPUT_HEIGHT_DEF } from '../common/constant';
+import { INPUT_HEIGHT_DEF } from '../common/constant'
 
 export default {
   name: 'vc-search-bar',
@@ -123,64 +123,64 @@ export default {
     return {
       inputFocus: false,
       showInput: false
-    };
+    }
   },
   computed: {
     isActivated() {
-      return this.showInput || this.value;
+      return this.showInput || this.value
     },
     isFocus() {
-      return this.focus || this.inputFocus;
+      return this.focus || this.inputFocus
     },
     wrapperStyled({ isActivated, height, radius, round }) {
-      let style = '';
-      style += `height: ${height}px;`;
+      let style = ''
+      style += `height: ${height}px;`
       if (!isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`;
+        style += `border-radius: ${round ? 999 : radius}px;`
       }
-      return style;
+      return style
     },
     deactivatedStyled({ background }) {
-      let style = '';
-      style += `background: ${background};`;
-      return style;
+      let style = ''
+      style += `background: ${background};`
+      return style
     },
     inputStyled({ isActivated, background, clearable, round, radius }) {
-      let style = `padding: 0 ${clearable ? 0 : '32rpx'} 0 32rpx;`;
-      style += `background: ${background};`;
+      let style = `padding: 0 ${clearable ? 0 : '32rpx'} 0 32rpx;`
+      style += `background: ${background};`
       if (isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`;
+        style += `border-radius: ${round ? 999 : radius}px;`
       }
-      return style;
+      return style
     },
   },
   methods: {
     handleCancel() {
-      this.$emit('input', '');
-      this.inputFocus = this.showInput = false;
+      this.$emit('input', '')
+      this.inputFocus = this.showInput = false
     },
     handleInput(value) {
-      this.$emit('input', value);
+      this.$emit('input', value)
     },
     handleFocus() {
-      this.inputFocus = true;
-      this.$emit('focus');
+      this.inputFocus = true
+      this.$emit('focus')
     },
     handleBlur(value) {
-      this.$emit('input', value);
+      this.$emit('input', value)
       setTimeout(() => {
-        this.inputFocus = false;
-      }, 0);
+        this.inputFocus = false
+      }, 0)
     },
     onConfirm(value) {
-      this.$emit('on-search', value);
+      this.$emit('on-search', value)
     },
     handleClear() {
-      this.$emit('input', '');
-      this.$emit('clear');
+      this.$emit('input', '')
+      this.$emit('clear')
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

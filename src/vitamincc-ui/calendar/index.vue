@@ -1,26 +1,27 @@
 <template>
   <view>
-    <vc-popup v-if="popupable" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round" border closeable
-      :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="close">
+    <vc-popup v-if="popupable" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round"
+      border closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="close">
       <vc-calendar :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-        :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter" :allow-same-day="allowSameDay"
-        @change="onChange"></vc-calendar>
-        <view v-if="withButton" class="vc-button">
-          <slot name="button">
-            <vc-button type="primary" size="mini" block round @click="onConfirm">{{buttonText}}</vc-button>
-          </slot>
-        </view>
+        :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter"
+        :allow-same-day="allowSameDay" @change="onChange"></vc-calendar>
+      <view v-if="withButton" class="vc-button">
+        <slot name="button">
+          <vc-button type="primary" size="mini" block round @click="onConfirm">{{ buttonText }}</vc-button>
+        </slot>
+      </view>
     </vc-popup>
 
     <vc-calendar v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-      :max-range="maxRange" :row-height="rowHeight" :background="background" :allow-same-day="allowSameDay" :formatter="formatter" @change="onChange">
+      :max-range="maxRange" :row-height="rowHeight" :background="background" :allow-same-day="allowSameDay"
+      :formatter="formatter" @change="onChange">
     </vc-calendar>
   </view>
 </template>
 
 <script>
-import VcCalendar from './calendar.vue';
-import props from './props';
+import VcCalendar from './calendar.vue'
+import props from './props'
 
 export default {
   name: 'vc-calendar',
@@ -73,12 +74,12 @@ export default {
   data() {
     return {
       selectedDate: ''
-    };
+    }
   },
   watch: {
     visible: {
       handler(val) {
-        this.selectedDate = val ? this.value : '';
+        this.selectedDate = val ? this.value : ''
       },
       immediate: true,
     }
@@ -86,10 +87,10 @@ export default {
   methods: {
     onChange(value) {
       if (!this.popupable) {
-        this.$emit('change', value);
-        this.$emit('input', value);
+        this.$emit('change', value)
+        this.$emit('input', value)
       } else {
-        this.selectedDate = value;
+        this.selectedDate = value
       }
     },
     onConfirm() {
@@ -97,31 +98,31 @@ export default {
         return uni.showToast({
           title: '日期不能为空',
           icon: 'none',
-        });
+        })
       }
       if (this.type === 'range' && this.selectedDate.length !== 2) {
         return uni.showToast({
           title: '请选择结束日期',
           icon: 'none',
-        });
+        })
       }
-      this.$emit('confirm', this.selectedDate);
-      this.$emit('update:visible', false);
+      this.$emit('confirm', this.selectedDate)
+      this.$emit('update:visible', false)
     },
     clickOverlay() {
-      if (!this.closeOnClickOverlay) return;
-      this.close();
+      if (!this.closeOnClickOverlay) return
+      this.close()
     },
     close() {
-      this.$emit('close');
-      this.$emit('update:visible', false);
+      this.$emit('close')
+      this.$emit('update:visible', false)
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-button {
-    padding: 32rpx;
-  }
+.vc-button {
+  padding: 32rpx;
+}
 </style>
