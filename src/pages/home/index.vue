@@ -1,19 +1,22 @@
 <template>
   <vc-page :show="pageReady">
-    <view class="page-wrapper is-custom-tab-bar">
-      <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
-        <demo-block :title="group.groupName" padding background="#fff">
-          <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
-            <view class="demo-group-item" @click="handleRouter(item)">
-              <view class="demo-group-item__label">{{ item.title }}</view>
-              <view class="demo-group-item__right-icon">
-                <vc-icon name="arrow-right" size="20" />
+    <vc-navigation title="UI 组件演示库" mode="dark" :is-gray="isGray" @after-mounted="navMounted = true" />
+    <view v-if="navMounted" class="page-wrapper is-custom-tab-bar">
+      <view :class="[isGray ? 'is-gray' : null]">
+        <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
+          <demo-block :title="group.groupName" padding background="#fff">
+            <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
+              <view class="demo-group-item" @click="handleRouter(item)">
+                <view class="demo-group-item__label">{{ item.title }}</view>
+                <view class="demo-group-item__right-icon">
+                  <vc-icon name="arrow-right" size="20" />
+                </view>
               </view>
             </view>
-          </view>
-        </demo-block>
+          </demo-block>
+        </view>
       </view>
-      <vc-tab-bar></vc-tab-bar>
+      <vc-tab-bar :is-gray="isGray"></vc-tab-bar>
     </view>
   </vc-page>
 </template>
@@ -32,6 +35,8 @@ export default {
   mixins: [page],
   data() {
     return {
+      navMounted: false,
+      isGray: false,
       list,
       visible2: false,
     }

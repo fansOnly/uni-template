@@ -1,7 +1,7 @@
 {
-  "name": "demo",
+  "name": "vitamin",
   "appid": "",
-  "description": "demo 演示工程",
+  "description": "UI 组件演示库",
   "networkTimeout": {
     "request": 15000,
     "connectSocket": 15000,

@@ -5,10 +5,12 @@
       "name": "home",
       "meta": {
         "auth": false,
-        "title": "UI 组件演示库"
+        "title": "UI 组件演示库",
+        "navigationStyle": "custom"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "UI 组件演示库",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -19,12 +21,10 @@
         "title": "UI 组件演示库"
       },
       "style": {
-        "navigationBarTitleText": "",
-        /*  #ifdef  MP-WEIXIN  */
+        "navigationBarTitleText": "UI 组件演示库",
         "usingComponents": {
           "e-test": "/wxcomponents/e-test/index"
         }
-        /* #endif */
       }
     },
     {
@@ -35,7 +35,7 @@
         "title": "动作面板"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "动作面板"
       }
     },
     {
@@ -46,7 +46,7 @@
         "title": "业务组件"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "业务组件"
       }
     },
     {
@@ -57,7 +57,7 @@
         "title": "按钮"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "按钮"
       }
     },
     {
@@ -68,7 +68,7 @@
         "title": "画布"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "画布"
       }
     },
     {
@@ -79,7 +79,7 @@
         "title": "日历"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "日历"
       }
     },
     {
@@ -90,7 +90,7 @@
         "title": "单元格"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "单元格"
       }
     },
     {
@@ -101,7 +101,7 @@
         "title": "多选框"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "多选框"
       }
     },
     {
@@ -112,7 +112,7 @@
         "title": "折叠面板"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "折叠面板"
       }
     },
     {
@@ -123,7 +123,7 @@
         "title": "倒计时"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "倒计时"
       }
     },
     {
@@ -134,7 +134,7 @@
         "title": "对话框"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "对话框"
       }
     },
     {
@@ -145,7 +145,7 @@
         "title": "下拉选框"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "下拉选框"
       }
     },
     {
@@ -156,7 +156,7 @@
         "title": "空数据"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "空数据"
       }
     },
     {
@@ -167,7 +167,7 @@
         "title": "图标"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "图标"
       }
     },
     {
@@ -178,7 +178,7 @@
         "title": "图片"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "图片"
       }
     },
     {
@@ -189,7 +189,7 @@
         "title": "索引栏"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "索引栏"
       }
     },
     {
@@ -200,7 +200,7 @@
         "title": "输入框"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "输入框"
       }
     },
     {
@@ -211,7 +211,7 @@
         "title": "加载效果"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "加载效果"
       }
     },
     {
@@ -220,10 +220,10 @@
       "meta": {
         "auth": false,
         "title": "小程序自定义导航",
-        "customNavigationStyle": true
+        "navigationStyle": "custom"
       },
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "小程序自定义导航",
         "navigationStyle": "custom"
       }
     },
@@ -233,10 +233,10 @@
       "meta": {
         "auth": false,
         "title": "自定义导航内页",
-        "customNavigationStyle": true
+        "navigationStyle": "custom"
       },
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "自定义导航内页",
         "navigationStyle": "custom"
       }
     },
@@ -248,7 +248,7 @@
         "title": "遮罩层"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "遮罩层"
       }
     },
     {
@@ -259,7 +259,7 @@
         "title": "选择器"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "选择器"
       }
     },
     {
@@ -270,7 +270,7 @@
         "title": "日期选择器"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "日期选择器"
       }
     },
     {
@@ -281,7 +281,7 @@
         "title": "地区选择器"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "地区选择器"
       }
     },
     {
@@ -292,7 +292,7 @@
         "title": "弹出层"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "弹出层"
       }
     },
     {
@@ -303,7 +303,7 @@
         "title": "进度条"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "进度条"
       }
     },
     {
@@ -314,7 +314,7 @@
         "title": "单选按钮"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "单选按钮"
       }
     },
     {
@@ -325,7 +325,7 @@
         "title": "路由拦截"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "路由拦截"
       }
     },
     {
@@ -336,7 +336,7 @@
         "title": "路由跳转"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "路由跳转"
       }
     },
     {
@@ -347,7 +347,7 @@
         "title": "路由跳转详情"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "路由跳转详情"
       }
     },
     {
@@ -358,7 +358,7 @@
         "title": "触底加载"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "触底加载"
       }
     },
     {
@@ -369,7 +369,7 @@
         "title": "滚动数字"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "滚动数字"
       }
     },
     {
@@ -380,7 +380,7 @@
         "title": "搜索栏"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "搜索栏"
       }
     },
     {
@@ -391,7 +391,7 @@
         "title": "骨架屏"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "骨架屏"
       }
     },
     {
@@ -402,7 +402,7 @@
         "title": "步骤条"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "步骤条"
       }
     },
     {
@@ -413,7 +413,7 @@
         "title": "滑块视图容器"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "滑块视图容器"
       }
     },
     {
@@ -424,7 +424,7 @@
         "title": "开关"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "开关"
       }
     },
     {
@@ -435,7 +435,7 @@
         "title": "标签页"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "标签页"
       }
     },
     {
@@ -446,7 +446,7 @@
         "title": "表格"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "表格"
       }
     },
     {
@@ -457,7 +457,7 @@
         "title": "过渡动画"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "过渡动画"
       }
     },
     {
@@ -468,7 +468,7 @@
         "title": "内置样式"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "内置样式"
       }
     },
     {
@@ -479,7 +479,7 @@
         "title": "表单"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "表单"
       }
     },
     {
@@ -490,7 +490,7 @@
         "title": "可移动区域"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "可移动区域"
       }
     },
     {
@@ -501,7 +501,7 @@
         "title": "小程序内置地图"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "小程序内置地图"
       }
     },
     {
@@ -512,7 +512,7 @@
         "title": "短信验证"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "短信验证"
       }
     },
     {
@@ -523,7 +523,7 @@
         "title": "安全键盘"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "安全键盘"
       }
     },
     {
@@ -534,7 +534,7 @@
         "title": "生物认证"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "生物认证"
       }
     },
     {
@@ -545,11 +545,9 @@
         "title": "OCR 识别"
       },
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "OCR 识别",
         "usingComponents": {
-          /*  #ifdef  MP-WEIXIN  */
           "ocr-navigator": "plugin://ocr-plugin/ocr-navigator"
-          /* #endif */
         }
       }
     },
@@ -561,7 +559,7 @@
         "title": "文件上传"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "文件上传"
       }
     },
     {
@@ -572,7 +570,7 @@
         "title": "Bug 测试"
       },
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "Bug 测试"
       }
     }
   ],
@@ -595,9 +593,9 @@
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "小程序演示",
-    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarBackgroundColor": "#00bcd4",
     "backgroundColor": "#F8F8F8",
     "app-plus": {
       "background": "#efeff4"
@@ -630,8 +628,8 @@
       }
     ]
   },
-  "condition": { //模式配置，仅开发期间生效
-    "current": 0, //当前激活的模式（list 的索引项）
+  "condition": {
+    "current": 0,
     "list": []
   },
   "easycom": {
