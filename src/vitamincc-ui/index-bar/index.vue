@@ -81,13 +81,13 @@ export default {
       current: -1,
       timer: null,
       navHeight: 0,
-      customNavigationStyle: false
+      isCustomNavigation: false
     }
   },
   computed: {
-    sidebarStyled({ navHeight, customNavigationStyle }) {
+    sidebarStyled({ navHeight, isCustomNavigation }) {
       let style = ''
-      if (customNavigationStyle) {
+      if (isCustomNavigation) {
         style += `margin-top: ${navHeight / 2}px;`
       }
       return style
@@ -117,8 +117,8 @@ export default {
     this.anchorRects = []
   },
   mounted() {
-    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight'])
-    this.customNavigationStyle = customNavigationStyle
+    const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
+    this.isCustomNavigation = isCustomNavigation
     this.navHeight = navHeight
   },
   methods: {
@@ -210,13 +210,13 @@ export default {
       this.children.forEach(async (child) => {
         const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`
         const rect = await getRect(child, childClassName)
-        const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset
+        const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
         this.anchorRects.push({ index: child.index + '', name: childClassName, top, height: rect.height })
       })
     },
     async getWrapperRect() {
       const rect = await getRect(this, '.index-bar-wrapper')
-      const top = rect.top - (this.customNavigationStyle ? this.navHeight : 0) - this.offset
+      const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
       this.boundary = { start: top, end: rect.bottom }
     },
   },

@@ -37,19 +37,19 @@ export default {
       height: 0,
       isSticky: false,
       offsetTop: 0,
-      customNavigationStyle: false,
+      isCustomNavigation: false,
       navHeight: 0
     }
   },
   computed: {
-    anchorStyled({ offsetTop, navHeight, customNavigationStyle, isSticky, customStyle }) {
+    anchorStyled({ offsetTop, navHeight, isCustomNavigation, isSticky, customStyle }) {
       if (!isSticky) return customStyle
       let top = offsetTop
       /* #ifdef H5 */
       top += 44
       /* #endif */
       // #ifdef MP-WEIXIN
-      top += customNavigationStyle ? navHeight : 0
+      top += isCustomNavigation ? navHeight : 0
       // #endif
       return `top: ${top}px;${customStyle ? customStyle : ''}`
     }
@@ -57,8 +57,8 @@ export default {
   async mounted() {
     this.parent.children.push(this)
     this.parent.len++
-    const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight'])
-    this.customNavigationStyle = customNavigationStyle
+    const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
+    this.isCustomNavigation = isCustomNavigation
     this.navHeight = navHeight
     const rect = await getRect(this, '.index-bar-anchor')
     this.height = rect.height

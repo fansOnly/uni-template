@@ -65,8 +65,8 @@ export default {
   },
   created() {
     // #ifdef MP-WEIXIN
-    let [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight'])
-    if (customNavigationStyle) {
+    let [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
+    if (isCustomNavigation) {
       if (!navHeight) {
         const rect = wx.getMenuButtonBoundingClientRect()
         navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */

@@ -1,5 +1,5 @@
 <template>
-<!-- 需要将 class 挂载在 vc-transition 上，不然遮罩层级有bug -->
+  <!-- 需要将 class 挂载在 vc-transition 上，不然遮罩层级有bug -->
   <vc-transition :visible="visible" :animation-name="name" :duration="duration" @click="close">
     <view class="vc-overlay" :style="styled">
       <slot />
@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme';
-import { getAppData } from '../common/global-data';
+import cssVariables from '@/common/lib/theme'
+import { getAppData } from '../common/global-data'
 export default {
   name: 'vc-overlay',
   props: {
@@ -48,29 +48,29 @@ export default {
   },
   computed: {
     styled() {
-      const [customNavigationStyle, navHeight] = getAppData(['customNavigationStyle', 'navHeight']);
-      let style = `z-index: ${this.zIndex};`;
-      if (customNavigationStyle) style += `top: ${navHeight}px;`;
-      return style + this.customStyle;
+      const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
+      let style = `z-index: ${this.zIndex};`
+      if (isCustomNavigation) style += `top: ${navHeight}px;`
+      return style + this.customStyle
     }
   },
   methods: {
     close() {
-      if (!this.clickable) return;
-      this.$emit('click');
-      this.$emit('update:visible', false);
+      if (!this.clickable) return
+      this.$emit('click')
+      this.$emit('update:visible', false)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-  .vc-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.6);
-  }
-  </style>
+.vc-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+</style>
