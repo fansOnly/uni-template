@@ -16,10 +16,7 @@
             <vc-button type="primary" :radius="4" block @click="visible = true">拉起弹窗</vc-button>
           </view>
           <view class="demo-margin-bottom">
-            <vc-button type="primary" :radius="4" block @click="jumpDetail">跳转内页 - navigate</vc-button>
-          </view>
-          <view class="demo-margin-bottom">
-            <vc-button type="primary" :radius="4" block @click="jumpDetail2">跳转内页 - redirect</vc-button>
+            <vc-button type="primary" :radius="4" block @click="jumpDetail">自定义导航布局</vc-button>
           </view>
           <view class="demo-margin-bottom">
             <vc-button type="primary" :radius="4" block @click="jumpHome">去首页 - reLaunch</vc-button>
@@ -60,9 +57,6 @@ export default {
   },
   methods: {
     jumpDetail() {
-      this.$Router.push('/pages/platform-wx/navigation/detail')
-    },
-    jumpDetail2() {
       this.$Router.replace('/pages/platform-wx/navigation/detail')
     },
     jumpHome() {
