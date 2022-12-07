@@ -1,7 +1,7 @@
 <template>
   <vc-page :show="pageReady">
     <vc-navigation title="UI 组件演示库" mode="dark" :is-gray="isGray" @after-mounted="navMounted = true" />
-    <view v-if="navMounted" class="page-wrapper is-custom-tab-bar">
+    <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]">
       <view :class="[isGray ? 'is-gray' : null]">
         <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
           <demo-block :title="group.groupName" padding background="#fff">
@@ -18,7 +18,7 @@
         <view class="gap"></view>
         <vc-button @click="isGray = !isGray">置灰页面</vc-button>
       </view>
-      <vc-tab-bar :is-gray="isGray"></vc-tab-bar>
+      <!-- <vc-tab-bar :is-gray="isGray" /> -->
     </view>
   </vc-page>
 </template>
@@ -28,7 +28,7 @@ import DemoBlock from '@/components/demo-block'
 import page from '@/mixins/page'
 import list from '../config'
 import { demo } from '@/api/demo'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -44,7 +44,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('app', ['windowHeight'])
+    ...mapState('app', ['windowHeight']),
+    ...mapGetters('app', ['isCustomTabBar'])
   },
   async onLoad() {
     console.log('on home page load', this.$Route.query)

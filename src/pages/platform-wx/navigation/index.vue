@@ -3,7 +3,7 @@
     <vc-navigation :title="title"
       background-image="https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg"
       @after-mounted="navMounted = true" />
-    <view v-if="navMounted" class="page-wrapper is-custom-tab-bar"
+    <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]"
       :style="{ 'min-height': windowHeight + 'px', 'height': '1500px' }">
       <view class="demo-block">
         <view class="color"></view>
@@ -27,12 +27,12 @@
       <vc-popup :visible.sync="visible" title="弹窗"></vc-popup>
     </view>
 
-    <vc-tab-bar></vc-tab-bar>
+    <!-- <vc-tab-bar /> -->
   </vc-page>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import page from '@/mixins/page'
 
 export default {
@@ -45,7 +45,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('app', ['windowHeight'])
+    ...mapState('app', ['windowHeight']),
+    ...mapGetters('app', ['isCustomTabBar'])
   },
   async onLoad() {
   },

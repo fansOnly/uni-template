@@ -1,4 +1,4 @@
-import { APP_HIDE_SCENES } from '@/shared'
+import pageCfg from '@/pages.json'
 
 const state = {
   /**
@@ -24,6 +24,12 @@ const state = {
   customWindowHeight: 0,
   // 自定义导航高度
   navHeight: 0,
+}
+
+const getters = {
+  isCustomTabBar: () => {
+    return pageCfg?.tabBar?.custom === true
+  }
 }
 
 const mutations = {
@@ -76,6 +82,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 }

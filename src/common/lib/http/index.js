@@ -113,32 +113,32 @@ const httpRequest = {
             resolve(result)
           } else { // 枚举并拦截异常状态
             switch (result.STATUS) {
-            case '005':
-            case '009':
-              // 会话已过期，请重新登录
-              if (errorCount++ == 0) {
+              case '005':
+              case '009':
+                // 会话已过期，请重新登录
+                if (errorCount++ == 0) {
+                  uni.showModal({
+                    title: '温馨提示',
+                    content: result.MSG,
+                    showCancel: false,
+                    success: function () {
+                      store.dispatch('user/clearSessionToken')
+                      errorCount--
+                      // TODO 处理未登录逻辑
+                    }
+                  })
+                }
+                resolve(result)
+                break
+              // 默认弹窗
+              default:
+                resolve(result)
                 uni.showModal({
                   title: '温馨提示',
-                  content: result.MSG,
-                  showCancel: false,
-                  success: function () {
-                    store.dispatch('user/clearSessionToken')
-                    errorCount--
-                    // TODO 处理未登录逻辑
-                  }
+                  content: result.MSG || '获取数据失败，请稍后重试',
+                  showCancel: false
                 })
-              }
-              resolve(result)
-              break
-            // 默认弹窗
-            default:
-              resolve(result)
-              uni.showModal({
-                title: '温馨提示',
-                content: result.MSG || '获取数据失败，请稍后重试',
-                showCancel: false
-              })
-              break
+                break
             }
           }
         },
@@ -161,7 +161,7 @@ const httpRequest = {
             })
           }
         },
-        complete: () => {}
+        complete: () => { }
       })
     })
   }
