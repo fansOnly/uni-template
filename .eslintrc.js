@@ -182,5 +182,21 @@ module.exports = {
     'space-unary-ops': ['error', { words: true, nonwords: false }],
     yoda: ['error', 'never'], // 禁止Yoda条件 --fix
     // 'prefer-const': 'warn', // 建议使用const --fix
+    'prefer-const': [
+      'warn',
+      { destructuring: 'all', ignoreReadBeforeAssign: true },
+    ],
+    'prefer-arrow-callback': [
+      'error',
+      { allowNamedFunctions: false, allowUnboundThis: true },
+    ],
+    'object-shorthand': [
+      'error',
+      'always',
+      { ignoreConstructors: false, avoidQuotes: true },
+    ],
+    'prefer-rest-params': 'error',
+    'prefer-spread': 'error',
+    'prefer-template': 'error',
   },
 }

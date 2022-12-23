@@ -112,9 +112,9 @@ export const wxOpenSetting = () => {
 export const wxGetSetting = async params => {
   const data = await apiToPromise('getSetting', params)
   const { authSetting } = data
-  let agree = []; let deny = []
+  const agree = []; const deny = []
   if (Object.keys(authSetting).length) {
-    for (let key in authSetting) {
+    for (const key in authSetting) {
       if (authSetting[key]) {
         agree.push(key.split('.')[1])
       } else {
@@ -409,7 +409,7 @@ export const wxStartFacialRecognitionVerifyAndUploadVideo = params => {
  */
 export const wxDownloadFile = params => {
   const { fileType, filename } = params
-  const filePath = fileType ? wx.env.USER_DATA_PATH + '/' + filename + '.' + fileType : ''
+  const filePath = fileType ? `${wx.env.USER_DATA_PATH }/${ filename }.${ fileType}` : ''
   return apiToPromise('downloadFile', { ...params, filePath }, true)
 }
 
@@ -426,8 +426,8 @@ export const wxDownloadFile = params => {
 export const wxOpenFile = async (url, filename, fileType = 'pdf') => {
   const { filePath } = await wxDownloadFile({ url, filename, fileType })
   filePath && wx.openDocument({
-    filePath: filePath,
-    success: function (res) {
+    filePath,
+    success(res) {
       console.log('[info] 打开文档成功 >>>', res)
     }
   })

@@ -16,12 +16,12 @@ export const sleep = (delay = 500) => {
  * @param {string} 参数对象
  */
 export function genUrlFromObj(path, obj) {
-  const url = '/' + path
+  const url = `/${ path}`
   let queryString = ''
   for (const key in obj) {
-    queryString += (queryString === '' ? '' : '&') + `${key}=${obj[key]}`
+    queryString += `${queryString === '' ? '' : '&' }${key}=${obj[key]}`
   }
-  return url + (Object.keys(obj).length ? '?' + queryString : '')
+  return url + (Object.keys(obj).length ? `?${ queryString}` : '')
 }
 
 /**
@@ -62,7 +62,7 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
     return value
   }
 
-  const Y = groups.year || date.getFullYear() + ''
+  const Y = groups.year || `${date.getFullYear() }`
   const M = groups.month || date.getMonth() + 1
   const D = groups.day || date.getDate()
   const H = groups.hour || date.getHours()
@@ -102,7 +102,7 @@ export function requestAnimationFrame() {
   return new Promise((resolve) => {
     const systemInfo = uni.getSystemInfoSync()
     if (systemInfo.platform === 'devtools') {
-      return setTimeout(function () {
+      return setTimeout(() => {
         resolve()
       }, 1000 / 30)
     }
@@ -110,7 +110,7 @@ export function requestAnimationFrame() {
       .createSelectorQuery()
       .selectViewport()
       .boundingClientRect()
-      .exec(function () {
+      .exec(() => {
         resolve()
       })
   })

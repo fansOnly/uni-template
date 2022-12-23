@@ -80,7 +80,7 @@ export default {
     onTransitionEnd() {
       if (this.transitionEnded) return
       this.transitionEnded = true
-      this.$emit('after-' + this.status)
+      this.$emit(`after-${ this.status}`)
       if (!this.visible && this.display) {
         this.display = false
       }

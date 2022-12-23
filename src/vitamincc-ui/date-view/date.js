@@ -63,7 +63,7 @@ export function createDate(start, end, unit = '', fixZero = true) {
   }
   const arr = []
   for (let i = Number(start); i <= Number(end); i++) {
-    arr.push({ text: (fixZero ? String(i).padStart(2, '0') : i) + unit, value: (fixZero ? String(i).padStart(2, '0') : i) + '' })
+    arr.push({ text: (fixZero ? String(i).padStart(2, '0') : i) + unit, value: `${fixZero ? String(i).padStart(2, '0') : i }` })
   }
   return arr
 }

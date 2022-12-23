@@ -19,7 +19,7 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
     return value
   }
 
-  const Y = groups.year || date.getFullYear() + ''
+  const Y = groups.year || `${date.getFullYear() }`
   const M = groups.month || date.getMonth() + 1
   const D = groups.day || date.getDate()
   const H = groups.hour || date.getHours()

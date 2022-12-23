@@ -15,9 +15,9 @@ Mock.setup({
   timeout: '600-1000'
 })
 
-Mock.mock(/\/*\.do/, 'post', function (config) {
+Mock.mock(/\/*\.do/, 'post', (config) => {
   // console.log('[debug] mock request config >>> ', config);
-  const reg = new RegExp('^' + (process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server') + '/' + process.env.HTTP_CONTEXT + '/')
+  const reg = new RegExp(`^${ process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server' }/${ process.env.HTTP_CONTEXT }/`)
   const api = config.url.replace(reg, '')
   return modules[api] ?? {
     STATUS: 'mock data undefined',

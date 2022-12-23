@@ -32,7 +32,7 @@ export function requestAnimationFrame() {
   return new Promise((resolve) => {
     const systemInfo = uni.getSystemInfoSync()
     if (systemInfo.platform === 'devtools') {
-      return setTimeout(function () {
+      return setTimeout(() => {
         resolve()
       }, 1000 / 30)
     }
@@ -40,7 +40,7 @@ export function requestAnimationFrame() {
       .createSelectorQuery()
       .selectViewport()
       .boundingClientRect()
-      .exec(function () {
+      .exec(() => {
         resolve()
       })
   })
@@ -69,7 +69,7 @@ export const formatDate = (value, formatter = 'YYYY-MM-DD HH:mm:ss') => {
     return value
   }
 
-  const Y = groups.year || date.getFullYear() + ''
+  const Y = groups.year || `${date.getFullYear() }`
   const M = groups.month || date.getMonth() + 1
   const D = groups.day || date.getDate()
   const H = groups.hour || date.getHours()
@@ -93,10 +93,10 @@ export function mergeStyle(source, target) {
   const styleReg = /([\w-]+):\s*([^;]+)/ig
   const sourceStyleObj = {}
   const targetStyleObj = {}
-  source.replace(styleReg, function (_, key, val) {
+  source.replace(styleReg, (_, key, val) => {
     sourceStyleObj[key] = val
   })
-  target.replace(styleReg, function (_, key, val) {
+  target.replace(styleReg, (_, key, val) => {
     targetStyleObj[key] = val
   })
   const styleObj = Object.assign(sourceStyleObj, targetStyleObj)

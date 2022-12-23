@@ -18,9 +18,9 @@ requestUrl = process.env.NODE_ENV === 'development' ? 'dev-server' : requestUrl
  * 网关需要的额外 headers
  */
 export const extraHeaders = () => {
-  let _date = new Date()
-  let rdm = parseInt((Math.random() + 1) * 1000)
-  let _uuid = 'mkt' + _date.getDay() + _date.getHours() + _date.getMinutes() + _date.getSeconds() + _date.getMilliseconds() + rdm
+  const _date = new Date()
+  const rdm = parseInt((Math.random() + 1) * 1000)
+  const _uuid = `mkt${ _date.getDay() }${_date.getHours() }${_date.getMinutes() }${_date.getSeconds() }${_date.getMilliseconds() }${rdm}`
 
   return {
     'X-GW-TIMESTAMP': +new Date(),
@@ -39,7 +39,7 @@ const httpRequest = {
    * @param {*} params 请求参数
    * @param {*} customHeaders 自定义请求头
    */
-  post: async function (action, params = {}, customHeaders = {}) {
+  async post(action, params = {}, customHeaders = {}) {
     // 过滤 undefined null 参数
     const parameter = {}
     for (const [key, value] of Object.entries(params)) {
@@ -49,10 +49,10 @@ const httpRequest = {
     /**
     * 登录 sessionId 携带
     */
-    let tokenHeaders = {}
+    const tokenHeaders = {}
     const sessLoginKey = store.state.user.sessLoginKey
     if (sessLoginKey) {
-      tokenHeaders.cookie = 'SESSION=' + sessLoginKey
+      tokenHeaders.cookie = `SESSION=${ sessLoginKey}`
     } else {
       delete tokenHeaders.cookie
     }
@@ -85,7 +85,7 @@ const httpRequest = {
         withCredentials: true,
         timeout,
         success: (res) => {
-          let { data, header } = res
+          const { data, header } = res
 
           let result
 
@@ -103,7 +103,7 @@ const httpRequest = {
           console.log('├─[url]', action)
           console.log('├─[params]', parameter)
           console.log('├─[response]', result)
-          console.log('├─[time]', (+new Date() - start) + 'ms')
+          console.log('├─[time]', `${+new Date() - start }ms`)
           console.log('└─')
 
           if (result.STATUS == '1') {
@@ -121,7 +121,7 @@ const httpRequest = {
                     title: '温馨提示',
                     content: result.MSG,
                     showCancel: false,
-                    success: function () {
+                    success() {
                       store.dispatch('user/clearSessionToken')
                       errorCount--
                       // TODO 处理未登录逻辑
@@ -149,13 +149,13 @@ const httpRequest = {
             console.log('├─[url]', action)
             console.log('├─[params]', parameter)
             console.log('├─[error]', error)
-            console.log('├─[time]', (+new Date() - start) + 'ms')
+            console.log('├─[time]', `${+new Date() - start }ms`)
             console.log('└─')
             uni.showModal({
               title: '温馨提示',
               content: '请求失败，请稍后重试',
               showCancel: false,
-              success: function () {
+              success() {
                 errorCount = 0
               }
             })

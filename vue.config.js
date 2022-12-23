@@ -9,7 +9,7 @@ loadEnv(process.env.NODE_ENV)
 // 替换 h5 devServer 代理地址
 // #ifdef H5
 updateManifest({
-  'h5.devServer.proxy./dev-server.target': JSON.stringify(process.env.HTTP_BASE_URL + '/' + process.env.HTTP_CONTEXT),
+  'h5.devServer.proxy./dev-server.target': JSON.stringify(`${process.env.HTTP_BASE_URL }/${ process.env.HTTP_CONTEXT}`),
   // 'h5.devServer.open': true
 })
 // #endif
