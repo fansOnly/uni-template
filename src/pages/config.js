@@ -5,38 +5,38 @@ export default [
     list: [
       {
         title: 'Button 按钮',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/button'
       },
       {
         title: 'Cell 单元格',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/cell'
       },
       {
         title: 'Icon 图标',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/icon'
       },
       {
         title: 'Image 图片',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/image'
       },
       {
         title: 'Popup 弹出层',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/popup'
       },
       {
         title: 'Transition 动画',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/transition'
       },
       {
         title: 'Style 内置样式',
-        prefix: '',
-        path: 'style'
+        prefix: 'sub-package-demo',
+        path: '/style'
       }
     ]
   },
@@ -46,57 +46,57 @@ export default [
     list: [
       {
         title: 'Area 省市区控件',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/area'
       },
       {
         title: 'Calendar 日历',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/calendar'
       },
       {
         title: 'Checkbox 复选框',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/checkbox'
       },
       {
         title: 'DatePicker 日期控件',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/date-picker'
       },
       {
         title: 'Form 表单',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/form'
       },
       {
         title: 'Input 输入框',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/input'
       },
       {
         title: 'Picker 选择器',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/picker'
       },
       {
         title: 'Radio 单选框',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/radio'
       },
       {
         title: 'Search 搜索栏',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/search'
       },
       {
         title: 'Switch 开关',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/switch'
       },
       {
         title: 'Upload 文件上传',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/upload'
       }
     ]
@@ -107,27 +107,27 @@ export default [
     list: [
       {
         title: 'ActionSheet 动作面板',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/action-sheet'
       },
       {
         title: 'Dialog 弹出框',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/dialog'
       },
       {
         title: 'Dropdown 下拉菜单',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/dropdown'
       },
       {
         title: 'Loading 加载',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/loading'
       },
       {
         title: 'Overlay 遮罩层',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/overlay'
       }
     ]
@@ -138,78 +138,78 @@ export default [
     list: [
       {
         title: 'Collapse 折叠面板',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/collapse'
       },
       {
         title: 'CountDown 倒计时',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/count-down'
       },
       {
         title: 'Empty 空状态',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/empty'
       },
       {
         title: 'Movable 可移动区域',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/movable'
       },
       {
         title: 'Progress 进度条',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/progress'
       },
       {
         title: 'ScrollList 滚动加载',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/scroll-list'
       },
       {
         title: 'ScrollNum 滚动数字',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/scroll-num'
       },
       {
         title: 'Skeleton 骨架屏',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/skeleton'
       },
       {
         title: 'Steps 步骤条',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/steps'
       },
       {
         title: 'Swiper 滑块视图容器',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/swiper'
       },
       {
         title: 'Table 表格',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/table'
       }
     ]
   },
   {
     groupName: '导航组件',
-    groupId: 'navigation',
+    groupId: 'nav',
     list: [
       {
         title: 'IndexBar 索引栏',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/index-bar'
       },
       {
         title: 'Tab 标签页',
-        prefix: 'custom-ui',
+        prefix: 'sub-package-demo',
         path: '/tab'
       },
       {
         title: 'Navigation 自定义导航',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/navigation'
       }
     ]
@@ -220,44 +220,28 @@ export default [
     list: [
       {
         title: 'Canvas 画布',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/canvas'
       },
       {
         title: 'Echarts 图表',
-        prefix: 'sub-package-a',
+        prefix: 'sub-package-demo',
         path: '/echarts'
       },
       {
         title: 'Map 地图',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/map'
       },
       {
         title: 'Soter 生物认证',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/soter-auth'
       },
       {
         title: 'OCR 识别',
-        prefix: 'platform-wx',
+        prefix: 'sub-package-demo',
         path: '/ocr'
-      },
-    ]
-  },
-  {
-    groupName: '业务组件',
-    groupId: 'business',
-    list: [
-      {
-        title: 'SmsField 短信验证',
-        prefix: 'business',
-        path: '/sms-field'
-      },
-      {
-        title: 'SafeKeyboard 密码键盘',
-        prefix: 'business',
-        path: '/safe-keyboard'
       },
     ]
   },
@@ -267,13 +251,13 @@ export default [
     list: [
       {
         title: 'RouteInterception 路由拦截',
-        prefix: 'route',
-        path: '/interception'
+        prefix: 'sub-package-demo',
+        path: '/route/interception'
       },
       {
         title: 'Route 路由跳转',
-        prefix: '',
-        path: 'route'
+        prefix: 'sub-package-demo',
+        path: '/route'
       },
     ]
   },
@@ -283,8 +267,8 @@ export default [
     list: [
       {
         title: 'Bugs 汇总',
-        prefix: 'bug',
-        path: ''
+        prefix: 'sub-package-demo',
+        path: '/bug'
       },
     ]
   }

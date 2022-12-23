@@ -67,12 +67,7 @@ export default {
   },
   methods: {
     handleRouter({ prefix, path }) {
-      let url = ''
-      if (prefix === 'sub-package-a') {
-        url = `/sub-package-a${path}/index`
-      } else {
-        url = `/pages/${prefix}${path}/index`
-      }
+      const url = `/${prefix}${path}/index`
       if (path === '/navigation') {
         this.$Router.pushTab(url)
       } else {

@@ -1,4 +1,4 @@
-import Mock from '@/plugins/mock'
+import Mock from '@/common/plugins/mock'
 
 // 公共 API 拦截
 const commonMockFiles = require.context('./', true, /\.js$/)
@@ -17,7 +17,7 @@ Mock.setup({
 
 Mock.mock(/\/*\.do/, 'post', (config) => {
   // console.log('[debug] mock request config >>> ', config);
-  const reg = new RegExp(`^${ process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server' }/${ process.env.HTTP_CONTEXT }/`)
+  const reg = new RegExp(`^${process.env.VUE_APP_PLATFORM === 'mp-weixin' ? process.env.HTTP_BASE_URL : 'dev-server'}/${process.env.HTTP_CONTEXT}/`)
   const api = config.url.replace(reg, '')
   return modules[api] ?? {
     STATUS: 'mock data undefined',

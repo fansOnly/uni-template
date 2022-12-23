@@ -1,0 +1,42 @@
+{
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "小程序演示",
+    "navigationBarBackgroundColor": "#00bcd4",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      "background": "#efeff4"
+    }
+  },
+  "tabBar": {
+    "custom": false,
+    "color": "#909090",
+    "selectedColor": "#EA4C2F",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "static/images/tab-finance-on-icon.png",
+        "iconPath": "static/images/tab-finance-icon.png",
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "static/images/tab-mine-on-icon.png",
+        "iconPath": "static/images/tab-mine-icon.png",
+        "pagePath": "pages/other/index",
+        "text": "其他"
+      }
+    ]
+  },
+  "condition": {
+    "current": 0,
+    "list": []
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^vc-(.*)": "@/vitamincc-ui/$1/index.vue"
+    }
+  }
+}

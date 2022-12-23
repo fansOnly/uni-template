@@ -1,6 +1,7 @@
 import { RouterMount, createRouter } from 'uni-simple-router'
 import store from '@/store'
-import { formatDate } from '@/shared'
+import { useDayjs } from '@/common/hooks/use-dayjs'
+const { dateFormat } = useDayjs()
 
 const router = createRouter({
   platform: process.env.VUE_APP_PLATFORM,
@@ -35,7 +36,7 @@ router.beforeEach((to, from, next) => {
   const buryData = {
     type: 'page',
     openId: store.state.user.openId,
-    time: formatDate(),
+    time: dateFormat(),
     from: from.fullPath,
     to: to.fullPath,
     device: JSON.stringify(uni.$sysInfo)
