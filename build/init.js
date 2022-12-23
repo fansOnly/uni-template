@@ -5,11 +5,11 @@ const minimist = require('minimist')
 const { getPackageManifest, writePackageManifest } = require('./utils/pkg')
 const { loadEnv, resolvePath } = require('./utils/load-env')
 
-const { env = 'development' } = minimist(process.argv.slice(2))
+const { env = 'development', platform = 'mp-weixin' } = minimist(process.argv.slice(2))
 loadEnv(env)
 
 console.log()
-consola.info(`starting to initialize ${process.env.NODE_ENV} environment...`)
+consola.info(`starting to initialize project on ${chalk.cyan(platform + ':' + process.env.NODE_ENV)} environment...`)
 console.log()
 
 // 更新 pages.json
@@ -29,6 +29,8 @@ for (const subPackage of subPackages) {
 pagesJsonData.pages = pages
 pagesJsonData.subPackages = subPackages
 writePackageManifest(outputPagesPath, pagesJsonData)
+consola.success(`Successfully generate pages.json under src.`)
+console.log()
 
 // 更新 manifest.json
 const manifestPath = resolvePath('src/manifest.json')
@@ -36,7 +38,7 @@ const manifestData = getPackageManifest(manifestPath)
 manifestData['mp-weixin'].appid = process.env.WECHAT_APP_ID
 writePackageManifest(manifestPath, manifestData)
 
-consola.success(`Successfully initialized project: ${chalk.cyan('env: ' + process.env.NODE_ENV)}.`)
+consola.success(`Successfully updated manifest.json under src.`)
 console.log()
 
 function genPagesData(data) {
