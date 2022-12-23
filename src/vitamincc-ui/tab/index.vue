@@ -21,7 +21,7 @@
 
 <script>
 import { getRect, requestAnimationFrame, compareVersion, addUnit } from '../common/util'
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { getAppData } from '../common/global-data'
 
 export default {
@@ -147,7 +147,7 @@ export default {
       return style + baseStyle
     },
     currentView({ current }) {
-      return 'tab-' + current
+      return `tab-${current}`
     }
   },
   watch: {

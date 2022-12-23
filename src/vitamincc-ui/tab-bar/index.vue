@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { tabBarList, tabBarStyle } from '../common/tab-bar'
 
 export default {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     onSwitchTab({ pagePath }) {
-      uni.switchTab({ url: '/' + pagePath })
+      uni.switchTab({ url: `/${pagePath}` })
     }
   },
 }

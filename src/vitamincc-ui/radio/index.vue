@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 export default {
   name: 'vc-radio',
   inject: {

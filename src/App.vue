@@ -1,10 +1,10 @@
 <script>
 import store from '@/store'
-import checkUpdate from '@/common/lib/weixin/checkUpdate'
-import { getToken, APP_HIDE_SCENES } from '@/shared'
+import { useUpdater } from '@/common/hooks/use-updater'
+import { getToken, APP_HIDE_SCENES } from '@/utils'
 
 export default {
-  onLaunch: function (options) {
+  onLaunch(options) {
     console.log('🚀 ™ App Launch')
     console.log('🚀 ™ 环境变量', process.env)
     console.log('🚀 ™ 系统信息', uni.$sysInfo)
@@ -18,11 +18,14 @@ export default {
     /* #ifdef MP-WEIXIN */
     // 开启调试模式 - 上线后需要关闭
     wx.setEnableDebug({ enableDebug: true })
-    // 微信版本低于 7.0.0 的提示更新
-    checkUpdate()
+
+    // 微信版本低于 6.0.0 的提示更新
+    const { updateWeixin, updateMini } = useUpdater()
+    updateWeixin()
+    updateMini()
     /* #endif */
   },
-  onShow: async function (options) {
+  async onShow(options) {
     console.log('🚀 ™ App Show')
 
     store.dispatch('app/setAppShow')
@@ -46,7 +49,7 @@ export default {
       store.dispatch('share/setExtraData', extraData)
     }
   },
-  onHide: function () {
+  onHide() {
     console.log('🚀 ™ App Hide')
     store.dispatch('app/setAppHide')
   }

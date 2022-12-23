@@ -24,7 +24,7 @@
 
 <script>
 import transition from '../mixins/transition'
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { addUnit } from '../common/util'
 import { getAppData } from '../common/global-data'
 

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { getAppData } from '../common/global-data'
 export default {
   name: 'vc-overlay',

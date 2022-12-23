@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { tabBarPages, homePage } from '../common/tab-bar'
 import { getAppData, setAppData } from '../common/global-data'
 

@@ -25,9 +25,11 @@ module.exports = {
     'prettier'
   ],
   globals: {
+    // for weixin
     wx: true,
     uni: true,
-    getCurrentPages: true
+    getCurrentPages: true,
+    getApp: true
   },
 
   // add your custom rules here

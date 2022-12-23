@@ -1,9 +1,10 @@
 <template>
   <view :class="['vc-steps', 'vc-steps--' + direction]">
     <view v-for="(item, index) in options" :key="index" :class="['vc-step-item', 'vc-step-item--' + direction]">
-      <view v-if="item[descProp]" class="vc-step__desc" :style="{ 'color': index <= active ? activeColor : '#909090' }">{{
-          item[descProp]
-      }}</view>
+      <view v-if="item[descProp]" class="vc-step__desc" :style="{ 'color': index <= active ? activeColor : '#909090' }">
+        {{
+            item[descProp]
+        }}</view>
       <view class="vc-step__circle"
         :style="{ 'background': index <= active ? activeColor : '#d4d4d4', 'color': index <= active ? activeColor : '#d4d4d4' }">
       </view>
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 export default {
   name: 'vc-steps',
   props: {

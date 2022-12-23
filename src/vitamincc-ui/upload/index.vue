@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import { wxChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/lib/weixin/API'
 import { isEmpty } from '../common/validate'
 import { addUnit } from '../common/util'
+import { useChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/hooks/use-wxapi'
 
 export default {
   name: 'vc-upload',
@@ -190,7 +190,7 @@ export default {
       this.$emit('remove', index)
     },
     async onPreview() {
-      let sources = this.fileList.map((v) => ({ url: v[this.srcProp] }))
+      const sources = this.fileList.map((v) => ({ url: v[this.srcProp] }))
       const params = {
         sources,
         current: this.activeIdx,
@@ -211,7 +211,7 @@ export default {
           maxDuration: this.maxDuration,
           camera: this.camera,
         }
-        const { tempFiles = [] } = await wxChooseMedia(params)
+        const tempFiles = await useChooseMedia(params)
         if (!tempFiles.length) return this.$emit('cancel')
         this.tempFiles = tempFiles
         if (this.compress) {
@@ -245,7 +245,7 @@ export default {
       /* #endif */
     },
     async compressFiles() {
-      let promises = []
+      const promises = []
       this.tempFiles.map(async (file) => {
         promises.push(
           wxCompressImage({ quality: this.quality, src: file.tempFilePath })

@@ -5,14 +5,14 @@
       <view v-if="dot" class="vc-progress__dot" :style="dotStyled"></view>
     </view>
     <view class="vc-progress__pivot" :style="pivotStyled">
-      <slot>{{percentage}}%</slot>
+      <slot>{{ percentage }}%</slot>
     </view>
   </view>
 </template>
 
 <script>
 import { getRect, requestAnimationFrame } from '../common/util'
-import cssVariables from '@/common/lib/theme'
+import cssVariables from '@/common/theme'
 import { addUnit } from '../common/util'
 export default {
   name: 'vc-progress',
@@ -174,35 +174,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .vc-progress {
-    display: flex;
-    align-items: center;
-  }
-  .vc-progress__bar {
-    position: relative;
-    width: 100%;
-  }
-  .vc-progress__portion {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 0;
-  }
-  .vc-progress__dot {
-    box-sizing: border-box;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 100%;
-  }
-  .vc-progress__pivot {
-    display: flex;
-    align-items: center;
-    min-width: 72rpx;
-    font-size: 24rpx;
-    white-space: nowrap;
-  }
+.vc-progress {
+  display: flex;
+  align-items: center;
+}
+
+.vc-progress__bar {
+  position: relative;
+  width: 100%;
+}
+
+.vc-progress__portion {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+}
+
+.vc-progress__dot {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+}
+
+.vc-progress__pivot {
+  display: flex;
+  align-items: center;
+  min-width: 72rpx;
+  font-size: 24rpx;
+  white-space: nowrap;
+}
 </style>

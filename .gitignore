@@ -25,3 +25,4 @@ yarn-error.log*
 # project files
 * copy.*
 uni_modules
+src/pages.json
