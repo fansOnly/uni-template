@@ -25,7 +25,6 @@
 
 <script>
 import DemoBlock from '@/components/demo-block'
-import page from '@/mixins/page'
 import list from '../config'
 import { demo } from '@/api/demo'
 import { mapState, mapGetters } from 'vuex'
@@ -34,9 +33,9 @@ export default {
   components: {
     DemoBlock
   },
-  mixins: [page],
   data() {
     return {
+      pageReady: false,
       navMounted: false,
       isGray: false,
       list,

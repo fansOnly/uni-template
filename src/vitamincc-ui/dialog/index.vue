@@ -15,15 +15,15 @@
         <view v-if="showCancel || showConfirm"
           :class="['vc-dialog-footer', 'vc-hairline--top', reverse ? 'vc-dialog-footer--reverse' : null]">
           <view v-if="showCancel" class="vc-button--cancel">
-            <vc-button :color="cancelButtonColor" block plain :border="false" hover-class="vc-dialog__button--hover"
-              custom-style="height:46px;font-weight:500;" @click="onCancel">
+            <vc-button :color="cancelButtonColor" block plain :border="false" :use-bury="false"
+              hover-class="vc-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onCancel">
               <vc-loading v-if="cancelLoading" type="spinner"></vc-loading>
               <template v-else>{{ cancelButtonText }}</template>
             </vc-button>
           </view>
           <view v-if="showConfirm"
             :class="['vc-button--confirm', showCancel ? reverse ? 'vc-hairline--right' : 'vc-hairline--left' : null]">
-            <vc-button type="info" :color="confirmButtonColor" block plain :border="false"
+            <vc-button type="info" :color="confirmButtonColor" block plain :border="false" :use-bury="false"
               hover-class="vc-dialog__button--hover" custom-style="height:46px;font-weight:500;" @click="onConfirm">
               <vc-loading v-if="confirmLoading" type="spinner"></vc-loading>
               <template v-else>{{ confirmButtonText }}</template>

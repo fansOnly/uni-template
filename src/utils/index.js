@@ -1,4 +1,4 @@
-export * from './constants'
+
 export * from './token'
 
 export const objectToString = Object.prototype.toString

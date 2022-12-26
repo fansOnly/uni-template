@@ -1,8 +1,5 @@
-import business from './business'
-
 export default {
   methods: {
-    ...business,
     /**
      * 是否全路径
      */
@@ -35,7 +32,7 @@ export default {
       if (end < 0) end = length + end
       if (start < 0) start = length + start
       const masking = '*'.repeat(end - start).replace(/\B(?=(\*{4})+$)/g, space ? ' ' : '')
-      const reg = new RegExp(`(.{${ start }}).*(.{${ length - end }})`)
+      const reg = new RegExp(`(.{${start}}).*(.{${length - end}})`)
       return value.replace(reg, (_, $1, $2) => {
         return space ? `${$1} ${masking} ${$2}` : $1 + masking + $2
       })
@@ -43,7 +40,7 @@ export default {
     formatMoneyToCN(num) { // 格式化金额-转化中文"万"
       if (!num) return (num = 0)
       if (num < 10000) return num
-      return `${num / 10000 }万`
+      return `${num / 10000}万`
     },
     /**
      * 利率格式转换
@@ -57,11 +54,11 @@ export default {
       const num = Number(value)
       const [integer, decimal = '0'.repeat(min)] = String(num).split('.')
       if (decimal.length < min) {
-        return `${integer }.${ decimal.padEnd(min, '0')}`
+        return `${integer}.${decimal.padEnd(min, '0')}`
       } else if (decimal.length >= max) {
         return Number(num).toFixed(max)
       } else {
-        return `${integer }.${ decimal}`
+        return `${integer}.${decimal}`
       }
     },
     /**
@@ -81,7 +78,7 @@ export default {
       let [integer, decimal] = String(num).split('.')
       integer = integer.replace(/^[-+]/, '').replace(/(?!^)(?=(\d{3})+$)/g, delimiter)
       if (type === '1') {
-        return `${pn + integer }.${ decimal}`
+        return `${pn + integer}.${decimal}`
       } else {
         return pn + integer
       }

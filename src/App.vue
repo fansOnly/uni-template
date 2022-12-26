@@ -1,7 +1,7 @@
 <script>
 import store from '@/store'
 import { useUpdater } from '@/common/hooks/use-updater'
-import { getToken, APP_HIDE_SCENES } from '@/utils'
+import { getToken } from '@/utils'
 
 export default {
   onLaunch(options) {
@@ -30,10 +30,8 @@ export default {
 
     store.dispatch('app/setAppShow')
 
-    // 小程序切后台返回场景处理
     const hideScene = store.state.app.hideScene
-    if (Object.keys(APP_HIDE_SCENES).includes(hideScene)) {
-      console.log(`🚀 ™ ${APP_HIDE_SCENES[hideScene]}返回`)
+    if (['run-backstage', 'app-share', 'open-document', 'choose-media'].includes(hideScene)) {
       return store.dispatch('app/setHideScene')
     }
 

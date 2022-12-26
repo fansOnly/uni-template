@@ -1,10 +1,6 @@
 <template>
-  <vc-page :show="pageReady">
+  <vc-page ref="page" :show="pageReady">
     <view :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]">
-
-      <demo-block title="vuex 数据" padding>
-        <view>子工程 vuex 数据: {{ msg }}</view>
-      </demo-block>
 
       <!-- #ifdef MP-WEIXIN -->
       <demo-block title="微信自定义组件" padding>
@@ -19,16 +15,18 @@
 
 <script>
 import DemoBlock from '@/components/demo-block/index.vue'
-import page from '@/mixins/page'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     DemoBlock
   },
-  mixins: [page],
+  data() {
+    return {
+      pageReady: false
+    }
+  },
   computed: {
-    ...mapState('p-state', ['msg']),
     ...mapGetters('app', ['isCustomTabBar'])
   },
   async onLoad() {

@@ -236,7 +236,7 @@ module.exports = {
       },
     },
     {
-      'path': '/scroll-list/index',
+      'path': 'scroll-list/index',
       'name': 'scroll-list',
       'meta': {
         'auth': false,
@@ -340,7 +340,7 @@ module.exports = {
       },
     },
     {
-      'path': '/map/index',
+      'path': 'map/index',
       'name': 'map',
       'meta': {
         'auth': false,
@@ -348,7 +348,7 @@ module.exports = {
       },
     },
     {
-      'path': '/soter-auth/index',
+      'path': 'soter-auth/index',
       'name': 'soter-auth',
       'meta': {
         'auth': false,
@@ -356,7 +356,7 @@ module.exports = {
       },
     },
     {
-      'path': '/ocr/index',
+      'path': 'ocr/index',
       'name': 'ocr',
       'meta': {
         'auth': false,

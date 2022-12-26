@@ -14,51 +14,50 @@
 </template>
 
 <script>
-import page from '@/mixins/page';
 export default {
-  mixins: [page],
   data() {
     return {
+      pageReady: false,
       count: 0,
       value: '',
       query: {
         'hehe': 'haha'
       }
-    };
+    }
   },
   async onLoad(options) {
-    await this.$onLaunched;
+    await this.$onLaunched
   },
   async onShow() {
-    await this.$onLaunched;
+    await this.$onLaunched
   },
   onReady() {
-    this.pageReady = true;
+    this.pageReady = true
   },
   methods: {
     jump() {
-      const query = { a: 1, b: {'c': {d: '2'}}, ...this.query };
-      this.$Router.push({ path: '/pages/route/detail', query });
+      const query = { a: 1, b: { 'c': { d: '2' } }, ...this.query }
+      this.$Router.push({ path: '/pages/route/detail', query })
     },
     jump2() {
       const query = {
         x: 111,
         obj: { m: 'm' },
         ...this.query
-      };
-      this.$Router.replace({ name: 'route-detail', params: query });
+      }
+      this.$Router.replace({ name: 'route-detail', params: query })
     },
     setQuery() {
       try {
-        this.query = JSON.parse(this.value);
+        this.query = JSON.parse(this.value)
       } catch (error) {
         uni.showToast({
           title: '参数格式错误'
-        });
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

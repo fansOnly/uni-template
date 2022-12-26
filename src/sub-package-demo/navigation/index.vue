@@ -33,12 +33,11 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import page from '@/mixins/page'
 
 export default {
-  mixins: [page],
   data() {
     return {
+      pageReady: false,
       navMounted: false,
       title: '自定义导航',
       visible: false
