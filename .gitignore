@@ -26,3 +26,4 @@ yarn-error.log*
 * copy.*
 uni_modules
 src/pages.json
+src/manifest.json

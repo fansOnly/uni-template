@@ -26,7 +26,7 @@ module.exports = {
       },
     },
     {
-      'path': '/canvas/index',
+      'path': 'canvas/index',
       'name': 'canvas',
       'meta': {
         'auth': false,

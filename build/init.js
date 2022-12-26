@@ -33,10 +33,12 @@ consola.success(`Successfully generate pages.json under src.`)
 console.log()
 
 // 更新 manifest.json
-const manifestPath = resolvePath('src/manifest.json')
+const outputManifestPath = resolvePath('src/manifest.json')
+fs.removeSync(outputManifestPath)
+const manifestPath = resolvePath('src/config/manifest.json')
 const manifestData = getPackageManifest(manifestPath)
 manifestData['mp-weixin'].appid = process.env.WECHAT_APP_ID
-writePackageManifest(manifestPath, manifestData)
+writePackageManifest(outputManifestPath, manifestData)
 
 consola.success(`Successfully updated manifest.json under src.`)
 console.log()
