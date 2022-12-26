@@ -16,7 +16,7 @@
           </demo-block>
         </view>
         <view class="gap"></view>
-        <vc-button @click="isGray = !isGray">置灰页面</vc-button>
+        <vc-button @click="isGray = !isGray">{{ isGray ? '取消置灰' : '置灰页面' }}</vc-button>
       </view>
       <!-- <vc-tab-bar :is-gray="isGray" /> -->
     </view>

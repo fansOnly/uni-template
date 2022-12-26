@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block'
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 import { checkEmail, checkName } from '@/common/hooks/use-validator'
 export default {
   components: {

@@ -102,6 +102,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 添加埋点
+    useBury: {
+      type: Boolean,
+      default: false
+    },
     hoverClass: null,
     // 自定义组件 class
     customClass: null,
@@ -185,7 +190,9 @@ export default {
         }, this.clickDelay)
       }
       this.$emit('click', e)
-      console.log('🚀 ™ 按钮点击埋点', new Date())
+      if (this.useBury) {
+        console.log('🚀 ™ 按钮点击埋点', new Date())
+      }
     },
     onGetPhoneNumber(e) {
       console.log('[debug]', e)

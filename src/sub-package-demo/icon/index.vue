@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -31,9 +31,9 @@ export default {
   data() {
     return {
       iconList: ['home', 'success', 'fail', 'share', 'share-link', 'share-app', 'search', 'cloud-upload', 'cross', 'cross-blank', 'close-fill', 'radio-off', 'radio-on', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'eye-on', 'eye-off', 'caret-down', 'caret-up', 'checkbox-on', 'checkbox-off', 'selected', 'checkbox-on-circle-fill', 'checkbox-on-fill', 'image', 'image-fail', 'identity-card-front', 'identity-card-back',]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

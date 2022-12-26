@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -35,19 +35,19 @@ export default {
         { title: '产品到期', desc: '2020-07-22  星期一' },
         { title: '产品赎回', desc: '2020-07-22  星期一' },
       ],
-    };
+    }
   },
   methods: {
     increment() {
-      if (this.active === 3) return;
-      this.active++;
+      if (this.active === 3) return
+      this.active++
     },
     decrement() {
-      if (this.active === 0) return;
-      this.active--;
+      if (this.active === 0) return
+      this.active--
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

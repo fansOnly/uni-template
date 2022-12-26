@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block'
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 
 import { getSupportedSoter, isSoterEnrolled, startSoter } from '@/common/hooks/use-wxapi'
 

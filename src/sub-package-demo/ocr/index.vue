@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -68,35 +68,35 @@ export default {
         backFaceFile: '', // 身份证国徽面照片
       },
       bankCardNo: ''
-    };
+    }
   },
   async onLoad(options) { },
   methods: {
     onIdCardFrontOCR(evt) {
-      this.idCardInfo.frontFaceFile = evt.detail.image_path;
-      this.idCardInfo.id = evt.detail.id.text;
-      this.idCardInfo.name = evt.detail.name.text;
-      this.idCardInfo.gender = evt.detail.gender.text;
-      this.idCardInfo.birth = evt.detail.birth.text;
-      this.idCardInfo.address = evt.detail.address.text;
-      this.idCardInfo.nationality = evt.detail.nationality.text;
-      console.log('[debug] 识别出的身份证信息1 >>>', this.idCardInfo);
+      this.idCardInfo.frontFaceFile = evt.detail.image_path
+      this.idCardInfo.id = evt.detail.id.text
+      this.idCardInfo.name = evt.detail.name.text
+      this.idCardInfo.gender = evt.detail.gender.text
+      this.idCardInfo.birth = evt.detail.birth.text
+      this.idCardInfo.address = evt.detail.address.text
+      this.idCardInfo.nationality = evt.detail.nationality.text
+      console.log('[debug] 识别出的身份证信息1 >>>', this.idCardInfo)
     },
     onIdCardBackOCR(evt) {
-      this.idCardInfo.backFaceFile = evt.detail.image_path;
-      this.idCardInfo.authority = evt.detail.authority.text;
+      this.idCardInfo.backFaceFile = evt.detail.image_path
+      this.idCardInfo.authority = evt.detail.authority.text
       // 识别出的时间格式为YYYYMMDD，需要转换下
-      const [startDate, endDate] = evt.detail.valid_date.text.split('-');
-      this.idCardInfo.validateFrom = startDate.substring(0, 4) + '-' + startDate.substring(4, 6) + '-' + startDate.substring(6);
-      this.idCardInfo.validateTo = endDate.substring(0, 4) + '-' + endDate.substring(4, 6) + '-' + endDate.substring(6);
-      console.log('[debug] 识别出的身份证信息2 >>>', this.idCardInfo);
+      const [startDate, endDate] = evt.detail.valid_date.text.split('-')
+      this.idCardInfo.validateFrom = `${startDate.substring(0, 4) }-${ startDate.substring(4, 6) }-${ startDate.substring(6)}`
+      this.idCardInfo.validateTo = `${endDate.substring(0, 4) }-${ endDate.substring(4, 6) }-${ endDate.substring(6)}`
+      console.log('[debug] 识别出的身份证信息2 >>>', this.idCardInfo)
     },
     onBankCardOCR(evt) {
-      console.log('[debug] OCR 银行卡识别结果 >>>', evt);
-      this.bankCardNo = evt.detail.number.text;
+      console.log('[debug] OCR 银行卡识别结果 >>>', evt)
+      this.bankCardNo = evt.detail.number.text
     },
   },
-};
+}
 </script>
 
 <style lang='scss' scoped>

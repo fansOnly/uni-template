@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -54,24 +54,24 @@ export default {
       time: 30 * 60 * 60 * 1000,
       time2: 10 * 60 * 1000,
       timeData: {}
-    };
+    }
   },
   methods: {
     onTimeChange(data) {
       // console.log('onTimeChange: ', data)
-      this.timeData = data;
+      this.timeData = data
     },
     onStart() {
-      this.$refs.countdown.start();
+      this.$refs.countdown.start()
     },
     onPause() {
-      this.$refs.countdown.pause();
+      this.$refs.countdown.pause()
     },
     onReset() {
-      this.$refs.countdown.reset();
+      this.$refs.countdown.reset()
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

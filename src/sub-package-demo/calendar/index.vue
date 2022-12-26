@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -51,23 +51,23 @@ export default {
       date3: [],
       visible3: false,
       date4: ''
-    };
+    }
   },
   methods: {
     handleConfirm1(val) {
-      console.log('[debug] 选中的单个日期 >>>', val);
-      this.date1 = val;
+      console.log('[debug] 选中的单个日期 >>>', val)
+      this.date1 = val
     },
     handleConfirm2(val) {
-      console.log('[debug] 选中的多个日期 >>>', val);
-      this.date2 = val;
+      console.log('[debug] 选中的多个日期 >>>', val)
+      this.date2 = val
     },
     handleConfirm3(val) {
-      console.log('[debug] 选中的日期区间 >>>', val);
-      this.date3 = val;
+      console.log('[debug] 选中的日期区间 >>>', val)
+      this.date3 = val
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

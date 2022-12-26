@@ -10,6 +10,10 @@
     <slot v-if="show"></slot>
     <slot v-else name="skeleton"></slot>
     <slot v-if="failed" name="failed"></slot>
+
+    <!-- 弹窗实例 -->
+    <vc-dialog ref="dialog" :visible.sync="dialog.visible" :title="dialog.title" :content="dialog.content"
+      :show-cancel="dialog.showCancel" @confirm="onConfirm" @cancel="onCancel"></vc-dialog>
   </view>
 </template>
 
@@ -41,7 +45,13 @@ export default {
       duration: 300,
       paused: false,
       done: false,
-      failed: false
+      failed: false,
+      dialog: {
+        visible: false,
+        title: '',
+        content: '',
+        showCancel: false
+      },
     }
   },
   watch: {
@@ -96,13 +106,17 @@ export default {
         this.failed = true
         this.done = true
         uni.showToast({
-          title: '加载失败，请稍后重试',
+          title: '加载失败，请退出重试',
           icon: 'none',
           mask: true
         })
         clearTimeout(this.timer2)
       }
     }, 15000)
+  },
+  methods: {
+    onConfirm() { },
+    onCancel() { }
   }
 }
 </script>

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block'
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock

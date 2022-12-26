@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block'
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 import { useLocation, wxOpenLocation, wxChooseLocation } from '@/common/hooks/use-wxapi'
 
 export default {

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -67,22 +67,22 @@ export default {
       value: ['2'],
       value2: '',
       value3: '',
-    };
+    }
   },
   methods: {
     onChange(active) {
-      console.log('[debug] 当前打开的面板111 >>>', active);
-      this.value = active;
+      console.log('[debug] 当前打开的面板111 >>>', active)
+      this.value = active
     },
     onChange2(active) {
-      console.log('[debug] 当前打开的面板222 >>>', active);
-      this.value2 = active;
+      console.log('[debug] 当前打开的面板222 >>>', active)
+      this.value2 = active
     },
     onChange3(active) {
-      this.value3 = active;
+      this.value3 = active
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

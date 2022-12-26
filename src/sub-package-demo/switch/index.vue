@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -55,26 +55,26 @@ export default {
       value4: true,
       value5: 0,
       value6: '0',
-    };
+    }
   },
   computed: {
     type1() {
-      return typeof this.value;
+      return typeof this.value
     },
     type5() {
-      return typeof this.value5;
+      return typeof this.value5
     },
     type6() {
-      return typeof this.value6;
+      return typeof this.value6
     }
   },
   methods: {
     onSwitchChange(val) {
-      console.log('[debug] onSwitchChange >>>', val);
-      this.value = val;
+      console.log('[debug] onSwitchChange >>>', val)
+      this.value = val
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

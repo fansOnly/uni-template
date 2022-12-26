@@ -142,22 +142,22 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block/index.vue';
+import DemoBlock from '@/sub-package-demo/components/demo-block/index.vue'
 export default {
   components: {
     DemoBlock
   },
   methods: {
     async getPhoneNumber({ errMsg, iv, encryptedData }) {
-      console.log('[info] getPhoneNumber >>> ', errMsg);
+      console.log('[info] getPhoneNumber >>> ', errMsg)
       if (errMsg === 'getPhoneNumber:ok') {
-        console.log('[info] 获取手机号 success >>>', iv, encryptedData);
+        console.log('[info] 获取手机号 success >>>', iv, encryptedData)
       } else {
-        console.log('[error] 获取手机号 fail >>>', errMsg);
+        console.log('[error] 获取手机号 fail >>>', errMsg)
       }
     },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -67,17 +67,17 @@ export default {
       radio1: 'b',
       radio2: '2',
       radio3: '',
-    };
+    }
   },
   methods: {
     onCheck(value) {
-      this.radio1 = value;
+      this.radio1 = value
     },
     onClick(evt, name) {
-      this.radio2 = name;
+      this.radio2 = name
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

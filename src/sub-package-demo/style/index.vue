@@ -33,13 +33,13 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block/index.vue';
+import DemoBlock from '@/sub-package-demo/components/demo-block/index.vue'
 
 export default {
   components: {
     DemoBlock
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

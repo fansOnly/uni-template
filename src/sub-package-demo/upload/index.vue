@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -36,28 +36,28 @@ export default {
       files: [{ src: 'http://tmp/ojF8AQxKEl3Feaf7880f96426896b78b3e79af29fe85.jpg', status: 'success' }],
       files2: [],
       localFile: [{ src: '/static/images/idcard-front.png' }],
-    };
+    }
   },
   methods: {
     handleSingleUpload(data) {
-      this.file = data[0];
-      console.log('[info] 上传图片 >>>', this.file);
+      this.file = data[0]
+      console.log('[info] 上传图片 >>>', this.file)
     },
     handleSingleRemove() {
-      this.file = {};
-      console.log('[info] 删除图片 >>>', this.file);
+      this.file = {}
+      console.log('[info] 删除图片 >>>', this.file)
     },
     handleMultiUpload(data) {
-      this.files = data;
-      console.log('[info] 上传成功 >>>', data);
-      console.log('[info] this.files: ', this.files);
+      this.files = data
+      console.log('[info] 上传成功 >>>', data)
+      console.log('[info] this.files: ', this.files)
     },
     handleRemove(index) {
-      this.files.splice(index, 1);
-      console.log('[info] 删除图片 this.files: ', this.files);
+      this.files.splice(index, 1)
+      console.log('[info] 删除图片 this.files: ', this.files)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

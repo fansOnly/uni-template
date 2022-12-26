@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -24,9 +24,9 @@ export default {
     return {
       visible: false,
       visible2: false,
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 
 export default {
   components: {
@@ -48,25 +48,25 @@ export default {
       value: 10,
       value2: 57,
       value3: 97,
-    };
+    }
   },
   methods: {
     increment() {
       if (this.value + 10 >= 100) {
-        this.value = 100;
+        this.value = 100
       } else {
-        this.value += 10;
+        this.value += 10
       }
     },
     decrement() {
       if (this.value - 10 <= 0) {
-        this.value = 0;
+        this.value = 0
       } else {
-        this.value -= 10;
+        this.value -= 10
       }
     }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -46,18 +46,18 @@ export default {
         },
       ],
       active: 0,
-    };
+    }
   },
   methods: {
     onSwiperChange(item, index) {
-      console.log('[debug] swiper item', item);
+      console.log('[debug] swiper item', item)
       uni.showToast({
         title: `点击了第${index}项`,
         icon: 'none',
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block'
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 import DemoLine from './components/line'
 import DemoLineBg from './components/line-bg'
 import DemoLineDoubleY from './components/line-double-y'

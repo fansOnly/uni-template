@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import BsCanvas from '@/components/canvas'
+import BsCanvas from '@/sub-package-demo/components/canvas'
 
 export default {
   components: {

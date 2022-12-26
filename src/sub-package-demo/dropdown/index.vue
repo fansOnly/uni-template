@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import DemoBlock from '@/components/demo-block';
+import DemoBlock from '@/sub-package-demo/components/demo-block'
 export default {
   components: {
     DemoBlock
@@ -55,15 +55,15 @@ export default {
       value1: 0,
       value2: '4',
       value3: 'a',
-    };
+    }
   },
   methods: {
     handleChange(item, index) {
-      console.log('[debug] 第' + (index + 1) + '个菜单选择 >>>', { ...item });
-      this['value' + (index + 1)] = item.value;
+      console.log(`[debug] 第${ index + 1 }个菜单选择 >>>`, { ...item })
+      this[`value${ index + 1}`] = item.value
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
