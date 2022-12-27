@@ -16,7 +16,9 @@ module.exports = [
       'title': 'UI 组件演示库'
     },
     'usingComponents': {
-      'e-test': '/wxcomponents/e-test/index'
+      'all': {
+        'e-test': '/wxcomponents/e-test/index'
+      }
     }
   }
 ]

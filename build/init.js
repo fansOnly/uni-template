@@ -53,7 +53,12 @@ function genPagesData(data) {
       item.style.navigationStyle = 'custom'
     }
     if (item?.usingComponents) {
-      item.style.usingComponents = item.usingComponents
+      for (const key in item.usingComponents) {
+        if (key === platform || key === 'all') {
+          item.style.usingComponents = item.usingComponents[key]
+        }
+      }
+      // item.style.usingComponents = item.usingComponents
       delete item.usingComponents
     }
   }

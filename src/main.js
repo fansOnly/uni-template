@@ -3,10 +3,10 @@ import App from './App'
 import store from './store'
 import methods from '@/mixins/methods'
 import { router, RouterMount } from './router'
+
 Vue.use(router)
 
-Vue.prototype.$sysInfo = uni.getSystemInfoSync()
-uni.$sysInfo = uni.getSystemInfoSync()
+Vue.prototype.$sysInfo = uni.$sysInfo = uni.getSystemInfoSync()
 
 // 全局mixin
 Vue.mixin(methods)

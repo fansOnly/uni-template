@@ -54,6 +54,6 @@ export default {
 }
 </script>
 
-<style>
-@import url('@/common/styles/index.scss');
+<style lang="scss">
+@import '@/common/styles/index.scss';
 </style>

@@ -363,7 +363,9 @@ module.exports = {
         'title': 'OCR 识别'
       },
       'usingComponents': {
-        'ocr-navigator': 'plugin://ocr-plugin/ocr-navigator'
+        'mp-weixin': {
+          'ocr-navigator': 'plugin://ocr-plugin/ocr-navigator'
+        }
       }
     },
     {
