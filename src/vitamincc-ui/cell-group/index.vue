@@ -14,7 +14,10 @@ export default {
   },
   props: {
     // 是否显示边框线
-    border: null,
+    border: {
+      type: Boolean,
+      default: false
+    },
     // 自定义组件类 class
     customClass: null,
     // 自定义左侧标题类 class
@@ -22,11 +25,11 @@ export default {
     // 自定义右侧文本类 class
     textClass: null,
     // 自定义组件样式
-    customStyle: null,
+    customStyle: String,
     // 自定义左侧标题样式
-    titleStyle: null,
+    titleStyle: String,
     // 自定义右侧文本样式
-    textStyle: null
+    textStyle: String
   },
 }
 </script>

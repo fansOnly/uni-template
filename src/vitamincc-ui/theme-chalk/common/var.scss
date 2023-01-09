@@ -87,8 +87,8 @@ $font-size: () !default;
 $font-size: map.merge(
   (
     'base': 16px,
-    'small': 12px,
-    'smaller': 10px,
+    'small': 14px,
+    'smaller': 12px,
     'large': 18px,
     'larger': 20px,
   ),
@@ -121,7 +121,7 @@ $bg-color: map.merge(
 
 // Border
 $border-style: solid !default;
-$border-width: 1px !default;
+$border-width: 2rpx !default;
 
 $border-color: () !default;
 $border-color: map.merge(
@@ -188,4 +188,51 @@ $button-padding-horizontal: map.merge(
     'large': 20px,
   ),
   $button-padding-horizontal
+);
+
+// Cell
+$cell: () !default;
+$cell: map.merge(
+  (
+    'min-title-width': 80px,
+    'value-left-offset': 12px,
+    'bg-color': getCssVar('bg-color'),
+    'border-color': getCssVar('border-color'),
+    'title-color': getCssVar('text-color', 'primary'),
+    'text-color': getCssVar('text-color', 'secondary'),
+    'hover-bg-color': getCssVar('bg-color', 'active'),
+    // 'disabled-bg-color': getCssVar('bg-color', 'disabled'),
+    // 'disabled-border-color': getCssVar('border-color', 'lighter'),
+    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,
+  ),
+  $cell
+);
+$cell-font-size: () !default;
+$cell-font-size: map.merge(
+  (
+    '': getCssVar('font-size', 'base'),
+    'small': getCssVar('font-size', 'small'),
+    'large': getCssVar('font-size', 'base'),
+  ),
+  $cell-font-size
+);
+
+$cell-padding-vertical: () !default;
+$cell-padding-vertical: map.merge(
+  (
+    '': 14px,
+    'small': 10px,
+    'large': 18px,
+  ),
+  $cell-padding-vertical
+);
+
+$cell-padding-horizontal: () !default;
+$cell-padding-horizontal: map.merge(
+  (
+    '': 16px,
+    'small': 16px,
+    'large': 16px,
+  ),
+  $cell-padding-horizontal
 );

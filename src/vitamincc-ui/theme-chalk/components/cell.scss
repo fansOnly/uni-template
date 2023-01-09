@@ -1,0 +1,82 @@
+@use 'sass:map';
+
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@mixin cell-size() {
+  @each $size in (small, large) {
+    @include m($size) {
+      font-size: getCssVar('cell', 'font-size', $size);
+      padding: getCssVar('cell', 'padding-vertical', $size)
+        getCssVar('cell', 'padding-horizontal', $size);
+    }
+  }
+}
+
+@include b(cell) {
+  @include set-preset-css-var('cell', $cell);
+  @include set-preset-css-var('cell-font-size', $cell-font-size);
+  @include set-preset-css-var('cell-padding-vertical', $cell-padding-vertical);
+  @include set-preset-css-var(
+    'cell-padding-horizontal',
+    $cell-padding-horizontal
+  );
+}
+
+@include b(cell) {
+  box-sizing: border-box;
+  padding: getCssVar('cell', 'padding-vertical')
+    getCssVar('cell', 'padding-horizontal');
+  background-color: getCssVar('cell', 'bg-color');
+  border-color: getCssVar('cell', 'border-color');
+
+  @include cell-size();
+
+  &-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    @include when(center) {
+      align-items: center;
+    }
+
+    @include when(start) {
+      align-items: flex-start;
+    }
+
+    @include when(end) {
+      align-items: flex-end;
+    }
+  }
+
+  @include e(title) {
+    min-width: getCssVar('cell', 'min-title-width');
+    color: getCssVar('cell', 'title-color');
+
+    @include when(nowrap) {
+      white-space: nowrap;
+    }
+  }
+
+  @include e(value) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-left: getCssVar('cell', 'value-left-offset');
+  }
+
+  @include e(text) {
+    color: getCssVar('cell', 'text-color');
+    @include when(nowrap) {
+      white-space: nowrap;
+    }
+  }
+
+  &-hover-class {
+    background-color: getCssVar('cell', 'hover-bg-color');
+  }
+}
