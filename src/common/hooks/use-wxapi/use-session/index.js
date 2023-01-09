@@ -1,6 +1,6 @@
 import { wxCheckSession, wxLogin } from '../api'
 
-export const useSession = async (refresh = false) => {
+export const useSession = async (refresh = true) => {
   let code = ''
   let shouldReLogin = refresh
   if (!shouldReLogin) {

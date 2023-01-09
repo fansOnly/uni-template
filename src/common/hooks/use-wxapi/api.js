@@ -33,7 +33,7 @@ function apiToPromise(name, params, showLoading = false, version = '2.20.1') {
     })
   } else {
     console.warn(`🚀 ™ [system] ${name}: 您的微信基础库版本过低，请升级至${version}及以上版本`)
-    return { reason: 'low version' }
+    return -999
   }
   /* #endif */
   /* #ifdef H5 */
