@@ -1,0 +1,136 @@
+@use 'sass:map';
+
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@mixin button-size() {
+  @each $size in (small, large) {
+    @include m($size) {
+      font-size: getCssVar('button', 'font-size', $size);
+      padding: getCssVar('button', 'padding-vertical', $size)
+        getCssVar('button', 'padding-horizontal', $size);
+
+      @include when(circle) {
+        padding: getCssVar('button', 'padding-vertical', $size);
+      }
+    }
+  }
+}
+
+@include b(button) {
+  @include set-preset-css-var('button', $button);
+  @include set-preset-css-var('button-font-size', $button-font-size);
+  @include set-preset-css-var(
+    'button-padding-vertical',
+    $button-padding-vertical
+  );
+  @include set-preset-css-var(
+    'button-padding-horizontal',
+    $button-padding-horizontal
+  );
+}
+
+@include b(button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: getCssVar('button', 'padding-vertical')
+    getCssVar('button', 'padding-horizontal');
+  background-color: getCssVar('button', 'bg-color');
+  border-color: getCssVar('button', 'border-color');
+  border-width: getCssVar('border-width');
+  border-style: getCssVar('border-style');
+  border-radius: getCssVar('button', 'border-radius');
+  color: getCssVar('button', 'text-color');
+  font-size: getCssVar('button', 'font-size');
+  font-weight: getCssVar('font-weight');
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+  cursor: pointer;
+  outline: none;
+
+  &::after {
+    display: none;
+  }
+
+  & [class*='button-icon'] + text {
+    display: inline-flex;
+    align-items: center;
+
+    &:not(:empty) {
+      margin-left: 6px;
+    }
+  }
+
+  @include when(block) {
+    display: flex;
+  }
+
+  @include when(round) {
+    border-radius: getCssVar('border-radius', 'round');
+  }
+
+  @include when(circle) {
+    padding: getCssVar('button', 'padding-vertical');
+    border-radius: getCssVar('border-radius', 'circle');
+  }
+
+  @include when(plain) {
+    background-color: transparent !important;
+  }
+
+  @include button-size();
+
+  &--default {
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: getCssVar('button', 'disabled', 'bg-color');
+        border-color: getCssVar('button', 'disabled', 'border-color');
+        color: getCssVar('button', 'disabled', 'text-color');
+        background-image: none;
+        cursor: not-allowed;
+      }
+    }
+
+    @include pseudo(active) {
+      background-color: getCssVar('button', 'active', 'bg-color');
+      border-color: getCssVar('button', 'active', 'border-color');
+    }
+  }
+
+  @each $type in (primary, success, warning, error, info) {
+    @include m($type) {
+      background-color: getCssVar('color', $type);
+      border-color: getCssVar('color', $type);
+      color: getCssVar('color-white');
+
+      @include when(plain) {
+        color: getCssVar('color', $type);
+      }
+
+      @include pseudo(active) {
+        background-color: getCssVar('color', $type, 'light-3');
+        border-color: getCssVar('color', $type, 'light-3');
+      }
+
+      @include when(disabled) {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: getCssVar('color', $type, 'light-8');
+          border-color: getCssVar('color', $type, 'light-7');
+          color: getCssVar('color', $type, 'light-3');
+        }
+      }
+    }
+  }
+}

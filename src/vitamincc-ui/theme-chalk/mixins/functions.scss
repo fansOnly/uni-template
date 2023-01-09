@@ -1,0 +1,47 @@
+@use 'config';
+
+// joinVarName('button', 'text-color') => --vc-button-text-color
+@function joinVarName($list) {
+  $name: '--' + config.$namespace;
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+// @debug joinVarName('button', 'text-color');
+
+// getCssVarName('button', 'text-color') => --vc-button-text-color
+@function getCssVarName($args...) {
+  @return joinVarName($args);
+}
+// @debug getCssVarName('button', 'text-color');
+
+// getCssVar('button', 'text-color') => var(--vc-button-text-color)
+@function getCssVar($args...) {
+  @return var(#{joinVarName($args)});
+}
+// @debug getCssVar('button', 'text-color');
+
+// getCssVarWithDefault(('button', 'text-color'), blue) => var(--vc-button-text-color, blue)
+@function getCssVarWithDefault($args, $default) {
+  @return var(#{joinVarName($args)}, #{$default});
+}
+// @debug getCssVarWithDefault(('button', 'text-color'), blue);
+
+// bem('block', 'element', 'modifier') => 'vc-block__element--modifier'
+@function bem($block, $element: '', $modifier: '') {
+  $name: config.$namespace + config.$common-separator + $block;
+
+  @if $element != '' {
+    $name: $name + config.$element-separator + $element;
+  }
+
+  @if $modifier != '' {
+    $name: $name + config.$modifier-separator + $modifier;
+  }
+
+  @return $name;
+}
+// @debug bem('block', 'element', 'modifier');

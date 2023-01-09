@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import cssVariables from '@/common/theme'
-
 export default {
   name: 'vc-icon',
   props: {
@@ -12,20 +10,15 @@ export default {
     name: null,
     // 图标尺寸
     size: {
-      type: [String, Number],
-      default: cssVariables.iconSize,
-      validator(val) {
-        return /^\d+$/.test(String(val))
-      }
+      type: Number,
     },
     color: {
-      type: String,
-      default: cssVariables.iconColor
+      type: String
     },
     // 是否块级元素
     block: {
       type: Boolean,
-      default: true
+      default: false
     },
     // 自定义组件样式
     customStyle: null
@@ -33,8 +26,12 @@ export default {
   computed: {
     styled({ size, color, customStyle }) {
       let style = ''
-      style += `font-size: ${size}px;`
-      style += `color: ${color};`
+      if (size) {
+        style += `font-size: ${size}px;`
+      }
+      if (color) {
+        style += `color: ${color};`
+      }
       return style + customStyle
     }
   },
@@ -49,6 +46,12 @@ export default {
 
 <style lang="scss" >
 @import "../common/iconfont/iconfont.scss";
+
+.iconfont {
+  color: inherit;
+  font-size: 1em;
+  line-height: 1em;
+}
 
 .is-block {
   display: block;

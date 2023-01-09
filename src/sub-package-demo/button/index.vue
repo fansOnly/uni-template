@@ -9,15 +9,15 @@
           <vc-button type="primary">确认按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="info">信息按钮</vc-button>
+          <vc-button type="success">成功按钮</vc-button>
         </view>
       </view>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <vc-button type="success">成功按钮</vc-button>
+          <vc-button type="error">错误按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="error">错误按钮</vc-button>
+          <vc-button type="info">信息按钮</vc-button>
         </view>
       </view>
     </demo-block>
@@ -31,7 +31,7 @@
           <vc-button type="primary" plain>确认按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="info" plain>信息按钮</vc-button>
+          <vc-button type="success" plain>信息按钮</vc-button>
         </view>
       </view>
     </demo-block>
@@ -39,24 +39,13 @@
     <demo-block title="按钮形状" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <vc-button type="primary">方形按钮</vc-button>
+          <vc-button type="primary">普通按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="primary" :radius="8">圆角按钮</vc-button>
+          <vc-button type="primary" round>圆角按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="primary" round>圆形按钮</vc-button>
-        </view>
-      </view>
-      <view class="demo-row--flex">
-        <view class="demo-item-space">
-          <vc-button type="primary" plain>方形按钮</vc-button>
-        </view>
-        <view class="demo-item-space">
-          <vc-button type="primary" :radius="8" plain>圆角按钮</vc-button>
-        </view>
-        <view class="demo-item-space">
-          <vc-button type="primary" round plain>圆形按钮</vc-button>
+          <vc-button type="primary" circle icon="cloud-upload"></vc-button>
         </view>
       </view>
     </demo-block>
@@ -74,18 +63,7 @@
           <vc-button type="primary" disabled>确认按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="info" disabled>信息按钮</vc-button>
-        </view>
-      </view>
-      <view class="demo-row--flex">
-        <view class="demo-item-space">
-          <vc-button type="error" disabled>错误按钮</vc-button>
-        </view>
-        <view class="demo-item-space">
-          <vc-button type="custom" color="#6149f6" disabled>自定义颜色按钮</vc-button>
-        </view>
-        <view class="demo-item-space">
-          <vc-button type="custom" color="linear-gradient(to right, #4bb0ff, #6149f6)" disabled>渐变色按钮</vc-button>
+          <vc-button type="success" disabled plain>错误按钮</vc-button>
         </view>
       </view>
     </demo-block>
@@ -99,12 +77,12 @@
           <vc-button type="primary">默认按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="primary" size="mini">小号按钮</vc-button>
+          <vc-button type="primary" size="small">小号按钮</vc-button>
         </view>
       </view>
       <view class="gap"></view>
       <view style="width:266px;height:30px">
-        <vc-button type="primary" size="auto">自定义尺寸</vc-button>
+        <vc-button type="primary" block>自定义尺寸</vc-button>
       </view>
     </demo-block>
 
@@ -112,6 +90,9 @@
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <vc-button icon="home" type="primary">按钮</vc-button>
+        </view>
+        <view class="demo-item-space">
+          <vc-button type="primary" loading>loading</vc-button>
         </view>
         <view class="demo-item-space">
           <vc-button icon="cloud-upload" type="primary"></vc-button>
@@ -122,13 +103,13 @@
     <demo-block title="自定义颜色" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <vc-button type="custom" color="#6149f6">单色按钮</vc-button>
+          <vc-button color="#6149f6" hover-class="color-hover1">单色按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="custom" color="#6149f6" plain>朴素按钮</vc-button>
+          <vc-button color="#6149f6" plain>朴素按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="custom" color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</vc-button>
+          <vc-button color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</vc-button>
         </view>
       </view>
     </demo-block>
@@ -161,5 +142,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/common/demo.scss';
+@import '@/sub-package-demo/common/demo.scss';
 </style>
