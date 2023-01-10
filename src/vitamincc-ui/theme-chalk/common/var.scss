@@ -137,11 +137,34 @@ $border-radius: () !default;
 $border-radius: map.merge(
   (
     'base': 4px,
+    'large': 8px,
     'round': 2em,
     'circle': 100%,
   ),
   $border-radius
 );
+
+// Padding
+$padding-vertical: () !default;
+$padding-vertical: map.merge(
+  (
+    '': 28rpx,
+    'small': 20rpx,
+    'large': 36rpx,
+  ),
+  $padding-vertical
+);
+$padding-horizontal: () !default;
+$padding-horizontal: map.merge(
+  (
+    '': 32rpx,
+    'small': 24rpx,
+    'large': 40rpx,
+  ),
+  $padding-horizontal
+);
+
+// components styles
 
 // Button
 $button: () !default;
@@ -173,9 +196,9 @@ $button-font-size: map.merge(
 $button-padding-vertical: () !default;
 $button-padding-vertical: map.merge(
   (
-    '': 14px,
-    'small': 10px,
-    'large': 18px,
+    '': getCssVar('padding-vertical'),
+    'small': getCssVar('padding-vertical', 'small'),
+    'large': getCssVar('padding-vertical', 'large'),
   ),
   $button-padding-vertical
 );
@@ -183,9 +206,9 @@ $button-padding-vertical: map.merge(
 $button-padding-horizontal: () !default;
 $button-padding-horizontal: map.merge(
   (
-    '': 16px,
-    'small': 12px,
-    'large': 20px,
+    '': getCssVar('padding-horizontal'),
+    'small': getCssVar('padding-horizontal', 'small'),
+    'large': getCssVar('padding-horizontal', 'large'),
   ),
   $button-padding-horizontal
 );
@@ -221,9 +244,9 @@ $cell-font-size: map.merge(
 $cell-padding-vertical: () !default;
 $cell-padding-vertical: map.merge(
   (
-    '': 14px,
-    'small': 10px,
-    'large': 18px,
+    '': getCssVar('padding-vertical'),
+    'small': getCssVar('padding-vertical', 'small'),
+    'large': getCssVar('padding-vertical', 'large'),
   ),
   $cell-padding-vertical
 );
@@ -231,9 +254,9 @@ $cell-padding-vertical: map.merge(
 $cell-padding-horizontal: () !default;
 $cell-padding-horizontal: map.merge(
   (
-    '': 16px,
-    'small': 16px,
-    'large': 16px,
+    '': getCssVar('padding-horizontal'),
+    'small': getCssVar('padding-horizontal', 'small'),
+    'large': getCssVar('padding-horizontal', 'large'),
   ),
   $cell-padding-horizontal
 );
@@ -258,11 +281,15 @@ $popup: map.merge(
     'padding': 32rpx,
     'title-color': getCssVar('text-color', 'primary'),
     'bg-color': getCssVar('bg-color'),
-    'border-radius-center': 20rpx,
-    'border-radius-top': 0 0 20rpx 20rpx,
-    'border-radius-bottom': 20rpx 20rpx 0 0,
-    'border-radius-left': 0 20rpx 20rpx 0,
-    'border-radius-right': 20rpx 0 0 20rpx,
+    'border-radius-center': getCssVar('border-radius', 'large'),
+    'border-radius-top': 0 0 getCssVar('border-radius', 'large')
+      getCssVar('border-radius', 'large'),
+    'border-radius-bottom': getCssVar('border-radius', 'large')
+      getCssVar('border-radius', 'large') 0 0,
+    'border-radius-left': 0 getCssVar('border-radius', 'large')
+      getCssVar('border-radius', 'large') 0,
+    'border-radius-right': getCssVar('border-radius', 'large') 0 0
+      getCssVar('border-radius', 'large'),
   ),
   $popup
 );
@@ -310,4 +337,25 @@ $switch: map.merge(
     'text-font-size': 0.6em,
   ),
   $switch
+);
+
+// Input
+$input: () !default;
+$input: map.merge(
+  (
+    'input-height': 40px,
+    'textarea-min-height': 80px,
+    'bg-color': getCssVar('bg-color'),
+    'input-padding': 0 getCssVar('padding-horizontal'),
+    'textarea-padding': getCssVar('padding-vertical') 0,
+    'border-radius': getCssVar('border-radius', 'large'),
+    'text-color': getCssVar('text-color', 'primary'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
+    'text-font-size': getCssVar('font-size'),
+    'placeholder-color': getCssVar('text-color', 'placeholder'),
+    'icon-color': getCssVar('text-color', 'secondary'),
+    'limit-font-size': getCssVar('font-size', 'smaller'),
+    'limit-color': getCssVar('text-color', 'secondary'),
+  ),
+  $input
 );

@@ -26,13 +26,18 @@
 
     <demo-block title="禁用状态" padding background="#fff">
       <vc-input v-model="value1" border :radius="10" placeholder="不可用" disabled></vc-input>
-      <view class="gap"></view>
-      <vc-input v-model="value1" border :radius="10" placeholder="只读" readonly></vc-input>
     </demo-block>
 
     <demo-block title="格式化输出" padding background="#fff">
       <view>{{ phone }}</view>
       <vc-input v-model="phone" border :radius="10" :formatter="trim" placeholder="格式化输出"></vc-input>
+    </demo-block>
+
+    <demo-block title="自定义样式" padding background="#fff">
+      <vc-input v-model="value1" border :radius="10" placeholder="自定义 组件 样式" custom-style="background: #eee"></vc-input>
+      <vc-input v-model="value1" border :radius="10" placeholder="自定义 placeholder 样式"
+        placeholder-style="font-size:10px;"></vc-input>
+      <vc-input v-model="value1" border :radius="10" placeholder="自定义 input 样式" input-style="color: #f60;"></vc-input>
     </demo-block>
 
   </view>

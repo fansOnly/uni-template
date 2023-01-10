@@ -1,0 +1,61 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(input) {
+  @include set-preset-css-var('input', $input);
+}
+
+@include b(input) {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+  box-sizing: border-box;
+  padding: getCssVar('input', 'input-padding');
+  border-radius: getCssVar('input', 'border-radius');
+  background-color: getCssVar('input', 'bg-color');
+  color: getCssVar('input', 'text-color');
+  font-size: getCssVar('input', 'text-font-size');
+
+  @include e(content-textarea) {
+    flex: 1;
+  }
+
+  @include e(content-input) {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  @include e(input) {
+    flex: 1;
+    height: getCssVar('input', 'input-height');
+    @include when(disabled) {
+      color: getCssVar('input', 'disabled', 'text-color');
+    }
+  }
+  @include e(textarea) {
+    width: 100%;
+    min-height: getCssVar('input', 'textarea-min-height');
+    padding: getCssVar('input', 'textarea-padding');
+    @include when(disabled) {
+      color: getCssVar('input', 'disabled', 'text-color');
+    }
+  }
+  @include e(icon) {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 24rpx;
+    color: getCssVar('input', 'icon-color');
+  }
+
+  @include e(limit) {
+    margin-bottom: 10rpx;
+    font-size: getCssVar('input', 'limit-font-size');
+    color: getCssVar('input', 'limit-color');
+    text-align: right;
+  }
+}

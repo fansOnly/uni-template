@@ -1,44 +1,40 @@
 <template>
-  <view :class="['vc-input-wrapper', border ? 'vc-hairline--surround' : null, isTextarea ? 'vc-textarea-class' : null]"
-    :style="wrapperStyled">
+  <view :class="['vc-input', border ? 'vc-hairline--surround' : null]" :style="customStyle">
+    <!-- prefix -->
     <slot name="prefix"></slot>
-    <view class="vc-input--input">
-      <template v-if="type === 'textarea'">
-        <view class="vc-textarea-wrap">
-          <textarea class="vc-textarea" :name="name" :value="formatterValue" :disabled="disabled"
-            :placeholder="placeholder" :maxlength="textAreaMaxLength" :cursor-spacing="10" :focus="isFocus"
-            :auto-height="autoHeight" :style="inputStyled" :placeholder-style="placeholderStyled" @blur="onBlur"
-            @focus="onFocus" @input="onTextareaChange" />
-          <view v-if="showLimit" class="vc-textarea-limit">{{ inputValueCount }}/{{ textAreaMaxLength }}</view>
-        </view>
-      </template>
-      <template v-else>
-        <input class="vc-input" :name="name" :type="inputType" :value="formatterValue" :password="password"
-          :maxlength="maxlength" :disabled="disabled" :cursor-spacing="10" :focus="isFocus" :style="inputStyled"
-          :placeholder-style="placeholderStyled" :placeholder="placeholder" :confirm-type="confirmType" @input="onInput"
-          @blur="onBlur" @focus="onFocus" @confirm="onConfirm" />
-      </template>
-      <view v-show="showClear" class="vc-input__close-area" :style="style" @click="onClear">
-        <vc-icon class="vc-input__icon--close" name="close-fill" />
+    <!-- content -->
+    <view v-if="isTextarea" class="vc-input__content-textarea">
+      <textarea :class="['vc-input__textarea', disabled ? 'is-disabled' : null]" :name="name" :value="formatterValue"
+        :disabled="disabled" :placeholder="placeholder" :maxlength="textAreaMaxLength" :cursor-spacing="10"
+        :focus="isFocus" :auto-height="autoHeight" :style="inputStyle" :placeholder-style="placeholderStyle"
+        @blur="onBlur" @focus="onFocus" @input="onTextareaChange" />
+      <view v-if="showLimit" class="vc-input__limit">{{ inputValueCount }}/{{ textAreaMaxLength }}</view>
+    </view>
+    <view v-else class="vc-input__content-input">
+      <input :class="['vc-input__input', disabled ? 'is-disabled' : null]" :name="name" :type="inputType"
+        :value="formatterValue" :password="password" :maxlength="maxlength" :disabled="disabled" :cursor-spacing="10"
+        :focus="isFocus" :placeholder="placeholder" :confirm-type="confirmType" :style="inputStyle"
+        :placeholder-style="placeholderStyle" @input="onInput" @blur="onBlur" @focus="onFocus" @confirm="onConfirm" />
+      <view v-if="showClear" class="vc-input__icon" :style="style" @click="onClear">
+        <vc-icon name="close-fill" :size="20" />
       </view>
     </view>
-    <view v-if="type === 'password'" class="vc-input__eye-area" @click="togglePassType">
-      <vc-icon :name="passIconName" />
+    <!-- password icon -->
+    <view v-if="type === 'password'" class="vc-input__icon" @click="togglePassType">
+      <vc-icon :name="passIconName" :size="20" />
     </view>
+    <!-- suffix -->
     <slot name="suffix"></slot>
   </view>
 </template>
 
 <script>
-import { INPUT_HEIGHT_DEF } from '../common/constant'
-import { addUnit } from '../common/util'
-
 function debounce(fn, delay) {
   let timer = null
-  return function () {
+  return function (...args) {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
-      fn.apply(this, arguments)
+      fn.apply(this, args)
     }, delay)
   }
 }
@@ -56,16 +52,6 @@ export default {
     }
   },
   props: {
-    // 输入框高度
-    height: {
-      type: [Number, String],
-      default: INPUT_HEIGHT_DEF
-    },
-    // 输入最小框高度
-    minHeight: {
-      type: [Number, String],
-      default: INPUT_HEIGHT_DEF
-    },
     // 输入框的 name 属性
     name: null,
     // 输入框的值
@@ -74,6 +60,11 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    // 是否是密码类型，type = textarea 时无效
+    password: {
+      type: Boolean,
+      default: false
     },
     // 输入框为空时占位符
     placeholder: null,
@@ -92,11 +83,6 @@ export default {
       type: Boolean,
       default: false
     },
-    // 圆角
-    radius: {
-      type: Number,
-      default: 0
-    },
     // 是否显示清除图标
     clearable: {
       type: Boolean,
@@ -107,12 +93,11 @@ export default {
       type: String,
       default: 'focus'
     },
-    // 将 input 切换为 view 标签，显示为 disabled 样式
     disabled: {
       type: Boolean,
       default: false
     },
-    // 是否自动增高，设置auto-height时，style.height不生效
+    // textarea 是否自动增高，设置auto-height时，style.height不生效
     autoHeight: {
       type: Boolean,
       default: false
@@ -132,24 +117,18 @@ export default {
       type: String,
       default: 'done'
     },
-    // 是否是密码类型，type = textarea 时无效
-    password: {
-      type: Boolean,
-      default: false
-    },
     // 输入值格式化函数
     formatter: null,
     // 输入框自定义样式
-    inputStyle: null,
+    inputStyle: String,
     // 指定 placeholder 的样式
-    placeholderStyle: null,
+    placeholderStyle: String,
     // 自定义组件样式
-    customStyle: null
+    customStyle: String
   },
   data() {
     return {
       TEXTAREA_MAX_LENGTH: 20, // 文本输入域最大限制
-      inputHeight: this.height,
       initValue: '', // 原始输入值
       inputFocus: false,
       status: '', // 表单状态
@@ -160,36 +139,6 @@ export default {
   computed: {
     isTextarea() {
       return this.type === 'textarea'
-    },
-    isPassInput() {
-      return this.inputType === 'password'
-    },
-    style() {
-      let style = ''
-      let height = this.inputHeight
-      let lineHeight = this.inputHeight
-      if (this.isTextarea) {
-        height = Math.max(height, 80)
-        lineHeight = Math.min(height, 22)
-      }
-      style += `height: ${this.autoHeight ? 'auto' : height + 'px'};`
-      style += `min-height: ${this.minHeight}px;`
-      style += `line-height: ${lineHeight}px;`
-      return style
-    },
-    wrapperStyled({ radius, customStyle, clearable }) {
-      let style = ''
-      radius && (style += `border-radius: ${addUnit(radius)};`)
-      if (clearable) {
-        style += 'padding-right: 0;'
-      }
-      return this.style + style + customStyle
-    },
-    inputStyled() {
-      return this.style + this.inputStyle
-    },
-    placeholderStyled() {
-      return this.style + this.placeholderStyle
     },
     isFocus() {
       return this.focus || this.inputFocus
@@ -207,7 +156,7 @@ export default {
       return Math.max(this.maxlength, this.TEXTAREA_MAX_LENGTH)
     },
     showClear() {
-      if (this.isTextarea) return false
+      if (!this.clearable) return false
       if (this.clearTrigger === 'focus') {
         return this.clearable && this.initValue.length && this.isFocus
       } else if (this.clearTrigger === 'always') {
@@ -236,7 +185,6 @@ export default {
   behaviors: ['uni://form-field'],
   created() {
     if (this.form) {
-      this.inputHeight = this.form.height
       this.$watch('form.value', (formValue) => {
         this.initValue = formValue[this.name]
       }, {
@@ -292,7 +240,7 @@ export default {
       this.inputFocus = false
       /* #endif */
       // 表单校验
-      let { value } = evt.detail
+      const { value } = evt.detail
       if (this.form && this.form.validateTrigger !== 'input') {
         this.formItem.validateForm(value, this.name)
       }
@@ -321,6 +269,7 @@ export default {
       }
       this.$nextTick(() => {
         this.status = ''
+        this.inputFocus = true
       })
     },
     togglePassType() {
@@ -333,80 +282,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-input-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  padding: 0 24rpx;
-  border-radius: 16rpx;
-  /* background: #fff; */
-  color: $uni-text-color;
-  text-align: left;
-}
-
-.vc-input {
-  flex: 1;
-  box-sizing: border-box;
-  display: block;
-  min-height: inherit;
-  height: inherit;
-  padding-right: 16rpx;
-  line-height: inherit;
-  font-weight: inherit;
-}
-
-.vc-input-view {
-  flex: 1;
-}
-
-.vc-textarea-wrap {
-  flex: 1;
-  box-sizing: border-box;
-  padding-right: 24rpx;
-  padding-top: 12rpx;
-}
-
-.vc-textarea-limit {
-  margin: 6rpx 0;
-  font-size: $uni-font-size-10;
-  color: $uni-text-color-label;
-  text-align: right;
-}
-
-.vc-textarea {
-  flex: 1;
-  width: 100%;
-}
-
-.vc-input--input {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  transition: width ease 300ms;
-}
-
-.vc-input__close-area {
-  position: relative;
-  width: 64rpx;
-  height: 100%;
-  transition: all ease .3s;
-}
-
-.vc-input__icon--close {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.vc-input__eye-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 64rpx;
-  height: 100%;
-}
+@import '../theme-chalk/components/input.scss';
 </style>

@@ -23,4 +23,8 @@
   @include set-preset-css-var('border-radius', $border-radius);
   @include set-css-var-value('border-width', $border-width);
   @include set-css-var-value('border-style', $border-style);
+
+  // Padding
+  @include set-preset-css-var('padding-vertical', $padding-vertical);
+  @include set-preset-css-var('padding-horizontal', $padding-horizontal);
 }
