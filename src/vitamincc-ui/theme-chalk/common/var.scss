@@ -271,9 +271,10 @@ $popup: map.merge(
 $checkbox: () !default;
 $checkbox: map.merge(
   (
-    'icon-color': getCssVar('text-color', 'secondary'),
-    'active-icon-color': getCssVar('color', 'primary'),
-    'disabled-icon-color': getCssVar('text-color', 'disabled'),
+    'inactive-color': getCssVar('text-color', 'secondary'),
+    'active-color': getCssVar('color', 'primary'),
+    'disabled-inactive-color': getCssVar('text-color', 'disabled'),
+    'disabled-active-color': getCssVar('color', 'primary', 'light-7'),
     'text-color': getCssVar('text-color', 'secondary'),
     'disabled-text-color': getCssVar('text-color', 'disabled'),
     'text-left-offset': 8px,
@@ -285,12 +286,28 @@ $checkbox: map.merge(
 $radio: () !default;
 $radio: map.merge(
   (
-    'icon-color': getCssVar('text-color', 'secondary'),
-    'active-icon-color': getCssVar('color', 'primary'),
-    'disabled-icon-color': getCssVar('text-color', 'disabled'),
+    'inactive-color': getCssVar('text-color', 'secondary'),
+    'active-color': getCssVar('color', 'primary'),
+    'disabled-inactive-color': getCssVar('text-color', 'disabled'),
+    'disabled-active-color': getCssVar('text-color', 'disabled', 'light-7'),
     'text-color': getCssVar('text-color', 'secondary'),
     'disabled-text-color': getCssVar('text-color', 'disabled'),
     'text-left-offset': 8px,
   ),
   $radio
+);
+
+// Switch
+$switch: () !default;
+$switch: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+    'inactive-color': #dcdfe6,
+    'active-color': getCssVar('color', 'primary'),
+    'disabled-inactive-color': getCssVar('bg-color', 'disabled'),
+    'disabled-active-color': getCssVar('color', 'primary', 'light-7'),
+    'text-color': getCssVar('bg-color'),
+    'text-font-size': 0.6em,
+  ),
+  $switch
 );

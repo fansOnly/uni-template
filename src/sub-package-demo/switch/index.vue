@@ -1,7 +1,7 @@
 <template>
   <view class="page-wrapper">
 
-    <demo-block title="基础用法" padding>
+    <demo-block title="基础用法" padding background="#fff">
       <vc-switch :value="value" @input="onSwitchChange"></vc-switch>
     </demo-block>
 
@@ -22,7 +22,6 @@
 
     <demo-block title="显示提示文本" padding>
       <vc-switch v-model="value2" show-text></vc-switch>
-      <vc-switch v-model="value2" show-text active-text="on" inactive-text="off"></vc-switch>
     </demo-block>
 
     <demo-block title="自定义大小" padding>
@@ -31,11 +30,12 @@
     </demo-block>
 
     <demo-block title="自定义颜色" padding>
-      <vc-switch v-model="value3" active-color="green" inactive-color="#ff0"></vc-switch>
+      <vc-switch v-model="value3" active-color="#f60" inactive-color="#8bc34a"></vc-switch>
     </demo-block>
 
     <demo-block title="禁用状态" padding>
       <vc-switch v-model="value4" disabled></vc-switch>
+      <vc-switch v-model="value2" disabled></vc-switch>
     </demo-block>
 
   </view>
@@ -78,4 +78,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
