@@ -27,13 +27,13 @@
   }
 
   @include e(icon) {
-    color: getCssVar('checkbox', 'icon-color');
+    color: getCssVar('checkbox', 'inactive-color');
     @include when(active) {
-      color: getCssVar('checkbox', 'active-icon-color');
+      color: getCssVar('checkbox', 'active-color');
     }
 
     @include when(disabled) {
-      color: getCssVar('checkbox', 'disabled', 'icon-color');
+      color: getCssVar('checkbox', 'disabled', 'inactive-color');
     }
   }
 

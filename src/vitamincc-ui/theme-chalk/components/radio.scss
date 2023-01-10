@@ -27,12 +27,12 @@
   }
 
   @include e(icon) {
-    color: getCssVar('radio', 'icon-color');
+    color: getCssVar('radio', 'inactive-color');
     @include when(active) {
-      color: getCssVar('radio', 'active-icon-color');
+      color: getCssVar('radio', 'active-color');
     }
     @include when(disabled) {
-      color: getCssVar('radio', 'disabled', 'icon-color');
+      color: getCssVar('radio', 'disabled', 'inactive-color');
     }
   }
 
