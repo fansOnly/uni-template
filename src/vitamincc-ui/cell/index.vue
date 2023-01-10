@@ -1,17 +1,17 @@
 <template>
   <view
-    :class="['vc-cell', size ? `vc-cell--${size}` : null, isBorder ? 'vc-hairline--bottom' : null, disabled ? 'is-disabled' : null, customClasses]"
+    :class="['vc-cell', size ? `vc-cell--${size}` : null, ifBorder ? 'vc-hairline--bottom' : null, disabled ? 'is-disabled' : null, customClasses]"
     :style="customStyled" :hover-class="cellHoverClass" :hover-stay-time="200" @click="onClick">
     <view :class="['vc-cell-wrap', `is-${align}`]">
-      <view :class="['vc-cell__title', titleClasses]" :style="titleStyled">
+      <view :class="['vc-cell__title', disabled ? 'is-disabled' : null, titleClasses]" :style="titleStyled">
         <slot name="title">{{ title }}</slot>
       </view>
-      <view class="vc-cell__value">
+      <view :class="['vc-cell__value', disabled ? 'is-disabled' : null]">
         <view :class="['vc-cell__text', titleWidth ? null : 'is-nowrap', textClasses]" :style="textStyled">
           <template v-if="text">{{ text }}</template>
           <slot v-else name="text"></slot>
         </view>
-        <view v-if="isLink" class="vc-cell__value-icon">
+        <view v-if="isLink" class="vc-cell__icon">
           <!-- slot 命名 right-icon 不支持？？？ -->
           <slot name="icon">
             <vc-icon name="arrow-right" />
@@ -93,6 +93,9 @@ export default {
     textStyle: String
   },
   computed: {
+    ifBorder() {
+      return !this.isLast && (this.parent?.border ? true : this.border)
+    },
     customClasses() {
       return this.customClass ?? this.parent?.customClass ?? ''
     },
@@ -101,9 +104,6 @@ export default {
     },
     textClasses() {
       return this.textClass ?? this.parent?.textClass ?? ''
-    },
-    isBorder() {
-      return !this.isLast && (this.parent?.border ? true : this.border)
     },
     cellHoverClass() {
       return this.isLink ? this.hoverClass : 'none'

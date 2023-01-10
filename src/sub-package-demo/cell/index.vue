@@ -35,7 +35,8 @@
     <demo-block title="导航样式" padding>
       <vc-cell-group border>
         <vc-cell title="标题" is-link></vc-cell>
-        <vc-cell title="标题222222" text="内容" is-link is-last></vc-cell>
+        <vc-cell title="标题222222" text="内容" is-link></vc-cell>
+        <vc-cell title="标题-不可用" text="内容" disabled is-link is-last></vc-cell>
       </vc-cell-group>
     </demo-block>
 

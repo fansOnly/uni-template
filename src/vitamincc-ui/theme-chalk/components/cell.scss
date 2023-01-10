@@ -34,6 +34,11 @@
 
   @include cell-size();
 
+  @include when(disabled) {
+    background-color: getCssVar('cell', 'disabled', 'bg-color');
+    border-color: getCssVar('cell', 'disabled', 'border-color');
+  }
+
   &-wrap {
     display: flex;
     justify-content: space-between;
@@ -58,6 +63,10 @@
     @include when(nowrap) {
       white-space: nowrap;
     }
+
+    @include when(disabled) {
+      color: getCssVar('cell', 'disabled', 'title-color');
+    }
   }
 
   @include e(value) {
@@ -67,10 +76,13 @@
     justify-content: flex-end;
 
     margin-left: getCssVar('cell', 'value-left-offset');
+    color: getCssVar('cell', 'text-color');
+    @include when(disabled) {
+      color: getCssVar('cell', 'disabled', 'text-color');
+    }
   }
 
   @include e(text) {
-    color: getCssVar('cell', 'text-color');
     @include when(nowrap) {
       white-space: nowrap;
     }
