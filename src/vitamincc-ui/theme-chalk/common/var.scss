@@ -201,9 +201,10 @@ $cell: map.merge(
     'title-color': getCssVar('text-color', 'primary'),
     'text-color': getCssVar('text-color', 'secondary'),
     'hover-bg-color': getCssVar('bg-color', 'active'),
-    // 'disabled-bg-color': getCssVar('bg-color', 'disabled'),
-    // 'disabled-border-color': getCssVar('border-color', 'lighter'),
-    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,,
+    'disabled-bg-color': getCssVar('bg-color', 'disabled'),
+    'disabled-border-color': getCssVar('border-color', 'lighter'),
+    'disabled-title-color': getCssVar('text-color', 'secondary'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
   ),
   $cell
 );
@@ -245,9 +246,23 @@ $image: map.merge(
     'value-left-offset': 12px,
     'bg-color': getCssVar('bg-color', 'active'),
     'text-color': getCssVar('text-color', 'secondary'),
-    // 'disabled-bg-color': getCssVar('bg-color', 'disabled'),
-    // 'disabled-border-color': getCssVar('border-color', 'lighter'),
-    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,,
   ),
   $image
+);
+
+// Popup
+$popup: () !default;
+$popup: map.merge(
+  (
+    'header-height': 112rpx,
+    'padding': 32rpx,
+    'title-color': getCssVar('text-color', 'primary'),
+    'bg-color': getCssVar('bg-color'),
+    'border-radius-center': 20rpx,
+    'border-radius-top': 0 0 20rpx 20rpx,
+    'border-radius-bottom': 20rpx 20rpx 0 0,
+    'border-radius-left': 0 20rpx 20rpx 0,
+    'border-radius-right': 20rpx 0 0 20rpx,
+  ),
+  $popup
 );
