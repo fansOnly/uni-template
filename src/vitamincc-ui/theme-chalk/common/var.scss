@@ -272,9 +272,25 @@ $checkbox: () !default;
 $checkbox: map.merge(
   (
     'icon-color': getCssVar('text-color', 'secondary'),
-    'icon-color-active': getCssVar('color', 'primary'),
+    'active-icon-color': getCssVar('color', 'primary'),
+    'disabled-icon-color': getCssVar('text-color', 'disabled'),
     'text-color': getCssVar('text-color', 'secondary'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
     'text-left-offset': 8px,
   ),
   $checkbox
+);
+
+// Radio
+$radio: () !default;
+$radio: map.merge(
+  (
+    'icon-color': getCssVar('text-color', 'secondary'),
+    'active-icon-color': getCssVar('color', 'primary'),
+    'disabled-icon-color': getCssVar('text-color', 'disabled'),
+    'text-color': getCssVar('text-color', 'secondary'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
+    'text-left-offset': 8px,
+  ),
+  $radio
 );

@@ -1,0 +1,47 @@
+@use 'sass:map';
+
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(radio) {
+  @include set-preset-css-var('radio', $radio);
+}
+
+@include b(radio) {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+
+  @include when(block) {
+    display: flex;
+  }
+
+  @include when(multi-text) {
+    align-items: flex-start;
+  }
+
+  @include when(horizontal) {
+    display: flex;
+  }
+
+  @include e(icon) {
+    color: getCssVar('radio', 'icon-color');
+    @include when(active) {
+      color: getCssVar('radio', 'active-icon-color');
+    }
+    @include when(disabled) {
+      color: getCssVar('radio', 'disabled', 'icon-color');
+    }
+  }
+
+  @include e(text) {
+    &:not(:empty) {
+      margin-left: getCssVar('radio', 'text-left-offset');
+    }
+    @include when(disabled) {
+      color: getCssVar('radio', 'disabled', 'text-color');
+    }
+  }
+}
