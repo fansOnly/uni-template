@@ -7,9 +7,9 @@
     <vc-loading v-if="loading" type="spinner" class="button-icon" :size="14" color="#fff" />
     <vc-icon v-else-if="icon" :name="icon" class="button-icon" />
     <slot name="icon"></slot>
-    <text>
+    <view class="vc-button__text">
       <slot></slot>
-    </text>
+    </view>
   </button>
 </template>
 

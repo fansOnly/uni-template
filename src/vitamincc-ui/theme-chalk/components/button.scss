@@ -58,7 +58,7 @@
     display: none;
   }
 
-  & [class*='button-icon'] + text {
+  & [class*='button-icon'] + .vc-button__text {
     display: inline-flex;
     align-items: center;
 
