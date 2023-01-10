@@ -266,3 +266,15 @@ $popup: map.merge(
   ),
   $popup
 );
+
+// Checkbox
+$checkbox: () !default;
+$checkbox: map.merge(
+  (
+    'icon-color': getCssVar('text-color', 'secondary'),
+    'icon-color-active': getCssVar('color', 'primary'),
+    'text-color': getCssVar('text-color', 'secondary'),
+    'text-left-offset': 8px,
+  ),
+  $checkbox
+);

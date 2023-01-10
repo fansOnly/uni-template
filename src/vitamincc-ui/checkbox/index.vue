@@ -1,17 +1,16 @@
 <template>
-  <div
-    :class="['vc-checkbox', block ? 'vc-checkbox--block' : null, multiple ? 'vc-checkbox--multiple' : null, customClass]"
+  <div :class="['vc-checkbox', block ? 'is-block' : null, multiple ? 'is-multi-line' : null, customClass]"
     :style="customStyle">
-    <vc-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" :color="color"
-      @click="onClickIcon" />
-    <view class="vc-checkbox__label" :style="{ flex: block ? 1 : 'auto' }" @click="onClickText">
+    <view :class="['vc-checkbox__icon', checked ? 'is-active' : null]" :style="iconStyled">
+      <vc-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
+    </view>
+    <view class="vc-checkbox__text" :style="{ flex: block ? 1 : 'auto' }" @click="onClickText">
       <slot></slot>
     </view>
   </div>
 </template>
 
 <script>
-import cssVariables from '@/common/theme'
 export default {
   name: 'vc-checkbox',
   inject: {
@@ -31,7 +30,7 @@ export default {
     // 组件尺寸
     size: {
       type: [String, Number],
-      default: cssVariables.iconSize,
+      default: 22,
     },
     // 是否块级元素
     block: {
@@ -54,6 +53,14 @@ export default {
       default: false
     },
     // 组件激活的图标样式
+    activeColor: {
+      type: String,
+    },
+    // 组件未激活的图标样式
+    inactiveColor: {
+      type: String,
+    },
+    // 组件激活的图标样式
     activeIcon: {
       type: String,
       default: 'checkbox-on'
@@ -64,11 +71,11 @@ export default {
       default: 'checkbox-off'
     },
     // 自定义样式覆盖
-    customStyle: null,
+    customStyle: String,
     // 自定义类
-    customClass: null,
+    customClass: String,
     // 自定义图标样式覆盖
-    iconStyle: null,
+    iconStyle: String,
   },
   computed: {
     checked: {
@@ -84,8 +91,14 @@ export default {
         }
       },
     },
-    color() {
-      return this.checked ? cssVariables.primaryColor : cssVariables.iconColor
+    iconStyled({ inactiveColor, activeColor, checked }) {
+      let style = ''
+      if (inactiveColor && !checked) {
+        style += `color: ${inactiveColor};`
+      } else if (activeColor && checked) {
+        style += `color: ${activeColor};`
+      }
+      return style
     }
   },
   methods: {
@@ -104,25 +117,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-checkbox {
-  display: inline-flex;
-  align-items: center;
-  user-select: none;
-}
-
-.vc-checkbox--block {
-  display: flex;
-}
-
-.vc-checkbox__label:not(:empty) {
-  margin-left: 8px;
-}
-
-.vc-checkbox--multiple {
-  align-items: flex-start;
-
-  & .vc-checkbox__label:not(:empty) {
-    transform: translateY(-2rpx);
-  }
-}
+@import '../theme-chalk/components/checkbox.scss';
 </style>

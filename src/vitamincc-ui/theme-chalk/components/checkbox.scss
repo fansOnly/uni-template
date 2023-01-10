@@ -1,0 +1,37 @@
+@use 'sass:map';
+
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(checkbox) {
+  @include set-preset-css-var('checkbox', $checkbox);
+}
+
+@include b(checkbox) {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+
+  @include when(block) {
+    display: flex;
+  }
+
+  @include when(multi-line) {
+    align-items: flex-start;
+  }
+
+  @include e(icon) {
+    color: getCssVar('checkbox', 'icon-color');
+    @include when(active) {
+      color: getCssVar('checkbox', 'icon-color-active');
+    }
+  }
+
+  @include e(text) {
+    &:not(:empty) {
+      margin-left: getCssVar('checkbox', 'text-left-offset');
+    }
+  }
+}

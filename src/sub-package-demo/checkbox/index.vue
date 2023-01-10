@@ -19,9 +19,17 @@
       </vc-checkbox-group>
     </demo-block>
 
-    <demo-block title="自定义图标" padding>
-      <vc-checkbox v-model="checkbox4" inactive-icon="checkbox-off" active-icon="checkbox-on-fill">复选框a
-      </vc-checkbox>
+    <demo-block title="高级用法" padding>
+      <vc-checkbox v-model="checkbox4" block></vc-checkbox>
+      <vc-checkbox v-model="checkbox4">复选框</vc-checkbox> === 我不换行
+      <vc-checkbox v-model="checkbox4" block>这是个块级元素</vc-checkbox> ===我要换行了
+      <vc-checkbox v-model="checkbox4" multiple>这个文本很长这个文本很长这个文本很长这个文本很长这个文本很长这个文本很长这个文本很长这个文本很长</vc-checkbox>
+    </demo-block>
+
+    <demo-block title="自定义" padding>
+      <vc-checkbox v-model="checkbox4" inactive-icon="checkbox-off" active-icon="checkbox-on-fill"
+        block>自定义图标</vc-checkbox>
+      <vc-checkbox v-model="checkbox4" inactive-color="#f60" active-color="#67c23a" block>自定义颜色</vc-checkbox>
     </demo-block>
 
     <demo-block title="单元格示例" padding>
@@ -52,4 +60,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
