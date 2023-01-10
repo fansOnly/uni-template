@@ -1,0 +1,112 @@
+@use 'sass:map';
+
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(popup) {
+  @include set-preset-css-var('popup', $popup);
+}
+
+@include b(popup) {
+  position: fixed;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation-timing-function: ease;
+  animation: ease both;
+  background-color: getCssVar('popup', 'bg-color');
+
+  @include when(center) {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    &.is-round {
+      border-radius: getCssVar('popup', 'border-radius-center');
+    }
+  }
+
+  @include when(top) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    &.is-round {
+      border-radius: getCssVar('popup', 'border-radius-top');
+    }
+    &.is-top-safe {
+      padding-top: env(safe-area-inset-top);
+    }
+  }
+  @include when(bottom) {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    &.is-round {
+      border-radius: getCssVar('popup', 'border-radius-bottom');
+    }
+    &.is-bottom-safe {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+  @include when(left) {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    &.is-round {
+      border-radius: getCssVar('popup', 'border-radius-left');
+    }
+    &.is-top-safe {
+      padding-top: env(safe-area-inset-top);
+    }
+    &.is-bottom-safe {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+  @include when(right) {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    &.is-round {
+      border-radius: getCssVar('popup', 'border-radius-right');
+    }
+    &.is-top-safe {
+      padding-top: env(safe-area-inset-top);
+    }
+    &.is-bottom-safe {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    height: getCssVar('popup', 'header-height');
+    padding: 0 getCssVar('popup', 'padding');
+    text-align: center;
+  }
+
+  @include e(close) {
+    position: absolute;
+    top: 0;
+    line-height: getCssVar('popup', 'header-height');
+    z-index: 2;
+
+    @include m(left) {
+      left: getCssVar('popup', 'padding');
+    }
+
+    @include m(right) {
+      right: getCssVar('popup', 'padding');
+    }
+  }
+
+  @include e(body) {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overscroll-behavior: none;
+  }
+}
