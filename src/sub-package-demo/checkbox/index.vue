@@ -9,14 +9,20 @@
     <demo-block title="复选框组" padding>
       <view style="height:30px;line-height:30px;"><text v-for="item in checkbox2" :key="item">{{ item }}</text></view>
       <vc-checkbox-group v-model="checkbox2">
-        <vc-checkbox name="a" block icon-disabled>复选框a-块级 - 只能点击文本</vc-checkbox>
+        <vc-checkbox name="a" block>复选框a-块级</vc-checkbox>
         <vc-cell>
           <vc-checkbox slot="title" name="b">复选框b - 被 vc-cell 组件包裹</vc-checkbox>
         </vc-cell>
         <view>
-          <vc-checkbox name="c" label-disabled>复选框c - 只允许点击图标</vc-checkbox>
+          <vc-checkbox name="c">复选框c</vc-checkbox>
         </view>
       </vc-checkbox-group>
+    </demo-block>
+
+    <demo-block title="不可用状态" padding>
+      <vc-checkbox v-model="checkbox4" disabled>不可用</vc-checkbox>
+      <vc-checkbox v-model="checkbox4" icon-disabled>图标不可用</vc-checkbox>
+      <vc-checkbox v-model="checkbox4" label-disabled>文本不可用</vc-checkbox>
     </demo-block>
 
     <demo-block title="高级用法" padding>

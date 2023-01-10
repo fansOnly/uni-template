@@ -17,10 +17,15 @@ export default {
     value: {
       type: Array,
       default: () => []
+    },
+    // 布局方向 / 垂直布局 - vertical 水平布局 - horizontal
+    direction: {
+      type: String,
+      default: 'vertical'
     }
   },
   methods: {
-    change({name, checked}) {
+    change({ name, checked }) {
       // 小程序绑定 v-model 不支持自定义 value 和 input
       const result = [...this.value]
       if (checked && !result.includes(name)) {

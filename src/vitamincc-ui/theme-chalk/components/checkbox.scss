@@ -18,20 +18,31 @@
     display: flex;
   }
 
-  @include when(multi-line) {
+  @include when(multi-text) {
     align-items: flex-start;
+  }
+
+  @include when(horizontal) {
+    display: flex;
   }
 
   @include e(icon) {
     color: getCssVar('checkbox', 'icon-color');
     @include when(active) {
-      color: getCssVar('checkbox', 'icon-color-active');
+      color: getCssVar('checkbox', 'active-icon-color');
+    }
+
+    @include when(disabled) {
+      color: getCssVar('checkbox', 'disabled', 'icon-color');
     }
   }
 
   @include e(text) {
     &:not(:empty) {
       margin-left: getCssVar('checkbox', 'text-left-offset');
+    }
+    @include when(disabled) {
+      color: getCssVar('checkbox', 'disabled', 'text-color');
     }
   }
 }

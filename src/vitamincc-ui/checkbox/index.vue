@@ -1,10 +1,12 @@
 <template>
-  <div :class="['vc-checkbox', block ? 'is-block' : null, multiple ? 'is-multi-line' : null, customClass]"
+  <div
+    :class="['vc-checkbox', block ? 'is-block' : null, `is-${direction}`, multiple ? 'is-multi-text' : null, customClass]"
     :style="customStyle">
-    <view :class="['vc-checkbox__icon', checked ? 'is-active' : null]" :style="iconStyled">
-      <vc-icon :style="iconStyle" :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
+    <view :class="['vc-checkbox__icon', checked ? 'is-active' : null, disabled ? 'is-disabled' : null]"
+      :style="iconStyled">
+      <vc-icon :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
     </view>
-    <view class="vc-checkbox__text" :style="{ flex: block ? 1 : 'auto' }" @click="onClickText">
+    <view :class="['vc-checkbox__text', disabled ? 'is-disabled' : null]" @click="onClickText">
       <slot></slot>
     </view>
   </div>
@@ -29,11 +31,16 @@ export default {
     },
     // 组件尺寸
     size: {
-      type: [String, Number],
+      type: Number,
       default: 22,
     },
     // 是否块级元素
     block: {
+      type: Boolean,
+      default: false
+    },
+    // 是否禁用
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -52,11 +59,11 @@ export default {
       type: Boolean,
       default: false
     },
-    // 组件激活的图标样式
+    // 组件激活的颜色
     activeColor: {
       type: String,
     },
-    // 组件未激活的图标样式
+    // 组件未激活的颜色
     inactiveColor: {
       type: String,
     },
@@ -70,12 +77,10 @@ export default {
       type: String,
       default: 'checkbox-off'
     },
+    // 自定义类
+    customClass: null,
     // 自定义样式覆盖
     customStyle: String,
-    // 自定义类
-    customClass: String,
-    // 自定义图标样式覆盖
-    iconStyle: String,
   },
   computed: {
     checked: {
@@ -101,17 +106,26 @@ export default {
       return style
     }
   },
+  created() {
+    if (this.parent) {
+      this.direction = this.parent.direction
+    }
+  },
   methods: {
     onClickIcon() {
       this.$emit('click-icon')
       if (this.iconDisabled) return
-      this.checked = !this.checked
+      this.onClick()
     },
     onClickText() {
       this.$emit('click-label')
       if (this.labelDisabled) return
-      this.checked = !this.checked
+      this.onClick()
     },
+    onClick() {
+      if (this.disabled) return
+      this.checked = !this.checked
+    }
   },
 }
 </script>
