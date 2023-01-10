@@ -7,7 +7,10 @@ export default {
   name: 'vc-icon',
   props: {
     // 图标名称
-    name: null,
+    name: {
+      type: String,
+      require: true
+    },
     // 图标尺寸
     size: {
       type: Number,
@@ -21,7 +24,7 @@ export default {
       default: false
     },
     // 自定义组件样式
-    customStyle: null
+    customStyle: String
   },
   computed: {
     styled({ size, color, customStyle }) {
@@ -45,15 +48,5 @@ export default {
 </script>
 
 <style lang="scss" >
-@import "../common/iconfont/iconfont.scss";
-
-.iconfont {
-  color: inherit;
-  font-size: 1em;
-  line-height: 1em;
-}
-
-.is-block {
-  display: block;
-}
+@import "../theme-chalk/components/icon.scss";
 </style>

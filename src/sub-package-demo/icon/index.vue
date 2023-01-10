@@ -5,7 +5,7 @@
       <view class="icon-wrap">
         <view v-for="(item, index) in iconList" :key="index" class="icon-item vc-hairline--surround">
           <vc-icon :name="item"></vc-icon>
-          <view class="icon-name">{{item}}</view>
+          <view class="icon-name">{{ item }}</view>
         </view>
       </view>
     </demo-block>
@@ -14,7 +14,7 @@
       <view class="icon-wrap">
         <view v-for="(item, index) in iconList" :key="index" class="icon-item vc-hairline--surround">
           <vc-icon :name="item" color="#f60" size="30"></vc-icon>
-          <view class="icon-name">{{item}}</view>
+          <view class="icon-name">{{ item }}</view>
         </view>
       </view>
     </demo-block>
@@ -50,6 +50,7 @@ export default {
   justify-content: center;
   padding: 8px 6px;
   background: #fff;
+  font-size: 20px;
 }
 
 .icon-name {
