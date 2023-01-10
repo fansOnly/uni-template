@@ -2,8 +2,18 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100" height="100">
-      </vc-image>
+      <view class="demo-row--flex">
+        <view class="demo-item-space">
+          <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" width="100"
+            height="100">
+          </vc-image>
+        </view>
+        <view class="demo-item-space">
+          <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" loading width="100"
+            height="100">
+          </vc-image>
+        </view>
+      </view>
     </demo-block>
 
     <demo-block title="缩放模式" padding>
@@ -38,13 +48,13 @@
           </view>
           <view class="t1">widthFix</view>
         </view>
-        <view class="demo-item-space">
-          <view class="bg">
-            <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" height="100"
-              mode="heightFix"></vc-image>
-          </view>
-          <view class="t1">heightFix</view>
+      </view>
+      <view class="demo-item-space">
+        <view class="bg">
+          <vc-image src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" height="100"
+            mode="heightFix"></vc-image>
         </view>
+        <view class="t1">heightFix</view>
       </view>
     </demo-block>
 

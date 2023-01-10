@@ -203,7 +203,7 @@ $cell: map.merge(
     'hover-bg-color': getCssVar('bg-color', 'active'),
     // 'disabled-bg-color': getCssVar('bg-color', 'disabled'),
     // 'disabled-border-color': getCssVar('border-color', 'lighter'),
-    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,
+    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,,
   ),
   $cell
 );
@@ -235,4 +235,19 @@ $cell-padding-horizontal: map.merge(
     'large': 16px,
   ),
   $cell-padding-horizontal
+);
+
+// Image
+$image: () !default;
+$image: map.merge(
+  (
+    'min-title-width': 80px,
+    'value-left-offset': 12px,
+    'bg-color': getCssVar('bg-color', 'active'),
+    'text-color': getCssVar('text-color', 'secondary'),
+    // 'disabled-bg-color': getCssVar('bg-color', 'disabled'),
+    // 'disabled-border-color': getCssVar('border-color', 'lighter'),
+    // 'disabled-text-color': getCssVar('text-color', 'disabled'),,,
+  ),
+  $image
 );
