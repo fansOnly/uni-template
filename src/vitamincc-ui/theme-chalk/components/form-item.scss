@@ -1,0 +1,52 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(form-item) {
+  @include set-preset-css-var('form-item', $form-item);
+}
+
+@include b(form-item) {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24rpx;
+
+  @include e(label) {
+    width: getCssVar('form-item', 'label-width');
+    color: getCssVar('form-item', 'label-color');
+    @each $align in (left, right) {
+      @include when($align) {
+        text-align: $align;
+      }
+    }
+  }
+
+  @include e(required) {
+    padding-right: 6rpx;
+    color: getCssVar('form-item', 'required-color');
+  }
+
+  @include e(content) {
+    flex: 1;
+    position: relative;
+  }
+
+  @include e(error) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 12rpx;
+    color: getCssVar('form-item', 'required-color');
+    font-size: getCssVar('form-item', 'required-font-size');
+    line-height: 1;
+    opacity: 0;
+    transition: all ease 300ms;
+    transform: translateY(-100%);
+
+    @include when(active) {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+}

@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { LABEL_WIDTH_DEF } from '../common/constant'
-
 export default {
   name: 'vc-form',
   provide() {
@@ -20,17 +18,12 @@ export default {
     // 表单的初始值
     value: {
       type: Object,
-      default: () => {}
-    },
-    // 高度
-    height: {
-      type: [Number, String],
-      default: 40
+      default: () => { }
     },
     // 表单的校验规则
     rules: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     // 显示必填
     showRequired: {
@@ -50,11 +43,15 @@ export default {
     },
     // 标签宽度
     labelWidth: {
-      type: [Number, String],
-      default: LABEL_WIDTH_DEF
+      type: String,
+    },
+    // 标签对齐
+    labelAlign: {
+      type: String,
+      default: 'left'
     },
     // 标签样式
-    labelStyle: null
+    labelStyle: String
   },
   created() {
     this.children = []
@@ -78,20 +75,24 @@ export default {
     },
     _validate() {
       let valid = true
-      for (let key in this.formValid) {
+      for (const key in this.formValid) {
         if (!this.formValid[key]) valid = false
       }
       this.$emit('validate', valid)
     },
     onChange(val = {}) {
-      this.$emit('input', {...this.value, ...val})
-      this.$emit('change', {...this.value, ...val})
+      this.$emit('input', { ...this.value, ...val })
+      this.$emit('change', { ...this.value, ...val })
     },
     reset() {
-      let res = {}
-      for (let key in this.value) {
+      const res = {}
+      for (const key in this.value) {
         const value = this.value[key]
-        res[key] = typeof value === 'boolean' ? false : typeof value === 'number' ? 0 : Array.isArray(value) ? [] : typeof value === 'object' ? {} : ''
+        res[key] = typeof value === 'boolean' ? false
+          : typeof value === 'number' ? 0
+            : Array.isArray(value) ? []
+              : typeof value === 'object' ? {}
+                : ''
       }
       this.onChange(res)
       this.children.forEach(item => {

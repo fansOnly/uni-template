@@ -76,7 +76,7 @@ export default {
     // 是否显示地边框
     border: {
       type: Boolean,
-      default: false
+      default: true
     },
     // 是否聚焦
     focus: {
@@ -173,9 +173,9 @@ export default {
         }
         let initValue = val
         if (this.type === 'textarea') {
-          initValue = initValue.length > this.textAreaMaxLength ? initValue.substring(0, this.textAreaMaxLength) : initValue
+          initValue = this.getTextareaValue(initValue)
         } else {
-          initValue = initValue.length > this.maxlength ? initValue.substring(0, this.maxlength) : initValue
+          initValue = this.getInputValue(initValue)
         }
         this.initValue = initValue
       },
@@ -186,21 +186,23 @@ export default {
   created() {
     if (this.form) {
       this.$watch('form.value', (formValue) => {
-        this.initValue = formValue[this.name]
+        this.initValue = formValue[this.name] ?? ''
       }, {
         immediate: true
       })
     }
     if (this.formItem && this.form) {
-      this.formItem.name = this.name
+      this.formItem.prop = this.name
       // 初始化校验
       if (this.form.validateTrigger !== 'submit') {
-        this.formItem.validateForm(this.form.value[this.name], this.name)
+        this.$nextTick(() => {
+          this.formItem.validateForm(this.form.value[this.name], this.name)
+        })
       }
     }
   },
   methods: {
-    onInput(evt) {
+    onInput: debounce(function (evt) {
       if (this.status === 'clear') return
       const { value } = evt.detail
       const output = typeof this.formatter === 'function' ? this.formatter(value) : value
@@ -217,7 +219,7 @@ export default {
         // 强制转换输入框输出
         return output
       }
-    },
+    }, 60),
     /**
      * Bug: 安卓下文本框文字较多时，长按键盘删除按钮，会导致文本框内容抖动
      * Fix： debounce
@@ -225,7 +227,7 @@ export default {
     onTextareaChange: debounce(function (evt) {
       const { value } = evt.detail
       // fix: textarea 超过最大输入限制后依然可以输入内容
-      this.initValue = value.length > this.textAreaMaxLength ? value.substring(0, this.textAreaMaxLength) : value
+      this.initValue = this.getTextareaValue(value)
       this.$emit('input', this.initValue)
       this.$emit('change', this.initValue)
     }, 60),
@@ -264,13 +266,19 @@ export default {
       if (this.form) {
         this.form.onChange({ [this.name]: '' })
         if (this.form.validateTrigger !== 'submit') {
-          this.formItem.validateForm('', this.nam)
+          this.formItem.validateForm('', this.name)
         }
       }
       this.$nextTick(() => {
         this.status = ''
         this.inputFocus = true
       })
+    },
+    getInputValue(value) {
+      return value.length > this.maxlength ? value.substring(0, this.maxlength) : value
+    },
+    getTextareaValue(value) {
+      return value.length > this.textAreaMaxLength ? value.substring(0, this.textAreaMaxLength) : value
     },
     togglePassType() {
       const inputType = this.inputType === 'password' ? 'text' : 'password'

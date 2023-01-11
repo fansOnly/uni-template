@@ -359,3 +359,15 @@ $input: map.merge(
   ),
   $input
 );
+
+// FormItem
+$form-item: () !default;
+$form-item: map.merge(
+  (
+    'label-color': getCssVar('text-color', 'primary'),
+    'label-width': 80px,
+    'required-color': #f00,
+    'required-font-size': getCssVar('font-size', 'smaller'),
+  ),
+  $form-item
+);
