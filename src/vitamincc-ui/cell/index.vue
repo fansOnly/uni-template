@@ -4,15 +4,17 @@
     :style="customStyled" :hover-class="cellHoverClass" :hover-stay-time="200" @click="onClick">
     <view :class="['vc-cell-wrap', `is-${align}`]">
       <view :class="['vc-cell__title', disabled ? 'is-disabled' : null, titleClasses]" :style="titleStyled">
+        <!-- slot title -->
         <slot name="title">{{ title }}</slot>
       </view>
       <view :class="['vc-cell__value', disabled ? 'is-disabled' : null]">
         <view :class="['vc-cell__text', titleWidth ? null : 'is-nowrap', textClasses]" :style="textStyled">
           <template v-if="text">{{ text }}</template>
+          <!-- slot text -->
           <slot v-else name="text"></slot>
         </view>
         <view v-if="isLink" class="vc-cell__icon">
-          <!-- slot 命名 right-icon 不支持？？？ -->
+          <!-- slot icon -->
           <slot name="icon">
             <vc-icon name="arrow-right" />
           </slot>
@@ -21,6 +23,7 @@
       </view>
     </view>
     <view class="vc-cell__label">
+      <!-- slot label -->
       <slot name="label"></slot>
     </view>
   </view>

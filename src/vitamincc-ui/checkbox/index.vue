@@ -7,6 +7,7 @@
       <vc-icon :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
     </view>
     <view :class="['vc-checkbox__text', disabled ? 'is-disabled' : null]" @click="onClickText">
+      <!-- slot default -->
       <slot></slot>
     </view>
   </div>

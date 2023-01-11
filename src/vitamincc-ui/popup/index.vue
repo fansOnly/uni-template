@@ -3,17 +3,20 @@
     <view v-if="display"
       :class="['vc-popup', `is-${position}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom--safe' : null, classes]"
       :style="styled" @transitionend="onTransitionEnd">
+      <!-- slot header -->
       <slot name="header">
         <view v-if="title && title.length" :class="['vc-popup__header', border ? 'vc-hairline--bottom' : null]">
           <view class="vc-popup__title">{{ title }}</view>
         </view>
       </slot>
       <view v-if="closeable" :class="['vc-popup__close', 'vc-popup__close--' + closeIconPosition]" @click="close">
+        <!-- slot close -->
         <slot name="close">
           <vc-icon name="cross-blank" :size="20" color="#909399" />
         </slot>
       </view>
       <scroll-view scroll-y class="vc-popup__body" :style="bodyStyled">
+        <!-- slot default -->
         <slot />
       </scroll-view>
     </view>

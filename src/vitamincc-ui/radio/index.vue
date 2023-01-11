@@ -6,7 +6,8 @@
       <vc-icon :name="checked ? activeIcon : inactiveIcon" :size="size" @click="onClickIcon" />
     </view>
     <view :class="['vc-radio__text', disabled ? 'is-disabled' : null]" @click="onClickText">
-      <slot></slot>
+      <!-- slot default -->
+      <slot />
     </view>
   </div>
 </template>

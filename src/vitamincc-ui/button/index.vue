@@ -6,9 +6,11 @@
     @chooseavatar="onChooseAvatar" @tap="onClick">
     <vc-loading v-if="loading" type="spinner" class="button-icon" :size="14" color="#fff" />
     <vc-icon v-else-if="icon" :name="icon" class="button-icon" />
+    <!-- slot icon -->
     <slot name="icon"></slot>
     <view class="vc-button__text">
-      <slot></slot>
+      <!-- slot default -->
+      <slot />
     </view>
   </button>
 </template>
