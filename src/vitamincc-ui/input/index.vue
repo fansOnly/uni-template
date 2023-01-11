@@ -1,7 +1,9 @@
 <template>
-  <view :class="['vc-input', border ? 'vc-hairline--surround' : null]" :style="customStyle">
+  <view :class="['vc-input', border ? 'vc-hairline--surround' : null, round ? 'is-round' : null]" :style="customStyle">
     <!-- prefix -->
-    <slot name="prefix"></slot>
+    <view class="vc-input__prefix">
+      <slot name="prefix"></slot>
+    </view>
     <!-- content -->
     <view v-if="isTextarea" class="vc-input__content-textarea">
       <textarea :class="['vc-input__textarea', disabled ? 'is-disabled' : null]" :name="name" :value="formatterValue"
@@ -15,7 +17,7 @@
         :value="formatterValue" :password="password" :maxlength="maxlength" :disabled="disabled" :cursor-spacing="10"
         :focus="isFocus" :placeholder="placeholder" :confirm-type="confirmType" :style="inputStyle"
         :placeholder-style="placeholderStyle" @input="onInput" @blur="onBlur" @focus="onFocus" @confirm="onConfirm" />
-      <view v-if="showClear" class="vc-input__icon" :style="style" @click="onClear">
+      <view v-if="showClear" class="vc-input__icon" @click="onClear">
         <vc-icon name="close-fill" :size="20" />
       </view>
     </view>
@@ -24,7 +26,9 @@
       <vc-icon :name="passIconName" :size="20" />
     </view>
     <!-- suffix -->
-    <slot name="suffix"></slot>
+    <view class="vc-input__suffix">
+      <slot name="suffix"></slot>
+    </view>
   </view>
 </template>
 
@@ -77,6 +81,11 @@ export default {
     border: {
       type: Boolean,
       default: true
+    },
+    // 圆角
+    round: {
+      type: Boolean,
+      default: false
     },
     // 是否聚焦
     focus: {

@@ -13,13 +13,17 @@
   align-items: center;
   justify-content: space-between;
 
-  position: relative;
   box-sizing: border-box;
+  position: relative;
   padding: getCssVar('input', 'input-padding');
   border-radius: getCssVar('input', 'border-radius');
   background-color: getCssVar('input', 'bg-color');
   color: getCssVar('input', 'text-color');
   font-size: getCssVar('input', 'text-font-size');
+
+  @include when(round) {
+    border-radius: getCssVar('border-radius', 'round');
+  }
 
   @include e(content-textarea) {
     flex: 1;
@@ -30,6 +34,7 @@
     display: flex;
     align-items: center;
   }
+
   @include e(input) {
     flex: 1;
     height: getCssVar('input', 'input-height');
@@ -37,6 +42,7 @@
       color: getCssVar('input', 'disabled', 'text-color');
     }
   }
+
   @include e(textarea) {
     width: 100%;
     min-height: getCssVar('input', 'textarea-min-height');
@@ -45,6 +51,7 @@
       color: getCssVar('input', 'disabled', 'text-color');
     }
   }
+
   @include e(icon) {
     display: inline-flex;
     align-items: center;
@@ -57,5 +64,17 @@
     font-size: getCssVar('input', 'limit-font-size');
     color: getCssVar('input', 'limit-color');
     text-align: right;
+  }
+
+  @include e(prefix) {
+    &:not(:empty) {
+      margin-right: 12rpx;
+    }
+  }
+
+  @include e(suffix) {
+    &:not(:empty) {
+      margin-left: 12rpx;
+    }
   }
 }
