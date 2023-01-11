@@ -1,0 +1,24 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(picker-column) {
+  @include set-preset-css-var('picker-column', $picker-column);
+}
+
+@include b(picker-column) {
+  height: 100%;
+
+  @include e(item) {
+    padding: getCssVar('picker-column', 'text-padding');
+    color: getCssVar('picker-column', 'text-color');
+    font-size: getCssVar('picker-column', 'text-font-size');
+    text-align: center;
+    transition: all ease 0.3s;
+
+    @include when(active) {
+      font-size: getCssVar('picker-column', 'active', 'text-font-size');
+    }
+  }
+}

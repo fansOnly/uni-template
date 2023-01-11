@@ -1,0 +1,77 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(picker) {
+  @include set-preset-css-var('picker', $picker);
+}
+
+@include b(picker) {
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: getCssVar('picker', 'header-height');
+    padding: getCssVar('picker', 'header-padding');
+  }
+
+  @include e(title) {
+    color: getCssVar('picker', 'title-text-color');
+  }
+
+  @include e(confirm) {
+    color: getCssVar('picker', 'confirm-text-color');
+  }
+
+  @include e(cancel) {
+    color: getCssVar('picker', 'cancel-text-color');
+  }
+
+  @include e(body) {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: relative;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow: hidden;
+  }
+
+  @include e(mask) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+        180deg,
+        hsla(0, 0%, 100%, 0.9),
+        hsla(0, 0%, 100%, 0.4)
+      ),
+      linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4));
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+    backface-visibility: hidden;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  @include e(column) {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  @include e(line) {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+
+    @include when(adapt) {
+      transform: translateY(-50%);
+    }
+  }
+}

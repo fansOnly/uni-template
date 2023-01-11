@@ -278,7 +278,7 @@ $popup: () !default;
 $popup: map.merge(
   (
     'header-height': 112rpx,
-    'padding': 32rpx,
+    'padding': getCssVar('padding-vertical') getCssVar('padding-horizontal'),
     'title-color': getCssVar('text-color', 'primary'),
     'bg-color': getCssVar('bg-color'),
     'border-radius-center': getCssVar('border-radius', 'large'),
@@ -385,4 +385,29 @@ $search-bar: map.merge(
     'action-text-color': getCssVar('text-color', 'secondary'),
   ),
   $search-bar
+);
+
+// Picker
+$picker: () !default;
+$picker: map.merge(
+  (
+    'header-height': 112rpx,
+    'header-padding': 0 getCssVar('padding-horizontal'),
+    'title-text-color': 0 getCssVar('text-color', 'primary'),
+    'confirm-text-color': getCssVar('color', 'primary'),
+    'cancel-text-color': getCssVar('text-color', 'secondary'),
+  ),
+  $picker
+);
+
+// PickerColumn
+$picker-column: () !default;
+$picker-column: map.merge(
+  (
+    'text-padding': 0 8rpx,
+    'text-color': getCssVar('text-color', 'primary'),
+    'text-font-size': getCssVar('font-size', 'small'),
+    'active-text-font-size': getCssVar('font-size'),
+  ),
+  $picker-column
 );

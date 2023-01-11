@@ -1,9 +1,9 @@
 <template>
   <view class="vc-picker-column" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd"
     @touchcancel="onTouchEnd">
-    <view class="vc-picker-wrapper" :style="activeStyled">
+    <view class="vc-picker-column__content" :style="activeStyled">
       <view v-for="(item, index) in options" :key="index"
-        :class="['vc-picker-column-item', 'vc-ellipsis', position === index ? 'is-active' : null]" :style="rowStyled">
+        :class="['vc-picker-column__item', 'vc-ellipsis', position === index ? 'is-active' : null]" :style="rowStyled">
         {{ item.text }}</view>
     </view>
   </view>
@@ -50,7 +50,7 @@ export default {
   computed: {
     scrollTop({ offset, max }) {
       // tip: 这里的单位要设为 px，rpx 在真机下转换有偏差
-      return offset + max + 'px'
+      return `${offset + max}px`
     },
     max({ rows, rowHeight }) {
       // note: ??
@@ -134,19 +134,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-picker-column {
-  height: 100%;
-}
-
-.vc-picker-column-item {
-  padding: 0 8rpx;
-  color: $uni-text-color;
-  font-size: $uni-font-size-14;
-  text-align: center;
-  transition: all ease 0.3s;
-
-  &.is-active {
-    font-size: $uni-font-size-16;
-  }
-}
+@import '../theme-chalk/components/picker-column.scss';
 </style>

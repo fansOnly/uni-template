@@ -1,24 +1,26 @@
 <template>
-  <vc-popup :visible="visible" round position="bottom" :max-height="rowHeight * rows" border
-    :close-on-click-overlay="closeOnClickOverlay" body-style="padding-bottom: 32rpx;" @click-overlay="clickOverlay"
-    @close="close" @after-leave="show = false">
+  <vc-popup :visible="visible" round position="bottom" :max-height="rowHeight * rows"
+    :close-on-click-overlay="closeOnClickOverlay" class="vc-picker" @click-overlay="onClickOverlay" @close="onClose"
+    @after-leave="show = false">
     <template slot="header">
-      <view v-if="withHeader" class="vc-picker-header vc-hairline--bottom">
-        <view v-if="showCancel" class="vc-picker-button--cancel" @click="close">
-          <template v-if="!closeable">{{ cancelButtonText }}</template>
-          <vc-icon v-else name="cross" size="24" />
+      <view v-if="withHeader" class="vc-picker__header vc-hairline--bottom">
+        <view v-if="showCancel" class="vc-picker__cancel" @click="onClose">
+          <vc-icon v-if="closeable" name="cross" size="24" />
+          <template v-else>{{ cancelButtonText }}</template>
         </view>
-        <view class="vc-picker-header-title">{{ title }}</view>
-        <view v-if="showConfirm" class="vc-picker-button--confirm" @click="onConfirm">{{ confirmButtonText }}</view>
+        <view class="vc-picker__title">{{ title }}</view>
+        <view v-if="showConfirm" class="vc-picker__confirm" @click="onConfirm">{{ confirmButtonText }}</view>
       </view>
     </template>
-    <view class="vc-picker-body" :style="{ 'height': rowHeight * rows + 'px' }" @touchmove.stop="noop">
-      <vc-picker-column v-for="(item, index) in options" :key="index" class="vc-picker-col" :options="item"
+    <view class="vc-picker__body" :style="{ 'height': rowHeight * rows + 'px' }" @touchmove.stop="noop">
+      <vc-picker-column v-for="(item, index) in options" :key="index" class="vc-picker__column" :options="item"
         :current="activeIndexes[index]" :rows="rows" :row-height="rowHeight"
-        :style="{ 'max-width': 'calc(100% / ' + options.length + ');' }" @change="onChange($event, index)"></vc-picker-column>
+        :style="{ 'max-width': 'calc(100% / ' + options.length + ');' }"
+        @change="onChange($event, index)"></vc-picker-column>
       <template v-if="options.length">
-        <view class="vc-picker-mask" :style="{ 'background-size': '100% ' + (rowHeight * (rows - 1)) / 2 + 'px' }"></view>
-        <view :class="['vc-picker-line vc-hairline--top-bottom', rows % 2 === 0 ? null : 'adapt']"
+        <view class="vc-picker__mask" :style="{ 'background-size': '100% ' + (rowHeight * (rows - 1)) / 2 + 'px' }">
+        </view>
+        <view :class="['vc-picker__line vc-hairline--top-bottom', rows % 2 === 0 ? null : 'is-adapt']"
           :style="{ 'height': rowHeight + 'px' }"></view>
       </template>
     </view>
@@ -141,7 +143,7 @@ export default {
     maskStyled({ rowHeight, rows }) {
       // note: 遮罩效果
       let style = ''
-      style += `background-size: 100% ${addUnit((rowHeight * (rows - 1)) / 2)};`
+      style += `background-size: 100% ${((rowHeight * (rows - 1)) / 2)}px;`
       return style
     }
   },
@@ -163,7 +165,7 @@ export default {
   methods: {
     initValues() {
       if (this.optionKey === 'value') {
-        let arr = []
+        const arr = []
         this.options.map((columnData, i) => {
           const index = columnData.findIndex(v => v[this.optionKey] === this.values[i])
           arr.push(index > -1 ? index : 0)
@@ -191,14 +193,14 @@ export default {
     onConfirm() {
       const data = this.activeIndexes.reduce((acc, cur, index) => [...acc, this.options[index][cur]], [])
       this.$emit('confirm', data)
-      this.close()
+      this.onClose()
     },
-    clickOverlay() {
+    onClickOverlay() {
       if (!this.closeOnClickOverlay) return
       this.activeIndexes.length = 0
-      this.close()
+      this.onClose()
     },
-    close() {
+    onClose() {
       this.$emit('close')
       this.$emit('update:visible', false)
     },
@@ -208,58 +210,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-picker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 104rpx;
-  padding: 0 32rpx;
-}
-
-.vc-picker-button--cancel {
-  color: #909090;
-}
-
-.vc-picker-button--confirm {
-  color: $uni-color-primary;
-}
-
-.vc-picker-body {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
-
-.vc-picker-mask {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4)), linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4));
-  background-repeat: no-repeat;
-  background-position: top, bottom;
-  backface-visibility: hidden;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.vc-picker-line {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 100%;
-  z-index: 1;
-  pointer-events: none;
-
-  &.adapt {
-    transform: translateY(-50%);
-  }
-}
-
-.vc-picker-col {
-  flex: 1;
-  overflow: hidden;
-}
+@import '../theme-chalk/components/picker.scss';
 </style>
