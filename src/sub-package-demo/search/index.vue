@@ -2,11 +2,16 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding background="#fff">
-      <vc-search-bar v-model="keyword" placeholder="搜索产品名称/产品标号" @on-search="handleSearch"></vc-search-bar>
+      <vc-search-bar v-model="keyword" placeholder="搜索产品名称/产品标号" @search="handleSearch"></vc-search-bar>
+    </demo-block>
+
+    <demo-block title="自定义背景" padding background="#fff">
+      <vc-search-bar v-model="keyword" placeholder="搜索产品名称" round mask-style="background:#fff5f5;"
+        @search="handleSearch"></vc-search-bar>
     </demo-block>
 
     <demo-block title="高级用法" padding background="#fff">
-      <vc-search-bar v-model="keyword2" label="产品" placeholder="搜索产品名称/产品标号" @on-search="handleSearch2"></vc-search-bar>
+      <vc-search-bar v-model="keyword2" label="产品" placeholder="搜索产品名称/产品标号" @search="handleSearch2"></vc-search-bar>
     </demo-block>
 
   </view>
@@ -46,4 +51,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

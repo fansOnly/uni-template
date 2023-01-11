@@ -1,0 +1,58 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(search-bar) {
+  @include set-preset-css-var('search-bar', $search-bar);
+}
+
+@include b(search-bar) {
+  position: relative;
+  height: getCssVar('search-bar', 'height');
+  overflow: hidden;
+
+  @include e(mask) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: getCssVar('search-bar', 'mask-padding');
+    background: getCssVar('search-bar', 'bg-color');
+    border-radius: getCssVar('search-bar', 'border-radius');
+    color: getCssVar('search-bar', 'mask-text-color');
+    z-index: 2;
+
+    @include when(round) {
+      border-radius: getCssVar('border-radius', 'round');
+    }
+  }
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+  }
+
+  @include e(label) {
+    padding-right: 20rpx;
+    color: getCssVar('search-bar', 'label-text-color');
+  }
+
+  @include e(input) {
+    flex: 1;
+  }
+
+  @include e(action) {
+    padding-left: 20rpx;
+    color: getCssVar('search-bar', 'action-text-color');
+  }
+
+  @include e(icon) {
+    margin-right: 12rpx;
+  }
+}

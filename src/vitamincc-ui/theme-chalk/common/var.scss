@@ -371,3 +371,18 @@ $form-item: map.merge(
   ),
   $form-item
 );
+
+// SearchBar
+$search-bar: () !default;
+$search-bar: map.merge(
+  (
+    'height': 40px,
+    'bg-color': getCssVar('bg-color', 'active'),
+    'border-radius': getCssVar('border-radius', 'large'),
+    'mask-text-color': getCssVar('text-color', 'secondary'),
+    'mask-padding': 0 getCssVar('input', 'input-padding'),
+    'label-text-color': getCssVar('text-color', 'secondary'),
+    'action-text-color': getCssVar('text-color', 'secondary'),
+  ),
+  $search-bar
+);

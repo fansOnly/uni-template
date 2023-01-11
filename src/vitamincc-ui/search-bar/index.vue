@@ -1,58 +1,35 @@
 <template>
-  <view class="search-bar-wrapper" :style="wrapperStyled">
-    <view v-if="!isActivated" :class="['search-bar-view', value ? 'is-active' : null]" :style="deactivatedStyled"
+  <view class="vc-search-bar">
+    <view v-if="!isInput" :class="['vc-search-bar__mask', round ? 'is-round' : null]" :style="maskStyle"
       @click="showInput = inputFocus = true">
-      <vc-icon class="search-left__icon" name="search" size="20" />{{ placeholder }}
+      <vc-icon class="vc-search-bar__icon" name="search" size="20" />{{ placeholder }}
     </view>
-    <view v-else class="search-bar-body">
-      <view v-if="label" class="search-bar__label" :style="{ 'width': labelWidth + 'px' }">{{ label }}</view>
-      <view class="search-bar__input">
-        <vc-input name="search" type="text" :value="value" :height="height" :placeholder="placeholder" :radius="radius"
-          :maxlength="maxlength" :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger"
-          :disabled="disabled" :confirm-type="confirmType" :custom-style="inputStyled" @focus="handleFocus"
-          @blur="handleBlur" @input="handleInput" @confirm="onConfirm" @clear="handleClear">
-          <template #prefix>
-            <view v-if="leftIcon" class="search-left__icon--focus">
-              <vc-icon class="search-left__icon" name="search" size="20" />
-            </view>
+    <view v-else class="vc-search-bar__content">
+      <view v-if="label" class="vc-search-bar__label" :style="labelStyle">{{ label }}</view>
+      <view class="vc-search-bar__input">
+        <vc-input name="search" type="text" :value="value" :placeholder="placeholder" :maxlength="maxlength"
+          :focus="isFocus" :clearable="clearable" :clear-trigger="clearTrigger" :disabled="disabled"
+          :confirm-type="confirmType" :round="round" @focus="onFocus" @blur="onBlur" @input="onInput"
+          @confirm="onConfirm" @clear="onClear">
+          <template v-if="leftIcon" #prefix>
+            <vc-icon name="search" size="20" />
           </template>
         </vc-input>
       </view>
-      <view v-if="showAction" class="search-action__text" @click="handleCancel">{{ actionText }}</view>
+      <view v-if="showAction" class="vc-search-bar__action" @click="onCancel">{{ actionText }}</view>
     </view>
   </view>
 </template>
 
 <script>
-import { INPUT_HEIGHT_DEF } from '../common/constant'
-
 export default {
   name: 'vc-search-bar',
   props: {
-    // 输入框高度
-    height: {
-      type: [Number, String],
-      default: INPUT_HEIGHT_DEF,
-    },
+    value: null,
     // 左侧文本
     label: null,
-    // 左侧文本宽度
-    labelWidth: {
-      type: [String, Number],
-      default: 50
-    },
-    // 输入框 name 属性 - 透传 input 组件
-    name: {
-      type: String,
-      default: 'search',
-    },
+    labelStyle: String,
     // 输入框值 - 透传 input 组件
-    value: null,
-    // 搜索框背景
-    background: {
-      type: String,
-      default: '#f6f6f6',
-    },
     // 搜索框背景 - 圆角
     round: {
       type: Boolean,
@@ -68,11 +45,6 @@ export default {
       type: Number,
       default: 40,
     },
-    // 圆角 - 透传 input 组件
-    radius: {
-      type: Number,
-      default: 4,
-    },
     // 是否聚焦 - 透传 input 组件
     focus: {
       type: Boolean,
@@ -80,11 +52,6 @@ export default {
     },
     // 将 input 切换为 view 标签，显示为 disabled 样式
     disabled: {
-      type: Boolean,
-      default: false,
-    },
-    // 只读模式 - 将 input 切换为 view 标签
-    readonly: {
       type: Boolean,
       default: false,
     },
@@ -118,119 +85,54 @@ export default {
       type: String,
       default: '取消',
     },
+    maskStyle: {
+      type: String,
+    },
   },
   data() {
     return {
       inputFocus: false,
-      showInput: false
+      showInput: this.value
     }
   },
   computed: {
-    isActivated() {
+    isInput() {
       return this.showInput || this.value
     },
     isFocus() {
       return this.focus || this.inputFocus
     },
-    wrapperStyled({ isActivated, height, radius, round }) {
-      let style = ''
-      style += `height: ${height}px;`
-      if (!isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`
-      }
-      return style
-    },
-    deactivatedStyled({ background }) {
-      let style = ''
-      style += `background: ${background};`
-      return style
-    },
-    inputStyled({ isActivated, background, clearable, round, radius }) {
-      let style = `padding: 0 ${clearable ? 0 : '32rpx'} 0 32rpx;`
-      style += `background: ${background};`
-      if (isActivated) {
-        style += `border-radius: ${round ? 999 : radius}px;`
-      }
-      return style
-    },
   },
   methods: {
-    handleCancel() {
+    onCancel() {
       this.$emit('input', '')
       this.inputFocus = this.showInput = false
     },
-    handleInput(value) {
+    onInput(value) {
       this.$emit('input', value)
     },
-    handleFocus() {
+    onFocus() {
       this.inputFocus = true
       this.$emit('focus')
     },
-    handleBlur(value) {
+    onBlur(value) {
       this.$emit('input', value)
       setTimeout(() => {
         this.inputFocus = false
       }, 0)
     },
     onConfirm(value) {
-      this.$emit('on-search', value)
+      this.$emit('search', value)
     },
-    handleClear() {
+    onClear() {
       this.$emit('input', '')
       this.$emit('clear')
+      this.inputFocus = true
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.search-bar-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.search-bar-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  color: $uni-text-color-placeholder;
-  z-index: 2;
-
-  &.is-active {
-    color: #383838;
-  }
-}
-
-.search-bar-body {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar__input {
-  flex: 1;
-}
-
-.search-left__icon--focus {
-  display: flex;
-  align-items: center;
-}
-
-.search-left__icon {
-  margin-right: $uni-spacing-4;
-}
-
-.search-bar__label {
-  padding-right: $uni-spacing-16;
-  color: #383838;
-}
-
-.search-action__text {
-  padding-left: $uni-spacing-16;
-  color: #383838;
-}
+@import '../theme-chalk/components/search-bar.scss';
 </style>
