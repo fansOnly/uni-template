@@ -458,3 +458,22 @@ $calendar-month: map.merge(
   ),
   $calendar-month
 );
+
+// ActionSheet
+$action-sheet: () !default;
+$action-sheet: map.merge(
+  (
+    'item-height': 104rpx,
+    'item-padding': 0 getCssVar('padding-horizontal'),
+    'border-radius': getCssVar('border-radius', 'base'),
+    'text-color': getCssVar('text-color', 'primary'),
+    'text-font-size': getCssVar('font-size', 'base'),
+    'active-text-color': getCssVar('color', 'primary'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
+    'cancel-offset-bg-color': getCssVar('bg-color', 'active'),
+    'cancel-offset-top': 20rpx,
+    'cancel-text-color': getCssVar('text-color', 'secondary'),
+    'cancel-hover-bg-color': #fafafa,
+  ),
+  $action-sheet
+);

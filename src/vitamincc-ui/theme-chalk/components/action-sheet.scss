@@ -1,0 +1,54 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+@use '../mixins/utils.scss' as *;
+
+@include b(action-sheet) {
+  @include set-preset-css-var('action-sheet', $action-sheet);
+}
+
+@include b(action-sheet) {
+  // display: flex;
+  // flex-direction: column;
+
+  box-sizing: border-box;
+  width: 100%;
+  background-color: getCssVar('action-sheet', 'bg-color');
+  overflow: hidden;
+
+  @include when(round) {
+    border-radius: getCssVar('action-sheet', 'border-radius')
+      getCssVar('action-sheet', 'border-radius') 0 0;
+  }
+
+  @include e(item) {
+    @include flex-center();
+    height: getCssVar('action-sheet', 'item-height');
+    padding: getCssVar('action-sheet', 'item-padding');
+    color: getCssVar('action-sheet', 'text-color');
+
+    @include when(disabled) {
+      color: getCssVar('action-sheet', 'disabled-text-color');
+    }
+
+    @include when(active) {
+      color: getCssVar('action-sheet', 'active-text-color');
+    }
+  }
+
+  @include e(gap) {
+    height: getCssVar('action-sheet', 'cancel-offset-top');
+    background-color: getCssVar('action-sheet', 'cancel-offset-bg-color');
+  }
+
+  @include e(cancel) {
+    color: getCssVar('action-sheet', 'cancel-text-color');
+    line-height: getCssVar('action-sheet', 'item-height');
+    text-align: center;
+
+    @include m(hover) {
+      background-color: getCssVar('action-sheet', 'cancel-hover-bg-color');
+    }
+  }
+}
