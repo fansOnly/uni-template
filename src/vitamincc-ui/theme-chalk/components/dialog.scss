@@ -1,0 +1,68 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+@use '../mixins/utils.scss' as *;
+
+@include b(dialog) {
+  @include set-preset-css-var('dialog', $dialog);
+}
+
+@include b(dialog) {
+  width: getCssVar('dialog', 'width');
+  border-radius: getCssVar('dialog', 'border-radius');
+  overflow: hidden;
+
+  @include e(header) {
+    @include flex-center;
+
+    &:not(:empty) {
+      padding: getCssVar('dialog', 'header-padding');
+    }
+
+    &-title {
+      color: getCssVar('dialog', 'header-text-font-size');
+      font-size: getCssVar('dialog', 'header-text-color');
+      font-weight: 500;
+    }
+  }
+
+  @include e(body) {
+    box-sizing: border-box;
+    padding: getCssVar('dialog', 'body-padding');
+  }
+
+  @include e(content) {
+    color: getCssVar('dialog', 'content-text-color');
+
+    @include when(center) {
+      text-align: center;
+    }
+  }
+
+  @include e(footer) {
+    @include flex-center;
+
+    @include when(reverse) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  @include e(button) {
+    flex: 1;
+    @include flex-center;
+
+    height: getCssVar('dialog', 'button-height');
+    color: getCssVar('dialog', 'button-text-color');
+    font-size: getCssVar('dialog', 'button-text-font-size');
+    font-weight: 500;
+
+    @include when(confirm) {
+      color: getCssVar('dialog', 'button-confirm-text-color');
+    }
+
+    @include pseudo(active) {
+      background-color: getCssVar('dialog', 'button-hover-bg-color');
+    }
+  }
+}

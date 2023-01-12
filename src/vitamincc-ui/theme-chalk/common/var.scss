@@ -115,6 +115,7 @@ $bg-color: map.merge(
     '': #ffffff,
     'page': #f8f8f8,
     'active': #fafcff,
+    'hover': #f9f9f9,
     'disabled': #fafafa,
   ),
   $bg-color
@@ -473,7 +474,27 @@ $action-sheet: map.merge(
     'cancel-offset-bg-color': getCssVar('bg-color', 'active'),
     'cancel-offset-top': 20rpx,
     'cancel-text-color': getCssVar('text-color', 'secondary'),
-    'cancel-hover-bg-color': #fafafa,
+    'cancel-hover-bg-color': getCssVar('bg-color', 'hover'),
   ),
   $action-sheet
+);
+
+// Dialog
+$dialog: () !default;
+$dialog: map.merge(
+  (
+    'width': 85vw,
+    'border-radius': getCssVar('border-radius', 'small'),
+    'header-padding': 48rpx 0 0,
+    'header-text-color': getCssVar('text-color', 'primary'),
+    'header-text-font-size': getCssVar('font-size', 'base'),
+    'body-padding': 56rpx 48rpx,
+    'content-text-color': getCssVar('text-color', 'primary'),
+    'button-height': 96rpx,
+    'button-text-color': getCssVar('text-color', 'primary'),
+    'button-text-font-size': getCssVar('font-size', 'base'),
+    'button-confirm-text-color': getCssVar('color', 'primary'),
+    'button-hover-bg-color': getCssVar('bg-color', 'hover'),
+  ),
+  $dialog
 );
