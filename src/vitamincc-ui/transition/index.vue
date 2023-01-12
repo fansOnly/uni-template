@@ -32,5 +32,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../common/style/transition.scss";
+@import "../theme-chalk/common/transition.scss";
 </style>
