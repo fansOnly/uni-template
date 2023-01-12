@@ -10,7 +10,7 @@
 @include b(popup) {
   position: fixed;
   box-sizing: border-box;
-  padding-bottom: env(safe-area-inset-bottom);
+  // padding-bottom: env(safe-area-inset-bottom);
   background-color: getCssVar('popup', 'bg-color');
   overflow-y: auto;
   animation-timing-function: ease;

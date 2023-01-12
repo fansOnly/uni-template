@@ -1,7 +1,7 @@
 <template>
   <view @touchmove.stop="noop">
     <view v-if="display"
-      :class="['vc-popup', `is-${position}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom--safe' : null, classes]"
+      :class="['vc-popup', `is-${position}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom-safe' : null, classes]"
       :style="styled" @transitionend="onTransitionEnd">
       <!-- slot header -->
       <slot name="header">
