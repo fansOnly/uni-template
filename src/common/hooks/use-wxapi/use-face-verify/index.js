@@ -12,11 +12,12 @@ const checkIfSupport = async () => {
   return result
 }
 
-const startFaceVerify = async (userIdKey) => {
+const startFaceVerify = async (params) => {
   let result = null
   try {
     const data = await wxStartFacialRecognitionVerify({
-      userIdKey
+      ...params,
+      checkAliveType: 2
     })
     if (data.errCode == 0) {
       result = data.verifyResult
