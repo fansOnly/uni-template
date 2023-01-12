@@ -1,6 +1,6 @@
-import { formatDate } from '../common/util'
+import dayjs from 'dayjs'
 
-export const ROW_HEIGHT = 54
+export const formatDate = (val, format = 'YYYY-MM-DD') => dayjs(val || void 0).format(format)
 
 export const WEEKS = ['日', '一', '二', '三', '四', '五', '六']
 
@@ -85,27 +85,4 @@ export const getOffsetDate = (date, offset = 0) => {
   date = new Date(date)
   const newDate = date.setDate(date.getDate() + offset)
   return formatDate(newDate, 'YYYY-MM-DD')
-}
-
-/**
- * 16进制hex转为rgb
- */
-export function hexToRgb(hex) {
-  if (hex.charAt(0) === '#') {
-    hex = hex.substring(1)
-  }
-
-  if (hex.length !== 3 && hex.length !== 6) {
-    return false
-  }
-
-  if (hex.length === 3) {
-    hex = hex.split('').map(c => c.repeat(2)).join('')
-  }
-
-  const red = parseInt(hex.substring(0, 2), 16)
-  const blue = parseInt(hex.substring(4, 6), 16)
-  const green = parseInt(hex.substring(2, 4), 16)
-
-  return [red, green, blue]
 }

@@ -1,20 +1,21 @@
 <template>
   <view>
-    <vc-popup v-if="popupable" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round"
-      border closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="close">
+    <vc-popup v-if="usePopup" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round"
+      border closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="onClose">
       <vc-calendar :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-        :max-range="maxRange" :row-height="rowHeight" :background="background" :formatter="formatter"
-        :allow-same-day="allowSameDay" @change="onChange"></vc-calendar>
-      <view v-if="withButton" class="vc-button">
-        <slot name="button">
-          <vc-button type="primary" size="mini" block round @click="onConfirm">{{ buttonText }}</vc-button>
-        </slot>
-      </view>
+        :max-range="maxRange" :formatter="formatter" :allow-same-day="allowSameDay" @change="onChange"
+        @over-range="onOverRange"></vc-calendar>
+      <slot v-if="withButton" name="button">
+        <vc-button type="primary" size="mini" block round :disabled="disabled" custom-style="margin: 32rpx 32rpx 0;"
+          @click="onConfirm">{{
+            buttonText
+          }}</vc-button>
+      </slot>
     </vc-popup>
 
     <vc-calendar v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-      :max-range="maxRange" :row-height="rowHeight" :background="background" :allow-same-day="allowSameDay"
-      :formatter="formatter" @change="onChange">
+      :max-range="maxRange" :allow-same-day="allowSameDay" :formatter="formatter" @change="onChange"
+      @over-range="onOverRange">
     </vc-calendar>
   </view>
 </template>
@@ -35,7 +36,7 @@ export default {
       default: false
     },
     // 显示弹窗
-    popupable: {
+    usePopup: {
       type: Boolean,
       default: true
     },
@@ -73,24 +74,27 @@ export default {
   },
   data() {
     return {
-      selectedDate: ''
+      selectedDate: '',
+      disabled: false
     }
   },
   watch: {
     visible: {
       handler(val) {
         this.selectedDate = val ? this.value : ''
+        this.disabled = !this.value.length
       },
       immediate: true,
     }
   },
   methods: {
-    onChange(value) {
-      if (!this.popupable) {
+    onChange(value, disabled) {
+      if (!this.usePopup) {
         this.$emit('change', value)
         this.$emit('input', value)
       } else {
         this.selectedDate = value
+        this.disabled = disabled
       }
     },
     onConfirm() {
@@ -109,20 +113,17 @@ export default {
       this.$emit('confirm', this.selectedDate)
       this.$emit('update:visible', false)
     },
+    onOverRange() {
+      this.$emit('over-range')
+    },
     clickOverlay() {
       if (!this.closeOnClickOverlay) return
-      this.close()
+      this.onClose()
     },
-    close() {
+    onClose() {
       this.$emit('close')
       this.$emit('update:visible', false)
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.vc-button {
-  padding: 32rpx;
-}
-</style>

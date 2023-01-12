@@ -89,6 +89,7 @@ $font-size: map.merge(
     'base': 16px,
     'small': 14px,
     'smaller': 12px,
+    'mini': 10px,
     'large': 18px,
     'larger': 20px,
   ),
@@ -136,8 +137,9 @@ $border-color: map.merge(
 $border-radius: () !default;
 $border-radius: map.merge(
   (
-    'base': 4px,
-    'large': 8px,
+    'small': 4px,
+    'base': 8px,
+    'large': 12px,
     'round': 2em,
     'circle': 100%,
   ),
@@ -170,7 +172,7 @@ $padding-horizontal: map.merge(
 $button: () !default;
 $button: map.merge(
   (
-    'border-radius': 4px,
+    'border-radius': getCssVar('border-radius', 'small'),
     'bg-color': getCssVar('bg-color'),
     'border-color': getCssVar('border-color'),
     'text-color': getCssVar('text-color', 'regular'),
@@ -278,18 +280,20 @@ $popup: () !default;
 $popup: map.merge(
   (
     'header-height': 112rpx,
-    'padding': getCssVar('padding-vertical') getCssVar('padding-horizontal'),
+    'header-padding': 0 getCssVar('padding-horizontal'),
     'title-color': getCssVar('text-color', 'primary'),
+    'close-offset-left': getCssVar('padding-horizontal'),
+    'close-offset-right': getCssVar('padding-horizontal'),
     'bg-color': getCssVar('bg-color'),
-    'border-radius-center': getCssVar('border-radius', 'large'),
-    'border-radius-top': 0 0 getCssVar('border-radius', 'large')
-      getCssVar('border-radius', 'large'),
-    'border-radius-bottom': getCssVar('border-radius', 'large')
-      getCssVar('border-radius', 'large') 0 0,
-    'border-radius-left': 0 getCssVar('border-radius', 'large')
-      getCssVar('border-radius', 'large') 0,
-    'border-radius-right': getCssVar('border-radius', 'large') 0 0
-      getCssVar('border-radius', 'large'),
+    'border-radius-center': getCssVar('border-radius', 'base'),
+    'border-radius-top': 0 0 getCssVar('border-radius', 'base')
+      getCssVar('border-radius', 'base'),
+    'border-radius-bottom': getCssVar('border-radius', 'base')
+      getCssVar('border-radius', 'base') 0 0,
+    'border-radius-left': 0 getCssVar('border-radius', 'base')
+      getCssVar('border-radius', 'base') 0,
+    'border-radius-right': getCssVar('border-radius', 'base') 0 0
+      getCssVar('border-radius', 'base'),
   ),
   $popup
 );
@@ -348,7 +352,7 @@ $input: map.merge(
     'bg-color': getCssVar('bg-color'),
     'input-padding': 0 getCssVar('padding-horizontal'),
     'textarea-padding': getCssVar('padding-vertical') 0,
-    'border-radius': getCssVar('border-radius', 'large'),
+    'border-radius': getCssVar('border-radius', 'base'),
     'text-color': getCssVar('text-color', 'primary'),
     'disabled-text-color': getCssVar('text-color', 'disabled'),
     'text-font-size': getCssVar('font-size'),
@@ -378,7 +382,7 @@ $search-bar: map.merge(
   (
     'height': 40px,
     'bg-color': getCssVar('bg-color', 'active'),
-    'border-radius': getCssVar('border-radius', 'large'),
+    'border-radius': getCssVar('border-radius', 'base'),
     'mask-text-color': getCssVar('text-color', 'secondary'),
     'mask-padding': 0 getCssVar('input', 'input-padding'),
     'label-text-color': getCssVar('text-color', 'secondary'),
@@ -410,4 +414,47 @@ $picker-column: map.merge(
     'active-text-font-size': getCssVar('font-size'),
   ),
   $picker-column
+);
+
+// Calendar
+$calendar: () !default;
+$calendar: map.merge(
+  (
+    'confirm-button-padding': 0 getCssVar('padding-horizontal'),
+    'confirm-button-margin': getCssVar('padding-vertical'),
+    'header-height': 88rpx,
+    'header-bg-color': getCssVar('bg-color'),
+    'header-date-padding': 0 getCssVar('padding-horizontal'),
+    'header-today-text-color': getCssVar('color', 'primary'),
+    'header-today-text-font-size': getCssVar('font-size', 'mini'),
+    'week-height': 60rpx,
+    'week-bg-color': getCssVar('bg-color'),
+    'week-text-font-size': getCssVar('font-size', 'smaller'),
+    'body-bg-color': getCssVar('bg-color'),
+  ),
+  $calendar
+);
+
+// CalendarMonth
+$calendar-month: () !default;
+$calendar-month: map.merge(
+  (
+    'height': 54px,
+    'col': 7,
+    'text-color': getCssVar('text-color', 'primary'),
+    'font-size': getCssVar('font-size', 'large'),
+    'active-text-color': getCssVar('color', 'white'),
+    'active-bg-color': getCssVar('color', 'primary'),
+    'middle-bg-color': getCssVar('color', 'primary', 'light-9'),
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
+    'border-radius': getCssVar('border-radius', 'small'),
+    'today-text-color': getCssVar('color', 'primary'),
+    'festival-text-color': #f60,
+    'solar-text-color': #5f83da,
+    'top-text-color': getCssVar('text-color', 'secondary'),
+    'top-text-font-size': getCssVar('font-size', 'mini'),
+    'bottom-text-color': getCssVar('text-color', 'secondary'),
+    'bottom-text-font-size': getCssVar('font-size', 'mini'),
+  ),
+  $calendar-month
 );

@@ -28,7 +28,8 @@
 
     <vc-calendar :visible.sync="visible1" :value="date1" @confirm="handleConfirm1"></vc-calendar>
 
-    <vc-calendar :visible.sync="visible2" :value="date2" type="multiple" @confirm="handleConfirm2"></vc-calendar>
+    <vc-calendar :visible.sync="visible2" :value="date2" type="multiple" :max-range="5"
+      @confirm="handleConfirm2"></vc-calendar>
 
     <vc-calendar :visible.sync="visible3" :value="date3" type="range" allow-same-day :max-range="5"
       @confirm="handleConfirm3"></vc-calendar>

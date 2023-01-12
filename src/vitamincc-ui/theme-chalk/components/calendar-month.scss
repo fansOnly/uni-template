@@ -1,0 +1,92 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(calendar-month) {
+  @include set-preset-css-var('calendar-month', $calendar-month);
+}
+
+@include b(calendar-month) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @include e(days) {
+    width: calc(100% / getCssVar('calendar-month', 'col'));
+    height: getCssVar('calendar-month', 'height');
+    color: getCssVar('calendar-month', 'text-color');
+
+    @include when(disabled) {
+      color: getCssVar('calendar-month', 'disabled', 'text-color');
+    }
+  }
+
+  @include e(day) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    @include when(active) {
+      background-color: getCssVar('calendar-month', 'active', 'bg-color');
+      color: getCssVar('calendar-month', 'active', 'text-color');
+    }
+    @include when(start) {
+      border-radius: getCssVar('calendar-month', 'border-radius') 0 0
+        getCssVar('calendar-month', 'border-radius');
+    }
+    @include when(end) {
+      border-radius: 0 getCssVar('calendar-month', 'border-radius')
+        getCssVar('calendar-month', 'border-radius') 0;
+    }
+    @each $type in (selected, start-end) {
+      @include when($type) {
+        border-radius: getCssVar('calendar-month', 'border-radius');
+      }
+    }
+    @each $type in (selected, start-end, middle, start, end, start-end) {
+      @each $child in (-top, -bottom) {
+        @include when($type, $child) {
+          @if $type == 'middle' {
+            color: getCssVar('color', 'primary');
+          } @else {
+            color: getCssVar('calendar-month', 'active', 'text-color');
+          }
+        }
+      }
+    }
+
+    @include when(middle) {
+      background-color: getCssVar('calendar-month', 'middle-bg-color');
+      color: getCssVar('color', 'primary');
+    }
+
+    @include when(today) {
+      color: getCssVar('calendar-month', 'today-text-color');
+    }
+  }
+  @include e(day-text) {
+    font-size: getCssVar('calendar-month', 'font-size');
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  @include e(day-top) {
+    color: getCssVar('calendar-month', 'top-text-color');
+    font-size: getCssVar('calendar-month', 'top-text-font-size');
+  }
+
+  @include e(day-bottom) {
+    color: getCssVar('calendar-month', 'bottom-text-color');
+    font-size: getCssVar('calendar-month', 'bottom-text-font-size');
+
+    @include when(solar) {
+      color: getCssVar('calendar-month', 'solar-text-color');
+    }
+    @include when(festival) {
+      color: getCssVar('calendar-month', 'festival-text-color');
+    }
+  }
+}

@@ -1,16 +1,18 @@
 <template>
-  <view class="vc-calender">
-    <view class="vc-calender-bar">
+  <view class="vc-calendar">
+    <view class="vc-calendar__header">
       <vc-icon name="arrow-left" size="16" custom-style="font-weight: 800;" @click="onChangePrev" />
-      <view class="vc-calender__subtitle">{{ subtitle }}</view>
+      <view class="vc-calendar__date">{{ subtitle }}</view>
       <vc-icon name="arrow-right" size="16" custom-style="font-weight: 800;" @click="onChangeNext" />
-      <view class="vc-calendar__today vc-hairline--surround" :class="{ 'is-show': notCurrent }" @click="backCurrent">今日
+      <view :class="['vc-calendar__today', showToday ? 'is-show' : null]" @click="backCurrent">
+        <vc-icon name="calendar" size="30" />
+        <text class="vc-calendar__today-text">{{ today }}</text>
       </view>
     </view>
-    <view class="vc-calender__week">
-      <view v-for="item in WEEKS" :key="item" class="vc-calender__week-text">{{ item }}</view>
+    <view class="vc-calendar__week">
+      <view v-for="item in WEEKS" :key="item" class="vc-calendar__week-text">{{ item }}</view>
     </view>
-    <view class="vc-calender__body" :style="{ 'background': background }">
+    <view class="vc-calendar__body">
       <v-month :value="value" :year-month="yearMonth" @click="onClick"></v-month>
     </view>
   </view>
@@ -18,8 +20,7 @@
 
 <script>
 import VMonth from './components/month'
-import { formatDate } from '../common/util'
-import { WEEKS, getPrevYearMonth, getNextYearMonth, getDateDiff, getOffsetDate } from './util'
+import { WEEKS, getPrevYearMonth, getNextYearMonth, getDateDiff, getOffsetDate, formatDate } from './utils'
 import props from './props'
 
 export default {
@@ -36,27 +37,30 @@ export default {
   data() {
     return {
       WEEKS,
-      yearMonth: '',
+      yearMonth: formatDate('', 'YYYY-MM'),
+      today: formatDate('', 'DD')
     }
   },
   computed: {
     subtitle() {
-      return formatDate(this.yearMonth, 'YYYY年MM月')
+      return formatDate(this.yearMonth, 'YYYY-MM-DD')
     },
-    notCurrent() {
+    showToday() {
       return this.yearMonth !== this.getCurrentYearMonth()
     }
   },
   watch: {
     value: {
       handler(val) {
-        let current = ''
-        if (val.length) {
-          current = Array.isArray(val) ? val[0] : val
+        let current
+        if (val?.length) {
+          current = Array.isArray(val) ? val[0] ?? '' : val
         }
-        const newYearMonth = formatDate(current, 'YYYY-MM')
-        if (this.yearMonth !== newYearMonth) {
-          this.yearMonth = newYearMonth
+        if (current) {
+          const newYearMonth = formatDate(current, 'YYYY-MM')
+          if (this.yearMonth !== newYearMonth) {
+            this.yearMonth = newYearMonth
+          }
         }
       },
       immediate: true,
@@ -67,18 +71,26 @@ export default {
     onClick(item) {
       // console.log('[debug] 点击日期: ', item)
       if (this.type === 'single') {
-        this.$emit('change', item.value)
+        this.$emit('change', item.value, false)
       } else if (this.type === 'multiple') {
-        const selected = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
+        const selected = this.value.map(v => formatDate(v))
         const hasIndex = selected.indexOf(item.value)
         if (hasIndex === -1) {
+          if (selected.length >= this.maxRange) {
+            uni.showToast({
+              title: `选择天数不能超过 ${this.maxRange} 天`,
+              icon: 'none',
+            })
+            this.$emit('over-range')
+            return
+          }
           selected.push(item.value)
         } else {
           selected.splice(hasIndex, 1)
         }
-        this.$emit('change', selected.sort())
+        this.$emit('change', selected.sort(), !selected.length)
       } else if (this.type === 'range') {
-        let [startDate = '', endDate = ''] = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
+        let [startDate = '', endDate = ''] = this.value.map(v => formatDate(v))
         const currentDate = item.value
 
         if (startDate && !endDate) {
@@ -102,7 +114,7 @@ export default {
           endDate = getOffsetDate(startDate, this.maxRange - 1)
           this.$emit('over-range')
         }
-        this.$emit('change', [startDate, endDate].filter(Boolean))
+        this.$emit('change', [startDate, endDate].filter(Boolean), !startDate || !endDate)
       }
     },
     onChangePrev() {
@@ -124,59 +136,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-calender {
-  overflow: hidden;
-}
-
-.vc-calender-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: #fff;
-}
-
-.vc-calender__subtitle {
-  height: 88rpx;
-  margin: 0 16rpx;
-  font-weight: 500;
-  line-height: 88rpx;
-  text-align: center;
-}
-
-.vc-calendar__today {
-  position: absolute;
-  right: -100%;
-  top: 50%;
-  width: 40px;
-  height: 24px;
-  margin-top: -12px;
-  border-radius: 2em 0 0 2em;
-  color: #737373;
-  color: #f60;
-  font-size: 12px;
-  line-height: 24px;
-  text-align: center;
-  transition: right ease 300ms;
-
-  &.is-show {
-    right: 0;
-  }
-}
-
-.vc-calender__week {
-  display: flex;
-  align-items: center;
-  position: relative;
-  background: #fff;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, .05);
-  z-index: 2;
-}
-
-.vc-calender__week-text {
-  flex: 1;
-  text-align: center;
-  font-size: 24rpx;
-  line-height: 60rpx;
-}
+@import '../theme-chalk/components/calendar.scss';
 </style>

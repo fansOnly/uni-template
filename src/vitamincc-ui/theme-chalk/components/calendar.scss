@@ -1,0 +1,72 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/functions' as *;
+
+@include b(calendar) {
+  @include set-preset-css-var('calendar', $calendar);
+}
+
+@include b(calendar) {
+  overflow: hidden;
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: getCssVar('calendar', 'header-height');
+    background: getCssVar('calendar', 'header-bg-color');
+  }
+
+  @include e(date) {
+    padding: getCssVar('calendar', 'header-date-padding');
+    font-weight: 500;
+  }
+
+  @include e(today) {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 12rpx;
+    bottom: 0;
+    transform: scale(0);
+    transition: all ease 300ms;
+
+    @include when(show) {
+      color: getCssVar('calendar', 'header-today-text-color');
+      transform: scale(1);
+    }
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      font-size: getCssVar('calendar', 'header-today-text-font-size');
+      text-align: center;
+      transform: translateY(-2px);
+    }
+  }
+
+  @include e(week) {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: getCssVar('calendar', 'week-height');
+    background: getCssVar('calendar', 'week-bg-color');
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+
+    &-text {
+      flex: 1;
+      text-align: center;
+      font-size: getCssVar('calendar', 'week-text-font-size');
+    }
+  }
+
+  @include e(body) {
+    background-color: getCssVar('calendar', 'body-bg-color');
+  }
+}

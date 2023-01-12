@@ -1,23 +1,23 @@
 <template>
-  <view class="vc-calender-month">
-    <view v-for="(item, index) in days" :key="index" class="vc-calender__days"
-      :class="[item.type ? `is-${item.type}` : null]" :style="{ 'height': rowHeight + 'px' }" @click="onClick(item)">
-      <view v-if="['selected', 'multiple-selected', 'start', 'end', 'start-end'].includes(item.type)"
-        class="vc-calender__days-item" :style="{ 'background': color }">
-        <view v-if="item.mark" class="vc-calender__mark">{{ item.mark }}</view>
-        <view class="vc-calender__text">{{ item.text }}</view>
-        <view v-if="lunar" class="vc-calender__lunar">{{ item.lunarText }}</view>
+  <view class="vc-calendar-month">
+    <view v-for="(item, index) in days" :key="index"
+      :class="['vc-calendar-month__days', item.type === 'disabled' ? 'is-disabled' : null]" @click="onClick(item)">
+      <view v-if="['selected', 'start', 'end', 'start-end'].includes(item.type)"
+        :class="['vc-calendar-month__day', 'is-active', `is-${item.type}`]">
+        <view v-if="item.mark" class="vc-calendar-month__day-top">{{ item.mark }}</view>
+        <view class="vc-calendar-month__day-text">{{ item.text }}</view>
+        <view v-if="lunar" class="vc-calendar-month__day-bottom">{{ item.lunarText }}</view>
       </view>
-      <view v-else-if="item.type === 'middle'" class="vc-calender__days-item"
-        :style="{ 'background': colorLighter, 'color': color }">
-        <view v-if="item.mark" class="vc-calender__mark">{{ item.mark }}</view>
-        <view class="vc-calender__text">{{ item.text }}</view>
-        <view v-if="lunar" class="vc-calender__lunar">{{ item.lunarText }}</view>
+      <view v-else-if="item.type === 'middle'" class="vc-calendar-month__day is-middle">
+        <view v-if="item.mark" class="vc-calendar__day-top">{{ item.mark }}</view>
+        <view class="vc-calendar-month__day-text">{{ item.text }}</view>
+        <view v-if="lunar" class="vc-calendar-month__day-bottom">{{ item.lunarText }}</view>
       </view>
-      <view v-else class="vc-calender__days-item" :class="{ 'is-today': item.lunar.isToday }">
-        <view v-if="item.mark" class="vc-calender__mark">{{ item.mark }}</view>
-        <view class="vc-calender__text">{{ item.text }}</view>
-        <view v-if="lunar" class="vc-calender__lunar" :class="[item.lunar.Term ? 'is-solar' : null]">{{ item.lunarText
+      <view v-else :class="['vc-calendar-month__day', item.lunar.isToday ? 'is-today' : null]">
+        <view v-if="item.mark" class="vc-calendar-month__day-top">{{ item.mark }}</view>
+        <view class="vc-calendar-month__day-text">{{ item.text }}</view>
+        <view v-if="lunar" class="vc-calendar-month__day-bottom" :class="[item.lunar.Term ? 'is-solar' : null]">{{
+          item.lunarText
         }}</view>
       </view>
     </view>
@@ -25,9 +25,8 @@
 </template>
 
 <script>
-import { formatDate } from '../../common/util'
-import { ROW_HEIGHT, getMonthEndDay, hexToRgb, getPrevYearMonth, getNextYearMonth } from '../util'
-import lunar from '../lunar'
+import { getMonthEndDay, getPrevYearMonth, getNextYearMonth, formatDate } from '../utils'
+import lunar from '../utils/lunar'
 
 export default {
   name: 'v-month',
@@ -44,17 +43,9 @@ export default {
   },
   data() {
     return {
-      hexToRgb,
-      rowHeight: ROW_HEIGHT,
       days: [],
       color: '',
       lunar: false,
-    }
-  },
-  computed: {
-    colorLighter() {
-      const [red, green, blue] = hexToRgb(this.color)
-      return `rgba(${red}, ${green}, ${blue}, 0.2)`
     }
   },
   watch: {
@@ -74,10 +65,11 @@ export default {
     }
   },
   created() {
-    this.rowHeight = this.calendar.rowHeight
-    this.color = this.calendar.color
-    this.lunar = this.calendar.lunar
-    this.solarTerm = this.calendar.solarTerm
+    if (this.calendar) {
+      this.color = this.calendar.color
+      this.lunar = this.calendar.lunar
+      // this.holiday = this.calendar.holiday
+    }
   },
   methods: {
     onClick(item) {
@@ -111,11 +103,12 @@ export default {
         const mark = disabled ? '' : this.getDayMark(type)
         const lunar = this.getDayLunar(year, month, i)
         const lunarText = lunar.isToday ? '今日' : lunar.Term ?? lunar.IDayCn
+        // const holidayText = ''
 
         let item = {
           text: i, // 当前天
           value: date, // 日期值
-          type, // 日期类型 start / end / middle / disabled
+          type, // 日期类型 start / end / start-end / middle / disabled
           lunar,
           lunarText, // 农历日期
           mark, // 备注
@@ -146,7 +139,7 @@ export default {
     getMultiDayType(day) {
       if (!Array.isArray(this.value) || !this.value.length) return ''
       const selected = this.value.map(v => formatDate(v, 'YYYY-MM-DD'))
-      return selected.includes(day) ? 'multiple-selected' : ''
+      return selected.includes(day) ? 'selected' : ''
     },
     getRangeDayType(day) {
       if (!Array.isArray(this.value) || !this.value.length) return ''
@@ -182,88 +175,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-calender-month {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.vc-calender__days {
-  width: calc(100% / 7);
-  color: #252525;
-
-  &.is-disabled {
-    color: #c0c0c0;
-    /* #ifdef H5 */
-    cursor: pointer
-      /* #endif */
-  }
-
-  &.is-selected,
-  &.is-multiple-selected,
-  &.is-start,
-  &.is-start-end,
-  &.is-end {
-    color: #fff;
-
-    & .vc-calender__lunar,
-    & .vc-calender__mark {
-      color: #fff;
-    }
-  }
-
-  &.is-selected .vc-calender__days-item,
-  &.is-start-end .vc-calender__days-item,
-  &.is-multiple-selected .vc-calender__days-item {
-    border-radius: 4px;
-  }
-
-  &.is-start .vc-calender__days-item {
-    border-radius: 4px 0 0 4px;
-  }
-
-  &.is-end .vc-calender__days-item {
-    border-radius: 0 4px 4px 0;
-  }
-}
-
-.vc-calender__days-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-
-  &.is-today {
-    color: #f60;
-
-    & .vc-calender__lunar {
-      color: inherit;
-    }
-  }
-}
-
-.vc-calender__lunar {
-  color: #B3B3B3;
-  font-size: 12px;
-
-  &.is-festival {
-    color: #f60;
-  }
-
-  &.is-solar {
-    color: #5f83da;
-  }
-}
-
-.vc-calender__text {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.vc-calender__mark {
-  font-size: 10px;
-  color: #737373;
-}
+@import '../../theme-chalk/components/calendar-month.scss';
 </style>

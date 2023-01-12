@@ -1,7 +1,3 @@
-
-import cssVariables from '../common/style/var.scss'
-import { ROW_HEIGHT } from './util'
-
 export default {
   /**
    * 默认值
@@ -11,7 +7,6 @@ export default {
    */
   value: {
     type: [String, Array],
-    default: ''
   },
   /**
    * @property {string}
@@ -38,21 +33,6 @@ export default {
     type: Number,
     default: -1
   },
-  // 日历月份行高
-  rowHeight: {
-    type: Number,
-    default: ROW_HEIGHT
-  },
-  // 日历月份背景色
-  background: {
-    type: String,
-    default: cssVariables.colorWhite
-  },
-  // 选中的日期颜色
-  color: {
-    type: String,
-    default: cssVariables.colorPrimary
-  },
   // 显示农历
   lunar: {
     type: Boolean,
@@ -69,7 +49,7 @@ export default {
     default: false
   },
   // 显示节假日
-  // solarTerm: {
+  // holiday: {
   //   type: Boolean,
   //   default: true
   // },
