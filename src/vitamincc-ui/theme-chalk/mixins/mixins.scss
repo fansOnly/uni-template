@@ -2,6 +2,8 @@
 @use 'config' as *;
 
 // namespace
+// e.g.
+// @b(block) => ns-block
 @mixin b($block) {
   $B: $namespace + '-' + $block !global;
   .#{$B} {
@@ -9,6 +11,8 @@
   }
 }
 
+// e.g.
+// @e(element) => ns-block__element
 @mixin e($element) {
   $E: $element !global;
   $selector: &;
@@ -30,6 +34,8 @@
   }
 }
 
+// e.g.
+// @m(modifier) => ns-block--modifier
 @mixin m($modifier) {
   $selector: &;
   $currentSelector: '';
@@ -53,10 +59,18 @@
 // when
 // e.g.
 // @include when(disabled) => .is-disabled
-@mixin when($state) {
+// @include when(disabled, inner) => .is-disabled .inner
+@mixin when($state, $child: '') {
+  $selector: &;
   @at-root {
     &.#{$state-prefix + $state} {
-      @content;
+      @if $child != '' {
+        #{$selector + $child} {
+          @content;
+        }
+      } @else {
+        @content;
+      }
     }
   }
 }

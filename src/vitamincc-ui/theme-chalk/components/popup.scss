@@ -10,11 +10,12 @@
 @include b(popup) {
   position: fixed;
   box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: getCssVar('popup', 'bg-color');
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   animation-timing-function: ease;
   animation: ease both;
-  background-color: getCssVar('popup', 'bg-color');
+  -webkit-overflow-scrolling: touch;
 
   @include when(center) {
     top: 50%;
@@ -83,7 +84,7 @@
     position: relative;
 
     height: getCssVar('popup', 'header-height');
-    padding: 0 getCssVar('popup', 'padding');
+    padding: getCssVar('popup', 'header-padding');
     text-align: center;
   }
 
@@ -94,11 +95,11 @@
     z-index: 2;
 
     @include m(left) {
-      left: getCssVar('popup', 'padding');
+      left: getCssVar('popup', 'close-offset-left');
     }
 
     @include m(right) {
-      right: getCssVar('popup', 'padding');
+      right: getCssVar('popup', 'close-offset-right');
     }
   }
 
