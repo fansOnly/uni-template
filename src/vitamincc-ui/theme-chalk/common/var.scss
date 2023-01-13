@@ -226,7 +226,7 @@ $transition: map.merge(
  *  └─────────────────────────────────────────────────────────────┘
  */
 
-// Button
+// button
 $button: () !default;
 $button: map.merge(
   (
@@ -274,7 +274,7 @@ $button-padding-horizontal: map.merge(
   $button-padding-horizontal
 );
 
-// Cell
+// cell
 $cell: () !default;
 $cell: map.merge(
   (
@@ -322,7 +322,7 @@ $cell-padding-horizontal: map.merge(
   $cell-padding-horizontal
 );
 
-// Image
+// image
 $image: () !default;
 $image: map.merge(
   (
@@ -334,7 +334,7 @@ $image: map.merge(
   $image
 );
 
-// Popup
+// popup
 $popup: () !default;
 $popup: map.merge(
   (
@@ -357,7 +357,7 @@ $popup: map.merge(
   $popup
 );
 
-// Checkbox
+// checkbox
 $checkbox: () !default;
 $checkbox: map.merge(
   (
@@ -372,7 +372,7 @@ $checkbox: map.merge(
   $checkbox
 );
 
-// Radio
+// radio
 $radio: () !default;
 $radio: map.merge(
   (
@@ -387,7 +387,7 @@ $radio: map.merge(
   $radio
 );
 
-// Switch
+// switch
 $switch: () !default;
 $switch: map.merge(
   (
@@ -402,7 +402,7 @@ $switch: map.merge(
   $switch
 );
 
-// Input
+// input
 $input: () !default;
 $input: map.merge(
   (
@@ -423,7 +423,7 @@ $input: map.merge(
   $input
 );
 
-// FormItem
+// form-item
 $form-item: () !default;
 $form-item: map.merge(
   (
@@ -435,7 +435,7 @@ $form-item: map.merge(
   $form-item
 );
 
-// SearchBar
+// search-bar
 $search-bar: () !default;
 $search-bar: map.merge(
   (
@@ -450,7 +450,7 @@ $search-bar: map.merge(
   $search-bar
 );
 
-// Picker
+// picker
 $picker: () !default;
 $picker: map.merge(
   (
@@ -463,7 +463,7 @@ $picker: map.merge(
   $picker
 );
 
-// PickerColumn
+// picker-column
 $picker-column: () !default;
 $picker-column: map.merge(
   (
@@ -475,7 +475,7 @@ $picker-column: map.merge(
   $picker-column
 );
 
-// Calendar
+// calendar
 $calendar: () !default;
 $calendar: map.merge(
   (
@@ -494,7 +494,7 @@ $calendar: map.merge(
   $calendar
 );
 
-// CalendarMonth
+// calendar-month
 $calendar-month: () !default;
 $calendar-month: map.merge(
   (
@@ -518,7 +518,7 @@ $calendar-month: map.merge(
   $calendar-month
 );
 
-// ActionSheet
+// action-sheet
 $action-sheet: () !default;
 $action-sheet: map.merge(
   (
@@ -537,7 +537,7 @@ $action-sheet: map.merge(
   $action-sheet
 );
 
-// Dialog
+// dialog
 $dialog: () !default;
 $dialog: map.merge(
   (
@@ -555,4 +555,17 @@ $dialog: map.merge(
     'button-hover-bg-color': getCssVar('bg-color', 'hover'),
   ),
   $dialog
+);
+
+// loading
+$loading: () !default;
+$loading: map.merge(
+  (
+    'icon-color': #969799,
+    'text-color': getCssVar('text-color', 'secondary'),
+    'text-font-size': getCssVar('font-size', 'small'),
+    'text-offset-left': 6px,
+    'transition-function': linear,
+  ),
+  $loading
 );

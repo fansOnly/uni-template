@@ -1,7 +1,7 @@
 <template>
   <view class="page-wrapper">
 
-    <demo-block title="基础用法" padding >
+    <demo-block title="基础用法" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <vc-loading></vc-loading>
@@ -10,7 +10,7 @@
           <vc-loading type="spinner"></vc-loading>
         </view>
         <view class="demo-item-space">
-          <vc-loading type="shine" size="32" color="#3264DC"></vc-loading>
+          <vc-loading type="shine"></vc-loading>
         </view>
       </view>
     </demo-block>
@@ -23,16 +23,22 @@
         <view class="demo-item-space">
           <vc-loading type="spinner" color="#4cd964"></vc-loading>
         </view>
+        <view class="demo-item-space">
+          <vc-loading type="shine" color="#4cd964"></vc-loading>
+        </view>
       </view>
     </demo-block>
 
     <demo-block title="自定义大小" padding>
       <view class="demo-row--flex">
         <view class="demo-item-space">
-          <vc-loading size="10"></vc-loading>
+          <vc-loading size="30"></vc-loading>
         </view>
         <view class="demo-item-space">
           <vc-loading type="spinner" size="30"></vc-loading>
+        </view>
+        <view class="demo-item-space">
+          <vc-loading type="shine" size="30"></vc-loading>
         </view>
       </view>
     </demo-block>
@@ -45,6 +51,9 @@
         <view class="demo-item-space">
           <vc-loading type="spinner">加载中...</vc-loading>
         </view>
+        <view class="demo-item-space">
+          <vc-loading type="shine">加载中...</vc-loading>
+        </view>
       </view>
     </demo-block>
 
@@ -55,6 +64,9 @@
         </view>
         <view class="demo-item-space">
           <vc-loading type="spinner" vertical>加载中...</vc-loading>
+        </view>
+        <view class="demo-item-space">
+          <vc-loading type="shine" vertical>加载中...</vc-loading>
         </view>
       </view>
     </demo-block>
