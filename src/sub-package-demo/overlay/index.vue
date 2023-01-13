@@ -2,8 +2,10 @@
   <view class="page-wrapper">
 
     <demo-block title="基础用法" padding>
-      <vc-cell title="基础用法" is-link border hover-class="" @click="visible = true"></vc-cell>
-      <vc-cell title="包含内容" is-link hover-class="" @click="visible2 = true"></vc-cell>
+      <vc-cell-group border>
+        <vc-cell title="基础用法" is-link @click="visible = true"></vc-cell>
+        <vc-cell title="包含内容" is-link is-last @click="visible2 = true"></vc-cell>
+      </vc-cell-group>
     </demo-block>
 
     <vc-overlay :visible.sync="visible"></vc-overlay>

@@ -1,14 +1,14 @@
 <template>
   <!-- 需要将 class 挂载在 vc-transition 上，不然遮罩层级有bug -->
-  <vc-transition :visible="visible" :animation-name="name" :duration="duration" @click="close">
+  <vc-transition :visible="visible" :animation-name="name" :duration="duration" @click="onClose">
     <view class="vc-overlay" :style="styled">
+      <!-- slot default -->
       <slot />
     </view>
   </vc-transition>
 </template>
 
 <script>
-import cssVariables from '@/common/theme'
 import { getAppData } from '../common/global-data'
 export default {
   name: 'vc-overlay',
@@ -30,8 +30,7 @@ export default {
     },
     // 层级
     zIndex: {
-      type: Number,
-      default: +cssVariables.overlayZIndex
+      type: Number
     },
     // 锁定滚动穿透
     lockScroll: {
@@ -44,18 +43,21 @@ export default {
       default: true
     },
     // 自定义样式
-    customStyle: null
+    customStyle: String
   },
   computed: {
     styled() {
       const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-      let style = `z-index: ${this.zIndex};`
+      let style = ''
+      if (this.zIndex) {
+        style += `z-index: ${this.zIndex};`
+      }
       if (isCustomNavigation) style += `top: ${navHeight}px;`
       return style + this.customStyle
     }
   },
   methods: {
-    close() {
+    onClose() {
       if (!this.clickable) return
       this.$emit('click')
       this.$emit('update:visible', false)
@@ -65,12 +67,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
+@import '../theme-chalk/components/overlay.scss';
 </style>
