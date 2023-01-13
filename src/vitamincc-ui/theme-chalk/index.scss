@@ -1,8 +1,9 @@
 @use './common/var' as *;
 @use './mixins/config' as *;
-@use './mixins/functions' as *;
+@use './mixins/function' as *;
 @use './mixins/var' as *;
 
+// common
 :root {
   @include set-css-var-value('color-white', $color-white);
   @include set-css-var-value('color-black', $color-black);
@@ -11,9 +12,6 @@
   @each $type in (primary, success, warning, error, info) {
     @include set-css-color-type($colors, $type);
   }
-  @include set-preset-css-var('bg-color', $bg-color);
-  @include set-preset-css-var('text-color', $text-color);
-  @include set-preset-css-var('border-color', $border-color);
 
   // Typography
   @include set-preset-css-var('font-size', $font-size);
@@ -27,6 +25,35 @@
   // Padding
   @include set-preset-css-var('padding-vertical', $padding-vertical);
   @include set-preset-css-var('padding-horizontal', $padding-horizontal);
+
+  // Transition
+  @include set-preset-css-var('transition-function', $transition-function);
+  @include set-preset-css-var('transition', $transition);
+
+  // zIndex
+  @include set-preset-css-var('z-index', $z-index);
+
+  // Component size
+  @include set-preset-css-var('component-size', $component-size);
+}
+
+// theme light
+:root {
+  color-scheme: light;
+
+  // Color
+  @include set-preset-css-var('bg-color', $bg-color);
+  @include set-preset-css-var('text-color', $text-color);
+  @include set-preset-css-var('border-color', $border-color);
+
+  // Box-shadow
+  @include set-preset-css-var('box-shadow', $box-shadow);
+  // Disable base
+  @include set-preset-css-var('disabled', $disabled);
+
+  // overlay & mask
+  @include set-preset-css-var('overlay-color', $overlay-color);
+  @include set-preset-css-var('mask-color', $mask-color);
 }
 
 @import './common/hairline.scss';

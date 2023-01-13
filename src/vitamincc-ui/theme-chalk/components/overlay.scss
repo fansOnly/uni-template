@@ -1,6 +1,6 @@
 @use '../common/var' as *;
 @use '../mixins/mixins' as *;
-@use '../mixins/functions' as *;
+@use '../mixins/function' as *;
 
 @include b(overlay) {
   position: fixed;

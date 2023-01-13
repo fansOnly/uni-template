@@ -1,7 +1,7 @@
 @use '../common/var' as *;
 @use '../mixins/mixins' as *;
 @use '../mixins/var' as *;
-@use '../mixins/functions' as *;
+@use '../mixins/function' as *;
 
 @include b(popup) {
   @include set-preset-css-var('popup', $popup);

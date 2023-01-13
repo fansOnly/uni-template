@@ -1,6 +1,6 @@
 @use 'sass:map';
 
-@use 'functions' as *;
+@use 'function' as *;
 
 // @include set-css-var-value('color', red); => --vc-color: red;
 @mixin set-css-var-value($name, $value) {
