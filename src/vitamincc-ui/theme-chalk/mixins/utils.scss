@@ -1,11 +1,39 @@
-@mixin flex-center {
+@mixin utils-clearfix {
+  $selector: &;
+
+  @at-root {
+    #{$selector}::before,
+    #{$selector}::after {
+      display: table;
+      content: '';
+    }
+    #{$selector}::after {
+      clear: both;
+    }
+  }
+}
+
+@mixin utils-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@mixin inline-flex-center {
+@mixin utils-inline-flex-center {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin utils-text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin utils-text-ellipsis-multi {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
