@@ -1,7 +1,10 @@
 <template>
-  <view class="vc-empty-wrapper" :style="customStyle">
-    <slot v-if="showIcon" name="icon"><vc-image :src="icon" :width="width" :height="height" :static="local" /></slot>
-    <text v-if="tip" class="vc-empty-text">{{ tip }}</text>
+  <view class="vc-empty" :style="customStyle">
+    <!-- slot icon -->
+    <slot v-if="showIcon" name="icon"><vc-image :src="icon + '.png'" :width="width" :height="height"
+        :static="useStatic" />
+    </slot>
+    <text v-if="text" class="vc-empty__text">{{ text }}</text>
   </view>
 </template>
 
@@ -17,20 +20,19 @@ export default {
     // 图标路径
     icon: {
       type: String,
-      default: 'icon-empty.png'
+      default: 'icon-empty'
     },
     // 背景色
     background: {
       type: String,
-      default: '#fff'
     },
     // 请求结束显示文本
-    tip: {
+    text: {
       type: String,
       default: '暂无数据'
     },
     // 本地资源
-    local: {
+    useStatic: {
       type: Boolean,
       default: false
     },
@@ -45,12 +47,14 @@ export default {
       default: 110
     },
     // 自定义组件样式
-    customStyle: null
+    customStyle: String
   },
   computed: {
     customStyled({ customStyle, background }) {
       let style = ''
-      style += `background: ${background};`
+      if (background) {
+        style += `background: ${background};`
+      }
       return style + customStyle
     }
   }
@@ -58,18 +62,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-empty-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 50rpx $uni-spacing-16;
-}
-
-.vc-empty-text {
-  margin-top: $uni-spacing-12;
-  color: $uni-text-color-sub;
-  font-size: $uni-font-size-14;
-  text-align: center;
-}
+@import '../theme-chalk/components/empty.scss';
 </style>

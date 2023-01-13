@@ -658,3 +658,16 @@ $collapse-item: map.merge(
   ),
   $collapse-item
 );
+
+// empty
+$empty: () !default;
+$empty: map.merge(
+  (
+    'padding': getCssVar('padding-vertical') getCssVar('padding-horizontal'),
+    'bg-color': getCssVar('bg-color'),
+    'text-color': getCssVar('text-color', 'secondary'),
+    'text-offset-top': getCssVar('padding-vertical'),
+    'text-font-size': getCssVar('font-size', 'small'),
+  ),
+  $empty
+);

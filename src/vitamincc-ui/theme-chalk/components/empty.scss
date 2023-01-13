@@ -1,0 +1,24 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(empty) {
+  @include set-preset-css-var('empty', $empty);
+}
+
+@include b(empty) {
+  @include utils-flex-center;
+
+  flex-direction: column;
+  padding: getCssVar('empty', 'padding');
+  background-color: getCssVar('empty', 'bg-color');
+
+  @include e(text) {
+    margin-top: getCssVar('empty', 'text-offset-top');
+    color: getCssVar('empty', 'text-color');
+    font-size: getCssVar('empty', 'text-font-size');
+    text-align: center;
+  }
+}
