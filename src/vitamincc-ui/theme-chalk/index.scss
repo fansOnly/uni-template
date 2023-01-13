@@ -28,6 +28,7 @@
 
   // Transition
   @include set-preset-css-var('transition-function', $transition-function);
+  @include set-preset-css-var('transition-duration', $transition-duration);
   @include set-preset-css-var('transition', $transition);
 
   // zIndex
