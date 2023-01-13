@@ -1,21 +1,23 @@
 <template>
   <div class="vc-collapse-item">
-    <vc-cell :title="title" :text="text" :border="expanded && border" :title-width="titleWidth" :is-link="isLink"
-      :disabled="disabled" :class="customClass" :custom-style="customStyle" :title-style="titleStyle"
-      :text-style="textStyle" hover-class="none" @click="onClick">
+    <vc-cell :title="title" :text="text" :border="ifBorder" :disabled="disabled" @click="onClick">
       <template #title>
-        <slot name="title"></slot>
+        <!-- slot title -->
+        <slot name="title" />
       </template>
       <template #text>
-        <slot name="text"></slot>
+        <!-- slot text -->
+        <slot name="text" />
       </template>
-      <template #icon>
-        <vc-icon :class="['vc-collapse-item-icon', expanded ? 'is-expanded' : null]" :name="icon" />
+      <template #extra>
+        <vc-icon :class="['vc-collapse-item__icon', expanded ? 'is-expanded' : null]" :name="icon" />
       </template>
     </vc-cell>
-    <view class="vc-collapse-item-body" :style="bodyStyled">
-      <view class="vc-collapse-item-content">
-        <slot></slot>
+    <view :class="['vc-collapse-item__body', animation ? 'is-animation' : null]"
+      :style="{ 'height': expanded ? height + 'px' : 0 }">
+      <view class="vc-collapse-item__content vc-hairline--bottom">
+        <!-- slot default -->
+        <slot />
       </view>
     </view>
   </div>
@@ -34,20 +36,10 @@ export default {
     title: null,
     // 右侧文本内容 - 透传
     text: null,
-    // 左侧标题宽度，不设置默认为铺满 - 透传
-    titleWidth: {
-      type: [String, Number],
-      default: 80
-    },
-    // 是否链接模式，为 true 时显示右侧图标 - 透传
-    isLink: {
-      type: Boolean,
-      default: true
-    },
     // 右侧图标
     icon: {
       type: String,
-      default: 'arrow-down'
+      default: 'arrow-right'
     },
     // 是否显示标题下边框 - 透传
     border: {
@@ -59,14 +51,11 @@ export default {
       type: Boolean,
       default: false
     },
-    // 自定义组件class - 透传
-    customClass: null,
-    // 自定义组件样式 - 透传
-    customStyle: null,
-    // 自定义标题样式 - 透传
-    titleStyle: null,
-    // 自定义右侧文本样式 - 透传
-    textStyle: null
+    // 是否折叠组的末尾
+    isLast: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
@@ -76,20 +65,14 @@ export default {
     }
   },
   computed: {
-    bodyStyled({ expanded, animation, height }) {
-      let style = ''
-      if (animation) {
-        style += 'transition: height ease 0.3s;'
-      }
-      // Bug: 安卓下 rpx 转换有误差
-      style += `height: ${expanded ? height : 0}px;`
-      return style
-    },
+    ifBorder() {
+      return this.expanded ? this.border : this.border && !this.isLast
+    }
   },
   watch: {
     expanded: {
       handler(val) {
-        val && this.getBodyHeight()
+        val && this.getCollapseContentHeight()
       },
       immediate: true
     }
@@ -117,9 +100,9 @@ export default {
       if (this.disabled) return
       this.collapse.change({ name: this.name, expanded: !this.expanded })
     },
-    getBodyHeight() {
+    getCollapseContentHeight() {
       this.$nextTick(async () => {
-        const rect = await getRect(this, '.vc-collapse-item-content')
+        const rect = await getRect(this, '.vc-collapse-item__content')
         this.height = rect.height
       })
     },
@@ -128,18 +111,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-collapse-item-icon {
-  display: block;
-  transition: all ease .3s;
-
-  &.is-expanded {
-    transform: rotate(180deg);
-  }
-}
-
-.vc-collapse-item-body {
-  height: 0;
-  overflow: hidden;
-  /* transition: height ease 0.3s; */
-}
+@import '../theme-chalk/components/collapse-item.scss';
 </style>

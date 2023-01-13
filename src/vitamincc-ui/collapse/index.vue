@@ -1,6 +1,7 @@
 <template>
   <div class="vc-collapse">
-    <slot></slot>
+    <!-- slot default -->
+    <slot />
   </div>
 </template>
 
@@ -42,7 +43,7 @@ export default {
     this.children = []
   },
   methods: {
-    change({name, expanded}) {
+    change({ name, expanded }) {
       let data = null
       if (this.accordion) {
         if (this.type === 'boolean') {

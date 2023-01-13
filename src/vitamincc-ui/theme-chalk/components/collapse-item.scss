@@ -1,0 +1,35 @@
+@use '../common/var' as *;
+@use '../mixins/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/function' as *;
+
+@include b(collapse-item) {
+  @include set-preset-css-var('collapse-item', $collapse-item);
+}
+
+@include b(collapse-item) {
+  box-sizing: border-box;
+
+  @include e(icon) {
+    display: block;
+    transition: transform ease getCssVar('transition-duration');
+
+    @include when(expanded) {
+      transform: rotate(90deg);
+    }
+  }
+
+  @include e(body) {
+    height: 0;
+    overflow: hidden;
+
+    @include when(animation) {
+      transition: height ease getCssVar('transition-duration');
+    }
+  }
+
+  @include e(content) {
+    padding: getCssVar('collapse-item', 'content-padding');
+    background-color: getCssVar('collapse-item', 'content-bg-color');
+  }
+}

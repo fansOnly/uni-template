@@ -13,7 +13,7 @@
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
         </vc-collapse-item>
-        <vc-collapse-item name="3" title="面板3333">
+        <vc-collapse-item name="3" title="面板3333" is-last>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
         </vc-collapse-item>
@@ -25,7 +25,7 @@
         <vc-collapse-item name="a" title="面板a">
           <view>本期产品募集资金主易的未到期余额不得超过组合资产净值的40%。</view>
         </vc-collapse-item>
-        <vc-collapse-item name="b" title="面板b">
+        <vc-collapse-item name="b" title="面板b" is-last>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
@@ -35,8 +35,8 @@
     </demo-block>
 
     <demo-block title="不可用项">
-      <vc-collapse :value="value3" accordion @change="onChange3">
-        <vc-collapse-item name="x" title="面板x" disabled title-style="color:#f00" text="测试" text-style="color:#f60">
+      <vc-collapse :value="value3" accordion is-last @change="onChange3">
+        <vc-collapse-item name="x" title="面板x" text="测试" disabled>
           <view>产品募集资金主易的未到期余额不得超过组合资产净值的40%。</view>
         </vc-collapse-item>
         <vc-collapse-item name="y" title="面板y">
@@ -45,7 +45,7 @@
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
         </vc-collapse-item>
-        <vc-collapse-item name="z" title="面板z">
+        <vc-collapse-item name="z" title="面板z" is-last>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
           <view>本期产品募集资金主易</view>
@@ -86,4 +86,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

@@ -129,9 +129,9 @@ $border-width: 2rpx !default;
 $border-color: () !default;
 $border-color: map.merge(
   (
-    '': #d0d0d0,
-    'light': #e4e7ed,
-    'lighter': #ebeef5,
+    '': #e4e7ed,
+    'light': #ebeef5,
+    'lighter': #eef1f7,
   ),
   $border-color
 );
@@ -271,7 +271,7 @@ $disabled: () !default;
 $disabled: map.merge(
   (
     'bg-color': getCssVar('bg-color', 'disabled'),
-    'text-color': getCssVar('text-color', 'placeholder'),
+    'text-color': getCssVar('text-color', 'disabled'),
     'border-color': getCssVar('border-color', 'light'),
   ),
   $disabled
@@ -363,7 +363,7 @@ $cell: map.merge(
     'title-color': getCssVar('text-color', 'primary'),
     'text-color': getCssVar('text-color', 'secondary'),
     'hover-bg-color': getCssVar('bg-color', 'active'),
-    'disabled-bg-color': getCssVar('bg-color', 'disabled'),
+    'disabled-bg-color': getCssVar('bg-color'),
     'disabled-border-color': getCssVar('border-color', 'lighter'),
     'disabled-title-color': getCssVar('text-color', 'secondary'),
     'disabled-text-color': getCssVar('text-color', 'disabled'),
@@ -646,4 +646,15 @@ $loading: map.merge(
     'transition-function': linear,
   ),
   $loading
+);
+
+// collapse-item
+$collapse-item: () !default;
+$collapse-item: map.merge(
+  (
+    'content-padding': getCssVar('padding-vertical')
+      getCssVar('padding-horizontal'),
+    'content-bg-color': getCssVar('bg-color'),
+  ),
+  $collapse-item
 );
