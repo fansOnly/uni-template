@@ -18,6 +18,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 内边框线
+    innerBorder: {
+      type: Boolean,
+      default: false
+    },
     // 自定义组件类 class
     customClass: null,
     // 自定义左侧标题类 class

@@ -3,11 +3,12 @@
 
     <demo-block title="基础用法" padding>
       <vc-cell title="标题长度自适应自适应自适应自适应自适应自适应" :title-width="0" text="内容" border></vc-cell>
-      <vc-cell title="标题" text="内容长度自适应自适应自适应自适应自适应自适应"></vc-cell>
+      <vc-cell title="标题" text="内容长度自适应自适应自适应自适应自适应自适应" :text-wrap="false"></vc-cell>
     </demo-block>
 
     <demo-block title="标签组" padding>
-      <vc-cell-group title-class="title111" title-style="font-size:10px;" border custom-style="border-color: #f00;">
+      <vc-cell-group title-class="title111" title-style="font-size:10px;" border inner-border
+        custom-style="border-color: #f00;">
         <vc-cell title="姓名" text="章三"></vc-cell>
         <view>
           <vc-cell title="姓名" text="里斯本"></vc-cell>
@@ -26,9 +27,9 @@
 
     <demo-block title="对齐" padding>
       <vc-cell-group border>
-        <vc-cell title="居中" text="内容长度自适应自适应自适应自适应自适应自适应"></vc-cell>
-        <vc-cell title="居上" text="内容长度自适应自适应自适应自适应自适应自适应" align="start"></vc-cell>
-        <vc-cell title="居下" text="内容长度自适应自适应自适应自适应自适应自适应" align="end" is-last></vc-cell>
+        <vc-cell title="居中" text="内容长度自适应自适应自适应自适应自适应自适应" :text-wrap="false"></vc-cell>
+        <vc-cell title="居上" text="内容长度自适应自适应自适应自适应自适应自适应" align="start" :text-wrap="false"></vc-cell>
+        <vc-cell title="居下" text="内容长度自适应自适应自适应自适应自适应自适应" align="end" is-last :text-wrap="false"></vc-cell>
       </vc-cell-group>
     </demo-block>
 

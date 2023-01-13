@@ -25,19 +25,44 @@
 
 @include b(cell) {
   box-sizing: border-box;
+  position: relative;
   padding: getCssVar('cell', 'padding-vertical')
     getCssVar('cell', 'padding-horizontal');
   background-color: getCssVar('cell', 'bg-color');
   border-color: getCssVar('cell', 'border-color');
+  transition: border ease 0.3s;
 
-  @include cell-size();
+  @include cell-size;
+
+  @include when(border) {
+    @include pseudo(after) {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 0;
+      border-width: 0;
+      border-style: getCssVar('border-style');
+      border-color: getCssVar('border-color');
+      border-bottom-width: getCssVar('border-width');
+      transform: scaleY(0.5);
+    }
+  }
+
+  @include when(inner-border) {
+    @include pseudo(after) {
+      right: getCssVar('padding-horizontal');
+      left: getCssVar('padding-horizontal');
+    }
+  }
 
   @include when(disabled) {
     background-color: getCssVar('cell', 'disabled', 'bg-color');
     border-color: getCssVar('cell', 'disabled', 'border-color');
   }
 
-  &-wrap {
+  @include e(content) {
     display: flex;
     justify-content: space-between;
 
@@ -57,10 +82,6 @@
   @include e(title) {
     min-width: getCssVar('cell', 'min-title-width');
     color: getCssVar('cell', 'title-color');
-
-    @include when(nowrap) {
-      white-space: nowrap;
-    }
 
     @include when(disabled) {
       color: getCssVar('cell', 'disabled', 'title-color');

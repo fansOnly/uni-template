@@ -1,30 +1,27 @@
 <template>
   <view
-    :class="['vc-cell', size ? `vc-cell--${size}` : null, ifBorder ? 'vc-hairline--bottom' : null, disabled ? 'is-disabled' : null, customClasses]"
+    :class="['vc-cell', size ? `vc-cell--${size}` : null, ifBorder ? 'is-border' : null, ifInnerBorder ? 'is-inner-border' : null, disabled ? 'is-disabled' : null, customCls]"
     :style="customStyled" :hover-class="cellHoverClass" :hover-stay-time="200" @click="onClick">
-    <view :class="['vc-cell-wrap', `is-${align}`]">
-      <view :class="['vc-cell__title', disabled ? 'is-disabled' : null, titleClasses]" :style="titleStyled">
+    <view :class="['vc-cell__content', `is-${align}`]">
+      <view :class="['vc-cell__title', disabled ? 'is-disabled' : null, titleCls]" :style="titleStyled">
+        <template v-if="title">{{ title }}</template>
         <!-- slot title -->
-        <slot name="title">{{ title }}</slot>
+        <slot v-else name="title" />
       </view>
       <view :class="['vc-cell__value', disabled ? 'is-disabled' : null]">
-        <view :class="['vc-cell__text', titleWidth ? null : 'is-nowrap', textClasses]" :style="textStyled">
+        <view :class="['vc-cell__text', textWrap ? 'is-nowrap' : null, textCls]" :style="textStyled">
           <template v-if="text">{{ text }}</template>
           <!-- slot text -->
-          <slot v-else name="text"></slot>
+          <slot v-else name="text" />
         </view>
-        <view v-if="isLink" class="vc-cell__icon">
-          <!-- slot icon -->
-          <slot name="icon">
-            <vc-icon name="arrow-right" />
-          </slot>
-        </view>
-        <slot name="extra"></slot>
+        <vc-icon v-if="isLink" name="arrow-right" />
+        <!-- slot extra -->
+        <slot name="extra" />
       </view>
     </view>
     <view class="vc-cell__label">
       <!-- slot label -->
-      <slot name="label"></slot>
+      <slot name="label" />
     </view>
   </view>
 </template>
@@ -43,16 +40,6 @@ export default {
     title: null,
     // 右侧文本内容
     text: null,
-    // 左侧标题宽度，不设置默认为铺满
-    titleWidth: {
-      type: [String, Number],
-      default: 80
-    },
-    // 是否链接样式，开启右侧图标
-    isLink: {
-      type: Boolean,
-      default: false,
-    },
     // 尺寸 'mini', 'large'
     size: {
       type: String
@@ -67,7 +54,22 @@ export default {
       type: Boolean,
       default: false
     },
-    // 是否单元组的最后末尾
+    // 内边框线
+    innerBorder: {
+      type: Boolean,
+      default: false
+    },
+    // 右侧文本换行，默认不换行
+    textWrap: {
+      type: Boolean,
+      default: true
+    },
+    // 是否链接样式，开启右侧图标
+    isLink: {
+      type: Boolean,
+      default: false,
+    },
+    // 是否单元组的末尾
     isLast: {
       type: Boolean,
       default: false
@@ -99,26 +101,29 @@ export default {
     ifBorder() {
       return !this.isLast && (this.parent?.border ? true : this.border)
     },
-    customClasses() {
-      return this.customClass ?? this.parent?.customClass ?? ''
-    },
-    titleClasses() {
-      return this.titleClass ?? this.parent?.titleClass ?? ''
-    },
-    textClasses() {
-      return this.textClass ?? this.parent?.textClass ?? ''
+    ifInnerBorder() {
+      return this.parent?.innerBorder ?? this.innerBorder
     },
     cellHoverClass() {
       return this.isLink ? this.hoverClass : 'none'
     },
+    customCls() {
+      return this.parent?.customClass ?? this.customClass
+    },
+    titleCls() {
+      return this.parent?.titleClass ?? this.titleClass
+    },
+    textCls() {
+      return this.parent?.textClass ?? this.textClass ?? ''
+    },
     customStyled() {
-      return this.customStyle + this.parent?.customStyle
+      return this.parent?.customStyle ?? this.customStyle ?? ''
     },
     titleStyled() {
-      return this.titleStyle + this.parent?.titleStyle
+      return this.parent?.titleStyle ?? this.titleStyle ?? ''
     },
     textStyled() {
-      return this.textStyle + this.parent?.textStyle
+      return this.parent?.textStyle ?? this.textStyle ?? ''
     }
   },
   methods: {
