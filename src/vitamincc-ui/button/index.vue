@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="['vc-button', 'vc-button--' + type, block ? 'is-block' : null, disabled ? 'is-disabled' : null, plain ? 'is-plain' : null, round ? 'is-round' : null, circle ? 'is-circle' : null, size ? 'vc-button--' + size : null]"
+    :class="['vc-button', 'is-border', 'vc-button--' + type, block ? 'is-block' : null, disabled ? 'is-disabled' : null, plain ? 'is-plain' : null, round ? 'is-round' : null, circle ? 'is-circle' : null, size ? 'vc-button--' + size : null, customClass]"
     :style="styled" :hover-class="hoverClass" :disabled="disabled" :open-type="openType"
     @getphonenumber="onGetPhoneNumber" @getuserinfo="onGetUserInfo" @opensetting="onOpenSetting"
     @chooseavatar="onChooseAvatar" @tap="onClick">

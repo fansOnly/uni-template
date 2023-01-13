@@ -2,6 +2,7 @@
 @use '../mixins/mixins' as *;
 @use '../mixins/var' as *;
 @use '../mixins/functions' as *;
+@use '../mixins/utils.scss' as *;
 
 @mixin button-size() {
   @each $size in (small, large) {
@@ -31,17 +32,11 @@
 }
 
 @include b(button) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include utils-flex-center;
 
   box-sizing: border-box;
-  padding: getCssVar('button', 'padding-vertical')
-    getCssVar('button', 'padding-horizontal');
+  padding: getCssVar('button', 'padding');
   background-color: getCssVar('button', 'bg-color');
-  border-color: getCssVar('button', 'border-color');
-  border-width: getCssVar('border-width');
-  border-style: getCssVar('border-style');
   border-radius: getCssVar('button', 'border-radius');
   color: getCssVar('button', 'text-color');
   font-size: getCssVar('button', 'font-size');
@@ -52,13 +47,12 @@
   cursor: pointer;
   outline: none;
 
-  &::after {
+  @include pseudo('after') {
     display: none;
   }
 
   & [class*='button-icon'] + .vc-button__text {
-    display: inline-flex;
-    align-items: center;
+    @include utils-inline-flex-center;
 
     &:not(:empty) {
       margin-left: 6px;
@@ -67,6 +61,11 @@
 
   @include when(block) {
     display: flex;
+  }
+
+  @include when(border) {
+    border-width: getCssVar('border-width');
+    border-style: getCssVar('border-style');
   }
 
   @include when(round) {
@@ -78,29 +77,40 @@
     border-radius: getCssVar('border-radius', 'circle');
   }
 
-  @include when(plain) {
-    background-color: transparent !important;
-  }
+  @include button-size;
 
-  @include button-size();
+  @include m(default) {
+    border-color: getCssVar('color', 'white');
 
-  &--default {
+    @include when(plain) {
+      border-color: getCssVar('button', 'border-color');
+    }
+
+    @include pseudo(active) {
+      background-color: getCssVar('button', 'active', 'bg-color');
+      border-color: getCssVar('button', 'active', 'bg-color');
+
+      &.is-plain {
+        border-color: getCssVar('button', 'active', 'border-color');
+      }
+    }
+
     @include when(disabled) {
       &,
       &:hover,
       &:focus,
       &:active {
         background-color: getCssVar('button', 'disabled', 'bg-color');
-        border-color: getCssVar('button', 'disabled', 'border-color');
+        border-color: getCssVar('button', 'disabled', 'bg-color');
         color: getCssVar('button', 'disabled', 'text-color');
         background-image: none;
         cursor: not-allowed;
-      }
-    }
 
-    @include pseudo(active) {
-      background-color: getCssVar('button', 'active', 'bg-color');
-      border-color: getCssVar('button', 'active', 'border-color');
+        &.is-plain {
+          background: transparent;
+          border-color: getCssVar('button', 'disabled', 'border-color');
+        }
+      }
     }
   }
 
@@ -112,11 +122,16 @@
 
       @include when(plain) {
         color: getCssVar('color', $type);
+        background-color: transparent;
       }
 
       @include pseudo(active) {
-        background-color: getCssVar('color', $type, 'light-3');
-        border-color: getCssVar('color', $type, 'light-3');
+        background-color: getCssVar('color', $type, 'light-5');
+        border-color: getCssVar('color', $type, 'light-5');
+
+        &.is-plain {
+          background-color: transparent;
+        }
       }
 
       @include when(disabled) {
@@ -127,6 +142,11 @@
           background-color: getCssVar('color', $type, 'light-5');
           border-color: getCssVar('color', $type, 'light-5');
           color: getCssVar('color', 'white');
+
+          &.is-plain {
+            background: transparent;
+            color: getCssVar('color', $type);
+          }
         }
       }
     }

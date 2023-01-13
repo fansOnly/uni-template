@@ -60,10 +60,15 @@
           <vc-button disabled>普通按钮</vc-button>
         </view>
         <view class="demo-item-space">
+          <vc-button disabled plain>普通按钮</vc-button>
+        </view>
+      </view>
+      <view class="demo-row--flex">
+        <view class="demo-item-space">
           <vc-button type="primary" disabled>确认按钮</vc-button>
         </view>
         <view class="demo-item-space">
-          <vc-button type="success" disabled plain>错误按钮</vc-button>
+          <vc-button type="primary" disabled plain>确认按钮</vc-button>
         </view>
       </view>
     </demo-block>
