@@ -1,0 +1,36 @@
+[class*='vc-hairline'] {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    box-sizing: border-box;
+    content: ' ';
+    pointer-events: none;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    color: #ebebeb;
+    border-style: solid;
+    border-width: 0;
+    border-color: inherit;
+    transform: scale(0.5);
+    border-radius: inherit;
+  }
+}
+
+.vc-hairline {
+  @each $position in (bottom, left, top, right) {
+    &--#{$position}::after {
+      border-#{$position}-width: 1px;
+    }
+  }
+
+  &--surround::after {
+    border-width: 1px;
+  }
+
+  &--top-bottom::after {
+    border-width: 1px 0;
+  }
+}

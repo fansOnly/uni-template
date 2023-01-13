@@ -28,3 +28,6 @@
   @include set-preset-css-var('padding-vertical', $padding-vertical);
   @include set-preset-css-var('padding-horizontal', $padding-horizontal);
 }
+
+@import './common/hairline.scss';
+@import './common/ellipsis.scss';

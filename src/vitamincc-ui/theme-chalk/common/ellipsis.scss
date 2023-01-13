@@ -1,0 +1,13 @@
+@use '../mixins/mixins' as *;
+@use '../mixins/utils' as *;
+
+@include b(ellipsis) {
+  @include utils-text-ellipsis;
+
+  @each $i in (2, 3) {
+    @include m(l#{$i}) {
+      @include utils-text-ellipsis-multi;
+      -webkit-line-clamp: $i;
+    }
+  }
+}
