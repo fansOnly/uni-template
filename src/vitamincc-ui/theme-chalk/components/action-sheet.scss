@@ -20,7 +20,7 @@
   }
 
   @include e(item) {
-    @include flex-center();
+    @include utils-flex-center;
     height: getCssVar('action-sheet', 'item-height');
     padding: getCssVar('action-sheet', 'item-padding');
     color: getCssVar('action-sheet', 'text-color');

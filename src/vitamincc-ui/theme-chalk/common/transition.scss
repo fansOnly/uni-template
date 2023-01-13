@@ -1,3 +1,7 @@
+$directions: up, down, left, right;
+$effects: fade, slide;
+$actions: enter, leave;
+
 .vc-transition {
   transition-timing-function: ease;
   -webkit-overflow-scrolling: none;
@@ -11,59 +15,30 @@
 .vc-fade-leave-to {
   opacity: 0;
 }
-.vc-fade-up-enter-active,
-.vc-fade-up-leave-active,
-.vc-fade-down-enter-active,
-.vc-fade-down-leave-active,
-.vc-fade-left-enter-active,
-.vc-fade-left-leave-active,
-.vc-fade-right-enter-active,
-.vc-fade-right-leave-active {
-  transition-property: opacity, transform;
-}
-.vc-fade-up-enter,
-.vc-fade-up-leave-to {
-  transform: translate3d(0, 100%, 0);
-  opacity: 0;
-}
-.vc-fade-down-enter,
-.vc-fade-down-leave-to {
-  transform: translate3d(0, -100%, 0);
-  opacity: 0;
-}
-.vc-fade-left-enter,
-.vc-fade-left-leave-to {
-  transform: translate3d(-100%, 0, 0);
-  opacity: 0;
-}
-.vc-fade-right-enter,
-.vc-fade-right-leave-to {
-  transform: translate3d(100%, 0, 0);
-  opacity: 0;
-}
-.vc-slide-up-enter-active,
-.vc-slide-up-leave-active,
-.vc-slide-down-enter-active,
-.vc-slide-down-leave-active,
-.vc-slide-left-enter-active,
-.vc-slide-left-leave-active,
-.vc-slide-right-enter-active,
-.vc-slide-right-leave-active {
-  transition-property: transform;
-}
-.vc-slide-up-enter,
-.vc-slide-up-leave-to {
-  transform: translate3d(0, 100%, 0);
-}
-.vc-slide-down-enter,
-.vc-slide-down-leave-to {
-  transform: translate3d(0, -100%, 0);
-}
-.vc-slide-left-enter,
-.vc-slide-left-leave-to {
-  transform: translate3d(-100%, 0, 0);
-}
-.vc-slide-right-enter,
-.vc-slide-right-leave-to {
-  transform: translate3d(100%, 0, 0);
+
+@each $direction in $directions {
+  @each $action in $actions {
+    @each $effect in $effects {
+      .vc-#{$effect}-#{$direction}-#{$action}-active {
+        @if $effect == 'fade' {
+          transition-property: opacity, transform;
+        } @else if $effect == 'slide' {
+          transition-property: transform;
+        }
+      }
+
+      .vc-#{$effect}-#{$direction}-enter,
+      .vc-#{$effect}-#{$direction}-leave-to {
+        @if $direction == 'up' {
+          transform: translate3d(0, 100%, 0);
+        } @else if $direction == 'down' {
+          transform: translate3d(0, -100%, 0);
+        } @else if $direction == 'left' {
+          transform: translate3d(-100%, 0, 0);
+        } @else if $direction == 'right' {
+          transform: translate3d(100%, 0, 0);
+        }
+      }
+    }
+  }
 }

@@ -14,7 +14,7 @@
   overflow: hidden;
 
   @include e(header) {
-    @include flex-center;
+    @include utils-flex-center;
 
     &:not(:empty) {
       padding: getCssVar('dialog', 'header-padding');
@@ -41,7 +41,7 @@
   }
 
   @include e(footer) {
-    @include flex-center;
+    @include utils-flex-center;
 
     @include when(reverse) {
       flex-direction: row-reverse;
@@ -50,7 +50,7 @@
 
   @include e(button) {
     flex: 1;
-    @include flex-center;
+    @include utils-flex-center;
 
     height: getCssVar('dialog', 'button-height');
     color: getCssVar('dialog', 'button-text-color');

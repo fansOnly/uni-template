@@ -18,7 +18,7 @@ export default {
       default: 'fade'
     },
     // 自定义样式
-    customStyle: null
+    customStyle: String
   },
   computed: {
     styled() {

@@ -46,8 +46,8 @@ export default {
     title: null,
     // 弹窗Y轴位移
     offset: {
-      type: [String, Number],
-      default: 0
+      type: String,
+      default: ''
     },
     // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
     height: {
@@ -138,7 +138,7 @@ export default {
     styled({ offset, zIndex, currentDuration, display, customStyle }) {
       const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
       let style = `z-index: ${zIndex};`
-      style += `margin-top: calc(${offset}px + ${isCustomNavigation ? navHeight : 0}px);`
+      style += `margin-top: calc(${offset} + ${isCustomNavigation ? navHeight : 0}px);`
       style += `transition-duration: ${currentDuration}ms;`
       if (!display) style += 'display: none;'
       return style + customStyle
