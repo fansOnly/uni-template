@@ -1,0 +1,60 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(progress) {
+  @include set-preset-css-var('progress', $progress);
+}
+
+@include b(progress) {
+  $namespace: &;
+
+  display: flex;
+  align-items: center;
+
+  @include e(bar) {
+    position: relative;
+    width: 100%;
+    height: getCssVar('progress', 'stroke-width');
+    background-color: getCssVar('progress', 'track-bg-color');
+    overflow: hidden;
+
+    @include when(round) {
+      border-radius: 2em;
+    }
+
+    #{$namespace}__portion {
+      border-radius: 2em;
+    }
+  }
+
+  @include e(portion) {
+    @include utils-flex-center;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: getCssVar('progress', 'active-track-bg-color');
+    transition: width ease getCssVar('transition-duration');
+  }
+
+  @include e(text--inner) {
+    margin: 0 5px;
+    color: getCssVar('progress', 'text-color-inside');
+    font-size: getCssVar('progress', 'text-font-size');
+    white-space: nowrap;
+  }
+
+  @include e(text) {
+    min-width: 40px;
+    margin-left: 5px;
+    color: getCssVar('progress', 'text-color-outside');
+    font-size: getCssVar('progress', 'text-font-size');
+    line-height: 1;
+    white-space: nowrap;
+  }
+}

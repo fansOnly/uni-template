@@ -1,36 +1,28 @@
 <template>
   <view class="page-wrapper">
+    <view class="gap"></view>
 
-    <demo-block title="基础用法" padding>
-      <vc-button type="primary" size="mini" style="margin-right:12px;" @click="increment">递增 +10</vc-button>
-      <vc-button type="primary" size="mini" @click="decrement">递减 -10</vc-button>
-      <view style="padding:16px;background:#fff;">
-        <vc-progress :value="value" />
-      </view>
+    <vc-button style="margin-right:12px;" @click="increment">递增 +10</vc-button>
+    <vc-button @click="decrement">递减 -10</vc-button>
+
+    <demo-block title="基础用法" padding background="#fff">
+      <vc-progress :percentage="value" />
     </demo-block>
 
-    <demo-block title="自定义样式" padding background>
-      <vc-progress :value="value2" :stroke-width="4" track-color="#0c328e"
-        background="linear-gradient(270deg, #FFFFFF 0%, #3264DC 100%)" :dot="false">
+    <demo-block title="自定义样式" padding background="#fff">
+      <vc-progress :percentage="value" stroke-width="26" text-inside />
+      <view class="gap"></view>
+      <vc-progress :percentage="value" stroke-width="26" color="#f60" text-inside />
+    </demo-block>
+
+    <demo-block title="格式化文本" padding background="#fff">
+      <vc-progress :percentage="value" stroke-width="26" text-inside :format="formatter" />
+    </demo-block>
+
+    <demo-block title="自定义插槽" padding background="#fff">
+      <vc-progress :percentage="value">
+        <template #default="{ percentage }">已完成{{ percentage }}%</template>
       </vc-progress>
-    </demo-block>
-
-    <demo-block title="文字排列" padding background>
-      <view class="demo-row">
-        <vc-progress position="bottom" :value="81">
-          <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </vc-progress>
-      </view>
-      <view class="demo-row">
-        <vc-progress position="top" :value="37">
-          <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </vc-progress>
-      </view>
-      <view class="demo-row">
-        <vc-progress position="left" :value="65">
-          <view style="font-size: 12px;">已完成 {{ value3 }}%</view>
-        </vc-progress>
-      </view>
     </demo-block>
 
   </view>
@@ -47,10 +39,13 @@ export default {
     return {
       value: 10,
       value2: 57,
-      value3: 97,
+      value3: 87,
     }
   },
   methods: {
+    formatter(val) {
+      return val >= 50 ? '小' : '大'
+    },
     increment() {
       if (this.value + 10 >= 100) {
         this.value = 100
@@ -70,7 +65,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.demo-row {
-  margin-top: 12px;
-}
+
 </style>

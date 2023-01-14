@@ -706,3 +706,17 @@ $skeleton: map.merge(
   ),
   $skeleton
 );
+
+// progress
+$progress: () !default;
+$progress: map.merge(
+  (
+    'stroke-width': 6px,
+    'track-bg-color': #ebeef5,
+    'active-track-bg-color': getCssVar('color', 'primary'),
+    'text-color-inside': getCssVar('color', 'white'),
+    'text-color-outside': getCssVar('text-color', 'secondary'),
+    'text-font-size': getCssVar('font-size', 'smaller'),
+  ),
+  $progress
+);
