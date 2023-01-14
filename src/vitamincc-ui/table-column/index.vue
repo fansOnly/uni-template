@@ -18,21 +18,18 @@ export default {
     // 对齐方式
     align: {
       type: String,
-      default: 'center'
+      default: 'left'
     },
-    // 表格头背景色
-    background: {
+    // 对齐方式
+    headerAlign: {
       type: String,
-      default: '#F6F6F6',
+      default: 'left'
     },
     // 自定义数据格式化函数
-    formatter: null
+    format: null
   },
   created() {
     this.table.children.push(this)
   },
-  // render(h) {
-  //   return h()
-  // }
 }
 </script>

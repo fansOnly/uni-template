@@ -1,0 +1,58 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(table) {
+  @include set-preset-css-var('table', $table);
+}
+
+@include b(table) {
+  background-color: getCssVar('table', 'bg-color');
+
+  @include e(header) {
+    display: flex;
+    min-height: getCssVar('table', 'header-min-height');
+    background-color: getCssVar('table', 'header-bg-color');
+
+    &-title {
+      color: getCssVar('table', 'title-text-color');
+      font-size: getCssVar('table', 'title-text-font-size');
+    }
+
+    &-sub {
+      margin-top: 4rpx;
+      color: getCssVar('table', 'sub-text-color');
+      font-size: getCssVar('table', 'sub-text-font-size');
+    }
+  }
+
+  @include e(body) {
+    &-text {
+      color: getCssVar('table', 'row-text-color');
+      font-size: getCssVar('table', 'row-text-font-size');
+      word-break: break-all;
+
+      @include when(active) {
+        color: getCssVar('table', 'active-text-color');
+      }
+    }
+  }
+
+  @include e(row) {
+    display: flex;
+
+    @include when(even) {
+      background-color: getCssVar('table', 'row-even-bg-color');
+    }
+
+    &-item {
+      @include utils-flex-center;
+      flex-direction: column;
+      box-sizing: border-box;
+      min-height: getCssVar('table', 'row-min-height');
+      padding: 12rpx 24rpx;
+    }
+  }
+}

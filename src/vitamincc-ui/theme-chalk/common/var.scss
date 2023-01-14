@@ -720,3 +720,23 @@ $progress: map.merge(
   ),
   $progress
 );
+
+// table
+$table: () !default;
+$table: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+    'active-text-color': getCssVar('color', 'primary'),
+    'header-min-height': 40px,
+    'header-bg-color': getCssVar('bg-color', 'active'),
+    'title-text-color': getCssVar('text-color', 'primary'),
+    'title-text-font-size': getCssVar('font-size', 'small'),
+    'sub-text-color': getCssVar('text-color', 'secondary'),
+    'sub-text-font-size': getCssVar('font-size', 'smaller'),
+    'row-min-height': 40px,
+    'row-even-bg-color': #fafafa,
+    'row-text-color': getCssVar('text-color', 'regular'),
+    'row-text-font-size': getCssVar('font-size', 'small'),
+  ),
+  $table
+);
