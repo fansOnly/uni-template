@@ -3,8 +3,8 @@
     <view v-if="avatar" class="vc-skeleton__avatar"
       :style="{ 'width': avatarSize + 'px', 'height': avatarSize + 'px', 'border-radius': avatarShape === 'round' ? '999px' : 0 }">
     </view>
-    <view class="vc-skeleton-right">
-      <view v-if="title" class="vc-skeleton__title" :style="{ 'width': titleWidth }"></view>
+    <view class="vc-skeleton__content">
+      <view v-if="title" class="vc-skeleton__row" :style="{ 'width': titleWidth }"></view>
       <view v-for="(_, index) in rows" :key="index" class="vc-skeleton__row"
         :style="{ 'width': isArray ? rowWidth[index] : rowWidth }"></view>
     </view>
@@ -56,35 +56,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-skeleton {
-  display: flex;
-  animation: blink 1.2s ease-in-out infinite;
-}
-
-.vc-skeleton__avatar {
-  margin-right: 16rpx;
-  background: $uni-bg-skeleton;
-}
-
-.vc-skeleton-right {
-  flex: 1;
-}
-
-.vc-skeleton__title {
-  height: 32rpx;
-  margin-top: 16rpx;
-  background: $uni-bg-skeleton;
-}
-
-.vc-skeleton__row {
-  height: 32rpx;
-  margin-top: 16rpx;
-  background: $uni-bg-skeleton;
-}
-
-@keyframes blink {
-  50% {
-    opacity: .6;
-  }
-}
+@import '../theme-chalk/components/skeleton.scss';
 </style>

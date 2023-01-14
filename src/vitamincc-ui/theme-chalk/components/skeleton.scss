@@ -1,0 +1,34 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(skeleton) {
+  @include set-preset-css-var('skeleton', $skeleton);
+}
+
+@include b(skeleton) {
+  display: flex;
+  animation: blink 1.2s ease-in-out infinite;
+
+  @include e(avatar) {
+    margin-right: 16rpx;
+    background-color: getCssVar('skeleton', 'bg-color');
+  }
+
+  @include e(content) {
+    flex: 1;
+  }
+
+  @include e(row) {
+    height: getCssVar('skeleton', 'row-height');
+    margin-top: 16rpx;
+    background-color: getCssVar('skeleton', 'bg-color');
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.6;
+  }
+}

@@ -692,3 +692,13 @@ $steps: map.merge(
   ),
   $steps
 );
+
+// skeleton
+$skeleton: () !default;
+$skeleton: map.merge(
+  (
+    'bg-color': #f2f3f5,
+    'row-height': 32rpx,
+  ),
+  $skeleton
+);
