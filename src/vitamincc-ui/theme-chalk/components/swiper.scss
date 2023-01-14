@@ -4,10 +4,6 @@
 @use '../mixins/function' as *;
 
 @include b(swiper) {
-  @include set-preset-css-var('skeleton', $skeleton);
-}
-
-@include b(swiper) {
   overflow: hidden;
 
   @include e(image) {
