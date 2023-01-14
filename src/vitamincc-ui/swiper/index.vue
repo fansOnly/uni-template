@@ -1,22 +1,18 @@
 <template>
-  <view class="vc-swiper-wrapper">
-    <swiper class="vc-swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
-      :duration="duration" :circular="circular" :previous-margin="previousMarginVal" :next-margin="nextMarginVal"
-      snap-to-edge :current="current" :style="{ height: unitedHeight }" @change="onChange">
-      <swiper-item v-for="(item, index) in options" :key="index" class="vc-swiper__item"
-        @tap="onClickItem(item, index)">
-        <slot :item="item" :index="index">
-          <view :class="['vc-swiper__image', current === index ? 'is-active' : null]" :style="style">
-            <vc-image :src="item.src" :radius="radius"></vc-image>
-          </view>
-        </slot>
-      </swiper-item>
-    </swiper>
-  </view>
+  <swiper class="vc-swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+    :duration="duration" :circular="circular" :previous-margin="previousMarginVal" :next-margin="nextMarginVal"
+    snap-to-edge :current="current" :style="{ height: height + 'px' }" @change="onChange">
+    <swiper-item v-for="(item, index) in options" :key="index" class="vc-swiper__item" @tap="onClickItem(item, index)">
+      <slot :item="item" :index="index">
+        <view :class="['vc-swiper__image', current === index ? 'is-active' : null]" :style="style">
+          <vc-image :src="item.src" :radius="radius"></vc-image>
+        </view>
+      </slot>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
-import { addUnit } from '../common/util'
 export default {
   name: 'vc-swiper',
   props: {
@@ -40,12 +36,12 @@ export default {
     },
     // 组件高度
     height: {
-      type: [String, Number],
+      type: Number,
       default: 150
     },
     // 圆角
     radius: {
-      type: [String, Number],
+      type: Number,
       default: 0
     },
     // 自动播放
@@ -102,17 +98,12 @@ export default {
       nextMarginVal: '0px',
     }
   },
-  computed: {
-    unitedHeight() {
-      return addUnit(this.height)
-    },
-  },
   watch: {
     effect: {
       handler(newVal) {
         if (newVal === 'scale') {
-          this.previousMarginVal = addUnit(this.previousMargin)
-          this.nextMarginVal = addUnit(this.nextMargin)
+          this.previousMarginVal = this.previousMargin
+          this.nextMarginVal = this.nextMargin
           this.style = `transform: scale(${this.scale})`
         } else {
           this.previousMarginVal = '0px'
@@ -135,18 +126,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-swiper {
-  overflow: hidden;
-}
-
-.vc-swiper__image {
-  width: 100%;
-  height: 100%;
-  transition: all ease 0.3s;
-
-  // transform: scale(.9);
-  &.is-active {
-    transform: scale(1) !important;
-  }
-}
+@import '../theme-chalk/components/swiper.scss';
 </style>

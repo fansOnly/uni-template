@@ -223,6 +223,10 @@ $transition: map.merge(
       opacity getCssVar('transition-duration')
         getCssVar('transition-function-fast-bezier'),
     ),
+    'transform': (
+      transform getCssVar('transition-duration')
+        getCssVar('transition-function-fast-bezier'),
+    ),
     'fade-linear': opacity getCssVar('transition-duration-fast') linear,
     'border': border-color getCssVar('transition-duration-fast')
       getCssVar('transition-function-ease-in-out-bezier'),
