@@ -2,18 +2,18 @@
   <view class="page-wrapper" style="height: 2500px">
 
     <demo-block title="基础用法">
-      <vc-tab :value="activeIndex" :options="tabList" @click-item="onClickItem" />
+      <vc-tabs :value="activeIndex" :options="tabList" @click-item="onClickItem" />
       <view class="">{{ active.text }}</view>
     </demo-block>
 
     <demo-block title="标签栏滚动">
-      <vc-tab :value="activeIndex2" :options="tabList2" @click-item="onClickItem2" />
+      <vc-tabs :value="activeIndex2" :options="tabList2" @click-item="onClickItem2" />
       <view class="gap"></view>
       <slider :value="activeIndex2" :min="0" :max="tabList2.length - 1" step="1" show-value @change="onSliderChange" />
     </demo-block>
 
     <demo-block title="吸顶标签栏">
-      <vc-tab :value="activeIndex" :options="tabList" :scroll-top="scrollTop" fixed @click-item="onClickItem" />
+      <vc-tabs :value="activeIndex" :options="tabList" :scroll-top="scrollTop" fixed @click-item="onClickItem" />
       <view class="gap"></view>
     </demo-block>
 
@@ -33,7 +33,7 @@ export default {
       active: { text: '天猫', value: '1' },
       tabList: [
         { text: '天猫', value: '1' },
-        { text: '京东', value: '2' },
+        { text: '京东', value: '2', dot: true },
         { text: '淘宝', value: '3' },
         { text: '唯品会', value: '4' },
       ],

@@ -1,0 +1,90 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(tabs) {
+  @include set-preset-css-var('tabs', $tabs);
+}
+
+@include b(tabs) {
+  display: flex;
+  overflow-y: hidden;
+
+  @include e(placeholder) {
+    height: getCssVar('tabs', 'height');
+  }
+
+  @include e(content) {
+    position: relative;
+    height: getCssVar('tabs', 'height');
+    background-color: getCssVar('tabs', 'bg-color');
+
+    @include when(fixed) {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      z-index: getCssVar('tabs', 'z-index');
+    }
+  }
+
+  @include e(items) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  @include e(item) {
+    @include utils-flex-center;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+    position: relative;
+    min-width: getCssVar('tabs', 'item-min-width');
+    padding: 0 getCssVar('padding-horizontal');
+    height: 100%;
+  }
+
+  @include e(text) {
+    display: flex;
+    color: getCssVar('tabs', 'text-color');
+    font-size: getCssVar('tabs', 'text-font-size');
+    text-align: center;
+
+    @include when(active) {
+      color: getCssVar('tabs', 'active-text-color');
+      font-weight: 500;
+    }
+  }
+
+  @include e(dot) {
+    @include pseudo(after) {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: #f00;
+      border-radius: 100%;
+      transform: translate(-1px, -2px);
+    }
+  }
+
+  @include e(bar) {
+    position: absolute;
+    bottom: 0;
+    width: getCssVar('tabs', 'bar-width');
+    height: getCssVar('tabs', 'bar-height');
+    background-color: getCssVar('tabs', 'bar-bg-color');
+    border-radius: getCssVar('tabs', 'bar-radius');
+    transform: translateX(-50%);
+
+    @include when(animation) {
+      transition-timing-function: ease;
+      transition-duration: 300ms;
+      transition-property: left;
+    }
+  }
+}
