@@ -244,14 +244,6 @@ module.exports = {
       },
     },
     {
-      'path': 'scroll-num/index',
-      'name': 'scroll-num',
-      'meta': {
-        'auth': false,
-        'title': '滚动数字'
-      },
-    },
-    {
       'path': 'search/index',
       'name': 'search',
       'meta': {

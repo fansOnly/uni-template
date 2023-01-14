@@ -167,11 +167,6 @@ export default [
         path: '/scroll-list'
       },
       {
-        title: 'ScrollNum 滚动数字',
-        prefix: 'sub-package-demo',
-        path: '/scroll-num'
-      },
-      {
         title: 'Skeleton 骨架屏',
         prefix: 'sub-package-demo',
         path: '/skeleton'
