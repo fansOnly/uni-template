@@ -1,16 +1,31 @@
 <template>
   <view class="page-wrapper">
+    <view class="gap"></view>
+    <vc-button type="default" custom-style="margin-right: 10px" @click="decrement">上一步</vc-button>
+    <vc-button type="primary" custom-style="margin-right: 10px" @click="increment">下一步</vc-button>
+    <vc-button type="default" @click="active = 0">重置</vc-button>
 
-    <demo-block title="基础用法" padding>
-      <vc-steps :active="active" :options="options" />
+    <demo-block title="基础用法" padding background="#fff">
+      <vc-steps :current="active" :options="options" />
     </demo-block>
 
-    <demo-block title="垂直布局" padding>
-      <vc-steps :active="active" direction="vertical" :options="options2" />
+    <demo-block title="基础用法 - 自定义样式" padding background="#fff">
+      <vc-steps :current="active" :options="options" active-icon="checkbox-on-circle-fill" inactive-icon="home" />
     </demo-block>
 
-    <vc-button type="default" @click="decrement">上一步</vc-button>
-    <vc-button type="primary" @click="increment">下一步</vc-button>
+    <demo-block title="自定义颜色" padding background="#fff">
+      <vc-steps :current="active" :options="options" active-color="#f60" />
+    </demo-block>
+
+    <demo-block title="垂直布局" padding background="#fff">
+      <vc-steps :current="active" direction="vertical" :options="options2" />
+    </demo-block>
+
+    <demo-block title="垂直布局 - 自定义样式" padding background="#fff">
+      <vc-steps :current="active" direction="vertical" :options="options2" active-icon="checkbox-on-circle-fill"
+        inactive-icon="home" />
+    </demo-block>
+
   </view>
 </template>
 
@@ -51,4 +66,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

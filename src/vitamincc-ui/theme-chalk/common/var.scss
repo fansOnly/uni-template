@@ -228,6 +228,8 @@ $transition: map.merge(
       getCssVar('transition-function-ease-in-out-bezier'),
     'box-shadow': box-shadow getCssVar('transition-duration-fast')
       getCssVar('transition-function-ease-in-out-bezier'),
+    'background-color': background-color getCssVar('transition-duration-fast')
+      getCssVar('transition-function-ease-in-out-bezier'),
     'color': color getCssVar('transition-duration-fast')
       getCssVar('transition-function-ease-in-out-bezier'),
   ),
@@ -670,4 +672,23 @@ $empty: map.merge(
     'text-font-size': getCssVar('font-size', 'small'),
   ),
   $empty
+);
+
+// steps
+$steps: () !default;
+$steps: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+    'active-text-color': getCssVar('color', 'primary'),
+    'active-bg-color': getCssVar('color', 'primary'),
+    'title-text-color': getCssVar('text-color', 'secondary'),
+    'title-text-font-size': getCssVar('font-size', 'smaller'),
+    'label-text-color': getCssVar('text-color', 'secondary'),
+    'label-text-font-size': getCssVar('font-size', 'smaller'),
+    'dot-size': 12rpx,
+    'dot-color': getCssVar('border-color'),
+    'line-width': 2rpx,
+    'line-color': getCssVar('border-color'),
+  ),
+  $steps
 );

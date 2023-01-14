@@ -1,0 +1,153 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(steps) {
+  @include set-preset-css-var('steps', $steps);
+}
+
+@include b(steps) {
+  $namespace: &;
+  position: relative;
+  background-color: getCssVar('bg-color');
+  overflow: hidden;
+
+  @include when(horizontal) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @include when(horizontal, __item) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+
+    @include pseudo(first-child) {
+      align-items: flex-start;
+      transform: none;
+
+      #{$namespace}__line {
+        left: 0;
+      }
+
+      #{$namespace}__dot-container {
+        transform: translateX(-5px);
+      }
+    }
+
+    @include pseudo(last-child) {
+      position: absolute;
+      right: 0;
+      width: auto;
+      align-items: flex-end;
+      transform: none;
+
+      #{$namespace}__line {
+        left: 0;
+        width: 0;
+      }
+      #{$namespace}__dot-container {
+        transform: translateX(5px);
+      }
+    }
+
+    #{$namespace}__dot-container {
+      padding: 6px;
+    }
+
+    #{$namespace}__line {
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: getCssVar('steps', 'line-width');
+    }
+  }
+
+  @include when(vertical) {
+    padding-left: 40rpx;
+  }
+
+  @include when(vertical, __item) {
+    padding: 0 0 24rpx 12rpx;
+
+    #{$namespace}__dot {
+      margin: 6px 0 6px 6px;
+    }
+
+    #{$namespace}__dot-container {
+      position: absolute;
+      top: 0;
+      left: -40rpx;
+      width: 40rpx;
+    }
+
+    @include pseudo(last-child) {
+      #{$namespace}__line {
+        height: 0;
+      }
+    }
+
+    #{$namespace}__line {
+      top: 20rpx;
+      left: -24rpx;
+      width: getCssVar('steps', 'line-width');
+      height: 100%;
+    }
+  }
+
+  @include e(item) {
+    position: relative;
+    z-index: 2;
+    @include when(active) {
+      #{$namespace}__title,
+      #{$namespace}__label,
+      #{$namespace}__dot-container {
+        color: getCssVar('steps', 'active-text-color');
+      }
+
+      #{$namespace}__dot {
+        background-color: getCssVar('steps', 'active-bg-color');
+      }
+    }
+  }
+
+  @include e(title) {
+    color: getCssVar('steps', 'title-text-color');
+    font-size: getCssVar('steps', 'title-text-font-size');
+    transition: getCssVar('transition', 'color');
+  }
+
+  @include e(label) {
+    color: getCssVar('steps', 'label-text-color');
+    font-size: getCssVar('steps', 'label-text-font-size');
+    transition: getCssVar('transition', 'color');
+  }
+
+  @include e(dot-container) {
+    box-sizing: border-box;
+    background-color: getCssVar('bg-color');
+  }
+
+  @include e(dot) {
+    width: getCssVar('steps', 'dot-size');
+    height: getCssVar('steps', 'dot-size');
+    background-color: getCssVar('steps', 'dot-color');
+    border-radius: 100%;
+    transition: getCssVar('transition', 'background-color');
+  }
+
+  @include e(line) {
+    position: absolute;
+    background-color: getCssVar('steps', 'line-color');
+    transition: getCssVar('transition', 'background-color');
+    z-index: -1;
+
+    @include when(active) {
+      background-color: getCssVar('steps', 'active-bg-color');
+    }
+  }
+}
