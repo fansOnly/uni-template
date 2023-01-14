@@ -198,9 +198,9 @@ export default [
         path: '/index-bar'
       },
       {
-        title: 'Tab 标签页',
+        title: 'Tabs 标签页',
         prefix: 'sub-package-demo',
-        path: '/tab'
+        path: '/tabs'
       },
       {
         title: 'Navigation 自定义导航',

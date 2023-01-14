@@ -284,8 +284,8 @@ module.exports = {
       },
     },
     {
-      'path': 'tab/index',
-      'name': 'tab',
+      'path': 'tabs/index',
+      'name': 'tabs',
       'meta': {
         'auth': false,
         'title': '标签页'

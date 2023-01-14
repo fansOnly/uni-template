@@ -4,7 +4,7 @@
     <view class="gap"></view>
     <view class="demo-title">IndexBar 索引栏</view>
 
-    <vc-tab :value="activeIndex" :options="tabList" @click-item="onClickItem"></vc-tab>
+    <vc-tabs :value="activeIndex" :options="tabList" @click-item="onClickItem" />
 
     <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
 
