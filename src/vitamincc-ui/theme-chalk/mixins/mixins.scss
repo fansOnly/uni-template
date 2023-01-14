@@ -78,8 +78,15 @@
 // pseudo
 // e.g.
 // @include pseudo(after) => :after
-@mixin pseudo($pseudo) {
+@mixin pseudo($pseudo, $child: '') {
+  $selector: &;
   @at-root #{&}#{':#{$pseudo}'} {
-    @content;
+    @if $child != '' {
+      #{$child} {
+        @content;
+      }
+    } @else {
+      @content;
+    }
   }
 }
