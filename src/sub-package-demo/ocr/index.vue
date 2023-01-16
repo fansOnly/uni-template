@@ -4,7 +4,7 @@
       <view class="id-card-box">
         <!-- #ifdef MP-WEIXIN -->
         <ocr-navigator certificate-type="idCard" :opposite="false" @on-success="onIdCardFrontOCR">
-          <vc-image :src="idCardInfo.frontFaceFile || 'idcard-front.png'" block static width="164" height="108">
+          <vc-image :src="idCardInfo.frontFaceFile || 'idcard-front.png'" block static mode="widthFix" width="164">
           </vc-image>
         </ocr-navigator>
         <!-- #endif -->
@@ -13,7 +13,7 @@
       <view class="id-card-box">
         <!-- #ifdef MP-WEIXIN -->
         <ocr-navigator certificate-type="idCard" :opposite="true" @on-success="onIdCardBackOCR">
-          <vc-image :src="idCardInfo.backFaceFile || 'idcard-front.png'" block static width="164" height="108">
+          <vc-image :src="idCardInfo.backFaceFile || 'idcard-front.png'" block static mode="widthFix" width="164">
           </vc-image>
         </ocr-navigator>
         <!-- #endif -->
@@ -32,12 +32,12 @@
     </demo-block>
 
     <demo-block title="银行卡识别" padding background="#fff">
-      <vc-cell title="银行卡" :text="bankCardNo" border is-link>
-        <template slot="icon">
+      <vc-cell title="银行卡" :text="bankCardNo" border>
+        <template slot="extra">
           <!-- #ifdef MP-WEIXIN -->
           <!-- eslint-disable-next-line vue/attribute-hyphenation -->
           <ocr-navigator certificateType="bankCard" @on-success="onBankCardOCR">
-            <vc-icon name="image" size="20"></vc-icon>
+            <vc-icon name="scan" :size="20"></vc-icon>
           </ocr-navigator>
           <!-- #endif -->
         </template>
@@ -87,8 +87,8 @@ export default {
       this.idCardInfo.authority = evt.detail.authority.text
       // 识别出的时间格式为YYYYMMDD，需要转换下
       const [startDate, endDate] = evt.detail.valid_date.text.split('-')
-      this.idCardInfo.validateFrom = `${startDate.substring(0, 4) }-${ startDate.substring(4, 6) }-${ startDate.substring(6)}`
-      this.idCardInfo.validateTo = `${endDate.substring(0, 4) }-${ endDate.substring(4, 6) }-${ endDate.substring(6)}`
+      this.idCardInfo.validateFrom = `${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6)}`
+      this.idCardInfo.validateTo = `${endDate.substring(0, 4)}-${endDate.substring(4, 6)}-${endDate.substring(6)}`
       console.log('[debug] 识别出的身份证信息2 >>>', this.idCardInfo)
     },
     onBankCardOCR(evt) {
