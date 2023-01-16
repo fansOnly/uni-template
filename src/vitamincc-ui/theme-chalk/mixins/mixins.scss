@@ -59,18 +59,11 @@
 // when
 // e.g.
 // @include when(disabled) => .is-disabled
-// @include when(disabled, inner) => .is-disabled .inner
-@mixin when($state, $child: '') {
+@mixin when($state) {
   $selector: &;
   @at-root {
     &.#{$state-prefix + $state} {
-      @if $child != '' {
-        #{$selector + $child} {
-          @content;
-        }
-      } @else {
-        @content;
-      }
+      @content;
     }
   }
 }
@@ -81,12 +74,6 @@
 @mixin pseudo($pseudo, $child: '') {
   $selector: &;
   @at-root #{&}#{':#{$pseudo}'} {
-    @if $child != '' {
-      #{$child} {
-        @content;
-      }
-    } @else {
-      @content;
-    }
+    @content;
   }
 }

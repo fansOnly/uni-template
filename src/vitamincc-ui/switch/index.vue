@@ -22,7 +22,7 @@ export default {
     // 组件尺寸
     size: {
       type: Number,
-      default: 28
+      default: 24
     },
     // 激活的值
     activeValue: {
@@ -71,16 +71,18 @@ export default {
         return this.value === this.activeValue
       },
       set(val) {
-        this.$emit('input', (val ? this.activeValue : this.inactiveValue) ?? val)
+        const value = (val ? this.activeValue : this.inactiveValue) ?? val
+        this.$emit('change', value)
+        this.$emit('input', value)
       }
     },
-    styled({ size, activeColor, inactiveColor, checked }) {
+    styled() {
       let style = ''
-      style += `font-size: ${size}px;`
-      if (inactiveColor && !checked) {
-        style += `background-color: ${inactiveColor};`
-      } else if (activeColor && checked) {
-        style += `background-color: ${activeColor};`
+      style += `font-size: ${this.size}px;`
+      if (this.inactiveColor && !this.checked) {
+        style += `background-color: ${this.inactiveColor};`
+      } else if (this.activeColor && this.checked) {
+        style += `background-color: ${this.activeColor};`
       }
       return style
     }

@@ -10,7 +10,6 @@
 @include b(popup) {
   position: fixed;
   box-sizing: border-box;
-  // padding-bottom: env(safe-area-inset-bottom);
   background-color: getCssVar('popup', 'bg-color');
   overflow-y: auto;
   animation-timing-function: ease;
@@ -81,8 +80,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 
+    position: relative;
     height: getCssVar('popup', 'header-height');
     padding: getCssVar('popup', 'header-padding');
     text-align: center;

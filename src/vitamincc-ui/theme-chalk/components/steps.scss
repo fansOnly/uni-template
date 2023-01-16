@@ -17,62 +17,68 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
 
-  @include when(horizontal, __item) {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translateX(-50%);
+    #{$namespace}__item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
 
-    @include pseudo(first-child) {
-      align-items: flex-start;
-      transform: none;
+      @include pseudo(first-child) {
+        align-items: flex-start;
+        transform: none;
 
-      #{$namespace}__line {
-        left: 0;
+        #{$namespace}__line {
+          left: 0;
+        }
+
+        #{$namespace}__dot-container {
+          transform: translateX(-5px);
+        }
+      }
+
+      @include pseudo(last-child) {
+        position: absolute;
+        right: 0;
+        width: auto;
+        align-items: flex-end;
+        transform: none;
+
+        #{$namespace}__line {
+          left: 0;
+          width: 0;
+        }
+        #{$namespace}__dot-container {
+          transform: translateX(5px);
+        }
       }
 
       #{$namespace}__dot-container {
-        transform: translateX(-5px);
+        padding: 6px;
       }
-    }
-
-    @include pseudo(last-child) {
-      position: absolute;
-      right: 0;
-      width: auto;
-      align-items: flex-end;
-      transform: none;
 
       #{$namespace}__line {
-        left: 0;
-        width: 0;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: getCssVar('steps', 'line-width');
       }
-      #{$namespace}__dot-container {
-        transform: translateX(5px);
-      }
-    }
-
-    #{$namespace}__dot-container {
-      padding: 6px;
-    }
-
-    #{$namespace}__line {
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: getCssVar('steps', 'line-width');
     }
   }
 
   @include when(vertical) {
     padding-left: 40rpx;
-  }
 
-  @include when(vertical, __item) {
-    padding: 0 0 24rpx 12rpx;
+    #{$namespace}__item {
+      padding: 0 0 24rpx 12rpx;
+
+      @include pseudo(last-child) {
+        #{$namespace}__line {
+          height: 0;
+        }
+      }
+    }
 
     #{$namespace}__dot {
       margin: 6px 0 6px 6px;
@@ -83,12 +89,6 @@
       top: 0;
       left: -40rpx;
       width: 40rpx;
-    }
-
-    @include pseudo(last-child) {
-      #{$namespace}__line {
-        height: 0;
-      }
     }
 
     #{$namespace}__line {
@@ -108,10 +108,6 @@
       #{$namespace}__dot-container {
         color: getCssVar('steps', 'active-text-color');
       }
-
-      #{$namespace}__dot {
-        background-color: getCssVar('steps', 'active-bg-color');
-      }
     }
   }
 
@@ -130,13 +126,14 @@
   @include e(dot-container) {
     box-sizing: border-box;
     background-color: getCssVar('bg-color');
+    color: getCssVar('steps', 'dot-color');
   }
 
   @include e(dot) {
     width: getCssVar('steps', 'dot-size');
     height: getCssVar('steps', 'dot-size');
-    background-color: getCssVar('steps', 'dot-color');
     border-radius: 100%;
+    background-color: currentColor;
     transition: getCssVar('transition', 'background-color');
   }
 

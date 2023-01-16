@@ -9,16 +9,17 @@
 }
 
 @include b(loading) {
+  $namespace: &;
   @include utils-inline-flex-center;
 
   color: getCssVar('loading', 'icon-color');
 
   @include when(vertical) {
     flex-direction: column;
-  }
 
-  @include when(vertical, __text) {
-    margin: 6px 0 0;
+    #{$namespace}__text {
+      margin: 6px 0 0;
+    }
   }
 
   @include m(shine) {

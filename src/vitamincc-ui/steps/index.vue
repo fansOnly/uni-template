@@ -1,15 +1,20 @@
 <template>
   <view :class="['vc-steps', 'is-' + direction]">
     <view v-for="(item, index) in options" :key="index"
-      :class="['vc-steps__item', index <= current ? 'is-active' : null]">
-      <view v-if="item[labelProp]" class="vc-steps__label" :style="colorStyled">{{ item[labelProp]}}</view>
-      <view class="vc-steps__dot-container" :style="colorStyled">
+      :class="['vc-steps__item', current >= 0 && index <= current ? 'is-active' : null]">
+      <view v-if="item[labelProp]" class="vc-steps__label"
+        :style="{ 'color': current >= 0 && index <= current && color ? color : '' }">{{ item[labelProp]}}</view>
+      <view class="vc-steps__dot-container"
+        :style="{ 'color': current >= 0 && index <= current && color ? color : '' }">
         <vc-icon v-if="inactiveIcon && index > current" :name="inactiveIcon" />
-        <vc-icon v-else-if="activeIcon && index <= current" :name="activeIcon" style="color: currentColor" />
-        <view v-else class="vc-steps__dot" :style="bgColorStyled"></view>
+        <vc-icon v-else-if="activeIcon && current >= 0 && index <= current" :name="activeIcon"
+          style="color: currentColor" />
+        <view v-else class="vc-steps__dot"></view>
       </view>
-      <view :class="['vc-steps__line', index < current ? 'is-active' : null]" :style="bgColorStyled"></view>
-      <view class="vc-steps__title" :style="colorStyled">{{ item[titleProp] }}
+      <view :class="['vc-steps__line', index < current ? 'is-active' : null]"
+        :style="{ 'background-color': current >= 0 && index < current && color ? color : '' }"></view>
+      <view class="vc-steps__title" :style="{ 'color': current >= 0 && index <= current && color ? color : '' }">
+        {{ item[titleProp] }}
       </view>
     </view>
   </view>
@@ -35,7 +40,7 @@ export default {
       default: 'horizontal'
     },
     // 高亮颜色
-    activeColor: {
+    color: {
       type: String
     },
     // 默认图标

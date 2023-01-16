@@ -4,7 +4,7 @@
     <view :class="['vc-action-sheet', round ? 'is-round' : null]" :style="customStyle">
       <view v-for="(item, index) in options" :key="index"
         :class="['vc-action-sheet__item', index < options.length - 1 ? 'vc-hairline--bottom' : null, value === item[valueProp] ? 'is-active' : null, item.disabled ? 'is-disabled' : null]"
-        :style="{ 'color': value === item[valueProp] && color ? color : '' }" @click="onClickItem(item)">
+        :style="{ 'color': value === item[valueProp] && color ? color : 'inherit' }" @click="onClickItem(item)">
         <vc-icon v-if="item.icon" :name="item.icon" custom-style="margin-right: 6px;" />
         <text class="vc-action-sheet__text">{{ item[textProp] }}</text>
       </view>

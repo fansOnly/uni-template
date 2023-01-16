@@ -3,7 +3,7 @@
     <view class="gap"></view>
     <vc-button type="default" custom-style="margin-right: 10px" @click="decrement">上一步</vc-button>
     <vc-button type="primary" custom-style="margin-right: 10px" @click="increment">下一步</vc-button>
-    <vc-button type="default" @click="active = 0">重置</vc-button>
+    <vc-button type="default" @click="active = -1">重置</vc-button>
 
     <demo-block title="基础用法" padding background="#fff">
       <vc-steps :current="active" :options="options" />
@@ -14,7 +14,7 @@
     </demo-block>
 
     <demo-block title="自定义颜色" padding background="#fff">
-      <vc-steps :current="active" :options="options" active-color="#f60" />
+      <vc-steps :current="active" :options="options" color="#f60" />
     </demo-block>
 
     <demo-block title="垂直布局" padding background="#fff">

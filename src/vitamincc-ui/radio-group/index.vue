@@ -36,6 +36,7 @@ export default {
     change(value) {
       // 小程序绑定 v-model 不支持自定义 value 和 input
       this.$emit('input', value)
+      this.$emit('change', value)
       this.update()
     },
     update() {
