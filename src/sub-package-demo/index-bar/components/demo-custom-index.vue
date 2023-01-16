@@ -9,9 +9,7 @@
     </view>
 
     <view class="demo-content">
-      <vc-index-anchor index="2">
-        <view class="custom-anchor-item">二</view>
-      </vc-index-anchor>
+      <vc-index-anchor index="2" />
       <view v-for="(_, index) in '2'.repeat(30)" :key="index" class="demo-title2">2222222</view>
     </view>
 

@@ -1,0 +1,58 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(index-bar) {
+  @include set-preset-css-var('index-bar', $index-bar);
+}
+
+@include b(index-bar) {
+  $namespace: &;
+
+  height: 100%;
+
+  @include e(sidebar) {
+    position: fixed;
+    top: 50%;
+    right: getCssVar('index-bar', 'sidebar-position-right');
+    transform: translateY(-50%);
+    z-index: getCssVar('index-bar', 'z-index');
+
+    &-item {
+      padding: 3px;
+      color: getCssVar('index-bar', 'sidebar-text-color');
+      font-size: getCssVar('index-bar', 'sidebar-text-font-size');
+      line-height: 1;
+      text-align: center;
+      border-radius: 3px;
+
+      @include when(active) {
+        background: getCssVar('index-bar', 'sidebar-active-bg-color');
+        color: getCssVar('index-bar', 'sidebar-active-text-color');
+        font-weight: 500;
+      }
+    }
+  }
+
+  @include e(anchor) {
+    &-content {
+      @include when(sticky) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: getCssVar('index-bar', 'z-index');
+
+        #{$namespace}__anchor-text {
+          background: getCssVar('index-bar', 'sticky-bg-color');
+        }
+      }
+    }
+
+    &-text {
+      padding: getCssVar('index-bar', 'sticky-padding');
+      color: getCssVar('index-bar', 'sticky-text-color');
+    }
+  }
+}

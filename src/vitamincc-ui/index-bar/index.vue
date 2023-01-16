@@ -1,12 +1,13 @@
 <template>
   <!-- 页面级组件，依赖小程序的 pageScroll 事件 -->
-  <div class="index-bar-wrapper">
+  <div class="vc-index-bar">
     <slot />
     <!-- 滚动索引栏 -->
-    <view v-if="ready" class="sidebar--fixed" :style="sidebarStyled">
+    <view v-if="ready" class="vc-index-bar__sidebar" :style="sidebarStyled">
       <view v-for="(item, index) in indexList" :key="index"
-        :class="['sidebar-item', index === current ? 'is-active' : null]"
-        :style="{ 'color': index === current ? activeColor : '' }" @click="onClickAnchor(item, index)">{{ item }}</view>
+        :class="['vc-index-bar__sidebar-item', index === current ? 'is-active' : null]"
+        :style="{ 'color': index === current && color ? color : '' }" @click="onClickAnchor(item, index)">{{ item }}
+      </view>
     </view>
   </div>
 </template>
@@ -55,10 +56,7 @@ export default {
       default: false
     },
     // 右侧索引高亮颜色
-    activeColor: {
-      type: String,
-      default: '#3264DC'
-    },
+    color: String,
     // 锚点吸顶
     sticky: {
       type: Boolean,
@@ -85,10 +83,10 @@ export default {
     }
   },
   computed: {
-    sidebarStyled({ navHeight, isCustomNavigation }) {
+    sidebarStyled() {
       let style = ''
-      if (isCustomNavigation) {
-        style += `margin-top: ${navHeight / 2}px;`
+      if (this.isCustomNavigation) {
+        style += `margin-top: ${this.navHeight / 2}px;`
       }
       return style
     }
@@ -189,7 +187,7 @@ export default {
       return this.getAnchorIndexByKey(key)
     },
     getAnchorIndexByKey(key) {
-      return this.indexList.map(v => v + '').indexOf(key)
+      return this.indexList.map(v => `${v}`).indexOf(key)
     },
     setStickyAnchor() {
       if (!this.sticky) return
@@ -211,11 +209,11 @@ export default {
         const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`
         const rect = await getRect(child, childClassName)
         const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
-        this.anchorRects.push({ index: child.index + '', name: childClassName, top, height: rect.height })
+        this.anchorRects.push({ index: `${child.index}`, name: childClassName, top, height: rect.height })
       })
     },
     async getWrapperRect() {
-      const rect = await getRect(this, '.index-bar-wrapper')
+      const rect = await getRect(this, '.vc-index-bar')
       const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
       this.boundary = { start: top, end: rect.bottom }
     },
@@ -224,28 +222,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index-bar-wrapper {
-  height: 100%;
-}
-
-.sidebar--fixed {
-  position: fixed;
-  top: 50%;
-  right: 16rpx;
-  transform: translateY(-50%);
-  z-index: 9;
-}
-
-.sidebar-item {
-  padding: 6rpx;
-  font-size: 24rpx;
-  line-height: 1;
-  text-align: center;
-  border-radius: 6rpx;
-
-  &.is-active {
-    background: #d8e9f7;
-    font-weight: 500;
-  }
-}
+@import '../theme-chalk/components/index-bar.scss';
 </style>

@@ -287,9 +287,9 @@ $disabled: map.merge(
 $component-size: () !default;
 $component-size: map.merge(
   (
-    'large': 52px,
-    '': 44px,
-    'small': 36px,
+    'large': 58px,
+    '': 50px,
+    'small': 42px,
   ),
   $component-size
 );
@@ -607,7 +607,7 @@ $calendar-month: map.merge(
 $action-sheet: () !default;
 $action-sheet: map.merge(
   (
-    'item-height': 104rpx,
+    'item-height': getCssVar('component-size'),
     'item-padding': 0 getCssVar('padding-horizontal'),
     'border-radius': getCssVar('border-radius', 'base'),
     'text-color': getCssVar('text-color', 'primary'),
@@ -740,6 +740,24 @@ $table: map.merge(
     'row-text-font-size': getCssVar('font-size', 'small'),
   ),
   $table
+);
+
+// index-bar
+$index-bar: () !default;
+$index-bar: map.merge(
+  (
+    'sidebar-position-right': 8px,
+    'sidebar-text-color': getCssVar('text-color', 'primary'),
+    'sidebar-text-font-size': getCssVar('font-size', 'small'),
+    'sidebar-active-bg-color': getCssVar('bg-color', 'active'),
+    'sidebar-active-text-color': getCssVar('color', 'primary'),
+    'sticky-padding': getCssVar('padding-vertical')
+      getCssVar('padding-horizontal'),
+    'sticky-bg-color': getCssVar('bg-color'),
+    'sticky-text-color': getCssVar('text-color', 'primary'),
+    'z-index': getCssVar('z-index', 'top'),
+  ),
+  $index-bar
 );
 
 // tabs

@@ -1,10 +1,13 @@
 <template>
-  <div class="index-bar-anchor">
-    <view class="anchor--placeholder" :style="{ 'height': isSticky ? height + 'px' : 0 }"></view>
+  <div class="vc-index-bar__anchor">
+    <view :style="{ 'height': isSticky ? height + 'px' : 0 }"></view>
     <view
-      :class="['anchor-' + (index === '#' ? 'special' : index), isSticky ? 'index-bar-anchor--sticky' : null, customClass]"
+      :class="['vc-index-bar__anchor-content', 'anchor-' + (index === '#' ? 'special' : index), isSticky ? 'is-sticky' : null, customClass]"
       :style="anchorStyled">
-      <slot>{{ index }}</slot>
+      <!-- slot default anchor -->
+      <slot>
+        <view class="vc-index-bar__anchor-text">{{ index }}</view>
+      </slot>
     </view>
   </div>
 </template>
@@ -30,7 +33,7 @@ export default {
     // 自定义类
     customClass: null,
     // 自定义样式
-    customStyle: null
+    customStyle: String
   },
   data() {
     return {
@@ -60,7 +63,7 @@ export default {
     const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
     this.isCustomNavigation = isCustomNavigation
     this.navHeight = navHeight
-    const rect = await getRect(this, '.index-bar-anchor')
+    const rect = await getRect(this, '.vc-index-bar__anchor')
     this.height = rect.height
   },
   methods: {
@@ -73,13 +76,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index-bar-anchor--sticky {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  background: #fff;
-  color: $uni-color-primary;
-  z-index: 88;
-}
+@import '../theme-chalk/components/index-bar.scss';
 </style>
