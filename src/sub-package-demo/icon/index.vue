@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      iconList: ['home', 'success', 'fail', 'share', 'share-link', 'share-app', 'search', 'cloud-upload', 'cross', 'cross-blank', 'close-fill', 'radio-off', 'radio-on', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'eye-on', 'eye-off', 'caret-down', 'caret-up', 'checkbox-on', 'checkbox-off', 'selected', 'checkbox-on-circle-fill', 'checkbox-on-fill', 'image', 'image-fail', 'identity-card-front', 'identity-card-back',]
+      iconList: ['home', 'success', 'fail', 'share', 'share-link', 'share-app', 'search', 'cloud-upload', 'cross', 'cross-blank', 'close-fill', 'radio-off', 'radio-on', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'eye-on', 'eye-off', 'caret-down', 'caret-up', 'checkbox-on', 'checkbox-off', 'selected', 'checkbox-on-circle-fill', 'checkbox-on-fill', 'image', 'image-fail', 'scan',]
     }
   }
 }
@@ -40,7 +40,6 @@ export default {
 .icon-wrap {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  margin-top: -14px;
 }
 
 .icon-item {
