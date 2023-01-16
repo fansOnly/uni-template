@@ -22,7 +22,7 @@
 
     <demo-block title="页面显示" padding>
       <view>选中的日期: {{ date4 }}</view>
-      <vc-calendar v-model="date4" :popupable="false"></vc-calendar>
+      <vc-calendar v-model="date4" :use-popup="false"></vc-calendar>
       <view class="gap"></view>
     </demo-block>
 
