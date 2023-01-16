@@ -1,0 +1,86 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(navigation) {
+  @include set-preset-css-var('navigation', $navigation);
+}
+
+@include b(navigation) {
+  $namespace: &;
+
+  @include e(container) {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: getCssVar('z-index', 'navigation');
+
+    @include when(light) {
+      color: getCssVar('color', 'black');
+      background-color: getCssVar('bg-color');
+    }
+
+    @include when(dark) {
+      color: getCssVar('color', 'white');
+      background-color: getCssVar('color', 'primary');
+    }
+
+    @include when(gray) {
+      filter: grayscale(100%);
+    }
+  }
+
+  @include e(bg-image) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    padding: 0 16px;
+
+    @include when(center) {
+      #{$namespace}__left {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+      }
+
+      #{$namespace}__title {
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+
+    @include when(ios) {
+      #{$namespace}__title {
+        font-weight: 500;
+      }
+    }
+  }
+
+  @include e(left) {
+    display: flex;
+    align-items: center;
+  }
+
+  @include e(icon) {
+    margin-right: 6px;
+  }
+
+  @include e(title) {
+    width: getCssVar('navigation', 'title-width');
+    font-size: getCssVar('navigation', 'title-text-font-size');
+  }
+}

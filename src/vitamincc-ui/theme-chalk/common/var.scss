@@ -268,6 +268,7 @@ $z-index: map.merge(
     'normal': 1,
     'top': 1000,
     'popper': 2000,
+    'navigation': 999999,
   ),
   $z-index
 );
@@ -758,4 +759,15 @@ $tabs: map.merge(
     'z-index': getCssVar('z-index', 'top'),
   ),
   $tabs
+);
+
+// navigation
+$navigation: () !default;
+$navigation: map.merge(
+  (
+    'title-width': 60%,
+    'title-text-font-size': 17px,
+    'z-index': getCssVar('z-index', 'navigation'),
+  ),
+  $navigation
 );

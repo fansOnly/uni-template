@@ -16,7 +16,7 @@
           </demo-block>
         </view>
         <view class="gap"></view>
-        <vc-button @click="isGray = !isGray">{{ isGray ? '取消置灰' : '置灰页面' }}</vc-button>
+        <vc-button @click="isGray = !isGray">{{ isGray? '取消置灰': '置灰页面' }}</vc-button>
       </view>
       <!-- <vc-tab-bar :is-gray="isGray" /> -->
     </view>
@@ -67,11 +67,7 @@ export default {
   methods: {
     handleRouter({ prefix, path }) {
       const url = `/${prefix}${path}/index`
-      if (path === '/navigation') {
-        this.$Router.pushTab(url)
-      } else {
-        this.$Router.push(url)
-      }
+      this.$Router.push(url)
     },
     onShareAppMessage() {
       return {

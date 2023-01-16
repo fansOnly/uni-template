@@ -1,27 +1,67 @@
 <template>
   <vc-page :show="pageReady">
-    <vc-navigation :title="title"
-      background-image="https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg"
-      @after-mounted="navMounted = true" />
+    <vc-navigation :mode="mode" :title="title" :align="align" :is-gray="isGray" :background="background" :color="color"
+      :bg-image="bgImage" @after-mounted="navMounted = true" />
     <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]"
       :style="{ 'min-height': windowHeight + 'px', 'height': '1500px' }">
-      <view class="demo-block">
-        <view class="color"></view>
+      <view style="padding:16px;">
         <view class="demo-title">请输入页面标题: </view>
-        <view class="demo-title demo-margin-bottom">
-          <vc-input v-model="title" border placeholder="请输入页面标题" background="#fff"></vc-input>
-        </view>
+        <view class="gap"></view>
+        <vc-input v-model="title" border placeholder="请输入页面标题" background="#fff"></vc-input>
+        <view class="gap"></view>
         <view class="demo-row--flex">
-          <view class="demo-margin-bottom">
-            <vc-button type="primary" :radius="4" block @click="visible = true">拉起弹窗</vc-button>
-          </view>
-          <view class="demo-margin-bottom">
-            <vc-button type="primary" :radius="4" block @click="jumpDetail">自定义导航布局</vc-button>
-          </view>
-          <view class="demo-margin-bottom">
-            <vc-button type="primary" :radius="4" block @click="jumpHome">去首页 - reLaunch</vc-button>
-          </view>
+          <view class="demo-label">主题模式: </view>
+          <vc-radio-group v-model="mode" @change="handleModeChange">
+            <vc-radio name="light" custom-style="margin-right: 8px;">浅色</vc-radio>
+            <vc-radio name="dark" custom-style="margin-right: 8px;">深色</vc-radio>
+            <vc-radio name="custom">自定义</vc-radio>
+          </vc-radio-group>
         </view>
+        <template v-if="mode === 'custom'">
+          <view class="gap"></view>
+          <view class="demo-row--flex">
+            <view class="demo-label">背景色: </view>
+            <vc-radio-group v-model="background">
+              <vc-radio name="#ef4b4b" custom-style="margin-right: 8px;">红色</vc-radio>
+              <vc-radio name="#7a67e2" custom-style="margin-right: 8px;">蓝色</vc-radio>
+              <vc-radio name="#0db914">绿色</vc-radio>
+            </vc-radio-group>
+          </view>
+          <view class="gap"></view>
+          <view class="demo-row--flex">
+            <view class="demo-label">文本色: </view>
+            <vc-radio-group v-model="color">
+              <vc-radio name="#fff" custom-style="margin-right: 8px;">白色</vc-radio>
+              <vc-radio name="#ef4b4b" custom-style="margin-right: 8px;">红色</vc-radio>
+              <vc-radio name="#0db914">绿色</vc-radio>
+            </vc-radio-group>
+          </view>
+        </template>
+        <view class="gap"></view>
+        <view class="demo-row--flex">
+          <view class="demo-label">对齐方式: </view>
+          <vc-radio-group v-model="align">
+            <vc-radio name="center" custom-style="margin-right: 8px;">居中</vc-radio>
+            <vc-radio name="left">居左</vc-radio>
+          </vc-radio-group>
+        </view>
+        <view class="gap"></view>
+        <view class="demo-row--flex">
+          <text class="demo-label">开启背景图: </text>
+          <vc-switch v-model="useBgImage" @change="toggleUseBgImage"></vc-switch>
+        </view>
+        <view class="gap"></view>
+        <view class="demo-row--flex">
+          <text class="demo-label">置灰模式: </text>
+          <vc-switch v-model="isGray"></vc-switch>
+        </view>
+        <view class="gap"></view>
+        <view class="demo-row--flex">
+          <vc-button custom-style="margin-right:10px;" @click="visible = true">拉起弹窗</vc-button>
+        </view>
+
+        <vc-button custom-style="margin-right:10px;" @click="jumpDetail">自定义导航布局</vc-button>
+        <vc-button @click="jumpHome">去首页 - reLaunch</vc-button>
       </view>
 
       <vc-popup :visible.sync="visible" title="弹窗"></vc-popup>
@@ -40,6 +80,13 @@ export default {
       pageReady: false,
       navMounted: false,
       title: '自定义导航',
+      bgImage: '',
+      mode: 'light',
+      align: 'center',
+      background: '',
+      color: '',
+      useBgImage: false,
+      isGray: false,
       visible: false
     }
   },
@@ -56,6 +103,14 @@ export default {
     this.pageReady = true
   },
   methods: {
+    toggleUseBgImage(val) {
+      this.bgImage = val ? 'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg' : ''
+    },
+    handleModeChange(val) {
+      if (val !== 'custom') {
+        this.background = this.color = ''
+      }
+    },
     jumpDetail() {
       this.$Router.replace('/sub-package-demo/navigation/detail')
     },
@@ -70,20 +125,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.demo-title {
-  margin-top: 16px;
+.demo-row--flex {
+  display: flex;
+  align-items: center;
 }
 
-.demo-block {
-  padding: 16px;
-}
-
-.demo-margin-bottom {
-  margin-bottom: 12px;
-}
-
-.color {
-  height: 80rpx;
-  background: #ccc;
+.demo-label {
+  margin-right: 8px;
 }
 </style>
