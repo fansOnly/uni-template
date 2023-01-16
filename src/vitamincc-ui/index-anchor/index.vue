@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { getRect } from '../common/util'
-import { getAppData } from '../common/global-data'
+import { useRect } from '@/common/hooks/use-rect'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 export default {
   name: 'vc-index-anchor',
@@ -40,30 +40,26 @@ export default {
       height: 0,
       isSticky: false,
       offsetTop: 0,
-      isCustomNavigation: false,
-      navHeight: 0
     }
   },
   computed: {
-    anchorStyled({ offsetTop, navHeight, isCustomNavigation, isSticky, customStyle }) {
-      if (!isSticky) return customStyle
-      let top = offsetTop
+    anchorStyled() {
+      if (!this.isSticky) return this.customStyle
+      let top = this.offsetTop
       /* #ifdef H5 */
       top += 44
       /* #endif */
       // #ifdef MP-WEIXIN
-      top += isCustomNavigation ? navHeight : 0
+      const { isCustomNav, navHeight } = useCustomNav()
+      top += isCustomNav ? navHeight : 0
       // #endif
-      return `top: ${top}px;${customStyle ? customStyle : ''}`
+      return `top: ${top}px;${this.customStyle ?? ''}`
     }
   },
   async mounted() {
     this.parent.children.push(this)
     this.parent.len++
-    const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-    this.isCustomNavigation = isCustomNavigation
-    this.navHeight = navHeight
-    const rect = await getRect(this, '.vc-index-bar__anchor')
+    const rect = await useRect(this, '.vc-index-bar__anchor')
     this.height = rect.height
   },
   methods: {

@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import { isObject } from '../common/validate'
-
 export default {
   name: 'vc-form-item',
   provide() {
@@ -65,7 +63,7 @@ export default {
       let rules = this.rules ?? this.form?.rules?.[this.prop] ?? []
       if (!rules.length) return false
       let isRequired = false
-      if (isObject(rules)) {
+      if (!Array.isArray(rules)) {
         rules = [rules]
       }
       for (let i = 0; i < this.activeRules.length; i++) {

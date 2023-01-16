@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import { isEmpty } from '../common/validate'
-import { addUnit } from '../common/util'
 import { useChooseMedia, wxCompressImage, wxPreviewMedia } from '@/common/hooks/use-wxapi'
 
 export default {
@@ -142,7 +140,7 @@ export default {
   },
   data() {
     return {
-      fileList: this.files.filter(v => !isEmpty(v)),
+      fileList: this.files.filter(v => v.src),
       tempFiles: [], // 上传临时缓存文件
       loading: false,
       clickable: true,
@@ -158,8 +156,8 @@ export default {
   computed: {
     style({ width, height }) {
       let style = ''
-      style += `width: ${addUnit(width)};`
-      style += `height: ${addUnit(height)};`
+      style += `width: ${width}px;`
+      style += `height: ${height}px;`
       style += `flex: ${width === '100%' ? '1' : '0 0 auto'};`
       return style
     },

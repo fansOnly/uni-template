@@ -2,23 +2,28 @@
 @use '../mixins/mixins' as *;
 @use '../mixins/var' as *;
 @use '../mixins/function' as *;
+@use '../mixins/utils' as *;
 
 @include b(popup) {
   @include set-preset-css-var('popup', $popup);
 }
 
 @include b(popup) {
+  $namespace: &;
+
+  display: flex;
+  flex-direction: column;
+
   position: fixed;
-  box-sizing: border-box;
   background-color: getCssVar('popup', 'bg-color');
-  overflow-y: auto;
   animation-timing-function: ease;
   animation: ease both;
-  -webkit-overflow-scrolling: touch;
+  z-index: getCssVar('popup', 'z-index');
 
   @include when(center) {
     top: 50%;
     left: 50%;
+    max-height: getCssVar('popup', 'max-height');
     transform: translate3d(-50%, -50%, 0);
     &.is-round {
       border-radius: getCssVar('popup', 'border-radius-center');
@@ -35,6 +40,10 @@
     &.is-top-safe {
       padding-top: env(safe-area-inset-top);
     }
+
+    #{$namespace}__body {
+      max-height: getCssVar('popup', 'max-height');
+    }
   }
   @include when(bottom) {
     left: 0;
@@ -46,11 +55,16 @@
     &.is-bottom-safe {
       padding-bottom: env(safe-area-inset-bottom);
     }
+
+    #{$namespace}__body {
+      max-height: getCssVar('popup', 'max-height');
+    }
   }
   @include when(left) {
     top: 0;
     bottom: 0;
     left: 0;
+    max-width: getCssVar('popup', 'max-width');
     &.is-round {
       border-radius: getCssVar('popup', 'border-radius-left');
     }
@@ -65,6 +79,7 @@
     top: 0;
     right: 0;
     bottom: 0;
+    max-width: getCssVar('popup', 'max-width');
     &.is-round {
       border-radius: getCssVar('popup', 'border-radius-right');
     }
@@ -77,13 +92,14 @@
   }
 
   @include e(header) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include utils-flex-center;
 
     position: relative;
+    min-height: getCssVar('popup', 'header-height');
     height: getCssVar('popup', 'header-height');
     padding: getCssVar('popup', 'header-padding');
+    color: getCssVar('popup', 'title-text-color');
+    font-size: getCssVar('popup', 'title-text-font-size');
     text-align: center;
   }
 
@@ -93,18 +109,19 @@
     line-height: getCssVar('popup', 'header-height');
     z-index: 2;
 
-    @include m(left) {
+    @include when(left) {
       left: getCssVar('popup', 'close-offset-left');
     }
 
-    @include m(right) {
+    @include when(right) {
       right: getCssVar('popup', 'close-offset-right');
     }
   }
 
   @include e(body) {
-    -webkit-overflow-scrolling: touch;
+    flex: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     overscroll-behavior: none;
   }
 }

@@ -1,9 +1,10 @@
 <script>
 import store from '@/store'
 import { useUpdater } from '@/common/hooks/use-updater'
-import { getToken } from '@/utils'
+import { useLogin } from '@/common/hooks/use-login'
 
 export default {
+  globalData: {},
   onLaunch(options) {
     console.log('🚀 ™ App Launch')
     console.log('🚀 ™ 环境变量', process.env)
@@ -35,8 +36,10 @@ export default {
       return store.dispatch('app/setHideScene')
     }
 
-    // 获取用户信息
-    await getToken()
+    // 是否置灰模式
+    // store.dispatch('app/setGray', true)
+
+    await useLogin()
 
     // 分享场景 [1037, 1038]
     store.dispatch('share/setScene', options.scene)

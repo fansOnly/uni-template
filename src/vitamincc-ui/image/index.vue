@@ -15,7 +15,7 @@
 
 <script>
 const path = require('path')
-import { addUnit } from '../common/util'
+import { useUnit } from '../common/hooks/use-unit'
 
 export default {
   name: 'vc-image',
@@ -100,13 +100,13 @@ export default {
   computed: {
     styled({ width, height, radius, customStyle }) {
       let style = ''
-      style += `width: ${addUnit(width)};`
+      style += `width: ${useUnit(width)};`
       // fix：修复编译 H5 图片宽度被压缩
-      style += `min-width: ${addUnit(width)};`
-      style += `height: ${addUnit(height)};`
+      style += `min-width: ${useUnit(width)};`
+      style += `height: ${useUnit(height)};`
 
       if (radius) {
-        style += `border-radius: ${addUnit(radius)};`
+        style += `border-radius: ${useUnit(radius)};`
       }
       return style + customStyle
     }

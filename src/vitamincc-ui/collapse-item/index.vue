@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getRect } from '../common/util'
+import { useRect } from '@/common/hooks/use-rect'
 
 export default {
   name: 'vc-collapse-item',
@@ -102,7 +102,7 @@ export default {
     },
     getCollapseContentHeight() {
       this.$nextTick(async () => {
-        const rect = await getRect(this, '.vc-collapse-item__content')
+        const rect = await useRect(this, '.vc-collapse-item__content')
         this.height = rect.height
       })
     },

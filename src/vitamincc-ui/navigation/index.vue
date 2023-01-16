@@ -22,8 +22,10 @@
 </template>
 
 <script>
-import { tabBarPages, homePage } from '../common/tab-bar'
-import { getAppData, setAppData } from '../common/global-data'
+import { mapState } from 'vuex'
+import { useTabBar } from '../common/hooks/use-tab-bar'
+import { useGlobalData } from '@/common/hooks/use-global-data'
+const { setGlobalData, getGlobalData } = useGlobalData()
 
 export default {
   name: 'vc-navigation',
@@ -56,10 +58,6 @@ export default {
       type: Boolean,
       default: true
     },
-    isGray: {
-      type: Boolean,
-      default: false
-    },
   },
   data() {
     return {
@@ -71,6 +69,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('app', ['isGray']),
     isIos() {
       return this.platform === 'ios'
     },
@@ -98,7 +97,7 @@ export default {
       const pages = getCurrentPages()
       if (!pages.length) return
       const current = pages[pages.length - 1]?.route
-      return pages.length === 1 && !tabBarPages.includes(current)
+      return pages.length === 1 && !this.tabBarPages?.includes(current)
     },
     ifHome() {
       return this.showHome && this.isHomePage
@@ -110,6 +109,11 @@ export default {
         this.navTitle = val
       }
     }
+  },
+  created() {
+    const { tabBarPages, homePage } = useTabBar()
+    this.tabBarPages = Object.freeze(tabBarPages)
+    this.homePage = homePage
   },
   async mounted() {
     // #ifdef MP-WEIXIN
@@ -124,8 +128,8 @@ export default {
     this.titleHeight = 44
     // #endif
 
-    if (!getAppData('navHeight')) {
-      setAppData('navHeight', this.navHeight)
+    if (!getGlobalData('navHeight')) {
+      setGlobalData('navHeight', this.navHeight)
     }
     const systemInfo = wx.getSystemInfoSync()
     this.platform = systemInfo.platform
@@ -135,7 +139,7 @@ export default {
   },
   methods: {
     reLaunchHome() {
-      uni.reLaunch({ url: homePage || '/pages/index/index' })
+      uni.reLaunch({ url: this.homePage || '/pages/index/index' })
     },
     navigateBack() {
       uni.navigateBack({ delta: 1 })

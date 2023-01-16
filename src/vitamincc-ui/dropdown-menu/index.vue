@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame } from '../common/util'
+import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
+import { useRect } from '@/common/hooks/use-rect'
 import cssVariables from '@/common/theme'
 
 export default {
@@ -107,13 +108,13 @@ export default {
         this.close(300)
       } else {
         this.close()
-        await requestAnimationFrame()
+        await useAnimationFrame()
         this.menuIndex = index
         this.toggleItem(index)
       }
     },
     async resolveStyle() {
-      const rect = await getRect(this, '.vc-dropdown-wrapper')
+      const rect = await useRect(this, '.vc-dropdown-wrapper')
       let top = rect.bottom
       /* #ifdef H5 */
       // fix：H5 下，uni-app 会默认生成一个头部 uni-page-head，位置计算会有误差

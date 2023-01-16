@@ -1,6 +1,6 @@
 <template>
   <vc-page :show="pageReady">
-    <vc-navigation :mode="mode" :title="title" :align="align" :is-gray="isGray" :background="background" :color="color"
+    <vc-navigation slot="nav" :mode="mode" :title="title" :align="align" :background="background" :color="color"
       :bg-image="bgImage" @after-mounted="navMounted = true" />
     <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]"
       :style="{ 'min-height': windowHeight + 'px', 'height': '1500px' }">
@@ -53,7 +53,7 @@
         <view class="gap"></view>
         <view class="demo-row--flex">
           <text class="demo-label">置灰模式: </text>
-          <vc-switch v-model="isGray"></vc-switch>
+          <vc-switch v-model="isGray2" @change="toggleGray"></vc-switch>
         </view>
         <view class="gap"></view>
         <view class="demo-row--flex">
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -86,13 +86,21 @@ export default {
       background: '',
       color: '',
       useBgImage: false,
-      isGray: false,
-      visible: false
+      visible: false,
+      isGray2: false
     }
   },
   computed: {
-    ...mapState('app', ['windowHeight']),
+    ...mapState('app', ['windowHeight', 'isGray']),
     ...mapGetters('app', ['isCustomTabBar'])
+  },
+  watch: {
+    isGray: {
+      handler(val) {
+        this.isGray2 = val
+      },
+      immediate: true
+    }
   },
   async onLoad() {
   },
@@ -103,6 +111,10 @@ export default {
     this.pageReady = true
   },
   methods: {
+    ...mapActions('app', ['setGray']),
+    toggleGray(val) {
+      this.setGray(val)
+    },
     toggleUseBgImage(val) {
       this.bgImage = val ? 'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg' : ''
     },

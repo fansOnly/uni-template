@@ -1,6 +1,5 @@
 
-import { requestAnimationFrame } from '../common/util'
-import { isObject } from '../common/validate'
+import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
 
 export default {
   props: {
@@ -39,18 +38,18 @@ export default {
   methods: {
     async enter() {
       const classNames = this.getClassNames(this.animationName)
-      const currentDuration = isObject(this.duration) ? this.duration.enter : this.duration
+      const currentDuration = this.duration?.enter ?? this.duration
       this.status = 'enter'
       this.$emit('before-enter')
 
-      await requestAnimationFrame()
+      await useAnimationFrame()
       if (this.status !== 'enter') return
       this.$emit('enter')
       this.display = true
       this.currentDuration = currentDuration
       this.classes = classNames['enter']
 
-      await requestAnimationFrame()
+      await useAnimationFrame()
       if (this.status !== 'enter') return
       this.transitionEnded = false
       this.classes = classNames['enter-to']
@@ -59,17 +58,17 @@ export default {
     async leave() {
       if (!this.display) return
       const classNames = this.getClassNames(this.animationName)
-      const currentDuration = isObject(this.duration) ? this.duration.leave : this.duration
+      const currentDuration = this.duration?.leave ?? this.duration
       this.status = 'leave'
       this.$emit('before-leave')
 
-      await requestAnimationFrame()
+      await useAnimationFrame()
       if (this.status !== 'leave') return
       this.$emit('leave')
       this.classes = classNames['leave']
       this.currentDuration = currentDuration
 
-      await requestAnimationFrame()
+      await useAnimationFrame()
       if (this.status !== 'leave') return
       this.transitionEnded = false
       setTimeout(() => {
@@ -80,7 +79,7 @@ export default {
     onTransitionEnd() {
       if (this.transitionEnded) return
       this.transitionEnded = true
-      this.$emit(`after-${ this.status}`)
+      this.$emit(`after-${this.status}`)
       if (!this.visible && this.display) {
         this.display = false
       }

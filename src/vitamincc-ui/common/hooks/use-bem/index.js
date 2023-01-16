@@ -1,4 +1,4 @@
-export function bem(block, element = '', modifier = '') {
+export const useBem = (block, element = '', modifier = '') => {
   let name = `vc-${block}`
   if (element) {
     name += `__${element}`

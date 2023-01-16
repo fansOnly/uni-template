@@ -1,5 +1,9 @@
 <template>
   <view v-if="ready" class="vc-page">
+    <!-- slot navigation -->
+    <!-- FIX: filter: grayscale(100%) 会影响到子元素的 fixed 布局 -->
+    <slot name="nav" />
+    <!-- progress bar -->
     <view :class="['vc-progress-bar', show || failed ? 'fade' : null]"
       :style="{ 'top': top + 'px', 'height': height + 'px', 'animation-duration': duration + 'ms' }">
       <view :class="['vc-progress-bar--before', paused ? 'animation-paused' : null, done ? 'animation-done' : null]"
@@ -7,9 +11,17 @@
       <view v-if="done" class="vc-progress-bar--after"
         :style="{ 'background': color, 'animation-duration': duration + 'ms' }"></view>
     </view>
-    <slot v-if="show"></slot>
-    <slot v-else name="skeleton"></slot>
-    <slot v-if="failed" name="failed"></slot>
+    <!-- slot default -->
+    <view v-if="show" :class="[isGray ? 'is-gray' : null]">
+      <slot />
+    </view>
+    <!-- slot skeleton -->
+    <slot v-else name="skeleton" />
+    <!-- slot failed -->
+    <slot v-if="failed" name="failed" />
+
+    <!-- custom tab bar -->
+    <vc-tab-bar v-if="showTabBar" :is-gray="isGray" />
 
     <!-- 弹窗实例 -->
     <vc-dialog ref="dialog" :visible.sync="dialog.visible" :title="dialog.title" :content="dialog.content"
@@ -18,7 +30,10 @@
 </template>
 
 <script>
-import { getAppData, setAppData } from '../common/global-data'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
+import { useTabBar } from '../common/hooks/use-tab-bar'
+import { mapState } from 'vuex'
+
 export default {
   name: 'vc-page',
   props: {
@@ -52,7 +67,12 @@ export default {
         content: '',
         showCancel: false
       },
+      isCustomTabBar: false,
+      showTabBar: false
     }
+  },
+  computed: {
+    ...mapState('app', ['isGray']),
   },
   watch: {
     show: {
@@ -75,14 +95,22 @@ export default {
   },
   created() {
     // #ifdef MP-WEIXIN
-    let [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-    if (isCustomNavigation) {
+    let { isCustomNav, navHeight, setNavHeight } = useCustomNav()
+    if (isCustomNav) {
       if (!navHeight) {
         const rect = wx.getMenuButtonBoundingClientRect()
         navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
-        setAppData({ navHeight })
+        setNavHeight(navHeight)
       }
       this.top = navHeight
+    }
+
+    const { isCustomTabBar, tabBarPages } = useTabBar()
+    if (isCustomTabBar) {
+      const pages = getCurrentPages()
+      const current = pages[pages.length - 1]?.route
+      this.isCustomTabBar = isCustomTabBar
+      this.showTabBar = tabBarPages.includes(current)
     }
     // #endif
     this.ready = true

@@ -7,8 +7,11 @@
         <e-test msg="hello mini component"></e-test>
       </demo-block>
       <!-- #endif -->
+      <view class="gap"></view>
+      <vc-cell title="打开遮罩" is-link @click="visible = true"></vc-cell>
 
-      <!-- <vc-tab-bar /> -->
+      <vc-overlay :visible.sync="visible"></vc-overlay>
+
     </view>
   </vc-page>
 </template>
@@ -23,7 +26,8 @@ export default {
   },
   data() {
     return {
-      pageReady: false
+      pageReady: false,
+      visible: false
     }
   },
   computed: {

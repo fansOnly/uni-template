@@ -19,8 +19,11 @@
 </template>
 
 <script>
-import { getRect, requestAnimationFrame, compareVersion } from '../common/util'
-import { getAppData } from '../common/global-data'
+import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
+import { useRect } from '@/common/hooks/use-rect'
+import { useVersion } from '@/common/hooks/use-version'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
+const { gte } = useVersion()
 
 export default {
   name: 'vc-tabs',
@@ -85,11 +88,10 @@ export default {
   },
   computed: {
     tabsStyle() {
-      const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
       let top = 0
       // #ifdef MP-WEIXIN
-      if (isCustomNavigation && this.shouldFix) {
-        top = navHeight
+      if (this.isCustomNav && this.shouldFix) {
+        top = this.navHeight
       }
       // #endif
       // #ifdef H5
@@ -134,23 +136,25 @@ export default {
     },
   },
   async mounted() {
+    const { isCustomNav, navHeight } = useCustomNav()
+    this.isCustomNav = isCustomNav
+    this.navHeight = navHeight
     // Bug: A，B 页面都设置自定义导航且包含 tab 组件时， A 页面 跳转 B 页面 获取的 top 值不一致
     // 会产生 navHeight 的误差
     setTimeout(async () => {
       await this.resolveTabRect()
 
       // Bug: 模拟器、iOS 15.4+ 系统下，滑块位置会往下偏移 20px 左右
-      const { platform, system } = wx.getSystemInfoSync()
+      const { platform } = wx.getSystemInfoSync()
       let shouldFixPosition = platform === 'devtools'
       if (platform === 'ios') {
-        const [_, version] = system.split(' ')
-        shouldFixPosition = compareVersion(version, '15.4.1') > -1
+        shouldFixPosition = gte('15.4.1')
       }
       if (shouldFixPosition) {
         this.bottom = '20px'
       }
 
-      await requestAnimationFrame()
+      await useAnimationFrame()
       // 初始化时滑块不产生动画效果
       if (!this.initialized) {
         setTimeout(() => {
@@ -179,10 +183,9 @@ export default {
       }
     },
     async resolveTabRect() {
-      const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-      const rect = await getRect(this, '.vc-tabs__item')
+      const rect = await useRect(this, '.vc-tabs__item')
       this.width = rect.width
-      this.top = rect.top - (isCustomNavigation ? navHeight : 0)
+      this.top = rect.top - (this.isCustomNav ? this.navHeight : 0)
     },
   },
 }

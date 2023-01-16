@@ -1,11 +1,17 @@
-/* eslint-disable no-undef */
 const appInstance = getApp()
+
+export const useGlobalData = () => {
+  return {
+    getGlobalData,
+    setGlobalData,
+  }
+}
 
 /**
  * 获取全局变量
  * @param {string|array} keys
  */
-export function getAppData(keys) {
+const getGlobalData = keys => {
   if (Array.isArray(keys)) {
     return keys.reduce((acc, cur) => [...acc, appInstance.globalData[cur]], [])
   } else {
@@ -18,6 +24,6 @@ export function getAppData(keys) {
  * @param {*} key
  * @param {*} value
  */
-export function setAppData(key, value) {
+const setGlobalData = (key, value) => {
   appInstance.globalData[key] = value
 }

@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { getRect } from '../common/util'
-import { getAppData } from '../common/global-data'
+import { useRect } from '@/common/hooks/use-rect'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 function genIndexList(withSpecial = true) {
   const arr = []
@@ -78,14 +78,12 @@ export default {
       // 当前索引项
       current: -1,
       timer: null,
-      navHeight: 0,
-      isCustomNavigation: false
     }
   },
   computed: {
     sidebarStyled() {
       let style = ''
-      if (this.isCustomNavigation) {
+      if (this.isCustomNav) {
         style += `margin-top: ${this.navHeight / 2}px;`
       }
       return style
@@ -115,8 +113,8 @@ export default {
     this.anchorRects = []
   },
   mounted() {
-    const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-    this.isCustomNavigation = isCustomNavigation
+    const { isCustomNav, navHeight } = useCustomNav()
+    this.isCustomNav = isCustomNav
     this.navHeight = navHeight
   },
   methods: {
@@ -207,16 +205,19 @@ export default {
       this.anchorRects = []
       this.children.forEach(async (child) => {
         const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`
-        const rect = await getRect(child, childClassName)
-        const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
+        const rect = await useRect(child, childClassName)
+        const top = this.fixIfCustomNav(rect.top) - this.offset
         this.anchorRects.push({ index: `${child.index}`, name: childClassName, top, height: rect.height })
       })
     },
     async getWrapperRect() {
-      const rect = await getRect(this, '.vc-index-bar')
-      const top = rect.top - (this.isCustomNavigation ? this.navHeight : 0) - this.offset
+      const rect = await useRect(this, '.vc-index-bar')
+      const top = this.fixIfCustomNav(rect.top) - this.offset
       this.boundary = { start: top, end: rect.bottom }
     },
+    fixIfCustomNav(value) {
+      return value - (this.isCustomNav ? this.navHeight : 0)
+    }
   },
 }
 </script>

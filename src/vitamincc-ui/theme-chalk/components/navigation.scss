@@ -31,6 +31,9 @@
 
     @include when(gray) {
       filter: grayscale(100%);
+      &.is-light {
+        background-color: #a5a5a5;
+      }
     }
   }
 

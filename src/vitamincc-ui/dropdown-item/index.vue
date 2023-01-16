@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { requestAnimationFrame } from '../common/util'
+import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
 import cssVariables from '@/common/theme'
 
 export default {
@@ -101,7 +101,7 @@ export default {
         const { top, bottom } = await this.dropdown.resolveStyle()
         this.top = top
         this.bottom = bottom
-        await requestAnimationFrame()
+        await useAnimationFrame()
         this.showWrapper = true
       }
       this.rerender()

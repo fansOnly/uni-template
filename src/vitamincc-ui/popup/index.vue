@@ -2,33 +2,33 @@
   <view @touchmove.stop="noop">
     <view v-if="display"
       :class="['vc-popup', `is-${position}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom-safe' : null, classes]"
-      :style="styled" @transitionend="onTransitionEnd">
+      :style="popupStyle" @transitionend="onTransitionEnd">
       <!-- slot header -->
       <slot name="header">
         <view v-if="title && title.length" :class="['vc-popup__header', border ? 'vc-hairline--bottom' : null]">
           <view class="vc-popup__title">{{ title }}</view>
         </view>
       </slot>
-      <view v-if="closeable" :class="['vc-popup__close', 'vc-popup__close--' + closeIconPosition]" @click="close">
+      <view v-if="closeable" :class="['vc-popup__close', 'is-' + closeIconPosition]" @click="onClose">
         <!-- slot close -->
         <slot name="close">
-          <vc-icon name="cross-blank" :size="20" color="#909399" />
+          <vc-icon name="cross-blank" :size="20" />
         </slot>
       </view>
-      <scroll-view scroll-y class="vc-popup__body" :style="bodyStyled">
+      <scroll-view scroll-y class="vc-popup__body" :style="bodyStyle">
         <!-- slot default -->
         <slot />
       </scroll-view>
     </view>
-    <vc-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex - 1" :custom-style="overlayStyle"
-      @click="clickOverlay"></vc-overlay>
+    <vc-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex ? zIndex - 1 : -1"
+      :custom-style="overlayStyle" @click="onClickOverlay"></vc-overlay>
   </view>
 </template>
 
 <script>
 import transition from '../mixins/transition'
-import { addUnit } from '../common/util'
-import { getAppData } from '../common/global-data'
+import { useUnit } from '../common/hooks/use-unit'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 export default {
   name: 'vc-popup',
@@ -44,11 +44,6 @@ export default {
     },
     // 弹窗标题
     title: null,
-    // 弹窗Y轴位移
-    offset: {
-      type: String,
-      default: ''
-    },
     // height 默认自适应，如果内容过多，需要设置高度防止内容过溢出屏幕
     height: {
       type: [Number, String],
@@ -58,16 +53,8 @@ export default {
       type: [Number, String],
       default: 'auto'
     },
-    // 弹窗最大高度
-    maxHeight: {
-      type: [Number, String],
-      default: '40vh'
-    },
-    // 弹窗最小高度
-    minHeight: {
-      type: [Number, String],
-      default: 'auto'
-    },
+    // 弹窗Y轴位移
+    offset: String,
     // 是否显示标题下边框线
     border: {
       type: Boolean,
@@ -99,10 +86,7 @@ export default {
       default: true
     },
     // 弹窗层级
-    zIndex: {
-      type: Number,
-      default: 9000
-    },
+    zIndex: Number,
     // 是否为 iPhoneX 留出底部安全距离
     safeAreaInsetBottom: {
       type: Boolean,
@@ -121,8 +105,8 @@ export default {
     overlayStyle: String
   },
   computed: {
-    animationName({ position }) {
-      switch (position) {
+    animationName() {
+      switch (this.position) {
         case 'top':
           return 'slide-down'
         case 'bottom':
@@ -135,38 +119,33 @@ export default {
           return 'fade'
       }
     },
-    styled({ offset, zIndex, currentDuration, display, customStyle }) {
-      const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
-      let style = `z-index: ${zIndex};`
-      style += `margin-top: calc(${offset} + ${isCustomNavigation ? navHeight : 0}px);`
-      style += `transition-duration: ${currentDuration}ms;`
-      if (!display) style += 'display: none;'
-      return style + customStyle
-    },
-    bodyStyled({ position, maxHeight, minHeight, unitedHeight, unitedWidth, bodyStyle }) {
+    popupStyle() {
+      const { isCustomNav, navHeight } = useCustomNav()
       let style = ''
-      if (position === 'top' || position === 'bottom') {
-        style += `height: calc(${unitedHeight} - 120rpx);`
-        style += `width: calc(${unitedWidth} - 120rpx);`
-        style += `max-height: ${addUnit(maxHeight)};`
-        style += `min-height: ${addUnit(minHeight)};`
+      style += `margin-top: calc(${(this.offset || 0) + (isCustomNav ? navHeight : 0)}px);`
+      style += `transition-duration: ${this.currentDuration}ms;`
+      if (this.zIndex) {
+        style += `z-index: ${this.zIndex};`
       }
-      return style + bodyStyle
+      if (!this.display) {
+        style += 'display: none;'
+      }
+      return style + (this.customStyle ?? '')
     },
     unitedHeight({ height }) {
-      return height === 'auto' ? height : addUnit(height, 'vh')
+      return height === 'auto' ? height : useUnit(height, 'vh')
     },
     unitedWidth({ width }) {
-      return width === 'auto' ? width : addUnit(width, 'vh')
+      return width === 'auto' ? width : useUnit(width, 'vh')
     },
   },
   methods: {
-    clickOverlay() {
+    onClickOverlay() {
       if (!this.closeOnClickOverlay) return
       this.$emit('click-overlay')
       this.$emit('update:visible', false)
     },
-    close() {
+    onClose() {
       this.$emit('close')
       this.$emit('update:visible', false)
     },

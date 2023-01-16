@@ -1,4 +1,4 @@
-export const useSelectorRect = (context, selector) => {
+export const useRect = (context, selector) => {
   return new Promise(
     (resolve) => {
       wx.createSelectorQuery()

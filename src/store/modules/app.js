@@ -24,6 +24,8 @@ const state = {
   customWindowHeight: 0,
   // 自定义导航高度
   navHeight: 0,
+  // 置灰模式
+  isGray: false,
 }
 
 const getters = {
@@ -61,6 +63,9 @@ const mutations = {
       // #endif
     }
     state.windowHeight = height
+  },
+  SET_GRAY(state, payload = false) {
+    state.isGray = payload
   }
 }
 
@@ -76,6 +81,9 @@ const actions = {
   },
   setWindowHeight({ commit }, payload) {
     commit('SET_WINDOW_HEIGHT', payload)
+  },
+  setGray({ commit }, payload) {
+    commit('SET_GRAY', payload)
   }
 }
 

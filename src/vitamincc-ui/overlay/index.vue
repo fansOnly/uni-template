@@ -1,7 +1,7 @@
 <template>
   <!-- 需要将 class 挂载在 vc-transition 上，不然遮罩层级有bug -->
   <vc-transition :visible="visible" :animation-name="name" :duration="duration" @click="onClose">
-    <view class="vc-overlay" :style="styled">
+    <view class="vc-overlay" :style="styled" @touchmove.stop="noop">
       <!-- slot default -->
       <slot />
     </view>
@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { getAppData } from '../common/global-data'
+import { useCustomNav } from '../common/hooks/use-custom-nav'
+
 export default {
   name: 'vc-overlay',
   props: {
@@ -29,9 +30,7 @@ export default {
       default: 300
     },
     // 层级
-    zIndex: {
-      type: Number
-    },
+    zIndex: Number,
     // 锁定滚动穿透
     lockScroll: {
       type: Boolean,
@@ -47,12 +46,14 @@ export default {
   },
   computed: {
     styled() {
-      const [isCustomNavigation, navHeight] = getAppData(['isCustomNavigation', 'navHeight'])
+      const { isCustomNav, navHeight } = useCustomNav()
       let style = ''
-      if (this.zIndex) {
+      if (this?.zIndex > 0) {
         style += `z-index: ${this.zIndex};`
       }
-      if (isCustomNavigation) style += `top: ${navHeight}px;`
+      if (isCustomNav) {
+        style += `top: ${navHeight}px;`
+      }
       return style + this.customStyle
     }
   },
@@ -61,7 +62,8 @@ export default {
       if (!this.clickable) return
       this.$emit('click')
       this.$emit('update:visible', false)
-    }
+    },
+    noop() { }
   }
 }
 </script>

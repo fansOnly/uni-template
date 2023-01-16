@@ -1,24 +1,23 @@
 <template>
   <vc-page :show="pageReady">
-    <vc-navigation title="UI 组件演示库" mode="dark" :is-gray="isGray" @after-mounted="navMounted = true" />
+    <vc-navigation slot="nav" title="UI 组件演示库" mode="dark" @after-mounted="navMounted = true" />
     <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]">
-      <view :class="[isGray ? 'is-gray' : null]">
-        <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
-          <demo-block :title="group.groupName" padding background="#fff">
-            <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
-              <view class="demo-group-item" @click="handleRouter(item)">
-                <view class="demo-group-item__label">{{ item.title }}</view>
-                <view class="demo-group-item__right-icon">
-                  <vc-icon name="arrow-right" size="20" />
-                </view>
+      <!-- <view :class="[isGray ? 'is-gray' : null]"> -->
+      <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
+        <demo-block :title="group.groupName" padding background="#fff">
+          <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
+            <view class="demo-group-item" @click="handleRouter(item)">
+              <view class="demo-group-item__label">{{ item.title }}</view>
+              <view class="demo-group-item__right-icon">
+                <vc-icon name="arrow-right" size="20" />
               </view>
             </view>
-          </demo-block>
-        </view>
-        <view class="gap"></view>
-        <vc-button @click="isGray = !isGray">{{ isGray? '取消置灰': '置灰页面' }}</vc-button>
+          </view>
+        </demo-block>
       </view>
-      <!-- <vc-tab-bar :is-gray="isGray" /> -->
+      <view class="gap"></view>
+      <vc-button @click="toggleGray">{{ isGray? '取消置灰': '置灰页面' }}</vc-button>
+      <!-- </view> -->
     </view>
   </vc-page>
 </template>
@@ -27,7 +26,7 @@
 import DemoBlock from '@/components/demo-block'
 import list from '../config'
 import { demo } from '@/api/demo'
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -65,6 +64,11 @@ export default {
     console.log('on home page hide')
   },
   methods: {
+    ...mapActions('app', ['setGray']),
+    toggleGray() {
+      this.isGray = !this.isGray
+      this.setGray(this.isGray)
+    },
     handleRouter({ prefix, path }) {
       const url = `/${prefix}${path}/index`
       this.$Router.push(url)
