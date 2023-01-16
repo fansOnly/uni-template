@@ -423,9 +423,14 @@ $image: map.merge(
 $popup: () !default;
 $popup: map.merge(
   (
-    'header-height': 112rpx,
+    'max-width': 50vh,
+    'min-width': 30vh,
+    'max-height': 50vh,
+    'mix-height': 30vh,
+    'header-height': getCssVar('component-size'),
     'header-padding': 0 getCssVar('padding-horizontal'),
-    'title-color': getCssVar('text-color', 'primary'),
+    'title-text-color': getCssVar('text-color', 'primary'),
+    'title-text-font-size': getCssVar('font-size', 'base'),
     'close-offset-left': getCssVar('padding-horizontal'),
     'close-offset-right': getCssVar('padding-horizontal'),
     'bg-color': getCssVar('bg-color'),
@@ -438,6 +443,7 @@ $popup: map.merge(
       getCssVar('border-radius', 'base') 0,
     'border-radius-right': getCssVar('border-radius', 'base') 0 0
       getCssVar('border-radius', 'base'),
+    'z-index': getCssVar('z-index', 'popper'),
   ),
   $popup
 );
@@ -788,4 +794,17 @@ $navigation: map.merge(
     'z-index': getCssVar('z-index', 'navigation'),
   ),
   $navigation
+);
+
+// tab-bar
+$tab-bar: () !default;
+$tab-bar: map.merge(
+  (
+    'height': getCssVar('component-size'),
+    'box-shadow': getCssVar('box-shadow', 'lighter'),
+    'text-color': getCssVar('text-color', 'regular'),
+    'text-font-size': getCssVar('font-size', 'smaller'),
+    'z-index': getCssVar('z-index', 'navigation'),
+  ),
+  $tab-bar
 );

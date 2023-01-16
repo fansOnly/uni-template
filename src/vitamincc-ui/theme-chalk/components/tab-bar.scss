@@ -1,0 +1,36 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(tab-bar) {
+  @include set-preset-css-var('tab-bar', $tab-bar);
+}
+
+@include b(tab-bar) {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: getCssVar('tab-bar', 'height');
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: getCssVar('tab-bar', 'box-shadow');
+  z-index: getCssVar('tab-bar', 'z-index');
+
+  @include e(item) {
+    @include utils-flex-center;
+
+    flex: 1;
+    flex-direction: column;
+  }
+
+  @include e(text) {
+    margin-top: 10rpx;
+    color: getCssVar('tab-bar', 'text-color');
+    font-size: getCssVar('tab-bar', 'text-font-size');
+    line-height: 1;
+  }
+}

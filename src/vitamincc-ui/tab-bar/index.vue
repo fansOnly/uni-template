@@ -1,6 +1,6 @@
 <template>
   <view :class="['vc-tab-bar', 'vc-hairline--top', isGray ? 'is-gray' : null]" :style="styled">
-    <view v-for="(item, index) in tabBarList" :key="index" class="vc-tab-bar-item" @click="onSwitchTab(item)">
+    <view v-for="(item, index) in tabBarList" :key="index" class="vc-tab-bar__item" @click="onSwitchTab(item)">
       <vc-image :src="`/${current === item.pagePath ? item.selectedIconPath : item.iconPath}`" width="24" height="24"
         full-path />
       <view class="vc-tab-bar__text"
@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import cssVariables from '@/common/theme'
-import { tabBarList, tabBarStyle } from '../common/tab-bar'
+import { useTabBar } from '../common/hooks/use-tab-bar'
 
 export default {
   name: 'vc-tab-bar',
@@ -24,8 +23,8 @@ export default {
   },
   data() {
     return {
-      tabBarList: Object.freeze(tabBarList),
-      tabBarStyle: Object.freeze(tabBarStyle)
+      tabBarList: [],
+      tabBarStyle: {},
     }
   },
   computed: {
@@ -36,11 +35,16 @@ export default {
       return route
     },
     styled() {
-      let style = `z-index: ${+cssVariables.tabBarZIndex};`
-      style += `background: ${tabBarStyle.backgroundColor};`
-      style += `border-color: ${tabBarStyle.borderStyle};`
+      let style = ''
+      style += `background-color: ${this.tabBarStyle.backgroundColor};`
+      style += `border-color: ${this.tabBarStyle.borderStyle};`
       return style
     },
+  },
+  created() {
+    const { tabBarList, tabBarStyle } = useTabBar()
+    this.tabBarList = Object.freeze(tabBarList)
+    this.tabBarStyle = Object.freeze(tabBarStyle)
   },
   methods: {
     onSwitchTab({ pagePath }) {
@@ -51,30 +55,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-tab-bar {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 106rpx;
-  padding-bottom: env(safe-area-inset-bottom);
-  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
-}
-
-.vc-tab-bar-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.vc-tab-bar__text {
-  margin-top: 10rpx;
-  font-size: 12px;
-  color: $uni-text-color-sub;
-  line-height: 1;
-}
+@import '../theme-chalk/components/tab-bar.scss';
 </style>
