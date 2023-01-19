@@ -9,8 +9,8 @@
 
       <!-- 加载提示 -->
       <view class="scroll-list__load">
-        <vc-loading v-if="isLoading" type="spinner">{{loadingContent}}</vc-loading>
-        <view v-if="finished" class="scroll-list__load--finished">{{loadingContent}}</view>
+        <vc-loading v-if="isLoading" type="spinner">{{ loadingContent }}</vc-loading>
+        <view v-if="finished" class="scroll-list__load--finished">{{ loadingContent }}</view>
       </view>
     </template>
     <view v-if="empty && !firstLoad" :style="emptyStyle">
@@ -82,16 +82,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .scroll-list-wrap {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .scroll-list__load {
-    padding: $uni-spacing-12 $uni-spacing-16;
-    text-align: center;
-  }
-  .scroll-list__load--finished {
-    color: $uni-text-color-sub;
-    font-size: $uni-font-size-14;
-    text-align: center;
-  }
+.scroll-list-wrap {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.scroll-list__load {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.scroll-list__load--finished {
+  color: var(--vc-text-color-regular);
+  font-size: 14px;
+  text-align: center;
+}
 </style>

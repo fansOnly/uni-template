@@ -44,6 +44,6 @@ export default {
   width: 100px;
   height: 100px;
   margin: auto;
-  background: $uni-color-primary;
+  background: var(--vc-color-primary);
 }
 </style>

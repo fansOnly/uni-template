@@ -3,15 +3,15 @@
 
     <demo-block title="基础用法" padding>
       <vc-button type="primary" @click="checkIsSupport">检查可支持方式</vc-button>
-      <view class="gap-top">{{ isSupportFacial ? '人脸识别' : '' }} {{ isSupportFingerPrint ? '指纹识别' : '' }}</view>
+      <view class="gap-top">{{ isSupportFacial? '人脸识别': '' }} {{ isSupportFingerPrint? '指纹识别': '' }}</view>
 
       <template v-if="isSupportFacial || isSupportFingerPrint">
         <view class="gap"></view>
         <view class="gap"></view>
         <vc-button type="primary" @click="checkIsSoterEnrolled">检查是否录入</vc-button>
         <view class="gap"></view>
-        <view v-if="isSupportFacial" class="demo-title">是否已录入指纹：{{ isFingerPrintEnrolled }}</view>
-        <view v-if="isSupportFingerPrint" class="demo-title">是否已录入人脸：{{ isFacialEnrolled }}</view>
+        <view v-if="isSupportFingerPrint" class="demo-title">是否已录入指纹：{{ isFingerPrintEnrolled }}</view>
+        <view v-if="isSupportFacial" class="demo-title">是否已录入人脸：{{ isFacialEnrolled }}</view>
         <view class="gap"></view>
         <view class="gap"></view>
         <template v-if="isSupportFingerPrint">
@@ -27,8 +27,8 @@
 
 <script>
 import DemoBlock from '@/sub-package-demo/components/demo-block'
-
-import { getSupportedSoter, isSoterEnrolled, startSoter } from '@/common/hooks/use-wxapi'
+import { useSoter } from '@/common/hooks/use-wxapi'
+const { getSupportedSoter, isSoterEnrolled, startSoter } = useSoter()
 
 export default {
   components: {

@@ -4,12 +4,16 @@ import { useUpdater } from '@/common/hooks/use-updater'
 import { useLogin } from '@/common/hooks/use-login'
 
 export default {
-  globalData: {},
+  globalData: {
+    restart: true
+  },
   onLaunch(options) {
     console.log('🚀 ™ App Launch')
     console.log('🚀 ™ 环境变量', process.env)
     console.log('🚀 ™ 系统信息', uni.$sysInfo)
     console.log('🚀 ™ 启动参数', options)
+
+    this.globalData.restart = false
 
     // 带 shareTicket 分享场景 1044
     if (options.shareTicket) {
@@ -27,16 +31,18 @@ export default {
     /* #endif */
   },
   async onShow(options) {
-    console.log('🚀 ™ App Show')
-
-    store.dispatch('app/setAppShow')
+    if (this.globalData.restart) {
+      console.log('🚀 ™ App Show - 冷启动')
+    } else {
+      console.log('🚀 ™ App Show - 热启动')
+    }
 
     const hideScene = store.state.app.hideScene
     if (['run-backstage', 'app-share', 'open-document', 'choose-media'].includes(hideScene)) {
       return store.dispatch('app/setHideScene')
     }
 
-    // 是否置灰模式
+    // 置灰模式
     // store.dispatch('app/setGray', true)
 
     await useLogin()
@@ -52,7 +58,6 @@ export default {
   },
   onHide() {
     console.log('🚀 ™ App Hide')
-    store.dispatch('app/setAppHide')
   }
 }
 </script>

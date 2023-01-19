@@ -158,6 +158,6 @@ export default {
 }
 
 .vc-picker-button--confirm {
-  color: $uni-color-primary;
+  color: var(--vc-color-primary);
 }
 </style>

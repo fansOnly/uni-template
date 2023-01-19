@@ -130,7 +130,7 @@ export default {
 .vc-dropdown-menu {
   display: flex;
   position: relative;
-  background-color: $uni-bg-white;
+  background-color: var(--vc-bg-color);
 }
 
 .vc-dropdown-menu__title {
@@ -139,7 +139,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 48px;
-  color: $uni-text-color-sub;
+  color: var(--vc-text-color-regular);
   line-height: 48px;
   white-space: nowrap;
 
@@ -148,7 +148,7 @@ export default {
   }
 
   &.is-disabled {
-    color: $uni-text-color-disabled;
+    color: var(--vc-text-color-disabled);
     /* #ifdef H5 */
     cursor: pointer;
     /* #endif */
@@ -160,7 +160,7 @@ export default {
 }
 
 .vc-dropdown-menu__icon {
-  margin-left: $uni-spacing-4;
+  margin-left: 4px;
   transition: all ease 0.3s;
   transform-origin: 50% 50%;
 }

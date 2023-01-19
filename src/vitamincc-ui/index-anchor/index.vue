@@ -13,8 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { useRect } from '@/common/hooks/use-rect'
-import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 export default {
   name: 'vc-index-anchor',
@@ -43,6 +43,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('app', ['navHeightValue']),
     anchorStyled() {
       if (!this.isSticky) return this.customStyle
       let top = this.offsetTop
@@ -50,8 +51,7 @@ export default {
       top += 44
       /* #endif */
       // #ifdef MP-WEIXIN
-      const { isCustomNav, navHeight } = useCustomNav()
-      top += isCustomNav ? navHeight : 0
+      top += this.navHeightValue
       // #endif
       return `top: ${top}px;${this.customStyle ?? ''}`
     }

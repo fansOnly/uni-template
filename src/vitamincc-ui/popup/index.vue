@@ -26,9 +26,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import transition from '../mixins/transition'
 import { useUnit } from '../common/hooks/use-unit'
-import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 export default {
   name: 'vc-popup',
@@ -105,6 +105,7 @@ export default {
     overlayStyle: String
   },
   computed: {
+    ...mapGetters('app', ['navHeightValue']),
     animationName() {
       switch (this.position) {
         case 'top':
@@ -120,9 +121,8 @@ export default {
       }
     },
     popupStyle() {
-      const { isCustomNav, navHeight } = useCustomNav()
       let style = ''
-      style += `margin-top: calc(${(this.offset || 0) + (isCustomNav ? navHeight : 0)}px);`
+      style += `margin-top: calc(${(this.offset || 0) + (this.navHeightValue)}px);`
       style += `transition-duration: ${this.currentDuration}ms;`
       if (this.zIndex) {
         style += `z-index: ${this.zIndex};`

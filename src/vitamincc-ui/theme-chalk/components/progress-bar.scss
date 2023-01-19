@@ -1,0 +1,86 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(progress-bar) {
+  @include set-preset-css-var('progress-bar', $progress-bar);
+}
+
+@include b(progress-bar) {
+  $namespace: &;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: getCssVar('progress-bar', 'height');
+  color: getCssVar('progress-bar', 'bg-color');
+  z-index: getCssVar('progress-bar', 'z-index');
+  animation-duration: getCssVar('transition-duration');
+
+  @include when(fade) {
+    animation-delay: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-name: fadeOut;
+    animation-fill-mode: forwards;
+  }
+
+  &--before,
+  &--after {
+    width: 0;
+    height: 100%;
+    background-color: currentColor;
+    animation-timing-function: getCssVar('animation-timing-function');
+    animation-name: progress;
+    animation-fill-mode: forwards;
+    animation-duration: getCssVar('transition-duration');
+  }
+
+  @include m(before) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-duration: 6s;
+  }
+
+  @include when(paused) {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+
+  40% {
+    width: 50%;
+  }
+
+  70% {
+    width: 60%;
+  }
+
+  90% {
+    width: 70%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

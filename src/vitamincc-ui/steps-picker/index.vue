@@ -19,7 +19,8 @@
         :style="{ 'max-width': 'calc(100% / ' + renderOptions.length + ');' }"
         @change="onChange($event, index)"></vc-picker-column>
       <template v-if="renderOptions.length">
-        <view class="vc-picker-mask" :style="{ 'background-size': '100% ' + (rowHeight * (rows - 1)) / 2 + 'px' }"></view>
+        <view class="vc-picker-mask" :style="{ 'background-size': '100% ' + (rowHeight * (rows - 1)) / 2 + 'px' }">
+        </view>
         <view :class="['vc-picker-line vc-hairline--top-bottom', rows % 2 === 0 ? null : 'adapt']"
           :style="{ 'height': rowHeight + 'px' }"></view>
       </template>
@@ -123,7 +124,7 @@ export default {
   methods: {
     initValues() {
       if (this.optionKey === 'value') {
-        let arr = []
+        const arr = []
         this.options.map((item, i) => {
           const index = item.data.findIndex(v => {
             const selected = this.values.find(k => k.key === item.key)
@@ -188,11 +189,11 @@ export default {
 }
 
 .vc-picker-button--back {
-  margin-left: $uni-spacing-12;
+  margin-left: 12px;
 }
 
 .vc-picker-button--confirm {
-  color: $uni-color-primary;
+  color: var(--vc-color-primary);
 }
 
 .vc-picker-body {

@@ -33,6 +33,7 @@ const router = createRouter({
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
   // console.log('to, from: ', to, from)
+
   const buryData = {
     type: 'page',
     openId: store.state.user.openId,
@@ -42,9 +43,11 @@ router.beforeEach((to, from, next) => {
     device: JSON.stringify(uni.$sysInfo)
   }
   console.log('🚀 ™ 页面埋点 ', buryData)
-  // eslint-disable-next-line no-undef
-  const appInstance = getApp()
-  appInstance.globalData.isCustomNavigation = !!to?.meta?.navigationStyle === 'custom'
+
+  const isCustomNav = to?.meta?.navigationStyle === 'custom'
+  store.dispatch('app/setPageNav', { path: to.path, isCustomNav })
+  store.dispatch('app/setCurrentPage', to.path)
+
   if (to.meta && to.meta.auth) {
     // 模拟登录拦截
     uni.showToast({
@@ -60,7 +63,7 @@ router.beforeEach((to, from, next) => {
 // 全局路由后置守卫
 router.afterEach((to) => {
   // 设置窗口高度
-  store.dispatch('app/setWindowHeight', !!to?.meta?.navigationStyle === 'custom')
+  store.dispatch('app/setWindowHeight')
   // #ifdef MP-WEIXIN
   uni.setNavigationBarTitle({ title: to?.meta?.title || 'UI 组件演示库' })
   // #endif

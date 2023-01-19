@@ -1,18 +1,14 @@
 <template>
   <view v-if="ready" class="vc-page">
     <!-- slot navigation -->
-    <!-- FIX: filter: grayscale(100%) 会影响到子元素的 fixed 布局 -->
-    <slot name="nav" />
+    <slot name="nav">
+      <vc-navigation v-if="isCustomNavPage" :title="title" :mode="mode" />
+    </slot>
     <!-- progress bar -->
-    <view :class="['vc-progress-bar', show || failed ? 'fade' : null]"
-      :style="{ 'top': top + 'px', 'height': height + 'px', 'animation-duration': duration + 'ms' }">
-      <view :class="['vc-progress-bar--before', paused ? 'animation-paused' : null, done ? 'animation-done' : null]"
-        :style="{ 'background': color }"></view>
-      <view v-if="done" class="vc-progress-bar--after"
-        :style="{ 'background': color, 'animation-duration': duration + 'ms' }"></view>
-    </view>
+    <vc-progress-bar :visible="visibleProgress" :paused="paused" :done="done" />
     <!-- slot default -->
-    <view v-if="show" :class="[isGray ? 'is-gray' : null]">
+    <!-- FIX: filter: grayscale(100%) 会影响到子元素的 fixed 布局 -->
+    <view v-if="showContent" :class="[isGray ? 'is-gray' : null]">
       <slot />
     </view>
     <!-- slot skeleton -->
@@ -25,14 +21,17 @@
 
     <!-- 弹窗实例 -->
     <vc-dialog ref="dialog" :visible.sync="dialog.visible" :title="dialog.title" :content="dialog.content"
-      :show-cancel="dialog.showCancel" @confirm="onConfirm" @cancel="onCancel"></vc-dialog>
+      :show-cancel="dialog.showCancel" @confirm="onConfirm" @cancel="onCancel" />
   </view>
 </template>
 
 <script>
-import { useCustomNav } from '../common/hooks/use-custom-nav'
 import { useTabBar } from '../common/hooks/use-tab-bar'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+
+// 加载时长上限
+const TIMEOUT = 5000
+const MAX_TIMEOUT = 15000
 
 export default {
   name: 'vc-page',
@@ -42,22 +41,15 @@ export default {
       type: Boolean,
       default: false
     },
-    // 颜色
-    color: {
+    title: String,
+    mode: {
       type: String,
-      default: '#09BB07'
-    },
-    // 高度
-    height: {
-      type: Number,
-      default: 4
+      default: 'light'
     },
   },
   data() {
     return {
       ready: false,
-      top: 0,
-      duration: 300,
       paused: false,
       done: false,
       failed: false,
@@ -67,15 +59,21 @@ export default {
         content: '',
         showCancel: false
       },
-      isCustomTabBar: false,
-      showTabBar: false
+      showTabBar: false,
     }
   },
   computed: {
-    ...mapState('app', ['isGray']),
+    ...mapState('app', ['isGray', 'isCustomNavMounted', 'pageNavList']),
+    ...mapGetters('app', ['isCustomNavPage']),
+    showContent() {
+      return this.show && (this.isCustomNavPage ? this.isCustomNavMounted : true)
+    },
+    visibleProgress() {
+      return this.showContent || this.failed
+    }
   },
   watch: {
-    show: {
+    showContent: {
       handler(val) {
         if (val) {
           if (+new Date() - this.start < 5000) {
@@ -95,42 +93,32 @@ export default {
   },
   created() {
     // #ifdef MP-WEIXIN
-    let { isCustomNav, navHeight, setNavHeight } = useCustomNav()
-    if (isCustomNav) {
-      if (!navHeight) {
-        const rect = wx.getMenuButtonBoundingClientRect()
-        navHeight = rect.bottom + 7 /** 胶囊距离内容区域底部临界值 */
-        setNavHeight(navHeight)
-      }
-      this.top = navHeight
-    }
-
     const { isCustomTabBar, tabBarPages } = useTabBar()
     if (isCustomTabBar) {
       const pages = getCurrentPages()
       const current = pages[pages.length - 1]?.route
-      this.isCustomTabBar = isCustomTabBar
       this.showTabBar = tabBarPages.includes(current)
     }
     // #endif
+
     this.ready = true
     uni.showLoading({
       title: '加载中...',
       mask: true
     })
+
     this.start = +new Date()
-    // 加载时长上限 5s
     this.timer = setTimeout(() => {
-      if (!this.show) {
+      if (!this.showContent) {
         this.paused = true
       } else {
         clearTimeout(this.timer)
         clearTimeout(this.timer2)
       }
-    }, 5000)
+    }, TIMEOUT)
 
     this.timer2 = setTimeout(() => {
-      if (!this.show) {
+      if (!this.showContent) {
         this.failed = true
         this.done = true
         uni.showToast({
@@ -140,7 +128,7 @@ export default {
         })
         clearTimeout(this.timer2)
       }
-    }, 15000)
+    }, MAX_TIMEOUT)
   },
   methods: {
     onConfirm() { },
@@ -150,74 +138,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
 
-  &.fade {
-    animation-delay: 200ms;
-    animation-timing-function: ease-in-out;
-    animation-name: fadeOut;
-    animation-fill-mode: forwards;
-  }
-}
-
-.vc-progress-bar--before,
-.vc-progress-bar--after {
-  width: 0;
-  height: 100%;
-  animation-timing-function: cubic-bezier(.81, .13, .42, .95);
-  animation-name: progress;
-  animation-fill-mode: forwards;
-}
-
-.vc-progress-bar--before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  animation-duration: 6000ms;
-}
-
-.animation-paused {
-  animation-play-state: paused;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes progress {
-  0% {
-    width: 0;
-  }
-
-  40% {
-    width: 50%;
-  }
-
-  70% {
-    width: 60%;
-  }
-
-  90% {
-    width: 70%;
-  }
-
-  100% {
-    width: 100%;
-  }
-}
 </style>

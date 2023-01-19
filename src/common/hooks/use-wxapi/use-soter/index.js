@@ -29,7 +29,7 @@ const startSoter = async (params) => {
   }
 }
 
-export const useSoter = async () => {
+export const useSoter = () => {
   return {
     getSupportedSoter,
     isSoterEnrolled,

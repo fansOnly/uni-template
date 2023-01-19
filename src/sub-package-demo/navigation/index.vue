@@ -1,8 +1,8 @@
 <template>
   <vc-page :show="pageReady">
     <vc-navigation slot="nav" :mode="mode" :title="title" :align="align" :background="background" :color="color"
-      :bg-image="bgImage" @after-mounted="navMounted = true" />
-    <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]"
+      :bg-image="bgImage" />
+    <view v-show="isCustomNavMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]"
       :style="{ 'min-height': windowHeight + 'px', 'height': '1500px' }">
       <view style="padding:16px;">
         <view class="demo-title">请输入页面标题: </view>
@@ -78,7 +78,6 @@ export default {
   data() {
     return {
       pageReady: false,
-      navMounted: false,
       title: '自定义导航',
       bgImage: '',
       mode: 'light',
@@ -91,7 +90,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('app', ['windowHeight', 'isGray']),
+    ...mapState('app', ['windowHeight', 'isGray', 'isCustomNavMounted']),
     ...mapGetters('app', ['isCustomTabBar'])
   },
   watch: {

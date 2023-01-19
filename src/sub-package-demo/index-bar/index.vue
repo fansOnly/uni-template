@@ -1,18 +1,19 @@
 <template>
-  <view class="page-wrapper">
-    <!-- <vc-navigation title="索引栏" @after-mounted="navMounted = true" /> -->
-    <view class="gap"></view>
-    <view class="demo-title">IndexBar 索引栏</view>
+  <page :show="pageReady">
+    <view class="page-wrapper">
+      <view class="gap"></view>
+      <view class="demo-title">IndexBar 索引栏</view>
 
-    <vc-tabs :value="activeIndex" :options="tabList" @click-item="onClickItem" />
+      <vc-tabs :value="activeIndex" :options="tabList" @click-item="onClickItem" />
 
-    <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
+      <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
 
-    <demo-base v-if="activeIndex == 0" :scroll-top="scrollTop" />
-    <demo-custom-index v-if="activeIndex == 1" :scroll-top="scrollTop" />
+      <demo-base v-if="activeIndex == 0" :scroll-top="scrollTop" />
+      <demo-custom-index v-if="activeIndex == 1" :scroll-top="scrollTop" />
 
-    <view v-for="(_, index) in 'y'.repeat(10)" :key="index" class="demo-title2">这里是组件外部区域了</view>
-  </view>
+      <view v-for="(_, index) in 'y'.repeat(10)" :key="index" class="demo-title2">这里是组件外部区域了</view>
+    </view>
+  </page>
 </template>
 
 <script>
@@ -26,13 +27,13 @@ export default {
   },
   data() {
     return {
+      pageReady: false,
       scrollTop: 0,
       tabList: [
         { text: '基础用法', value: '1' },
         { text: '自定义索引列表', value: '2' },
       ],
       activeIndex: 0,
-      navMounted: false
     }
   },
   onLoad() {
@@ -40,6 +41,7 @@ export default {
   },
   onReady() {
     console.log('onReady', +new Date() - this.t0)
+    this.pageReady = true
   },
   methods: {
     onClickItem(item, index) {

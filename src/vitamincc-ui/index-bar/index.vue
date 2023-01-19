@@ -13,8 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { useRect } from '@/common/hooks/use-rect'
-import { useCustomNav } from '../common/hooks/use-custom-nav'
 
 function genIndexList(withSpecial = true) {
   const arr = []
@@ -81,10 +81,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('app', ['navHeightValue']),
     sidebarStyled() {
       let style = ''
-      if (this.isCustomNav) {
-        style += `margin-top: ${this.navHeight / 2}px;`
+      if (this.navHeightValue) {
+        style += `margin-top: ${this.navHeightValue / 2}px;`
       }
       return style
     }
@@ -111,11 +112,6 @@ export default {
   created() {
     this.children = []
     this.anchorRects = []
-  },
-  mounted() {
-    const { isCustomNav, navHeight } = useCustomNav()
-    this.isCustomNav = isCustomNav
-    this.navHeight = navHeight
   },
   methods: {
     init() {
@@ -216,7 +212,7 @@ export default {
       this.boundary = { start: top, end: rect.bottom }
     },
     fixIfCustomNav(value) {
-      return value - (this.isCustomNav ? this.navHeight : 0)
+      return value - this.navHeightValue
     }
   },
 }

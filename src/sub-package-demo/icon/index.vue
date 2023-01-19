@@ -54,7 +54,7 @@ export default {
 
 .icon-name {
   margin-top: 8px;
-  color: $uni-text-color-sub;
+  color: var(--vc-text-color-regular);
   font-size: 12px;
   text-align: center;
 }

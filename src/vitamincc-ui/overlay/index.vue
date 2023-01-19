@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { useCustomNav } from '../common/hooks/use-custom-nav'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'vc-overlay',
@@ -45,14 +45,14 @@ export default {
     customStyle: String
   },
   computed: {
+    ...mapGetters('app', ['navHeightValue']),
     styled() {
-      const { isCustomNav, navHeight } = useCustomNav()
       let style = ''
       if (this?.zIndex > 0) {
         style += `z-index: ${this.zIndex};`
       }
-      if (isCustomNav) {
-        style += `top: ${navHeight}px;`
+      if (this.navHeightValue) {
+        style += `top: ${this.navHeightValue}px;`
       }
       return style + this.customStyle
     }

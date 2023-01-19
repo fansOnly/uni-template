@@ -2,12 +2,6 @@ import pageCfg from '@/pages.json'
 
 const state = {
   /**
-   * 小程序运行状态
-   * true: 前台
-   * false: 后台
-   */
-  visibility: false,
-  /**
    * 小程序隐藏场景
    * @property
    *  @value run-backstage 切后台运行
@@ -24,26 +18,39 @@ const state = {
   customWindowHeight: 0,
   // 自定义导航高度
   navHeight: 0,
+  // 路由映射
+  pageNavList: [],
+  // 自定义导航是否加载完成
+  isCustomNavMounted: false,
   // 置灰模式
   isGray: false,
+  currentPage: ''
 }
 
 const getters = {
   isCustomTabBar: () => {
     return pageCfg?.tabBar?.custom === true
+  },
+  tabBarList: () => {
+    return pageCfg?.tabBar?.list || []
+  },
+  isCustomNavPage: (state, getters) => {
+    const tabBarPages = getters.tabBarList.map(v => v.pagePath)
+    const isTabBarPage = tabBarPages.includes(state.currentPage.substring(1))
+    return state.pageNavList.find(v => v.path === state.currentPage)?.isCustomNav && !isTabBarPage
+  },
+  navHeightValue: (state, getters) => {
+    return getters.isCustomNavPage ? state.navHeight : 0
   }
 }
 
 const mutations = {
-  SET_APP_VISIBILITY(state, payload) {
-    state.visibility = payload
-  },
   SET_HIDE_SCENE(state, payload = '') {
     state.hideScene = payload
   },
-  SET_WINDOW_HEIGHT(state, isCustom = false) {
+  SET_WINDOW_HEIGHT(state) {
     let height = 0
-    if (isCustom) {
+    if (getters.isCustomNavPage) {
       if (state.defaultWindowHeight) {
         height = state.defaultWindowHeight
       } else {
@@ -64,26 +71,47 @@ const mutations = {
     }
     state.windowHeight = height
   },
+  SET_PAGE_NAV(state, payload) {
+    const paths = state.pageNavList.map(v => v.path)
+    if (!paths.includes(payload?.path)) {
+      state.pageNavList.push(payload)
+    }
+  },
+  SET_CUSTOM_NAV_MOUNT(state, payload = false) {
+    state.isCustomNavMounted = payload
+  },
+  SET_NAV_HEIGHT(state, payload = 0) {
+    state.navHeight = payload
+  },
   SET_GRAY(state, payload = false) {
     state.isGray = payload
+  },
+  SET_CURRENT_PAGE(state, payload = false) {
+    state.currentPage = payload
   }
 }
 
 const actions = {
-  setAppShow({ commit }) {
-    commit('SET_APP_VISIBILITY', true)
-  },
-  setAppHide({ commit }) {
-    commit('SET_APP_VISIBILITY', false)
-  },
   setHideScene({ commit }, payload) {
     commit('SET_HIDE_SCENE', payload)
   },
   setWindowHeight({ commit }, payload) {
     commit('SET_WINDOW_HEIGHT', payload)
   },
+  setPageNav({ commit }, payload) {
+    commit('SET_PAGE_NAV', payload)
+  },
+  setCustomNavMounted({ commit }, payload) {
+    commit('SET_CUSTOM_NAV_MOUNT', payload)
+  },
+  setNavHeight({ commit }, payload) {
+    commit('SET_NAV_HEIGHT', payload)
+  },
   setGray({ commit }, payload) {
     commit('SET_GRAY', payload)
+  },
+  setCurrentPage({ commit }, payload) {
+    commit('SET_CURRENT_PAGE', payload)
   }
 }
 

@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     formatter(val) {
-      return val >= 50 ? '小' : '大'
+      return val >= 50 ? '大' : '小'
     },
     increment() {
       if (this.value + 10 >= 100) {

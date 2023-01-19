@@ -19,10 +19,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
 import { useRect } from '@/common/hooks/use-rect'
 import { useVersion } from '@/common/hooks/use-version'
-import { useCustomNav } from '../common/hooks/use-custom-nav'
 const { gte } = useVersion()
 
 export default {
@@ -87,11 +87,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('app', ['navHeightValue']),
     tabsStyle() {
       let top = 0
       // #ifdef MP-WEIXIN
-      if (this.isCustomNav && this.shouldFix) {
-        top = this.navHeight
+      if (this.navHeightValue && this.shouldFix) {
+        top = this.navHeightValue
       }
       // #endif
       // #ifdef H5
@@ -136,9 +137,6 @@ export default {
     },
   },
   async mounted() {
-    const { isCustomNav, navHeight } = useCustomNav()
-    this.isCustomNav = isCustomNav
-    this.navHeight = navHeight
     // Bug: A，B 页面都设置自定义导航且包含 tab 组件时， A 页面 跳转 B 页面 获取的 top 值不一致
     // 会产生 navHeight 的误差
     setTimeout(async () => {
@@ -185,7 +183,7 @@ export default {
     async resolveTabRect() {
       const rect = await useRect(this, '.vc-tabs__item')
       this.width = rect.width
-      this.top = rect.top - (this.isCustomNav ? this.navHeight : 0)
+      this.top = rect.top - this.navHeightValue
     },
   },
 }

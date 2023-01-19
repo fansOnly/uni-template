@@ -5,7 +5,7 @@
         <view class="demo-item-space">
           <vc-button>普通按钮</vc-button>
         </view>
-        <view class="demo-item-space">
+        <view class="demo-item-space" style="--vc-color-primary: #f60;">
           <vc-button type="primary">确认按钮</vc-button>
         </view>
         <view class="demo-item-space">

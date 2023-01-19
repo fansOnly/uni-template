@@ -1,298 +1,5 @@
 @use 'sass:map';
-@use 'sass:math';
-
 @use '../mixins/function' as *;
-
-// Color
-$colors: () !default;
-$colors: map.deep-merge(
-  (
-    'white': #ffffff,
-    'black': #000000,
-    'primary': (
-      'base': #00bcd4,
-    ),
-    'success': (
-      'base': #67c23a,
-    ),
-    'warning': (
-      'base': #e6a23c,
-    ),
-    'danger': (
-      'base': #f56c6c,
-    ),
-    'error': (
-      'base': #f56c6c,
-    ),
-    'info': (
-      'base': #909399,
-    ),
-  ),
-  $colors
-);
-
-$color-white: map.get($colors, 'white') !default;
-$color-black: map.get($colors, 'black') !default;
-$color-primary: map.get($colors, 'primary', 'base') !default;
-$color-success: map.get($colors, 'success', 'base') !default;
-$color-warning: map.get($colors, 'warning', 'base') !default;
-$color-danger: map.get($colors, 'danger', 'base') !default;
-$color-error: map.get($colors, 'error', 'base') !default;
-$color-info: map.get($colors, 'info', 'base') !default;
-
-// https://sass-lang.com/documentation/values/maps#immutability
-// mix colors with white/black to generate light/dark level
-@mixin set-color-mix-level(
-  $type,
-  $number,
-  $mode: 'light',
-  $mix-color: $color-white
-) {
-  $colors: map.deep-merge(
-    (
-      $type: (
-        '#{$mode}-#{$number}':
-          mix(
-            $mix-color,
-            map.get($colors, $type, 'base'),
-            math.percentage(math.div($number, 10))
-          ),
-      ),
-    ),
-    $colors
-  ) !global;
-}
-
-// lightness type color
-@each $type in (primary, success, warning, error, info) {
-  @for $i from 1 through 9 {
-    @include set-color-mix-level($type, $i, 'light', $color-white);
-  }
-}
-
-// Typography
-$font-size: () !default;
-$font-size: map.merge(
-  (
-    'base': 16px,
-    'small': 14px,
-    'smaller': 12px,
-    'mini': 10px,
-    'large': 18px,
-    'larger': 20px,
-  ),
-  $font-size
-);
-
-$font-weight: () !default;
-$font-weight: map.merge(
-  (
-    '': 400,
-    'light': 300,
-    'lighter': 200,
-    'bold': 500,
-    'bolder': 600,
-  ),
-  $font-weight
-);
-
-// Text color
-$text-color: () !default;
-$text-color: map.merge(
-  (
-    'primary': #1e1e1e,
-    'regular': #606266,
-    'secondary': #909399,
-    'placeholder': #a8abb2,
-    'disabled': #c0c4cc,
-  ),
-  $text-color
-);
-
-// Background
-$bg-color: () !default;
-$bg-color: map.merge(
-  (
-    '': #ffffff,
-    'page': #f8f8f8,
-    'active': #fafcff,
-    'hover': #f9f9f9,
-    'disabled': #fafafa,
-  ),
-  $bg-color
-);
-
-// Border
-$border-style: solid !default;
-$border-width: 2rpx !default;
-
-$border-color: () !default;
-$border-color: map.merge(
-  (
-    '': #e4e7ed,
-    'light': #ebeef5,
-    'lighter': #eef1f7,
-  ),
-  $border-color
-);
-
-$border-radius: () !default;
-$border-radius: map.merge(
-  (
-    'small': 4px,
-    'base': 8px,
-    'large': 12px,
-    'round': 2em,
-    'circle': 100%,
-  ),
-  $border-radius
-);
-
-// Box-shadow
-$box-shadow: () !default;
-$box-shadow: map.merge(
-  (
-    '': (
-      0px 12px 32px 4px rgba(0, 0, 0, 0.04),
-      0px 8px 20px rgba(0, 0, 0, 0.08),
-    ),
-    'light': (
-      0px 0px 12px rgba(0, 0, 0, 0.12),
-    ),
-    'lighter': (
-      0px 0px 6px rgba(0, 0, 0, 0.12),
-    ),
-    'dark': (
-      0px 16px 48px 16px rgba(0, 0, 0, 0.08),
-      0px 12px 32px rgba(0, 0, 0, 0.12),
-      0px 8px 16px -8px rgba(0, 0, 0, 0.16),
-    ),
-  ),
-  $box-shadow
-);
-
-// Padding
-$padding-vertical: () !default;
-$padding-vertical: map.merge(
-  (
-    '': 28rpx,
-    'small': 20rpx,
-    'large': 36rpx,
-  ),
-  $padding-vertical
-);
-$padding-horizontal: () !default;
-$padding-horizontal: map.merge(
-  (
-    '': 32rpx,
-    'small': 24rpx,
-    'large': 40rpx,
-  ),
-  $padding-horizontal
-);
-
-// Transition
-$transition-duration: () !default;
-$transition-duration: map.merge(
-  (
-    '': 0.3s,
-    'fast': 0.2s,
-  ),
-  $transition-duration
-);
-
-$transition-function: () !default;
-$transition-function: map.merge(
-  (
-    'ease-in-out-bezier': cubic-bezier(0.645, 0.045, 0.355, 1),
-    'fast-bezier': cubic-bezier(0.23, 1, 0.32, 1),
-  ),
-  $transition-function
-);
-
-$transition: () !default;
-$transition: map.merge(
-  (
-    'all': all getCssVar('transition-duration')
-      getCssVar('transition-function-ease-in-out-bezier'),
-    'fade': opacity getCssVar('transition-duration')
-      getCssVar('transition-function-fast-bezier'),
-    'md-fade': (
-      transform getCssVar('transition-duration')
-        getCssVar('transition-function-fast-bezier'),
-      opacity getCssVar('transition-duration')
-        getCssVar('transition-function-fast-bezier'),
-    ),
-    'transform': (
-      transform getCssVar('transition-duration')
-        getCssVar('transition-function-fast-bezier'),
-    ),
-    'fade-linear': opacity getCssVar('transition-duration-fast') linear,
-    'border': border-color getCssVar('transition-duration-fast')
-      getCssVar('transition-function-ease-in-out-bezier'),
-    'box-shadow': box-shadow getCssVar('transition-duration-fast')
-      getCssVar('transition-function-ease-in-out-bezier'),
-    'background-color': background-color getCssVar('transition-duration-fast')
-      getCssVar('transition-function-ease-in-out-bezier'),
-    'color': color getCssVar('transition-duration-fast')
-      getCssVar('transition-function-ease-in-out-bezier'),
-  ),
-  $transition
-);
-
-// overlay
-$overlay-color: () !default;
-$overlay-color: map.merge(
-  (
-    '': rgba(0, 0, 0, 0.8),
-    'light': rgba(0, 0, 0, 0.7),
-    'lighter': rgba(0, 0, 0, 0.5),
-  ),
-  $overlay-color
-);
-
-// mask
-$mask-color: () !default;
-$mask-color: map.merge(
-  (
-    '': rgba(255, 255, 255, 0.9),
-    'extra-light': rgba(255, 255, 255, 0.3),
-  ),
-  $mask-color
-);
-
-// zIndex
-$z-index: () !default;
-$z-index: map.merge(
-  (
-    'normal': 1,
-    'top': 1000,
-    'popper': 2000,
-    'navigation': 999999,
-  ),
-  $z-index
-);
-
-// Disable default
-$disabled: () !default;
-$disabled: map.merge(
-  (
-    'bg-color': getCssVar('bg-color', 'disabled'),
-    'text-color': getCssVar('text-color', 'disabled'),
-    'border-color': getCssVar('border-color', 'light'),
-  ),
-  $disabled
-);
-
-$component-size: () !default;
-$component-size: map.merge(
-  (
-    'large': 58px,
-    '': 50px,
-    'small': 42px,
-  ),
-  $component-size
-);
 
 /*
  *  ┌─────────────────────────────────────────────────────────────┐
@@ -559,7 +266,7 @@ $picker-column: () !default;
 $picker-column: map.merge(
   (
     'text-padding': 0 8rpx,
-    'text-color': getCssVar('text-color', 'regular'),
+    'text-color': getCssVar('text-color', 'primary'),
     'text-font-size': getCssVar('font-size', 'small'),
     'active-text-font-size': getCssVar('font-size'),
   ),
@@ -620,9 +327,9 @@ $action-sheet: map.merge(
     'text-font-size': getCssVar('font-size', 'base'),
     'active-text-color': getCssVar('color', 'primary'),
     'disabled-text-color': getCssVar('text-color', 'disabled'),
-    'cancel-offset-bg-color': getCssVar('bg-color', 'active'),
-    'cancel-offset-top': 20rpx,
-    'cancel-text-color': getCssVar('text-color', 'secondary'),
+    'gap-height': 24rpx,
+    'gap-bg-color': getCssVar('bg-color', 'active'),
+    'cancel-text-color': getCssVar('text-color', 'regular'),
     'cancel-hover-bg-color': getCssVar('bg-color', 'hover'),
   ),
   $action-sheet
@@ -807,4 +514,15 @@ $tab-bar: map.merge(
     'z-index': getCssVar('z-index', 'navigation'),
   ),
   $tab-bar
+);
+
+// progress-bar
+$progress-bar: () !default;
+$progress-bar: map.merge(
+  (
+    'height': 4px,
+    'bg-color': getCssVar('color', 'success'),
+    'z-index': getCssVar('z-index', 'normal'),
+  ),
+  $progress-bar
 );

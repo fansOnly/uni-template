@@ -1,8 +1,7 @@
 <template>
   <vc-page :show="pageReady">
-    <vc-navigation slot="nav" title="UI 组件演示库" mode="dark" @after-mounted="navMounted = true" />
-    <view v-if="navMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]">
-      <!-- <view :class="[isGray ? 'is-gray' : null]"> -->
+    <vc-navigation slot="nav" title="UI 组件演示库" mode="dark" />
+    <view v-show="isCustomNavMounted" :class="['page-wrapper', isCustomTabBar ? 'is-custom-tab-bar' : null]">
       <view v-for="(group, gIndex) in list" :key="gIndex" class="demo-group">
         <demo-block :title="group.groupName" padding background="#fff">
           <view v-for="(item, index) in group.list" :key="index" class="demo-group-list">
@@ -17,7 +16,6 @@
       </view>
       <view class="gap"></view>
       <vc-button @click="toggleGray">{{ isGray? '取消置灰': '置灰页面' }}</vc-button>
-      <!-- </view> -->
     </view>
   </vc-page>
 </template>
@@ -35,14 +33,13 @@ export default {
   data() {
     return {
       pageReady: false,
-      navMounted: false,
       isGray: false,
       list,
       visible2: false,
     }
   },
   computed: {
-    ...mapState('app', ['windowHeight']),
+    ...mapState('app', ['windowHeight', 'isCustomNavMounted']),
     ...mapGetters('app', ['isCustomTabBar'])
   },
   async onLoad() {
@@ -53,15 +50,10 @@ export default {
     await demo({ a: 1, b: 2 })
   },
   async onShow() {
-    console.log('on home page show')
     await this.$onLaunched
   },
   onReady() {
-    console.log('on home page ready')
     this.pageReady = true
-  },
-  onHide() {
-    console.log('on home page hide')
   },
   methods: {
     ...mapActions('app', ['setGray']),
@@ -102,7 +94,7 @@ export default {
 
 .demo-ui-vs {
   font-size: 50px;
-  color: $uni-color-primary;
+  color: var(--vc-color-primary);
   transform: translateY(-5px);
 }
 

@@ -2,7 +2,7 @@
   <view class="demo-block">
     <view class="demo-title vc-hairline--bottom">{{ title }}</view>
     <view :class="['demo-content', padding ? 'demo-content--padding' : null]" :style="{ 'background': background }">
-      <slot></slot>
+      <slot />
     </view>
   </view>
 </template>
@@ -42,7 +42,7 @@ export default {
     content: '';
     width: 4px;
     height: 20px;
-    background: $uni-color-primary;
+    background-color: var(--vc-color-primary);
     margin-right: 12px;
   }
 }
@@ -50,7 +50,6 @@ export default {
 .demo-content {
   padding: 16px 0;
 
-  /* background: #fff; */
   &--padding {
     padding: 16px;
   }

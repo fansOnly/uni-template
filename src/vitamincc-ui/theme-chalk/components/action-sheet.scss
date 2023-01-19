@@ -9,6 +9,8 @@
 }
 
 @include b(action-sheet) {
+  $namespace: &;
+
   box-sizing: border-box;
   width: 100%;
   background-color: getCssVar('action-sheet', 'bg-color');
@@ -35,8 +37,8 @@
   }
 
   @include e(gap) {
-    height: getCssVar('action-sheet', 'cancel-offset-top');
-    background-color: getCssVar('action-sheet', 'cancel-offset-bg-color');
+    height: getCssVar('action-sheet', 'gap-height');
+    background-color: getCssVar('action-sheet', 'gap-bg-color');
   }
 
   @include e(cancel) {
