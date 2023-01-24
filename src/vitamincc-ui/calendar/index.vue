@@ -6,7 +6,7 @@
         :max-range="maxRange" :formatter="formatter" :allow-same-day="allowSameDay" @change="onChange"
         @over-range="onOverRange"></vc-calendar>
       <slot v-if="withButton" name="button">
-        <vc-button type="primary" size="mini" block round :disabled="disabled" custom-style="margin: 32rpx 32rpx 0;"
+        <vc-button type="primary" size="mini" block round :disabled="disabled" custom-style="margin: 32rpx;"
           @click="onConfirm">{{
             buttonText
           }}</vc-button>
