@@ -43,7 +43,7 @@
 
     <demo-block title="自定义插槽" padding>
       <vc-cell-group border>
-        <vc-cell class="vc-cell-move--right" title="自定义内容">
+        <vc-cell title="自定义内容">
           <view slot="text">这是自定义的内容</view>
         </vc-cell>
         <vc-cell title="自定义图标" is-last>

@@ -3,7 +3,7 @@
     <view v-for="(item) in CONTACT_LIST" :key="item.key">
       <vc-index-anchor :index="item.key" />
 
-      <vc-cell v-for="(user, sIndex) in item.values" :key="sIndex" class="vc-cell-move--right" border>
+      <vc-cell v-for="(user, sIndex) in item.values" :key="sIndex" border>
         <view slot="title" class="user-info">
           <view class="user-avatar">
             <view class="user-avatar-re">{{ user.userName.substring(0, 1) }}</view>

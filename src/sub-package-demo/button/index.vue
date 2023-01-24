@@ -54,7 +54,7 @@
       <vc-button type="primary" block>块级按钮</vc-button>
     </demo-block>
 
-    <demo-block title="不可用状态" padding>
+    <demo-block title="不可用状态" padding background="#fff">
       <view class="demo-row--flex">
         <view class="demo-item-space">
           <vc-button disabled>普通按钮</vc-button>

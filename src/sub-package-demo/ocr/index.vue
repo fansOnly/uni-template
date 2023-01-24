@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '@/common/demo.scss';
+@import '@/sub-package-demo/common/demo.scss';
 
 .id-card-box {
   width: 164px;

@@ -220,7 +220,7 @@ export default [
       },
       {
         title: 'Echarts 图表',
-        prefix: 'sub-package-demo',
+        prefix: 'sub-package-chart',
         path: '/echarts'
       },
       {

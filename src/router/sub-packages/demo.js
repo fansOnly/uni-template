@@ -2,14 +2,6 @@ module.exports = {
   'root': 'sub-package-demo',
   'pages': [
     {
-      'path': 'echarts/index',
-      'name': 'echarts',
-      'meta': {
-        'auth': false,
-        'title': 'echarts 图表'
-      },
-    },
-    {
       'path': 'action-sheet/index',
       'name': 'action-sheet',
       'meta': {

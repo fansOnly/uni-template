@@ -15,7 +15,6 @@
 <script>
 import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
 import { useRect } from '@/common/hooks/use-rect'
-import cssVariables from '@/common/theme'
 
 export default {
   name: 'vc-dropdown-menu',
@@ -28,7 +27,7 @@ export default {
     // 高亮色值
     activeColor: {
       type: String,
-      default: cssVariables.primaryColor
+      default: '#00bcd4'
     },
     // 方向
     direction: {

@@ -13,7 +13,6 @@
 
 <script>
 import { useAnimationFrame } from '@/common/hooks/use-animation-frame'
-import cssVariables from '@/common/theme'
 
 export default {
   name: 'vc-dropdown-item',
@@ -34,7 +33,7 @@ export default {
   },
   data() {
     return {
-      activeColor: cssVariables.primaryColor,
+      activeColor: '#00bcd4',
       overlay: true,
       closeOnClickOverlay: true,
       showWrapper: false,
