@@ -1,7 +1,7 @@
 <template>
   <view>
-    <vc-popup v-if="usePopup" :visible="visible" :title="title" max-height="auto" position="bottom" :round="round"
-      border closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="onClose">
+    <vc-popup v-if="usePopup" :visible="visible" :title="title" auto-height position="bottom" :round="round" border
+      closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="onClose">
       <vc-calendar :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
         :max-range="maxRange" :formatter="formatter" :allow-same-day="allowSameDay" @change="onChange"
         @over-range="onOverRange"></vc-calendar>

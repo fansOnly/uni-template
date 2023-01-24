@@ -31,7 +31,7 @@
       <view style="line-height: 100px;">这里是银行卡列表66</view>
       <view style="line-height: 100px;">这里是银行卡列表77</view>
     </vc-popup>
-    <vc-popup :visible.sync="visible3" position="bottom" :z-index="99" round title="标题" closeable
+    <vc-popup :visible.sync="visible3" position="bottom" :z-index="99" round title="内容撑开高度" auto-height closeable
       :close-icon-position="closePosition">
       <view class="content">
         <view>
@@ -41,21 +41,19 @@
         <view>
           1、中国税收居民是指在中国境内有住所，或者无住所而在境内居住满一年的个人。在中国境内有住所是指因户籍、家庭、经济利益关系而在中国境内习惯性居住。在境内居住满一年，是指在一个纳税年度中在中国境内居住365日。临时离境的，不扣减日数。临时离境，是指在一个纳税年度中一次不超过30日或者多次累计不超过90日的离境。
         </view>
-        <view>2、非中国税收居民是指中国税收居民以外的个人。</view>
-        <view>
-          1、中国税收居民是指在中国境内有住所，或者无住所而在境内居住满一年的个人。在中国境内有住所是指因户籍、家庭、经济利益关系而在中国境内习惯性居住。在境内居住满一年，是指在一个纳税年度中在中国境内居住365日。临时离境的，不扣减日数。临时离境，是指在一个纳税年度中一次不超过30日或者多次累计不超过90日的离境。
-        </view>
-        <view>2、非中国税收居民是指中国税收居民以外的个人。</view>
       </view>
     </vc-popup>
 
-    <vc-popup :visible.sync="visible5" title="暂时只支持绑定下列银行" position="center" round>
+    <vc-popup :visible.sync="visible5" title="暂时只支持绑定下列银行" position="center" round offset="-10vh">
       <view class="bank-popup-wrapper">
-        <view class="">这里是银行卡列表</view>
-        <view class="">这里是银行卡列表</view>
-        <view class="">这里是银行卡列表</view>
-        <view class="">这里是银行卡列表</view>
-        <view class="">这里是银行卡列表</view>
+        <view class="">
+          1、中国税收居民是指在中国境内有住所，或者无住所而在境内居住满一年的个人。在中国境内有住所是指因户籍、家庭、经济利益关系而在中国境内习惯性居住。在境内居住满一年，是指在一个纳税年度中在中国境内居住365日。临时离境的，不扣减日数。临时离境，是指在一个纳税年度中一次不超过30日或者多次累计不超过90日的离境。
+        </view>
+        <view>2、非中国税收居民是指中国税收居民以外的个人。</view>
+        <view class="">
+          1、中国税收居民是指在中国境内有住所，或者无住所而在境内居住满一年的个人。在中国境内有住所是指因户籍、家庭、经济利益关系而在中国境内习惯性居住。在境内居住满一年，是指在一个纳税年度中在中国境内居住365日。临时离境的，不扣减日数。临时离境，是指在一个纳税年度中一次不超过30日或者多次累计不超过90日的离境。
+        </view>
+        <view>2、非中国税收居民是指中国税收居民以外的个人。</view>
       </view>
     </vc-popup>
   </view>
@@ -100,6 +98,8 @@ export default {
 }
 
 .bank-popup-wrapper {
+  box-sizing: border-box;
   width: 85vw;
+  padding: 16px;
 }
 </style>

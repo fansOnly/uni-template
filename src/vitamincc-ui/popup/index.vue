@@ -15,7 +15,7 @@
           <vc-icon name="cross-blank" :size="20" />
         </slot>
       </view>
-      <scroll-view scroll-y class="vc-popup__body" :style="bodyStyle">
+      <scroll-view scroll-y :class="['vc-popup__body', autoHeight ? null : 'is-max-height']" :style="bodyStyle">
         <!-- slot default -->
         <slot />
       </scroll-view>
@@ -55,6 +55,11 @@ export default {
     },
     // 弹窗Y轴位移
     offset: String,
+    // 是否自动撑开内容
+    autoHeight: {
+      type: Boolean,
+      default: false
+    },
     // 是否显示标题下边框线
     border: {
       type: Boolean,

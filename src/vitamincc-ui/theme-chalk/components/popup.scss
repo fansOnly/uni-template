@@ -23,10 +23,15 @@
   @include when(center) {
     top: 50%;
     left: 50%;
-    max-height: getCssVar('popup', 'max-height');
     transform: translate3d(-50%, -50%, 0);
     &.is-round {
       border-radius: getCssVar('popup', 'border-radius-center');
+    }
+
+    #{$namespace}__body {
+      @include when(max-height) {
+        max-height: getCssVar('popup', 'max-height');
+      }
     }
   }
 
@@ -42,7 +47,9 @@
     }
 
     #{$namespace}__body {
-      max-height: getCssVar('popup', 'max-height');
+      @include when(max-height) {
+        max-height: getCssVar('popup', 'max-height');
+      }
     }
   }
   @include when(bottom) {
@@ -57,7 +64,9 @@
     }
 
     #{$namespace}__body {
-      max-height: getCssVar('popup', 'max-height');
+      @include when(max-height) {
+        max-height: getCssVar('popup', 'max-height');
+      }
     }
   }
   @include when(left) {
