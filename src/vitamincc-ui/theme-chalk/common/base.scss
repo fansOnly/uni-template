@@ -277,8 +277,8 @@ $z-index: map.merge(
 $disabled: () !default;
 $disabled: map.merge(
   (
-    'bg-color': getCssVar('bg-color', 'disabled'),
-    'text-color': getCssVar('text-color', 'disabled'),
+    'bg-color': '#fafafa',
+    'text-color': '#c0c4cc',
     'border-color': getCssVar('border-color', 'light'),
   ),
   $disabled

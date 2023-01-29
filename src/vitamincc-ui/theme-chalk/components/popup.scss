@@ -4,6 +4,8 @@
 @use '../mixins/function' as *;
 @use '../mixins/utils' as *;
 
+// $directions: ttb, btt, ltr, trl, center;
+
 @include b(popup) {
   @include set-preset-css-var('popup', $popup);
 }
@@ -35,7 +37,7 @@
     }
   }
 
-  @include when(top) {
+  @include when(ttb) {
     top: 0;
     left: 0;
     width: 100%;
@@ -52,7 +54,7 @@
       }
     }
   }
-  @include when(bottom) {
+  @include when(btt) {
     left: 0;
     bottom: 0;
     width: 100%;
@@ -69,7 +71,7 @@
       }
     }
   }
-  @include when(left) {
+  @include when(ltr) {
     top: 0;
     bottom: 0;
     left: 0;
@@ -84,7 +86,7 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
   }
-  @include when(right) {
+  @include when(rtl) {
     top: 0;
     right: 0;
     bottom: 0;

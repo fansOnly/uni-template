@@ -4,10 +4,10 @@
     <demo-block title="基础用法 - 锁定滚动穿透" padding>
       <vc-cell-group border>
         <vc-cell title="弹窗 - 淡入" is-link @click="(visible4 = true)"></vc-cell>
-        <vc-cell title="弹窗 - 顶部弹出" is-link @click="(position = 'top', visible = true)"></vc-cell>
-        <vc-cell title="弹窗 - 左侧弹出" is-link @click="(position = 'left', visible = true)"></vc-cell>
-        <vc-cell title="弹窗 - 右侧弹出" is-link @click="(position = 'right', visible = true)"></vc-cell>
-        <vc-cell title="弹窗 - 底部弹出" is-link is-last @click="(position = 'bottom', visible = true)"></vc-cell>
+        <vc-cell title="弹窗 - 顶部弹出" is-link @click="(direction = 'ttb', visible = true)"></vc-cell>
+        <vc-cell title="弹窗 - 左侧弹出" is-link @click="(direction = 'ltr', visible = true)"></vc-cell>
+        <vc-cell title="弹窗 - 右侧弹出" is-link @click="(direction = 'rtl', visible = true)"></vc-cell>
+        <vc-cell title="弹窗 - 底部弹出" is-link is-last @click="(direction = 'btt', visible = true)"></vc-cell>
       </vc-cell-group>
     </demo-block>
 
@@ -19,10 +19,10 @@
       </vc-cell-group>
     </demo-block>
 
-    <vc-popup :visible.sync="visible4" position="center">
+    <vc-popup :visible.sync="visible4">
       <view class="box"></view>
     </vc-popup>
-    <vc-popup :visible.sync="visible" :position="position">
+    <vc-popup :visible.sync="visible" :direction="direction">
       <view style="line-height: 100px;">这里是银行卡列表11</view>
       <view style="line-height: 100px;">这里是银行卡列表22</view>
       <view style="line-height: 100px;">这里是银行卡列表33</view>
@@ -31,7 +31,7 @@
       <view style="line-height: 100px;">这里是银行卡列表66</view>
       <view style="line-height: 100px;">这里是银行卡列表77</view>
     </vc-popup>
-    <vc-popup :visible.sync="visible3" position="bottom" :z-index="99" round title="内容撑开高度" auto-height closeable
+    <vc-popup :visible.sync="visible3" direction="btt" :z-index="99" round title="内容撑开高度" auto-height closeable
       :close-icon-position="closePosition">
       <view class="content">
         <view>
@@ -44,7 +44,7 @@
       </view>
     </vc-popup>
 
-    <vc-popup :visible.sync="visible5" title="暂时只支持绑定下列银行" position="center" round offset="-10vh">
+    <vc-popup :visible.sync="visible5" title="暂时只支持绑定下列银行" round offset="-10vh">
       <view class="bank-popup-wrapper">
         <view class="">
           1、中国税收居民是指在中国境内有住所，或者无住所而在境内居住满一年的个人。在中国境内有住所是指因户籍、家庭、经济利益关系而在中国境内习惯性居住。在境内居住满一年，是指在一个纳税年度中在中国境内居住365日。临时离境的，不扣减日数。临时离境，是指在一个纳税年度中一次不超过30日或者多次累计不超过90日的离境。
@@ -71,13 +71,13 @@ export default {
       visible3: false,
       visible4: false,
       visible5: false,
-      position: 'center',
+      direction: 'center',
       closePosition: 'left'
     }
   },
   computed: {
     style() {
-      return ['top', 'bottom'].includes(this.position)
+      return ['ttb', 'btt'].includes(this.direction)
         ? 'height:200px;'
         : 'width:100px;'
     },

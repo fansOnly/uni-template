@@ -1,7 +1,7 @@
 <template>
   <view @touchmove.stop="noop">
     <view v-if="display"
-      :class="['vc-popup', `is-${position}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom-safe' : null, classes]"
+      :class="['vc-popup', `is-${direction}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom-safe' : null, classes]"
       :style="popupStyle" @transitionend="onTransitionEnd">
       <!-- slot header -->
       <slot name="header">
@@ -34,13 +34,10 @@ export default {
   name: 'vc-popup',
   mixins: [transition],
   props: {
-    // 弹窗位置
-    position: {
+    // ttb btt ltr rtl center
+    direction: {
       type: String,
-      default: 'center',
-      validator(value) {
-        return ['center', 'top', 'bottom', 'right', 'left'].includes(value)
-      }
+      default: 'center'
     },
     // 弹窗标题
     title: null,
@@ -112,14 +109,14 @@ export default {
   computed: {
     ...mapGetters('app', ['navHeightValue']),
     animationName() {
-      switch (this.position) {
-        case 'top':
+      switch (this.direction) {
+        case 'ttb':
           return 'slide-down'
-        case 'bottom':
+        case 'btt':
           return 'slide-up'
-        case 'left':
+        case 'ltr':
           return 'slide-left'
-        case 'right':
+        case 'rtl':
           return 'slide-right'
         default:
           return 'fade'
