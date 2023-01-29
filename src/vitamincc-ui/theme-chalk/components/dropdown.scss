@@ -1,0 +1,111 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+@use '../mixins/utils' as *;
+
+@include b(dropdown) {
+  @include set-preset-css-var('dropdown', $dropdown);
+}
+
+@include b(dropdown) {
+  $namespace: &;
+
+  @include when(active) {
+    position: relative;
+    z-index: getCssVar('dropdown', 'z-index');
+  }
+
+  @include e(menu) {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: getCssVar('dropdown', 'height');
+    padding: getCssVar('dropdown', 'padding');
+    background-color: getCssVar('dropdown', 'bg-color');
+
+    &-title {
+      @include utils-flex-center;
+
+      flex: 1;
+      color: getCssVar('dropdown', 'menu-text-color');
+      font-size: getCssVar('dropdown', 'menu-text-font-size');
+      white-space: nowrap;
+
+      // @include pseudo(first-child) {
+      //   justify-content: flex-start;
+      // }
+
+      // @include pseudo(last-child) {
+      //   justify-content: flex-end;
+      // }
+
+      @include when(active) {
+        color: getCssVar('dropdown', 'active-text-color');
+        #{$namespace}__menu-icon {
+          transform: rotate(180deg);
+        }
+      }
+
+      @include when(disabled) {
+        color: getCssVar('dropdown', 'disabled', 'text-color');
+
+        #{$namespace}__menu-icon {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    &-icon {
+      margin-left: 4px;
+      transition: all ease 0.3s;
+      transform-origin: 50% 50%;
+    }
+  }
+
+  @include e(content) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      height: getCssVar('dropdown', 'height');
+      padding: 0 getCssVar('padding-horizontal');
+      background-color: getCssVar('dropdown', 'bg-color');
+
+      color: getCssVar('dropdown', 'content-text-color');
+      font-size: getCssVar('dropdown', 'content-text-font-size');
+
+      @include when(active) {
+        color: getCssVar('dropdown', 'active-text-color');
+        #{$namespace}__content-icon {
+          opacity: 1;
+        }
+      }
+
+      @include when(disabled) {
+        color: getCssVar('dropdown', 'disabled-text-color');
+      }
+
+      &.is-active.is-disabled {
+        color: getCssVar('color', 'primary', 'light-5');
+      }
+    }
+
+    &-title {
+      flex: 1;
+    }
+
+    &-icon {
+      opacity: 0;
+    }
+  }
+}

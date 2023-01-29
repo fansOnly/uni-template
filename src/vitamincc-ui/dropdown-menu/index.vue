@@ -1,14 +1,15 @@
 <template>
-  <div class="vc-dropdown-wrapper">
-    <view :class="['vc-dropdown-menu', menuIndex > -1 ? 'vc-hairline--bottom' : null]" :style="menuStyled">
+  <div :class="['vc-dropdown', 'vc-dropdown-menu', isActive ? 'is-active' : null]" :style="menuStyle">
+    <view :class="['vc-dropdown__menu', menuIndex > -1 ? 'vc-hairline--bottom' : null]" :style="customStyle">
       <view v-for="(item, index) in menus" :key="index"
-        :class="['vc-dropdown-menu__title', item.active ? 'is-active' : null, item.disabled ? 'is-disabled' : null]"
-        :style="{ color: item.active ? activeColor : null, 'z-index': zIndex }" @click="onClickMenu(item, index)">
+        :class="['vc-dropdown__menu-title', item.active ? 'is-active' : null, item.disabled ? 'is-disabled' : null]"
+        :style="item.active ? titleStyle : ''" @click="onClickMenu(item, index)">
         <view>{{ genMenuName(item) }}</view>
-        <vc-icon class="vc-dropdown-menu__icon" name="caret-down" size="14" />
+        <vc-icon class="vc-dropdown__menu-icon" name="caret-down" size="14" />
       </view>
     </view>
-    <slot></slot>
+    <!-- slot default for content -->
+    <slot />
   </div>
 </template>
 
@@ -25,14 +26,11 @@ export default {
   },
   props: {
     // 高亮色值
-    activeColor: {
-      type: String,
-      default: '#00bcd4'
-    },
-    // 方向
+    color: String,
+    // 方向 ttb btt
     direction: {
       type: String,
-      default: 'down'
+      default: 'ttb'
     },
     // 弹窗动画时长 ms - 透传
     duration: {
@@ -40,10 +38,7 @@ export default {
       default: 300
     },
     // 弹窗层级 - 透传
-    zIndex: {
-      type: Number,
-      default: 100
-    },
+    zIndex: Number,
     // 是否显示遮罩层 - 透传
     overlay: {
       type: Boolean,
@@ -55,19 +50,32 @@ export default {
       default: true
     },
     // 自定义组件样式
-    customStyle: null
+    customStyle: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
       menus: [], // 菜单项
       menuIndex: -1,
+      isActive: false,
     }
   },
   computed: {
-    menuStyled() {
+    menuStyle() {
       let style = ''
-      style += `z-index: ${this.zIndex};`
-      return style + (this.customStyle ? this.customStyle : '')
+      if (this.zIndex) {
+        style += `z-index: ${this.zIndex};`
+      }
+      return style
+    },
+    titleStyle() {
+      let style = ''
+      if (this.color) {
+        style += `color: ${this.color};`
+      }
+      return style
     }
   },
   created() {
@@ -92,7 +100,7 @@ export default {
         if (active === index) {
           child.toggle()
         } else if (child.visible) {
-          child.toggle(false, 60 /** duration */)
+          child.toggle(false, 0 /** duration */)
         }
       })
     },
@@ -106,14 +114,14 @@ export default {
       if (this.menuIndex === index && item.active) {
         this.close(300)
       } else {
-        this.close()
+        this.close(0)
         await useAnimationFrame()
         this.menuIndex = index
         this.toggleItem(index)
       }
     },
     async resolveStyle() {
-      const rect = await useRect(this, '.vc-dropdown-wrapper')
+      const rect = await useRect(this, '.vc-dropdown-menu')
       let top = rect.bottom
       /* #ifdef H5 */
       // fix：H5 下，uni-app 会默认生成一个头部 uni-page-head，位置计算会有误差
@@ -126,41 +134,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-dropdown-menu {
-  display: flex;
-  position: relative;
-  background-color: var(--vc-bg-color);
-}
-
-.vc-dropdown-menu__title {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  color: var(--vc-text-color-regular);
-  line-height: 48px;
-  white-space: nowrap;
-
-  &.is-active .vc-dropdown-menu__icon {
-    transform: rotate(180deg);
-  }
-
-  &.is-disabled {
-    color: var(--vc-text-color-disabled);
-    /* #ifdef H5 */
-    cursor: pointer;
-    /* #endif */
-  }
-
-  &.is-disabled .vc-dropdown-menu__icon {
-    opacity: .6;
-  }
-}
-
-.vc-dropdown-menu__icon {
-  margin-left: 4px;
-  transition: all ease 0.3s;
-  transform-origin: 50% 50%;
-}
+@import '../theme-chalk/components/dropdown.scss';
 </style>

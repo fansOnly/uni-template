@@ -355,6 +355,24 @@ $dialog: map.merge(
   $dialog
 );
 
+// dropdown
+$dropdown: () !default;
+$dropdown: map.merge(
+  (
+    'height': getCssVar('component-size'),
+    'padding': 0 getCssVar('padding-horizontal'),
+    'bg-color': getCssVar('bg-color'),
+    'menu-text-font-size': getCssVar('font-size', 'base'),
+    'menu-text-color': getCssVar('text-color', 'primary'),
+    'active-text-color': getCssVar('color', 'primary'),
+    'disabled-text-color': getCssVar('disabled', 'text-color'),
+    'content-text-font-size': getCssVar('font-size', 'base'),
+    'content-text-color': getCssVar('text-color', 'regular'),
+    'z-index': getCssVar('z-index', 'top'),
+  ),
+  $dropdown
+);
+
 // loading
 $loading: () !default;
 $loading: map.merge(

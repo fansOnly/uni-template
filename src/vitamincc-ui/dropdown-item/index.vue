@@ -1,13 +1,19 @@
 <template>
-  <div v-show="showWrapper" class="vc-dropdown-item-wrapper" :style="wrapperStyled">
-    <vc-popup :visible.sync="visible" custom-style="position: absolute;" :duration="duration"
-      :overlay-style="overlayStyled" max-height="40vh" :position="direction === 'down' ? 'top' : 'bottom'"
-      :overlay="overlay" @click-overlay="onClickOverlay" @after-leave="onClosed">
-      <vc-cell v-for="(item, index) in options" :key="index" :title="item.text" is-link :disabled="item.disabled"
-        :border="index < options.length - 1" @click="onClickItem(item, index)">
-        <vc-icon v-show="item.value === value" slot="icon" name="selected" :color="activeColor" />
-      </vc-cell>
-    </vc-popup>
+  <div class="vc-dropdown">
+    <view v-show="initialized" class="vc-dropdown__content" :style="wrapperStyle">
+      <vc-popup :visible.sync="visible" custom-style="position: absolute;" :duration="duration"
+        :overlay-style="overlayStyle" :direction="direction" :overlay="overlay" :safe-area-inset-bottom="false"
+        :safe-area-inset-top="false" @click-overlay="onClickOverlay" @after-leave="onClosed">
+        <view v-for="(item, index) in options" :key="index"
+          :class="['vc-dropdown__content-item', item.value === value ? 'is-active' : null, item.disabled ? 'is-disabled' : null, index < options.length - 1 || !directionTtb ? 'vc-hairline--bottom' : null]"
+          :style="item.value === value ? itemStyle : ''" @click="onClickItem(item, index)">
+          <view class="vc-dropdown__content-title">{{ item.text }}</view>
+          <view class="vc-dropdown__content-icon">
+            <vc-icon name="selected" :size="20" />
+          </view>
+        </view>
+      </vc-popup>
+    </view>
   </div>
 </template>
 
@@ -33,42 +39,49 @@ export default {
   },
   data() {
     return {
-      activeColor: '#00bcd4',
+      initialized: false,
+      color: '',
       overlay: true,
       closeOnClickOverlay: true,
-      showWrapper: false,
-      direction: 'down',
+      direction: 'ttb',
       visible: false,
       top: 0,
       bottom: 0,
-      zIndex: 0,
       duration: 300,
     }
   },
   computed: {
-    wrapperStyled({ zIndex, top, bottom, direction }) {
-      let style = `z-index: ${zIndex + 1};`
-      if (direction === 'down') {
+    directionTtb() {
+      return this.direction === 'ttb'
+    },
+    bttStyleBottom() {
+      return `calc(100% - ${this.bottom}px)`
+    },
+    wrapperStyle({ top, direction }) {
+      let style = ''
+      if (direction === 'ttb') {
         style += `top: ${top}px;`
       } else {
-        style += `bottom: calc(100% - ${bottom}px);`
+        style += `bottom: ${this.bttStyleBottom};`
       }
       return style
     },
-    overlayStyled({ top, bottom, direction }) {
+    overlayStyle({ top, direction, bttStyleBottom }) {
       let style = ''
-      if (direction === 'down') {
-        // style += `top: ${top}px;`;
+      if (direction === 'ttb') {
         style += `background: linear-gradient(to bottom, transparent, ${top}px, rgba(0, 0, 0, 0.6) ${top}px);`
       } else {
-        // style += `bottom: calc(100% - ${bottom}px);`;
-        style += `background: linear-gradient(to top, transparent, ${bottom}px, rgba(0, 0, 0, 0.6) ${bottom}px);`
+        style += `background: linear-gradient(to top, transparent, ${bttStyleBottom}, rgba(0, 0, 0, 0.6) ${bttStyleBottom});`
       }
       return style
     },
-    activeIndex({ value, options }) {
-      return value ? options.findIndex((v) => v.value === value) : 0
-    },
+    itemStyle() {
+      let style = ''
+      if (this.color) {
+        style += `color: ${this.color};`
+      }
+      return style
+    }
   },
   watch: {
     value: {
@@ -82,9 +95,9 @@ export default {
     this.dropdown.children.push(this)
   },
   async mounted() {
-    const { overlay, zIndex, duration, direction, closeOnClickOverlay } = this.dropdown
+    const { overlay, duration, direction, closeOnClickOverlay, color } = this.dropdown
+    this.color = color
     this.overlay = overlay
-    this.zIndex = zIndex
     this.duration = duration
     this.direction = direction
     this.closeOnClickOverlay = closeOnClickOverlay
@@ -101,7 +114,8 @@ export default {
         this.top = top
         this.bottom = bottom
         await useAnimationFrame()
-        this.showWrapper = true
+        this.initialized = true
+        this.dropdown.isActive = true
       }
       this.rerender()
     },
@@ -125,19 +139,13 @@ export default {
       this.toggle()
     },
     onClosed() {
-      this.showWrapper = false
+      this.initialized = false
+      this.dropdown.isActive = false
     },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.vc-dropdown-item-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-}
+@import '../theme-chalk/components/dropdown.scss';
 </style>

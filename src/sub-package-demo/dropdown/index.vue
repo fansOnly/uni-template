@@ -1,18 +1,19 @@
 <template>
   <view class="page-wrapper" style="height: 2000px;">
+    <view class="gap"></view>
 
     <demo-block title="基础用法">
-      <vc-dropdown-menu>
+      <vc-dropdown-menu :z-index="666">
         <vc-dropdown-item :value="value1" :options="list1" @change="handleChange"></vc-dropdown-item>
         <vc-dropdown-item :value="value2" :options="list2" @change="handleChange"></vc-dropdown-item>
         <vc-dropdown-item :value="value3" :options="list3" disabled @change="handleChange"></vc-dropdown-item>
       </vc-dropdown-menu>
     </demo-block>
 
-    <view style="height: 200px;"></view>
+    <view style="height: 300px;"></view>
 
     <demo-block title="向上展开">
-      <vc-dropdown-menu direction="up">
+      <vc-dropdown-menu direction="btt" color="#f60">
         <vc-dropdown-item :value="value1" :options="list1" @change="handleChange"></vc-dropdown-item>
         <vc-dropdown-item :value="value2" :options="list2" @change="handleChange"></vc-dropdown-item>
       </vc-dropdown-menu>
@@ -59,12 +60,13 @@ export default {
   },
   methods: {
     handleChange(item, index) {
-      console.log(`[debug] 第${ index + 1 }个菜单选择 >>>`, { ...item })
-      this[`value${ index + 1}`] = item.value
+      console.log(`[debug] 第${index + 1}个菜单选择 >>>`, { ...item })
+      this[`value${index + 1}`] = item.value
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+
 </style>
