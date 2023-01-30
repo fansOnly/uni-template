@@ -13,8 +13,6 @@ export default {
     console.log('🚀 ™ 系统信息', uni.$sysInfo)
     console.log('🚀 ™ 启动参数', options)
 
-    this.globalData.restart = false
-
     // 带 shareTicket 分享场景 1044
     if (options.shareTicket) {
       store.dispatch('share/setShareTicket', options.shareTicket)
@@ -32,6 +30,7 @@ export default {
   },
   async onShow(options) {
     if (this.globalData.restart) {
+      this.globalData.restart = false
       console.log('🚀 ™ App Show - 冷启动')
     } else {
       console.log('🚀 ™ App Show - 热启动')
