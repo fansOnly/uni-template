@@ -189,6 +189,7 @@ $radio: map.merge(
 $switch: () !default;
 $switch: map.merge(
   (
+    'size': 24px,
     'bg-color': getCssVar('bg-color'),
     'inactive-color': #dcdfe6,
     'active-color': getCssVar('color', 'primary'),

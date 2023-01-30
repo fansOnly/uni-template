@@ -1,10 +1,12 @@
 <template>
-  <view
-    :class="['vc-switch', 'vc-hairline--surround', checked ? 'is-active' : null, disabled ? 'is-disabled' : null, customClass]"
+  <!-- vc-switch 编译后会被微信内置样式影响 -->
+  <view :class="['vc-switcher', checked ? 'is-active' : null, disabled ? 'is-disabled' : null, customClass]"
     :style="styled" @tap="click">
-    <view :class="['vc-switch__node', checked ? 'is-active' : null]"></view>
-    <view v-if="showText" :class="['vc-switch__value', checked ? null : 'is-inactive']">
-      <view :class="['vc-switch__text', checked ? 'is-active' : 'is-inactive']">{{ checked? activeText: inactiveText }}
+    <view :class="['vc-switcher__node', checked ? 'is-active' : null]"></view>
+    <view v-if="showText" :class="['vc-switcher__value', checked ? null : 'is-inactive']">
+      <view :class="['vc-switcher__text', checked ? 'is-active' : 'is-inactive']">{{
+        checked? activeText: inactiveText
+      }}
       </view>
     </view>
   </view>
@@ -20,10 +22,7 @@ export default {
       default: true
     },
     // 组件尺寸
-    size: {
-      type: Number,
-      default: 24
-    },
+    size: Number,
     // 激活的值
     activeValue: {
       type: [String, Number, Boolean],
@@ -78,7 +77,9 @@ export default {
     },
     styled() {
       let style = ''
-      style += `font-size: ${this.size}px;`
+      if (this.size) {
+        style += `font-size: ${this.size}px;`
+      }
       if (this.inactiveColor && !this.checked) {
         style += `background-color: ${this.inactiveColor};`
       } else if (this.activeColor && this.checked) {

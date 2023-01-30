@@ -3,19 +3,19 @@
 @use '../mixins/var' as *;
 @use '../mixins/function' as *;
 
-@include b(switch) {
+@include b(switcher) {
   @include set-preset-css-var('switch', $switch);
 }
 
-@include b(switch) {
+@include b(switcher) {
   box-sizing: border-box;
   position: relative;
   display: inline-block;
   width: 2em;
   height: 1em;
   background-color: getCssVar('switch', 'inactive-color');
-  border-width: getCssVar('border-width');
   border-radius: 1em;
+  font-size: getCssVar('switch', 'size');
   transition: background-color 0.3s;
   vertical-align: top;
 
