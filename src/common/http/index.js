@@ -152,7 +152,7 @@ const httpRequest = {
             console.log('└─')
             uni.showModal({
               title: '温馨提示',
-              content: '请求失败，请稍后重试',
+              content: error?.errMsg || '请求失败，请稍后重试',
               showCancel: false,
               success() {
                 errorCount = 0
