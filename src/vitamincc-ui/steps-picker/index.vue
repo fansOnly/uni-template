@@ -1,5 +1,5 @@
 <template>
-  <vc-popup :visible="visible" round position="bottom" :max-height="rowHeight * rows" border
+  <vc-popup :visible="visible" round direction="btt" :max-height="rowHeight * rows" border
     :close-on-click-overlay="closeOnClickOverlay" body-style="padding-bottom: 32rpx;" @click-overlay="clickOverlay"
     @close="close" @after-leave="show = false">
     <template slot="header">

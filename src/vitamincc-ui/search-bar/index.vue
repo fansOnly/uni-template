@@ -1,10 +1,10 @@
 <template>
   <view class="vc-search-bar">
-    <view v-if="!isInput" :class="['vc-search-bar__mask', round ? 'is-round' : null]" :style="maskStyle"
+    <view :class="['vc-search-bar__mask', round ? 'is-round' : null, isInput ? 'is-hide' : null]" :style="maskStyle"
       @click="showInput = inputFocus = true">
       <vc-icon class="vc-search-bar__icon" name="search" size="20" />{{ placeholder }}
     </view>
-    <view v-else class="vc-search-bar__content">
+    <view v-if="isInput" class="vc-search-bar__content">
       <view v-if="label" class="vc-search-bar__label" :style="labelStyle">{{ label }}</view>
       <view class="vc-search-bar__input">
         <vc-input name="search" type="text" :value="value" :placeholder="placeholder" :maxlength="maxlength"

@@ -16,13 +16,22 @@
   box-sizing: border-box;
   position: relative;
   padding: getCssVar('input', 'input-padding');
-  border-radius: getCssVar('input', 'border-radius');
   background-color: getCssVar('input', 'bg-color');
   color: getCssVar('input', 'text-color');
   font-size: getCssVar('input', 'text-font-size');
 
+  @include when(border) {
+    border-radius: getCssVar('border-radius', 'base');
+    &::after {
+      border-radius: getCssVar('border-radius', 'larger');
+    }
+  }
+
   @include when(round) {
     border-radius: getCssVar('border-radius', 'round');
+    &::after {
+      border-radius: 4em;
+    }
   }
 
   @include e(content-textarea) {

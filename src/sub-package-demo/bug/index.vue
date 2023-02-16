@@ -8,7 +8,7 @@
       <vc-button type="primary" block @click="visible = true">打开遮罩</vc-button>
     </demo-block>
 
-    <vc-popup :visible.sync="visible" title="测试" position="bottom" closeable :close-on-click-overlay="false">
+    <vc-popup :visible.sync="visible" title="测试" direction="btt" closeable :close-on-click-overlay="false">
       <!-- <view class="popup"> -->
       <view v-for="(item, index) in 'x'.repeat(10)" :key="index" class="item">哈哈哈哈哈哈哈哈---{{ index + 1 }}</view>
       <!-- </view> -->

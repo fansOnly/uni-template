@@ -1,5 +1,6 @@
 <template>
-  <view :class="['vc-input', border ? 'vc-hairline--surround' : null, round ? 'is-round' : null]" :style="customStyle">
+  <view :class="['vc-input', border ? 'is-border vc-hairline--surround' : null, round ? 'is-round' : null]"
+    :style="customStyle">
     <!-- prefix -->
     <view class="vc-input__prefix">
       <slot name="prefix"></slot>

@@ -1,5 +1,5 @@
 <template>
-  <vc-popup :visible="visible" position="bottom" :round="round" :duration="duration"
+  <vc-popup :visible="visible" direction="btt" :round="round" :duration="duration"
     :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay">
     <view :class="['vc-action-sheet', round ? 'is-round' : null]" :style="customStyle">
       <view v-for="(item, index) in options" :key="index"
