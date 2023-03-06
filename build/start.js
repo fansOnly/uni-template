@@ -16,16 +16,22 @@ if (!wechatDevToolsPath || !fs.existsSync(path.resolve(wechatDevToolsPath))) {
 const mode = process.env.NODE_ENV === 'production' ? 'build' : 'dev'
 const res = exec(`${wechatDevToolsPath}/cli open --project ${path.resolve(`./dist/${mode}/mp-weixin`)}`)
 
+let isError = false
 res.stderr.on('data', function (data) {
-  consola.log('\033[31m[微信小程序开发者工具]\033[0m', data)
+  consola.log('\033[31m[微信小程序开发者工具1]\033[0m', data)
 })
 
 res.stdout.on('data', function (data) {
+  if (data.includes('Error')) {
+    isError = true
+  }
   console.log('\033[31m[微信小程序开发者工具]\033[0m', data)
 })
 
 res.stdout.on('end', function () {
-  consola.success('Successfully started.')
+  if (!isError) {
+    consola.success('Successfully started.')
+  }
   console.log()
   process.exit(0)
 })
