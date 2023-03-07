@@ -1,12 +1,12 @@
 <template>
   <div class="vc-index-bar__anchor">
-    <view :style="{ 'height': isSticky ? height + 'px' : 0 }"></view>
+    <view :class="[isSticky ? 'is-sticky' : null]"></view>
     <view
-      :class="['vc-index-bar__anchor-content', 'anchor-' + (index === '#' ? 'special' : index), isSticky ? 'is-sticky' : null, customClass]"
+      :class="['vc-index-bar__anchor-content', 'anchor-' + (indexAnchor === '#' ? 'special' : indexAnchor), isSticky ? 'is-sticky' : null, customClass]"
       :style="anchorStyled">
       <!-- slot default anchor -->
       <slot>
-        <view class="vc-index-bar__anchor-text">{{ index }}</view>
+        <view class="vc-index-bar__anchor-text">{{ indexAnchor }}</view>
       </slot>
     </view>
   </div>
@@ -14,7 +14,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { useRect } from '@/common/hooks/use-rect'
 
 export default {
   name: 'vc-index-anchor',
@@ -26,9 +25,13 @@ export default {
   },
   props: {
     // 索引值
-    index: {
+    indexAnchor: {
       type: [Number, String],
       default: 0
+    },
+    isLast: {
+      type: Boolean,
+      default: false
     },
     // 自定义类
     customClass: null,
@@ -37,7 +40,6 @@ export default {
   },
   data() {
     return {
-      height: 0,
       isSticky: false,
       offsetTop: 0,
     }
@@ -58,9 +60,9 @@ export default {
   },
   async mounted() {
     this.parent.children.push(this)
-    this.parent.len++
-    const rect = await useRect(this, '.vc-index-bar__anchor')
-    this.height = rect.height
+    if (this.isLast) {
+      this.parent.ready = true
+    }
   },
   methods: {
     setStickyAnchor(val = false, top = 0) {

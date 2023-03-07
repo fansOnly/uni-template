@@ -1,7 +1,7 @@
 <template >
   <vc-index-bar v-if="CONTACT_LIST.length" :sticky="false" :scroll-top="scrollTop" :long-list="false">
-    <view v-for="(item) in CONTACT_LIST" :key="item.key">
-      <vc-index-anchor :index="item.key" />
+    <view v-for="(item, index) in CONTACT_LIST" :key="item.anchor">
+      <vc-index-anchor :index-anchor="item.anchor" :is-last="index === CONTACT_LIST.length - 1" />
 
       <vc-cell v-for="(user, sIndex) in item.values" :key="sIndex" border>
         <view slot="title" class="user-info">
@@ -34,67 +34,9 @@ export default {
   },
   created() {
     const { genPinyinSortData } = usePinyin()
-    const CONTACT_LIST = genPinyinSortData(customers.slice(0, 500), 'userName')
-    // this.CONTACT_LIST = CONTACT_LIST;
-
-    this.CONTACT_LIST1 = CONTACT_LIST.slice()
-    let timer = setInterval(() => {
-      const data = this.appendData()
-      this.CONTACT_LIST = this.concatData(this.CONTACT_LIST, data)
-      if (!this.CONTACT_LIST1.length) {
-        clearInterval(timer)
-        timer = null
-      }
-    }, 60)
+    const CONTACT_LIST = genPinyinSortData(customers.slice(0, 50), 'userName')
+    this.CONTACT_LIST = CONTACT_LIST
   },
-  methods: {
-    concatData(arr1, arr2) {
-      if (!arr1.length) return arr2
-      let res = []
-      const end = arr1[arr1.length - 1]
-      const concat = arr2[0]
-      if (end.key === concat.key) {
-        res = [
-          ...arr1.slice(0, -1),
-          {
-            key: arr2[0].key,
-            values: [...end.values, ...concat.values]
-          },
-          ...arr2.slice(1)
-        ]
-      } else {
-        res = [...arr1, ...arr2]
-      }
-      return res
-    },
-    appendData() {
-      const res = []
-      let num = 50
-      let i = 0
-      while (i < this.CONTACT_LIST1.length) {
-        const item = this.CONTACT_LIST1[i]
-        const count = item.values.length
-        if (count < num) {
-          num -= count
-          res.push(...this.CONTACT_LIST1.splice(i, 1, { key: item.key, values: [] }))
-          i++
-        } else {
-          if (count === num) {
-            res.push(...this.CONTACT_LIST1.splice(i, 1, { key: item.key, values: [] }))
-          } else {
-            const val = item.values.splice(0, num)
-            res.push({
-              key: item.key,
-              values: val
-            })
-          }
-          break
-        }
-      }
-      this.CONTACT_LIST1 = this.CONTACT_LIST1.filter(v => v.values.length)
-      return res
-    },
-  }
 }
 </script>
 

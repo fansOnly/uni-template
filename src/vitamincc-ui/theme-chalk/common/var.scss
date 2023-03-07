@@ -478,6 +478,7 @@ $table: map.merge(
 $index-bar: () !default;
 $index-bar: map.merge(
   (
+    'index-bar-height': 40px,
     'sidebar-position-right': 8px,
     'sidebar-text-color': getCssVar('text-color', 'primary'),
     'sidebar-text-font-size': getCssVar('font-size', 'small'),

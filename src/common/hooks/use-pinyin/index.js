@@ -20,19 +20,19 @@ export const genPinyinSortData = (source = [], prop, indexList = genIndexList())
   const res = []
   for (let i = 0; i < indexList.length - 1; i++) {
     const values = []
-    const key = indexList[i]
+    const anchor = indexList[i]
     source.map((item, j) => {
       if (!item) return
-      const match = PinyinMatch.match(item[prop].charAt(0), key)
+      const match = PinyinMatch.match(item[prop].charAt(0), anchor)
       if (match) {
         values.push(item)
         source.splice(j, 1, '')
       }
     })
-    values.length && res.push({ key, values })
+    values.length && res.push({ anchor, values })
   }
   const specialValues = source.filter(Boolean)
-  specialValues.length && res.push({ key: '#', values: specialValues })
+  specialValues.length && res.push({ anchor: '#', values: specialValues })
   return res
 }
 

@@ -2,24 +2,24 @@
   <vc-index-bar class="custom-index-bar" :scroll-top="scrollTop" :index-list="indexList" sticky>
 
     <view class="demo-content">
-      <vc-index-anchor index="1">
+      <vc-index-anchor :index-anchor="1">
         <view class="custom-anchor-item">一</view>
       </vc-index-anchor>
-      <view v-for="(_, index) in '1'.repeat(15)" :key="index" class="demo-title2">1111111</view>
+      <view v-for="(_, index) in '1'.repeat(15)" :key="index" class="demo-title2">1111111-{{ index }}</view>
     </view>
 
     <view class="demo-content">
-      <vc-index-anchor index="2" />
+      <vc-index-anchor :index-anchor="2" />
       <view v-for="(_, index) in '2'.repeat(30)" :key="index" class="demo-title2">2222222</view>
     </view>
 
     <view class="demo-content">
-      <vc-index-anchor index="3">三</vc-index-anchor>
+      <vc-index-anchor :index-anchor="3">三</vc-index-anchor>
       <view v-for="(_, index) in '3'.repeat(20)" :key="index" class="demo-title2">3333333</view>
     </view>
 
     <view class="demo-content">
-      <vc-index-anchor index="4">四</vc-index-anchor>
+      <vc-index-anchor :index-anchor="4" is-last>四</vc-index-anchor>
       <view v-for="(_, index) in '4'.repeat(30)" :key="index" class="demo-title2" style="line-height:80px;">44444444
       </view>
     </view>

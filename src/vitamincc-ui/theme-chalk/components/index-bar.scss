@@ -36,6 +36,9 @@
   }
 
   @include e(anchor) {
+    .is-sticky {
+      height: getCssVar('index-bar', 'index-bar-height');
+    }
     &-content {
       @include when(sticky) {
         position: fixed;

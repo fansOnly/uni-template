@@ -3,7 +3,7 @@
   <div class="vc-index-bar">
     <slot />
     <!-- 滚动索引栏 -->
-    <view v-if="ready" class="vc-index-bar__sidebar" :style="sidebarStyled">
+    <view v-show="ready" class="vc-index-bar__sidebar" :style="sidebarStyled">
       <view v-for="(item, index) in indexList" :key="index"
         :class="['vc-index-bar__sidebar-item', index === current ? 'is-active' : null]"
         :style="{ 'color': index === current && color ? color : '' }" @click="onClickAnchor(item, index)">{{ item }}
@@ -51,10 +51,6 @@ export default {
       type: Array,
       default: () => genIndexList()
     },
-    longList: {
-      type: Boolean,
-      default: false
-    },
     // 右侧索引高亮颜色
     color: String,
     // 锚点吸顶
@@ -74,7 +70,6 @@ export default {
   data() {
     return {
       ready: false,
-      len: 0,
       // 当前索引项
       current: -1,
       timer: null,
@@ -98,11 +93,11 @@ export default {
     },
     current: {
       handler(val) {
-        this.setStickyAnchor()
+        this.setStickyAnchor(val)
       },
       immediate: true
     },
-    len: {
+    ready: {
       handler(val) {
         val && this.init()
       },
@@ -112,104 +107,88 @@ export default {
   created() {
     this.children = []
     this.anchorRects = []
+
+    this.prevAnchorIdx = 0
+    this.prevScrollTop = 0
   },
   methods: {
-    init() {
-      if (this.timer) clearTimeout(this.timer)
-      this.timer = setTimeout(async () => {
-        await this.setRect()
-        this.ready = true
-        this.timer = null
-      }, 60)
+    async init() {
+      // 计算位置信息
+      await Promise.allSettled([this.getAnchorsRect(), this.getWrapperRect()])
+      // console.log('this.anchorRects: ', this.anchorRects)
+      this.onScroll(this.scrollTop)
     },
-    async onClickAnchor(item, index) {
-      const keys = this.children.map(v => v.index)
-
-      const existKeyIdx = keys.indexOf(item)
-      if (existKeyIdx === -1) return
+    async onClickAnchor(anchor, index) {
+      const existAnchorIdx = this.children.findIndex(v => v.indexAnchor === anchor)
+      if (existAnchorIdx === -1) return
 
       // Bug: 上级节点不能是 scroll-view 或者设置 overflow: auto
       uni.pageScrollTo({
-        scrollTop: this.anchorRects[existKeyIdx].top,
+        scrollTop: this.anchorRects[existAnchorIdx].top + 1,
         // Bug: selector 不生效？？？
         // selector: '.anchor-' + index,
         duration: 0
       })
     },
-    onScroll(val) {
+    onScroll(scrollTop) {
       if (!this.ready) return
 
-      this.$nextTick(() => {
-        if (this.longList) {
-          if (this.timer2) clearTimeout(this.timer2)
-          this.timer2 = setTimeout(() => {
-            this.whenScroll(val)
-            this.timer2 = null
-          }, 60)
-        } else {
-          this.whenScroll(val)
-        }
-      })
-    },
-    whenScroll(scrollTop) {
+      const direction = this.prevScrollTop > scrollTop ? 'up' : 'down'
+      this.prevScrollTop = scrollTop
       // 滚动结束后判断滚动位置是否在索引区域
       if (this.boundary) {
         const { start, end } = this.boundary
         if (scrollTop < start || scrollTop > end) {
           this.current = -1
         } else {
-          this.current = this.getAnchorIndex(scrollTop)
+          this.whenScroll(scrollTop, direction)
         }
       }
     },
-    getAnchorIndex(scrollTop) {
-      let key = ''
-      for (let i = 1; i < this.anchorRects.length - 1; i++) {
-        const currentAnchor = this.anchorRects[i]
-        const preAnchor = this.anchorRects[i - 1]
-        const nextAnchor = this.anchorRects[i + 1]
-        if (scrollTop >= currentAnchor.top && scrollTop < nextAnchor.top) {
-          // 向下滚动
-          key = currentAnchor.index
-        } else if (scrollTop >= preAnchor.top && scrollTop < currentAnchor.top) {
-          // 向上滚动
-          key = preAnchor.index
-        } else if (scrollTop >= nextAnchor.top) {
-          key = nextAnchor.index
-        }
+    whenScroll(scrollTop, direction) {
+      if (this.anchorRects.length === 1) return 0
+      if (direction === 'down') {
+        this.onScrollDown(scrollTop)
+      } else {
+        this.onScrollUp(scrollTop)
       }
-      return this.getAnchorIndexByKey(key)
     },
-    getAnchorIndexByKey(key) {
-      return this.indexList.map(v => `${v}`).indexOf(key)
+    onScrollDown(scrollTop) {
+      let i = this.prevAnchorIdx
+      while (i < this.anchorRects.length - 1 && this.anchorRects[i + 1].top <= scrollTop) { i++ }
+      const anchor = this.anchorRects[i].anchor
+      this.prevAnchorIdx = i
+      this.current = this.indexList.indexOf(anchor)
     },
-    setStickyAnchor() {
+    onScrollUp(scrollTop) {
+      let i = this.prevAnchorIdx
+      while (i > 0 && this.anchorRects[i].top > scrollTop) { i-- }
+      const anchor = this.anchorRects[i].anchor
+      this.prevAnchorIdx = i
+      this.current = this.indexList.indexOf(anchor)
+    },
+    setStickyAnchor(val) {
       if (!this.sticky) return
       this.$nextTick(() => {
         this.children.forEach((child, index) => {
-          child.setStickyAnchor(index === this.current, this.stickyOffsetTop)
+          child.setStickyAnchor(index === val, this.stickyOffsetTop)
         })
       })
-    },
-    getActiveChild(index) {
-      return this.children.find(child => child.index == index)
-    },
-    setRect() {
-      return Promise.allSettled([this.getAnchorsRect(), this.getWrapperRect()])
     },
     getAnchorsRect() {
       this.anchorRects = []
       this.children.forEach(async (child) => {
-        const childClassName = `.anchor-${child.index === '#' ? 'special' : child.index}`
+        const childClassName = `.anchor-${child.indexAnchor === '#' ? 'special' : child.indexAnchor}`
         const rect = await useRect(child, childClassName)
-        const top = this.fixIfCustomNav(rect.top) - this.offset
-        this.anchorRects.push({ index: `${child.index}`, name: childClassName, top, height: rect.height })
+        const top = this.fixIfCustomNav(rect.top) - this.offset + this.scrollTop
+        this.anchorRects.push({ anchor: child.indexAnchor, name: childClassName, top, height: rect.height })
       })
     },
     async getWrapperRect() {
       const rect = await useRect(this, '.vc-index-bar')
       const top = this.fixIfCustomNav(rect.top) - this.offset
-      this.boundary = { start: top, end: rect.bottom }
+      this.boundary = { start: top + this.scrollTop, end: rect.bottom + this.scrollTop }
+      // console.log('this.boundary: ', this.boundary)
     },
     fixIfCustomNav(value) {
       return value - this.navHeightValue
