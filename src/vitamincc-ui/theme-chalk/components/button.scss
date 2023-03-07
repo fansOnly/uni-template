@@ -83,34 +83,34 @@
     border-color: getCssVar('color', 'white');
 
     @include when(plain) {
+      background: transparent;
       border-color: getCssVar('button', 'border-color');
     }
 
-    @include pseudo(active) {
+    &-hover {
       background-color: getCssVar('button', 'active', 'bg-color');
       border-color: getCssVar('button', 'active', 'bg-color');
-
-      &.is-plain {
+      @include when(plain) {
         border-color: getCssVar('button', 'active', 'border-color');
       }
     }
 
     @include when(disabled) {
-      &,
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: getCssVar('button', 'disabled', 'bg-color');
-        border-color: getCssVar('button', 'disabled', 'bg-color');
-        color: getCssVar('button', 'disabled', 'text-color');
-        background-image: none;
-        cursor: not-allowed;
+      // &,
+      // &:hover,
+      // &:focus,
+      // &:active {
+      background-color: getCssVar('button', 'disabled', 'bg-color');
+      border-color: getCssVar('button', 'disabled', 'bg-color');
+      color: getCssVar('button', 'disabled', 'text-color');
+      background-image: none;
+      cursor: not-allowed;
 
-        &.is-plain {
-          background: transparent;
-          border-color: getCssVar('button', 'disabled', 'border-color');
-        }
+      &.is-plain {
+        background: transparent;
+        border-color: getCssVar('button', 'disabled', 'border-color');
       }
+      // }
     }
   }
 
@@ -125,30 +125,30 @@
         background-color: transparent;
       }
 
-      @include pseudo(active) {
+      &-hover {
         background-color: getCssVar('color', $type, 'light-5');
         border-color: getCssVar('color', $type, 'light-5');
 
-        &.is-plain {
+        @include when(plain) {
           background-color: transparent;
         }
       }
 
       @include when(disabled) {
-        &,
-        &:hover,
-        &:focus,
-        &:active {
-          background-color: getCssVar('color', $type, 'light-5');
-          border-color: getCssVar('color', $type, 'light-5');
-          color: getCssVar('color', 'white');
+        // &,
+        // &:hover,
+        // &:focus,
+        // &:active {
+        background-color: getCssVar('color', $type, 'light-5');
+        border-color: getCssVar('color', $type, 'light-5');
+        color: getCssVar('color', 'white');
 
-          &.is-plain {
-            background: transparent;
-            color: getCssVar('color', $type);
-          }
+        &.is-plain {
+          background: transparent;
+          color: getCssVar('color', $type);
         }
       }
+      // }
     }
   }
 }
