@@ -20,9 +20,9 @@
     </demo-block>
 
     <demo-block title="不可用状态" padding>
-      <vc-checkbox v-model="checkbox4" disabled>不可用</vc-checkbox>
+      <vc-checkbox v-model="checkbox2" disabled>不可用</vc-checkbox>
       <vc-checkbox v-model="checkbox4" icon-disabled>图标不可用</vc-checkbox>
-      <vc-checkbox v-model="checkbox4" label-disabled>文本不可用</vc-checkbox>
+      <vc-checkbox v-model="checkbox3" label-disabled>文本不可用</vc-checkbox>
     </demo-block>
 
     <demo-block title="高级用法" padding>
@@ -66,5 +66,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
