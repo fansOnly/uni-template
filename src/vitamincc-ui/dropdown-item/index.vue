@@ -131,16 +131,17 @@ export default {
       this.rerender()
       if (this.value !== item.value) {
         this.$emit('change', item, this.dropdown.menuIndex)
+        this.dropdown.setUnActive()
       }
     },
     onClickOverlay() {
       if (!this.closeOnClickOverlay) return
       this.$emit('close')
       this.toggle()
+      this.dropdown.setUnActive()
     },
     onClosed() {
       this.initialized = false
-      this.dropdown.isActive = false
     },
   }
 }

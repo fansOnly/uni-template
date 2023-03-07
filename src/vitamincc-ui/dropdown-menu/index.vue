@@ -113,12 +113,18 @@ export default {
       if (item.disabled) return
       if (this.menuIndex === index && item.active) {
         this.close(300)
+        this.setUnActive()
       } else {
         this.close(0)
         await useAnimationFrame()
         this.menuIndex = index
         this.toggleItem(index)
       }
+    },
+    setUnActive() {
+      setTimeout(() => {
+        this.isActive = false
+      }, 400)
     },
     async resolveStyle() {
       const rect = await useRect(this, '.vc-dropdown-menu')
