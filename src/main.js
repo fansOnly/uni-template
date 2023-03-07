@@ -6,7 +6,9 @@ import { router, RouterMount } from './router'
 
 Vue.use(router)
 
-Vue.prototype.$sysInfo = uni.$sysInfo = uni.getSystemInfoSync()
+const sysInfo = uni.getSystemInfoSync()
+
+Vue.prototype.$sysInfo = uni.$sysInfo = sysInfo
 
 // 全局mixin
 Vue.mixin(methods)
