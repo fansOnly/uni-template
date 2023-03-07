@@ -1,5 +1,5 @@
 <template >
-  <vc-index-bar v-if="CONTACT_LIST.length" :scroll-top="scrollTop">
+  <vc-index-bar v-if="CONTACT_LIST.length" :scroll-top="scrollTop" use-throttle>
     <view v-for="(item) in CONTACT_LIST" :key="item.anchor">
       <vc-index-anchor :index-anchor="item.anchor" :is-last="ready && item.anchor === lastAnchor" />
 

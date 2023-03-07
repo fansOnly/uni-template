@@ -25,6 +25,18 @@ function genIndexList(withSpecial = true) {
   return withSpecial ? arr.concat('#') : arr
 }
 
+function throttle(fn, delay) {
+  let timer = null
+  return function (...args) {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+        timer = null
+      }, delay)
+    }
+  }
+}
+
 export default {
   name: 'vc-index-bar',
   provide() {
@@ -33,11 +45,6 @@ export default {
     }
   },
   props: {
-    // 页面滚动距离
-    scrollTop: {
-      type: Number,
-      default: 0
-    },
     /**
        * 位置偏差场景处理
        * 1. 页面存在吸顶元素
@@ -50,6 +57,15 @@ export default {
     indexList: {
       type: Array,
       default: () => genIndexList()
+    },
+    // 页面滚动距离
+    scrollTop: {
+      type: Number,
+      default: 0
+    },
+    useThrottle: {
+      type: Boolean,
+      default: false
     },
     // 右侧索引高亮颜色
     color: String,
@@ -88,7 +104,11 @@ export default {
   watch: {
     scrollTop: {
       handler(val) {
-        this.onScroll(val)
+        if (this.useThrottle) {
+          throttle(this.onScroll(val), 60)
+        } else {
+          this.onScroll(val)
+        }
       },
     },
     current: {

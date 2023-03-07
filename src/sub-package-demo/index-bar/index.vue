@@ -21,7 +21,6 @@
 import DemoCustomIndex from './components/demo-custom-index'
 import DemoBase from './components/demo-base.vue'
 import DemoLongList from './components/demo-long-list.vue'
-import { throttle } from 'echarts/core'
 
 export default {
   components: {
@@ -54,9 +53,9 @@ export default {
       this.scrollTop = 0
     },
   },
-  onPageScroll: throttle(function ({ scrollTop }) {
+  onPageScroll({ scrollTop }) {
     this.scrollTop = scrollTop
-  }, 60),
+  },
 }
 </script>
 
