@@ -27,3 +27,4 @@ yarn-error.log*
 uni_modules
 src/pages.json
 src/manifest.json
+src/wxcomponents/e-test/index.vue
