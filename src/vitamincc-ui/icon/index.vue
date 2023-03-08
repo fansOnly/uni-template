@@ -13,7 +13,7 @@ export default {
     },
     // 图标尺寸
     size: {
-      type: Number,
+      type: [String, Number],
     },
     color: {
       type: String

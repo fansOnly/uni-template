@@ -1,8 +1,8 @@
 <template>
   <vc-picker :visible="visible" :values="initialValues" :options="[PROVINCE_LIST, CITY_LIST, COUNTY_LIST]"
     option-key="index" :title="title" :rows="rows" :row-height="rowHeight" cascade
-    :config="[{ column: 0, rollback: true }, { column: 1, rollback: true }]"
-    :close-on-click-overlay="closeOnClickOverlay" @close="close" @update="onUpdate" @confirm="onConfirm"></vc-picker>
+    :config="[{ column: 0, rollback: true }, { column: 1, rollback: true }]" :close-on-click-overlay="closeOnClickOverlay"
+    @close="close" @update="onUpdate" @confirm="onConfirm"></vc-picker>
 </template>
 
 <script>
@@ -15,10 +15,10 @@ export default {
       type: Boolean,
       default: false
     },
-    // 省市区的值，默认 北京市-北京市-东城区
+    // 省市区的值，默认 安徽省-合肥市-蜀山区
     values: {
       type: Array,
-      default: () => []
+      default: () => ['340000', '340100', '340104']
     },
     // 选择器的标题
     title: {
@@ -89,9 +89,8 @@ export default {
           }
         }
       } else {
-        // 默认地区 - 北京市-北京市-东城区
-        const values = ['110000', '110100', '110101']
-        // const values = ['520000', '520100', '520102']
+        // 默认地区 - 安徽省-合肥市-蜀山区
+        const values = ['340000', '340100', '340104']
         this.initDefaultValues(values)
       }
     },

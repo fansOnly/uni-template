@@ -1,7 +1,7 @@
 <template>
   <!-- 需要将 class 挂载在 vc-transition 上，不然遮罩层级有bug -->
   <vc-transition :visible="visible" :animation-name="name" :duration="duration" @click="onClose">
-    <view class="vc-overlay" :style="styled" @touchmove.stop="noop">
+    <view class="vc-overlay" :style="styled" @mousewheel.prevent @touchmove.stop.prevent="noop">
       <!-- slot default -->
       <slot />
     </view>

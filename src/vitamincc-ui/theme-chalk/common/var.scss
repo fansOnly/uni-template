@@ -253,7 +253,7 @@ $search-bar: map.merge(
 $picker: () !default;
 $picker: map.merge(
   (
-    'header-height': 112rpx,
+    'header-height': getCssVar('component-size'),
     'header-padding': 0 getCssVar('padding-horizontal'),
     'title-text-color': 0 getCssVar('text-color', 'primary'),
     'confirm-text-color': getCssVar('color', 'primary'),
@@ -310,9 +310,9 @@ $calendar-month: map.merge(
     'festival-text-color': #f60,
     'solar-text-color': #5f83da,
     'top-text-color': getCssVar('text-color', 'secondary'),
-    'top-text-font-size': getCssVar('font-size', 'mini'),
+    'top-text-font-size': getCssVar('font-size', 'smaller'),
     'bottom-text-color': getCssVar('text-color', 'secondary'),
-    'bottom-text-font-size': getCssVar('font-size', 'mini'),
+    'bottom-text-font-size': getCssVar('font-size', 'smaller'),
   ),
   $calendar-month
 );

@@ -10,6 +10,7 @@ page {
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'tnum';
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
 }
 // 背景页面统一包裹类
 .page-wrapper {

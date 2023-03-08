@@ -19,17 +19,11 @@
       </vc-cell-group>
     </demo-block>
 
-    <vc-popup :visible.sync="visible4">
-      <view class="box"></view>
+    <vc-popup :visible.sync="visible4" auto-height>
+      <view class="box">13123</view>
     </vc-popup>
     <vc-popup :visible.sync="visible" :direction="direction">
-      <view style="line-height: 100px;">这里是银行卡列表11</view>
-      <view style="line-height: 100px;">这里是银行卡列表22</view>
-      <view style="line-height: 100px;">这里是银行卡列表33</view>
-      <view style="line-height: 100px;">这里是银行卡列表44</view>
-      <view style="line-height: 100px;">这里是银行卡列表55</view>
-      <view style="line-height: 100px;">这里是银行卡列表66</view>
-      <view style="line-height: 100px;">这里是银行卡列表77</view>
+      <view v-for="(item, index) in 'a'.repeat(20)" :key="index" style="line-height: 100px;">银行卡列表-{{ index }}</view>
     </vc-popup>
     <vc-popup :visible.sync="visible3" direction="btt" :z-index="99" round title="内容撑开高度" auto-height closeable
       :close-icon-position="closePosition">

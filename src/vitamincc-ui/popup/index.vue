@@ -1,5 +1,5 @@
 <template>
-  <view @touchmove.stop="noop">
+  <view>
     <view v-if="display"
       :class="['vc-popup', `is-${direction}`, round ? 'is-round' : null, safeAreaInsetTop ? 'is-top-safe' : null, safeAreaInsetBottom ? 'is-bottom-safe' : null, classes]"
       :style="popupStyle" @transitionend="onTransitionEnd">
@@ -15,10 +15,19 @@
           <vc-icon name="cross-blank" :size="20" />
         </slot>
       </view>
-      <scroll-view scroll-y :class="['vc-popup__body', autoHeight ? null : 'is-max-height']" :style="bodyStyle">
+      <view v-if="autoHeight" class="vc-popup__body" :style="bodyStyle" @touchmove.stop.prevent="noop"
+        @mousewheel.prevent>
         <!-- slot default -->
         <slot />
-      </scroll-view>
+      </view>
+      <view v-else class="vc-popup__body is-max-height" :style="bodyStyle" @touchmove.stop="noop">
+        <!-- slot default -->
+        <slot />
+      </view>
+      <!-- <scroll-view scroll-y :class="['vc-popup__body', autoHeight ? null : 'is-max-height']" :style="bodyStyle"> -->
+      <!-- slot default -->
+      <!-- <slot /> -->
+      <!-- </scroll-view> -->
     </view>
     <vc-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex ? zIndex - 1 : -1"
       :custom-style="overlayStyle" @click="onClickOverlay"></vc-overlay>
@@ -53,6 +62,7 @@ export default {
     // 弹窗Y轴位移
     offset: String,
     // 是否自动撑开内容
+    // 需要通过 prevent 阻止滚动穿透
     autoHeight: {
       type: Boolean,
       default: false

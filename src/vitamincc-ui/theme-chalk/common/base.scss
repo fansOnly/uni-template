@@ -77,7 +77,7 @@ $font-size: map.merge(
     'base': 16px,
     'small': 14px,
     'smaller': 12px,
-    'mini': 10px,
+    // 'mini': 10px,  // chrome 下最小 12px，使用 transform: scale(.75); 替代
     'large': 18px,
     'larger': 20px,
   ),
