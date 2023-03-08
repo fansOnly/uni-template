@@ -6,6 +6,8 @@ const { getPackageManifest, writePackageManifest } = require('./utils/pkg')
 const { loadEnv, resolvePath } = require('./utils/load-env')
 
 const { env = 'development', platform = 'mp-weixin' } = minimist(process.argv.slice(2))
+console.log('env: ', env)
+console.log('platform: ', platform)
 loadEnv(env)
 
 console.log()

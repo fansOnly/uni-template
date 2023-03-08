@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "init:prj": "node ./build/init.js",
+    "init:h5": "node ./build/init.js --env=development --platform=h5",
     "open": "node ./build/start",
     "serve": "npm run dev:mp-weixin",
     "build": "npm run build:mp-weixin",
