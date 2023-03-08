@@ -29,7 +29,7 @@ import { getMonthEndDay, getPrevYearMonth, getNextYearMonth, formatDate } from '
 import lunar from '../utils/lunar'
 
 export default {
-  name: 'v-month',
+  name: 'month-panel',
   inject: ['calendar'],
   props: {
     value: {

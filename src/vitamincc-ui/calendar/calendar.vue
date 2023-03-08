@@ -13,20 +13,20 @@
       <view v-for="item in WEEKS" :key="item" class="vc-calendar__week-text">{{ item }}</view>
     </view>
     <view class="vc-calendar__body">
-      <v-month :value="value" :year-month="yearMonth" @click="onClick"></v-month>
+      <month-panel :value="value" :year-month="yearMonth" @click="onClick" />
     </view>
   </view>
 </template>
 
 <script>
-import VMonth from './components/month'
+import MonthPanel from './components/month'
 import { WEEKS, getPrevYearMonth, getNextYearMonth, getDateDiff, getOffsetDate, formatDate } from './utils'
 import props from './props'
 
 export default {
-  name: 'vc-calendar',
+  name: 'calendar-panel',
   components: {
-    VMonth
+    MonthPanel
   },
   provide() {
     return {

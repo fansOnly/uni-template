@@ -44,9 +44,11 @@
       top: 50%;
       left: 0;
       right: 0;
+      margin-top: -7rpx;
       font-size: getCssVar('calendar', 'header-today-text-font-size');
       text-align: center;
-      transform: translateY(-2px);
+      transform: scale(0.7);
+      line-height: 1;
     }
   }
 

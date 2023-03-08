@@ -1,33 +1,30 @@
 <template>
-  <view>
-    <vc-popup v-if="usePopup" :visible="visible" :title="title" auto-height direction="btt" :round="round" border
-      closeable :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="onClose">
-      <vc-calendar :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-        :max-range="maxRange" :formatter="formatter" :allow-same-day="allowSameDay" @change="onChange"
-        @over-range="onOverRange"></vc-calendar>
-      <slot v-if="withButton" name="button">
-        <vc-button type="primary" size="mini" block round :disabled="disabled" custom-style="margin: 32rpx;"
-          @click="onConfirm">{{
-            buttonText
-          }}</vc-button>
-      </slot>
-    </vc-popup>
+  <vc-popup v-if="usePopup" :visible="visible" :title="title" direction="btt" auto-height :round="round" border closeable
+    :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="onClose">
+    <calendar-panel :value="selectedDate" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
+      :max-range="maxRange" :formatter="formatter" :allow-same-day="allowSameDay" @change="onChange"
+      @over-range="onOverRange" />
+    <slot v-if="withButton" name="button">
+      <vc-button type="primary" size="mini" block round :disabled="disabled" custom-style="margin: 32rpx;"
+        @click="onConfirm">{{
+          buttonText
+        }}</vc-button>
+    </slot>
+  </vc-popup>
 
-    <vc-calendar v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
-      :max-range="maxRange" :allow-same-day="allowSameDay" :formatter="formatter" @change="onChange"
-      @over-range="onOverRange">
-    </vc-calendar>
-  </view>
+  <calendar-panel v-else :value="value" :type="type" :title="title" :max-date="maxDate" :min-date="minDate"
+    :max-range="maxRange" :allow-same-day="allowSameDay" :formatter="formatter" @change="onChange"
+    @over-range="onOverRange" />
 </template>
 
 <script>
-import VcCalendar from './calendar.vue'
+import CalendarPanel from './calendar.vue'
 import props from './props'
 
 export default {
   name: 'vc-calendar',
   components: {
-    VcCalendar
+    CalendarPanel
   },
   props: {
     // 显示开关 - 透传 popup 组件

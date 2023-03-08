@@ -80,11 +80,13 @@
   @include e(day-top) {
     color: getCssVar('calendar-month', 'top-text-color');
     font-size: getCssVar('calendar-month', 'top-text-font-size');
+    transform: scale(0.75);
   }
 
   @include e(day-bottom) {
     color: getCssVar('calendar-month', 'bottom-text-color');
     font-size: getCssVar('calendar-month', 'bottom-text-font-size');
+    transform: scale(0.75);
 
     @include when(solar) {
       color: getCssVar('calendar-month', 'solar-text-color');
