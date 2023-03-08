@@ -14,9 +14,8 @@
 
 <script>
 import { TERMS, QUARTERS as ALL_QUARTERS, END_YEAR, createDays, createDate } from './date'
-// import { useDayjs } from '@/common/hooks/use-dayjs'
-// const { dateFormat } = useDayjs()
-import { dateFormat } from './util'
+import { useDayjs } from '@/common/hooks/use-dayjs'
+const { dateFormat } = useDayjs()
 
 export default {
   name: 'vc-date-view',
