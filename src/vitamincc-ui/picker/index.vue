@@ -12,8 +12,7 @@
         <view v-if="showConfirm" class="vc-picker__confirm" @click="onConfirm">{{ confirmButtonText }}</view>
       </view>
     </template>
-    <view class="vc-picker__body" :style="{ 'height': rowHeight * rows + 'px' }"
-      @touchmove.stop.prevent="noop /**阻止穿透 */">
+    <view class="vc-picker__body" :style="{ 'height': rowHeight * rows + 'px' }">
       <vc-picker-column v-for="(item, index) in options" :key="index" class="vc-picker__column" :options="item"
         :current="activeIndexes[index]" :rows="rows" :row-height="rowHeight"
         :style="{ 'max-width': 'calc(100% / ' + options.length + ');' }"
@@ -203,7 +202,6 @@ export default {
       this.$emit('close')
       this.$emit('update:visible', false)
     },
-    noop() { }
   }
 }
 </script>

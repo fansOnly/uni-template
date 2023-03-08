@@ -1,20 +1,20 @@
 <template>
-  <page :show="pageReady">
+  <vc-page :show="pageReady">
     <view class="page-wrapper">
       <view class="gap"></view>
       <view class="demo-title">IndexBar 索引栏</view>
 
       <vc-tabs :value="activeIndex" :options="tabList" @click-item="onClickItem" />
 
-      <view v-for="(_, index) in 'x'.repeat(5)" :key="index" class="demo-title2">这里是组件外部区域了</view>
+      <view v-for="(_, index) in 'x'.repeat(5)" :key="`x-${index}`" class="demo-title2">这里是组件外部区域了</view>
 
       <demo-base v-if="activeIndex == 0" :scroll-top="scrollTop" />
       <demo-long-list v-if="activeIndex == 1" :scroll-top="scrollTop" />
       <demo-custom-index v-if="activeIndex == 2" :scroll-top="scrollTop" />
 
-      <view v-for="(_, index) in 'y'.repeat(20)" :key="index" class="demo-title2">这里是组件外部区域了</view>
+      <view v-for="(_, index) in 'y'.repeat(20)" :key="`y-${index}`" class="demo-title2">这里是组件外部区域了</view>
     </view>
-  </page>
+  </vc-page>
 </template>
 
 <script>

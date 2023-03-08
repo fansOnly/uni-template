@@ -3,8 +3,7 @@
     <view :class="['vc-navigation__container', isGray ? 'is-gray' : null, `is-${mode}`]" :style="navigationStyle">
       <view v-if="bgImage" class="vc-navigation__bg-image"><vc-image :src="bgImage" mode="widthFix" />
       </view>
-      <view
-        :class="['vc-navigation__content', `is-${align}`, isIos ? 'is-ios' : null, isAndroid ? 'is-android' : null]">
+      <view :class="['vc-navigation__content', `is-${align}`, isIos ? 'is-ios' : null, isAndroid ? 'is-android' : null]">
         <view class="vc-navigation__left">
           <slot name="icon">
             <!-- slot icon -->
@@ -74,7 +73,10 @@ export default {
     navigationStyle() {
       let style = ''
       style += `height: ${this.navHeight}px;`
-      style += `padding-top: ${this.navOffsetTop}px; padding-bottom:7px;`
+      style += `padding-top: ${this.navOffsetTop}px;`
+      // #ifdef MP-WEIXIN
+      style += 'padding-bottom:7px;'
+      // #endif
       if (!this.bgImage && this.background) {
         style += `background: ${this.background};`
       }

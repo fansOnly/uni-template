@@ -1,9 +1,9 @@
 <template>
   <div class="vc-dropdown">
     <view v-show="initialized" class="vc-dropdown__content" :style="wrapperStyle">
-      <vc-popup :visible.sync="visible" custom-style="position: absolute;" :duration="duration"
-        :overlay-style="overlayStyle" :direction="direction" :overlay="overlay" :safe-area-inset-bottom="false"
-        :safe-area-inset-top="false" @click-overlay="onClickOverlay" @after-leave="onClosed">
+      <vc-popup :visible.sync="visible" :duration="duration" :auto-height="false" :overlay-style="overlayStyle"
+        :direction="direction" :overlay="overlay" :safe-area-inset-bottom="false" :safe-area-inset-top="false"
+        custom-style="position: absolute;" @click-overlay="onClickOverlay" @after-leave="onClosed">
         <view v-for="(item, index) in options" :key="index"
           :class="['vc-dropdown__content-item', item.value === value ? 'is-active' : null, item.disabled ? 'is-disabled' : null, index < options.length - 1 || !directionTtb ? 'vc-hairline--bottom' : null]"
           :style="item.value === value ? itemStyle : ''" @click="onClickItem(item, index)">
@@ -54,24 +54,28 @@ export default {
     directionTtb() {
       return this.direction === 'ttb'
     },
-    bttStyleBottom() {
-      return `calc(100% - ${this.bottom}px)`
+    bttBottomValue() {
+      let val = 0
+      // #ifdef H5
+      val = 44
+      // #endif
+      return `calc(100% - ${this.bottom + val}px)`
     },
     wrapperStyle({ top, direction }) {
       let style = ''
       if (direction === 'ttb') {
         style += `top: ${top}px;`
       } else {
-        style += `bottom: ${this.bttStyleBottom};`
+        style += `bottom: ${this.bttBottomValue};`
       }
       return style
     },
-    overlayStyle({ top, direction, bttStyleBottom }) {
+    overlayStyle({ top, direction, bttBottomValue }) {
       let style = ''
       if (direction === 'ttb') {
         style += `background: linear-gradient(to bottom, transparent, ${top}px, rgba(0, 0, 0, 0.6) ${top}px);`
       } else {
-        style += `background: linear-gradient(to top, transparent, ${bttStyleBottom}, rgba(0, 0, 0, 0.6) ${bttStyleBottom});`
+        style += `background: linear-gradient(to top, transparent, ${bttBottomValue}, rgba(0, 0, 0, 0.6) ${bttBottomValue});`
       }
       return style
     },

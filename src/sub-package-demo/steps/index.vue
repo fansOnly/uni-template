@@ -54,11 +54,11 @@ export default {
   },
   methods: {
     increment() {
-      if (this.active === 3) return
+      if (this.active >= 3) return
       this.active++
     },
     decrement() {
-      if (this.active === 0) return
+      if (this.active < 0) return
       this.active--
     }
   }
@@ -66,5 +66,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

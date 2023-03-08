@@ -209,6 +209,7 @@ export default [
       }
     ]
   },
+  // #ifdef MP-WEIXIN
   {
     groupName: '基于微信',
     groupId: 'weixin',
@@ -240,6 +241,7 @@ export default [
       },
     ]
   },
+  // #endif
   {
     groupName: '路由相关',
     groupId: 'route',

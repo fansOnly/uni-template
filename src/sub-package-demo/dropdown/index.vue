@@ -10,7 +10,7 @@
       </vc-dropdown-menu>
     </demo-block>
 
-    <view style="height: 300px;"></view>
+    <view style="height: 200px;"></view>
 
     <demo-block title="向上展开">
       <vc-dropdown-menu direction="btt" color="#f60">
@@ -68,5 +68,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -13,7 +13,7 @@
         <view v-else class="vc-picker-button--confirm" @click="onConfirm">确认</view>
       </view>
     </template>
-    <view class="vc-picker-body" :style="{ 'height': rowHeight * rows + 'px' }" @touchmove.stop="noop">
+    <view class="vc-picker-body" :style="{ 'height': rowHeight * rows + 'px' }">
       <vc-picker-column v-for="(item, index) in renderOptions" :key="index" class="vc-picker-col" :options="item.data"
         :current="getCurrentValue(item)" :rows="rows" :row-height="rowHeight"
         :style="{ 'max-width': 'calc(100% / ' + renderOptions.length + ');' }"
@@ -168,7 +168,6 @@ export default {
       this.$emit('close')
       this.$emit('update:visible', false)
     },
-    noop() { }
   }
 }
 </script>

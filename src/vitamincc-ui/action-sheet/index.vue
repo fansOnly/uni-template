@@ -105,6 +105,7 @@ export default {
       this.$emit('close')
       this.$emit('update:visible', false)
     },
+    noop() { }
   }
 }
 </script>

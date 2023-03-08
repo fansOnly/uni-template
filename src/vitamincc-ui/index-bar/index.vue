@@ -104,6 +104,7 @@ export default {
   watch: {
     scrollTop: {
       handler(val) {
+        if (!this.ready) return
         if (this.useThrottle) {
           throttle(this.onScroll(val), 60)
         } else {
@@ -151,8 +152,6 @@ export default {
       })
     },
     onScroll(scrollTop) {
-      if (!this.ready) return
-
       const direction = this.prevScrollTop > scrollTop ? 'up' : 'down'
       this.prevScrollTop = scrollTop
       // 滚动结束后判断滚动位置是否在索引区域
@@ -195,8 +194,7 @@ export default {
         })
       })
     },
-    getAnchorsRect() {
-      this.anchorRects = []
+    async getAnchorsRect() {
       this.children.forEach(async (child) => {
         const childClassName = `.anchor-${child.indexAnchor === '#' ? 'special' : child.indexAnchor}`
         const rect = await useRect(child, childClassName)

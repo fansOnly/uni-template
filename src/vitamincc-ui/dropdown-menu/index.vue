@@ -1,6 +1,7 @@
 <template>
   <div :class="['vc-dropdown', 'vc-dropdown-menu', isActive ? 'is-active' : null]" :style="menuStyle">
-    <view :class="['vc-dropdown__menu', menuIndex > -1 ? 'vc-hairline--bottom' : null]" :style="customStyle">
+    <view :class="['vc-dropdown__menu', menuIndex > -1 ? 'vc-hairline--bottom' : null]" :style="customStyle"
+      @touchmove.stop.prevent="noop">
       <view v-for="(item, index) in menus" :key="index"
         :class="['vc-dropdown__menu-title', item.active ? 'is-active' : null, item.disabled ? 'is-disabled' : null]"
         :style="item.active ? titleStyle : ''" @click="onClickMenu(item, index)">
@@ -135,6 +136,7 @@ export default {
       /* #endif */
       return { top, bottom: rect.top }
     },
+    noop() { }
   }
 }
 </script>

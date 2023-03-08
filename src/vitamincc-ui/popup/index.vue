@@ -20,14 +20,20 @@
         <!-- slot default -->
         <slot />
       </view>
-      <view v-else class="vc-popup__body is-max-height" :style="bodyStyle" @touchmove.stop="noop">
-        <!-- slot default -->
-        <slot />
-      </view>
-      <!-- <scroll-view scroll-y :class="['vc-popup__body', autoHeight ? null : 'is-max-height']" :style="bodyStyle"> -->
-      <!-- slot default -->
-      <!-- <slot /> -->
-      <!-- </scroll-view> -->
+      <template v-else>
+        <!-- #ifdef H5 -->
+        <view class="vc-popup__body is-max-height" :style="bodyStyle" @touchmove.stop="noop">
+          <!-- slot default -->
+          <slot />
+        </view>
+        <!-- #endif -->
+        <!-- #ifdef MP-WEIXIN -->
+        <view class="vc-popup__body is-max-height" :style="bodyStyle">
+          <!-- slot default -->
+          <slot />
+        </view>
+        <!-- #endif -->
+      </template>
     </view>
     <vc-overlay v-if="overlay" :visible="visible" name="fade" :z-index="zIndex ? zIndex - 1 : -1"
       :custom-style="overlayStyle" @click="onClickOverlay"></vc-overlay>
@@ -65,7 +71,7 @@ export default {
     // 需要通过 prevent 阻止滚动穿透
     autoHeight: {
       type: Boolean,
-      default: false
+      default: true
     },
     // 是否显示标题下边框线
     border: {

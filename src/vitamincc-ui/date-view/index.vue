@@ -345,9 +345,9 @@ export default {
         if (val) {
           this.initRender()
         } else {
-          setTimeout(() => {
+          this.$nextTick(() => {
             this.resetData()
-          }, 0)
+          })
         }
       },
       immediate: true

@@ -61,6 +61,7 @@ export default {
   async mounted() {
     this.parent.children.push(this)
     if (this.isLast) {
+      console.log('全部组建渲染完毕')
       this.parent.ready = true
     }
   },
