@@ -1,0 +1,22 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use '../mixins/function' as *;
+
+@include b(date-picker) {
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: getCssVar('component-size');
+    padding: 0 getCssVar('padding-horizontal');
+  }
+
+  @include e(cancel) {
+    color: getCssVar('text-color', 'secondary');
+  }
+
+  @include e(confirm) {
+    color: getCssVar('color', 'primary');
+  }
+}

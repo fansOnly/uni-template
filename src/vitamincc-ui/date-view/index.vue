@@ -1,16 +1,22 @@
 <template>
-  <view v-if="visible" class="vc-date-view" :style="{ 'height': rowHeight * rows + 'px' }" @touchmove.stop="noop">
-    <vc-picker-column v-for="(item, index) in renderColumns" :key="index" class="vc-picker-col" :options="item.data" :current="getCurrentValue(item.name)" option-key="value" :rows="rows" :row-height="rowHeight" :style="{'max-width': 'calc(100% / '+renderColumns.length+');'}" @change="onChange($event, index)"></vc-picker-column>
+  <view v-if="visible" class="vc-date-view" :style="{ 'height': rowHeight * rows + 'px' }" @touchmove.stop.prevent="noop">
+    <vc-picker-column v-for="(item, index) in renderColumns" :key="index" class="vc-date-view__column"
+      :options="item.data" :current="getCurrentValue(item.name)" option-key="value" :rows="rows" :row-height="rowHeight"
+      :style="{ 'max-width': 'calc(100% / ' + renderColumns.length + ');' }" @change="onChange($event, index)" />
     <template v-if="renderColumns.length">
-      <view class="vc-picker-mask" :style="{'background-size': '100% '+(rowHeight * (rows - 1)) / 2 + 'px'}"></view>
-      <view :class="['vc-picker-line vc-hairline--top-bottom', rows % 2 === 0 ? null : 'adapt']" :style="{'height': rowHeight + 'px'}"></view>
+      <view class="vc-date-view__mask" :style="{ 'background-size': '100% ' + (rowHeight * (rows - 1)) / 2 + 'px' }">
+      </view>
+      <view :class="['vc-date-view__line vc-hairline--top-bottom', rows % 2 === 0 ? null : 'is-adapt']"
+        :style="{ 'height': rowHeight + 'px' }"></view>
     </template>
   </view>
 </template>
 
 <script>
 import { TERMS, QUARTERS as ALL_QUARTERS, END_YEAR, createDays, createDate } from './date'
-import { formatDate } from './util'
+// import { useDayjs } from '@/common/hooks/use-dayjs'
+// const { dateFormat } = useDayjs()
+import { dateFormat } from './util'
 
 export default {
   name: 'vc-date-view',
@@ -43,9 +49,9 @@ export default {
        * 为日期时间选择器时 有效值 hour, minute, second(默认)
        */
     fields: null,
-    // 表示有效日期范围的开始，字符串格式为"YYYY-MM-DD hh:mm:ss"
+    // 表示有效日期范围的开始，字符串格式为"YYYY-MM-DD HH:mm:ss"
     start: null,
-    // 表示有效日期范围的结束，字符串格式为"YYYY-MM-DD hh:mm:ss"
+    // 表示有效日期范围的结束，字符串格式为"YYYY-MM-DD HH:mm:ss"
     end: null,
     // 每一项的高度
     rowHeight: {
@@ -89,8 +95,8 @@ export default {
       let startDate = ''; let endDate = ''
       if (['datetime', 'date', 'ID-date'].includes(type)) {
         const startYear = new Date(true).getFullYear()
-        startDate = start ? formatDate(start, 'YYYY-MM-DD') : `${startYear}-01-01`
-        endDate = end ? formatDate(end, 'YYYY-MM-DD') : `${END_YEAR}-12-31`
+        startDate = start ? dateFormat(start, 'YYYY-MM-DD') : `${startYear}-01-01`
+        endDate = end ? dateFormat(end, 'YYYY-MM-DD') : `${END_YEAR}-12-31`
       }
       return [startDate, endDate]
     },
@@ -98,8 +104,8 @@ export default {
       // 校正时间区间
       let startTime = ''; let endTime = ''
       if (['datetime', 'time'].includes(type)) {
-        startTime = start ? formatDate(start, 'hh:mm:ss') : '00:00:00'
-        endTime = end ? formatDate(end, 'hh:mm:ss') : '23:59:59'
+        startTime = start ? dateFormat(`0000-00-00 ${start}`, 'HH:mm:ss') : '00:00:00'
+        endTime = end ? dateFormat(`0000-00-00 ${end}`, 'HH:mm:ss') : '23:59:59'
       }
       return [startTime, endTime]
     },
@@ -115,8 +121,8 @@ export default {
       if (type !== 'date' || fields !== 'quarter') return []
 
       const [startDate, endDate] = dateRange
-      let [startYear, startQuarter] = startDate.split('-')
-      let [endYear, endQuarter] = endDate.split('-')
+      const [startYear, startQuarter] = startDate.split('-')
+      const [endYear, endQuarter] = endDate.split('-')
 
       // 传入月份转换成季度
       // const startQuarterValue = this.getQuarterByMonth(startMonth)
@@ -200,8 +206,8 @@ export default {
         return createDate(start, end, '时')
       } else if (type === 'datetime') {
         const [startDate, endDate] = dateRange
-        let [startYear, startMonth, startDay] = startDate.split('-')
-        let [endYear, endMonth, endDay] = endDate.split('-')
+        const [startYear, startMonth, startDay] = startDate.split('-')
+        const [endYear, endMonth, endDay] = endDate.split('-')
 
         if (startYear === yearValue && startMonth === monthValue && startDay === dayValue) {
           start = +startHour
@@ -235,8 +241,8 @@ export default {
         }
       } else if (type === 'datetime') {
         const [startDate, endDate] = dateRange
-        let [startYear, startMonth, startDay] = startDate.split('-')
-        let [endYear, endMonth, endDay] = endDate.split('-')
+        const [startYear, startMonth, startDay] = startDate.split('-')
+        const [endYear, endMonth, endDay] = endDate.split('-')
 
         if (startYear === yearValue && startMonth === monthValue && startDay === dayValue && hourValue == startHour) {
           start = +startMinute
@@ -275,8 +281,8 @@ export default {
         }
       } else if (type === 'datetime') {
         const [startDate, endDate] = dateRange
-        let [startYear, startMonth, startDay] = startDate.split('-')
-        let [endYear, endMonth, endDay] = endDate.split('-')
+        const [startYear, startMonth, startDay] = startDate.split('-')
+        const [endYear, endMonth, endDay] = endDate.split('-')
 
         if (startYear === yearValue && startMonth === monthValue && startDay === dayValue && hourValue == startHour && minuteValue == startMinute) {
           start = +startSecond
@@ -298,38 +304,38 @@ export default {
       // 当前选中的数据
       let values = [termValue, yearValue, monthValue, dayValue, hourValue, minuteValue, secondValue]
       switch (type) {
-      case 'ID-date':
-        values = values.slice(0, 4)
-        break
-      case 'time':
-        if (fields === 'hour') {
-          values = values.slice(4, 5)
-        } else if (fields === 'minute') {
-          values = values.slice(4, 6)
-        } else {
-          values = values.slice(4)
-        }
-        break
-      case 'datetime':
-        if (fields === 'hour') {
-          values = values.slice(1, 5)
-        } else if (fields === 'minute') {
-          values = values.slice(1, 6)
-        } else {
-          values = values.slice(1)
-        }
-        break
-      default:
-        if (fields === 'year') {
-          values = values.slice(1, 2)
-        } else if (fields === 'month') {
-          values = values.slice(1, 3)
-        } else if (fields === 'quarter') {
-          values = [yearValue, quarterValue]
-        } else {
-          values = values.slice(1, 4)
-        }
-        break
+        case 'ID-date':
+          values = values.slice(0, 4)
+          break
+        case 'time':
+          if (fields === 'hour') {
+            values = values.slice(4, 5)
+          } else if (fields === 'minute') {
+            values = values.slice(4, 6)
+          } else {
+            values = values.slice(4)
+          }
+          break
+        case 'datetime':
+          if (fields === 'hour') {
+            values = values.slice(1, 5)
+          } else if (fields === 'minute') {
+            values = values.slice(1, 6)
+          } else {
+            values = values.slice(1)
+          }
+          break
+        default:
+          if (fields === 'year') {
+            values = values.slice(1, 2)
+          } else if (fields === 'month') {
+            values = values.slice(1, 3)
+          } else if (fields === 'quarter') {
+            values = [yearValue, quarterValue]
+          } else {
+            values = values.slice(1, 4)
+          }
+          break
       }
       return values
     },
@@ -344,7 +350,8 @@ export default {
             this.resetData()
           }, 0)
         }
-      }
+      },
+      immediate: true
     },
   },
   methods: {
@@ -427,80 +434,79 @@ export default {
         { name: 'second', data: this.SECONDS }
       ]
       switch (type) {
-      case 'ID-date':
-        res = res.slice(0, 4)
-        break
-      case 'datetime':
-        if (fields === 'hour') {
-          res = res.slice(1, 5)
-        } else if (fields === 'minute') {
-          res = res.slice(1, 6)
-        } else {
-          res = res.slice(1)
-        }
-        break
-      case 'time':
-        if (fields === 'hour') {
-          res = res.slice(4, 5)
-        } else if (fields === 'minute') {
-          res = res.slice(4, 6)
-        } else {
-          res = res.slice(4)
-        }
-        break
-      default:
-        if (fields === 'year') {
-          res = res.slice(1, 2)
-        } else if (fields === 'month') {
-          res = res.slice(1, 3)
-        } else if (fields === 'quarter') {
-          res = [
-            { name: 'year', data: this.YEARS },
-            { name: 'quarter', data: this.QUARTERS },
-          ]
-        } else {
-          res = res.slice(1, 4)
-        }
+        case 'ID-date':
+          res = res.slice(0, 4)
+          break
+        case 'datetime':
+          if (fields === 'hour') {
+            res = res.slice(1, 5)
+          } else if (fields === 'minute') {
+            res = res.slice(1, 6)
+          } else {
+            res = res.slice(1)
+          }
+          break
+        case 'time':
+          if (fields === 'hour') {
+            res = res.slice(4, 5)
+          } else if (fields === 'minute') {
+            res = res.slice(4, 6)
+          } else {
+            res = res.slice(4)
+          }
+          break
+        default:
+          if (fields === 'year') {
+            res = res.slice(1, 2)
+          } else if (fields === 'month') {
+            res = res.slice(1, 3)
+          } else if (fields === 'quarter') {
+            res = [
+              { name: 'year', data: this.YEARS },
+              { name: 'quarter', data: this.QUARTERS },
+            ]
+          } else {
+            res = res.slice(1, 4)
+          }
       }
       return res
     },
     setNowAsDefault() {
       // 设置默认日期
       const date = new Date()
-      const year = date.getFullYear() + ''
-      const month = date.getMonth() + 1 + ''
+      const year = `${date.getFullYear()}`
+      const month = `${date.getMonth() + 1}`
       const quarter = this.getQuarterByMonth(month)
       const { type, fields } = this
       switch (type) {
-      case 'ID-date':
-        return 'short ' + formatDate('', 'YYYY-MM-DD')
-      case 'datetime':
-        if (fields === 'hour') {
-          return formatDate('', 'YYYY-MM-DD hh')
-        } else if (fields === 'minute') {
-          return formatDate('', 'YYYY-MM-DD hh:mm')
-        } else {
-          return formatDate()
-        }
-      case 'time':
-        if (fields === 'hour') {
-          return formatDate('', 'hh')
-        } else if (fields === 'minute') {
-          return formatDate('', 'hh:mm')
-        } else {
-          return formatDate('', 'hh:mm:ss')
-        }
-      default:
-        if (fields === 'year') {
-          return formatDate('', 'YYYY')
-        } else if (fields === 'month') {
-          return formatDate('', 'YYYY-MM')
-        } else if (fields === 'quarter') {
-          return [year, quarter]
-          // return formatDate('', 'YYYY-MM')
-        } else {
-          return formatDate('', 'YYYY-MM-DD')
-        }
+        case 'ID-date':
+          return `short ${dateFormat('', 'YYYY-MM-DD')}`
+        case 'datetime':
+          if (fields === 'hour') {
+            return dateFormat('', 'YYYY-MM-DD HH')
+          } else if (fields === 'minute') {
+            return dateFormat('', 'YYYY-MM-DD HH:mm')
+          } else {
+            return dateFormat()
+          }
+        case 'time':
+          if (fields === 'hour') {
+            return dateFormat('', 'HH')
+          } else if (fields === 'minute') {
+            return dateFormat('', 'HH:mm')
+          } else {
+            return dateFormat('', 'HH:mm:ss')
+          }
+        default:
+          if (fields === 'year') {
+            return dateFormat('', 'YYYY')
+          } else if (fields === 'month') {
+            return dateFormat('', 'YYYY-MM')
+          } else if (fields === 'quarter') {
+            return [year, quarter]
+          } else {
+            return dateFormat('', 'YYYY-MM-DD')
+          }
       }
     },
     fixQuarter(columnName, data) {
@@ -584,45 +590,11 @@ export default {
     fixZero(value) {
       return String(value).padStart(2, '0')
     },
-    noop() {}
+    noop() { }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .vc-date-view {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    background: #fff;
-    overflow: hidden;
-  }
-  .vc-picker-mask {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(180deg,hsla(0, 0%, 100%, 0.9),hsla(0, 0%, 100%, 0.4)),linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4));
-    background-repeat: no-repeat;
-    background-position: top, bottom;
-    backface-visibility: hidden;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .vc-picker-line {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 100%;
-    z-index: 1;
-    pointer-events: none;
-    &.adapt {
-      transform: translateY(-50%);
-    }
-  }
-  .vc-picker-col {
-    flex: 1;
-    overflow: hidden;
-  }
+@import '../theme-chalk/components/date-view.scss';
 </style>

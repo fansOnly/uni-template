@@ -3,17 +3,17 @@
     :close-on-click-overlay="closeOnClickOverlay" @click-overlay="clickOverlay" @close="close"
     @after-leave="show = false">
     <template slot="header">
-      <view v-if="withHeader" class="vc-picker-header vc-hairline--bottom">
-        <view v-if="showCancel" class="vc-picker-button--cancel" @click="close">
+      <view v-if="withHeader" class="vc-date-picker__header vc-hairline--bottom">
+        <view v-if="showCancel" class="vc-date-picker__cancel" @click="close">
           <template v-if="!closeable">{{ cancelButtonText }}</template>
           <vc-icon v-else name="cross" size="24" />
         </view>
-        <view class="vc-picker-header-title">{{ title }}</view>
-        <view v-if="showConfirm" class="vc-picker-button--confirm" @click="onConfirm">{{ confirmButtonText }}</view>
+        <view class="vc-date-picker__title">{{ title }}</view>
+        <view v-if="showConfirm" class="vc-date-picker__confirm" @click="onConfirm">{{ confirmButtonText }}</view>
       </view>
     </template>
-    <vc-date-view ref="dateView" :visible="show" :values="values" :type="type" :fields="fields" :start="start"
-      :end="end" :row-height="rowHeight" :rows="rows" @change="onChange"></vc-date-view>
+    <vc-date-view ref="dateView" :visible="show" :values="values" :type="type" :fields="fields" :start="start" :end="end"
+      :row-height="rowHeight" :rows="rows" @change="onChange"></vc-date-view>
   </vc-popup>
 </template>
 
@@ -145,19 +145,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vc-picker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 104rpx;
-  padding: 0 32rpx;
-}
-
-.vc-picker-button--cancel {
-  color: #909090;
-}
-
-.vc-picker-button--confirm {
-  color: var(--vc-color-primary);
-}
+@import '../theme-chalk/components/date-picker.scss';
 </style>

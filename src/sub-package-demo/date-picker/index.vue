@@ -22,7 +22,7 @@
       <view>维度设置： fields = hour / minute / second(默认)</view>
       <view v-if="selectedDate9.length">
         {{ selectedDate9[0] }}年{{ selectedDate9[1] }}月{{ selectedDate9[2] }}日{{ selectedDate9[3] }}时{{
-        selectedDate9[4]
+          selectedDate9[4]
         }}分{{ selectedDate9[5] }}秒
       </view>
 
@@ -138,7 +138,7 @@ export default {
       this.timeValues = data.map((v) => v)
     },
     handleDateTimeConfirm(data) {
-      console.log('[info] 日期选择日期的值>>>: ', data)
+      console.log('[info] 日期时间选择器的值>>>: ', data)
       this.selectedDate9 = data
       this.dateTimeValues = data.map((v) => v)
     },
@@ -173,5 +173,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
