@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-const dateFormat = (val, format = 'YYYY-MM-DD HH:mm:ss') => dayjs(val).format(format)
+const dateFormat = (val, format = 'YYYY-MM-DD HH:mm:ss') => dayjs(val === '' ? undefined : val).format(format)
 
 const dateToUnix = (val) => dayjs(val).unix()
 
