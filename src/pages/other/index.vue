@@ -34,12 +34,15 @@ export default {
     ...mapGetters('app', ['isCustomTabBar'])
   },
   async onLoad() {
+    console.log('on other page load', this.$Route.query)
     await this.$onLaunched
   },
   async onShow() {
+    console.log('on other page show', this.$Route.query)
     await this.$onLaunched
   },
   onReady() {
+    console.log('on other page ready', this.$Route.query)
     this.pageReady = true
   },
   methods: {

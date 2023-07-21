@@ -15,7 +15,7 @@
         </demo-block>
       </view>
       <view class="gap"></view>
-      <vc-button @click="toggleGray">{{ isGray? '取消置灰': '置灰页面' }}</vc-button>
+      <vc-button @click="toggleGray">{{ isGray ? '取消置灰' : '置灰页面' }}</vc-button>
     </view>
   </vc-page>
 </template>
@@ -51,9 +51,11 @@ export default {
   },
   async onShow() {
     await this.$onLaunched
+    console.log('on home page show', this.$Route.query)
   },
   onReady() {
     this.pageReady = true
+    console.log('on home page ready', this.$Route.query)
   },
   methods: {
     ...mapActions('app', ['setGray']),

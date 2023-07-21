@@ -27,7 +27,8 @@ export default {
       count: 0,
       value: '',
       query: {
-        'hehe': 'haha'
+        'hehe': 'haha',
+        flag: 'false'
       },
       arr1: [
         { name: 'lily', age: 30 },

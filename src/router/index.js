@@ -17,16 +17,16 @@ const router = createRouter({
   // 拦截生命周期
   beforeProxyHooks: {
     // onLaunch: async ([options], next)=>{
-    //   await getToken();
-    //   next([{
-    //     ...options,
-    //     // ...result
-    //   }]);
+    // await getToken();
+    // next([{
+    //   ...options,
+    //   // ...result
+    // }]);
     // },
   },
   routes: [
     // eslint-disable-next-line no-undef
-    ...ROUTES
+    ...ROUTES,
   ],
 })
 
@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
     time: dateFormat(),
     from: from.fullPath,
     to: to.fullPath,
-    device: JSON.stringify(uni.$sysInfo)
+    device: JSON.stringify(uni.$sysInfo),
   }
   console.log('🚀 ™ 页面埋点 ', buryData)
 
@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
     // 模拟登录拦截
     uni.showToast({
       title: '需要登录',
-      mask: true
+      mask: true,
     })
     next(false)
   } else {
@@ -70,7 +70,4 @@ router.afterEach((to) => {
   // H5 需要在 onReady 设置
 })
 
-export {
-  router,
-  RouterMount
-}
+export { router, RouterMount }

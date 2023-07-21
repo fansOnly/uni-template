@@ -31,7 +31,7 @@ for (const subPackage of subPackages) {
 pagesJsonData.pages = pages
 pagesJsonData.subPackages = subPackages
 writePackageManifest(outputPagesPath, pagesJsonData)
-consola.success(`Successfully generate pages.json under src.`)
+consola.success(`Successfully generate pages.json under /src.`)
 console.log()
 
 // 更新 manifest.json
@@ -42,19 +42,19 @@ const manifestData = getPackageManifest(manifestPath)
 manifestData['mp-weixin'].appid = process.env.WECHAT_APP_ID
 writePackageManifest(outputManifestPath, manifestData)
 
-consola.success(`Successfully updated manifest.json under src.`)
+consola.success(`Successfully updated manifest.json under /src.`)
 console.log()
 
 function genPagesData(data) {
   let result = data.slice()
   for (const item of result) {
     item.style = {
-      navigationBarTitleText: item.meta?.title || ''
+      navigationBarTitleText: item.meta.title || ''
     }
-    if (item.meta?.navigationStyle === 'custom') {
+    if (item.meta.navigationStyle === 'custom') {
       item.style.navigationStyle = 'custom'
     }
-    if (item?.usingComponents) {
+    if (item.usingComponents) {
       for (const key in item.usingComponents) {
         if (key === platform || key === 'all') {
           item.style.usingComponents = item.usingComponents[key]

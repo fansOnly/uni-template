@@ -18,6 +18,22 @@ export default {
       store.dispatch('share/setShareTicket', options.shareTicket)
     }
 
+    // 页面跳转需要写在微任务或者宏任务中
+    // setTimeout(() => {
+    //   uni.switchTab({
+    //     url: '/pages/other/index'
+    //   })
+    // }, 0)
+
+    // onShareAppMessage 拦截
+    // const pages = getCurrentPages()
+    // const current = pages[pages.length - 1]
+    // const onShareAppMessage = current.onShareAppMessage
+    // current.onShareAppMessage = function (args) {
+    //   console.log('拦截 onShareAppMessage')
+    //   onShareAppMessage.apply(this, args)
+    // }
+
     /* #ifdef MP-WEIXIN */
     // 开启调试模式 - 上线后需要关闭
     wx.setEnableDebug({ enableDebug: true })

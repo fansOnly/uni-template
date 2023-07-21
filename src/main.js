@@ -4,10 +4,13 @@ import store from './store'
 import methods from '@/mixins/methods'
 import { router, RouterMount } from './router'
 
+// uni 内部是通过 Component 构造器实现前端页面
+import { proxyComponent } from './common/core/component-proxy'
+// Component = proxyComponent(Component)
+
 Vue.use(router)
 
 const sysInfo = uni.getSystemInfoSync()
-
 Vue.prototype.$sysInfo = uni.$sysInfo = sysInfo
 
 // 全局mixin

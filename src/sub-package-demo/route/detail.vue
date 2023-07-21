@@ -26,8 +26,8 @@ export default {
     }
   },
   async onLoad(options) {
-    console.log('[debug] url 携带参数: ', options)
-    console.log('[debug] 路由参数 >>>', this.$Route.query)
+    console.log('[debug] options 参数: ', options)
+    console.log('[debug] $Route 路由参数 >>>', this.$Route.query)
     this.query = this.$Route.query
     await this.$onLaunched
     this.count++
